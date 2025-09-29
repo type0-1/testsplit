@@ -166,7 +166,7 @@ We will split responsibilities so each student owns coherent subsystems while co
 - Implement domain merge/compare logi and unit/property tests (pytest + hypothesis).
 - Implement FastAPI backend endpoints and worker integration (Celery) for merge/compare tasks.
 - Implement storage adapter (MinIO/LocalFS) and DB models (SQLAlchemy).
-- Implement comparison report generator.
+- Implement comparison report generation.
 - CI integration for backend tests and coverage gating.
 
 **Deliverables**
