@@ -41,13 +41,13 @@ The project originates from developer frustration with CI pipelines where unit t
 - GitHub OAuth authentication for the dashboard
 - Validate on 10+ repositories with statistical analysis
 
-#### Phase B — Enhanced Features (Should-Have)
+#### Phase B — Enhanced Features (Afte core features)
 - Advanced visualizations (job timeline, distribution analysis)
 - Comprehensive statistical analysis and reporting
 - Comparison against a naive parallelization baseline
 - Performance recommendations based on historical trends
 
-#### Phase C — Optional Enhancements (Time Permitting)
+#### Phase C — Optional Enhancements
 - Simple flaky test detection (heuristics)
 - GitLab CI integration for automated data collection
 - Export functionality for reports
