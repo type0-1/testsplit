@@ -2,11 +2,11 @@
 
 ## SECTION A
 
-**Project Title:** [Project Name]  
+**Project Title:** TestSplit  
 **Student 1 Name:** Samson Oloruntola  
 **Student 1 ID:** 22714745  
 **Student 2 Name:** Marjia Siddik  
-**Student 2 ID:** [Partner ID]  
+**Student 2 ID:** 22306501  
 **Project Supervisor:** Paul Clarke
 
 ---
@@ -14,7 +14,7 @@
 ## SECTION B
 
 ### 1. Introduction
-Continuous integration (CI) pipelines suffer from long execution times as unit test suites grow, blocking developer productivity. [Project Name] analyses unit test performance to identify bottlenecks and automatically generate optimised parallel execution strategies. The project will deliver a CLI tool, backend service, and web dashboard to help teams reduce CI wait times through intelligent test distribution and historical performance tracking.
+Continuous integration (CI) pipelines suffer from long execution times as unit test suites grow, blocking developer productivity. TestSplit analyses unit test performance to identify bottlenecks and automatically generate optimised parallel execution strategies. The project will deliver a CLI tool, backend service, and web dashboard to help teams reduce CI wait times through intelligent test distribution and historical performance tracking.
 
 ### 2. Outline
 - Parse unit test framework output (JUnit XML, Jest JSON)
