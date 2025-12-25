@@ -20,9 +20,19 @@ export function parseJUnitXML(filePath: string): TestResult[] {
   const testcases = parsed.testsuite?.testcase ?? [];
   const cases = Array.isArray(testcases) ? testcases : [testcases];
 
-  return cases.map((tc: any) => ({
-    name: tc.classname ? `${tc.classname}.${tc.name}` : tc.name,
-    duration: Number(tc.time) || 0,
-    status: 'passed',
-  }));
+  return cases.map((tc: any) => {
+    let status: 'passed' | 'failed' | 'skipped' = 'passed';
+
+    if (tc.skipped !== undefined) {
+      status = 'skipped';
+    } else if (tc.failure !== undefined || tc.error !== undefined) {
+      status = 'failed';
+    }
+
+    return {
+      name: tc.classname ? `${tc.classname}.${tc.name}` : tc.name,
+      duration: Number(tc.time) || 0,
+      status,
+    };
+  });
 }
