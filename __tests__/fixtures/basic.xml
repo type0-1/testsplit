@@ -1,0 +1,4 @@
+<testsuite name="ExampleSuite">
+  <testcase classname="ExampleTest" name="testA" time="0.12"/>
+  <testcase classname="ExampleTest" name="testB" time="0.34"/>
+</testsuite>
