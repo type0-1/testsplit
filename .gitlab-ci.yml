@@ -1,8 +1,9 @@
 stages:
-  - test
+  - unit tests
+  - integration tests
 
 unit_tests:
-  stage: test
+  stage: unit tests
   image: node:20
   cache:
     key: ${CI_COMMIT_REF_SLUG} # We create a cache for each branch
@@ -12,3 +13,10 @@ unit_tests:
     - npm ci
   script:
     - npm test
+  
+integration_tests:
+  stage: integration tests
+  image: node:20
+  script:
+    - npm ci
+    - npm run test:integration

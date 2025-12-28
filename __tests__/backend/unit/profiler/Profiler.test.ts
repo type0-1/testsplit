@@ -1,5 +1,5 @@
-import { Profiler } from '../../../src/backend/profiler/core/Profiler';
-import { TestResult } from '../../../src/backend/models/TestResult';
+import { Profiler } from '../../../../src/backend/profiler/core/Profiler';
+import { TestResult } from '../../../../src/backend/models/TestResult';
 
 describe('Profiler', () => {
   let profiler: Profiler;

@@ -1,4 +1,4 @@
-import { parseJUnitXML } from '../../../src/backend/parser/JUnitXMLParser';
+import { parseJUnitXML } from '../../../../src/backend/parser/JUnitXMLParser';
 import * as path from 'path';
 
 const fixture = (name: string) => path.join(__dirname, 'fixtures', name);

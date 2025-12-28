@@ -1,5 +1,5 @@
-import { LPTScheduler } from '../../../src/backend/algorithm/core/LPTScheduler'
-import { Task } from '../../../src/backend/algorithm/model/Task';
+import { LPTScheduler } from '../../../../src/backend/algorithm/core/LPTScheduler'
+import { Task } from '../../../../src/backend/algorithm/model/Task';
 
 describe('LPTScheduler', () => {
   it('assigns tasks using longest processing time first', () => {

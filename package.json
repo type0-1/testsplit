@@ -1,6 +1,8 @@
 {
   "scripts":{
-    "test": "jest"
+    "test:unit": "jest --config jest.unit.config.js",
+    "test:integration": "jest --config jest.integration.config.js",
+    "test": "npm run test:unit"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",

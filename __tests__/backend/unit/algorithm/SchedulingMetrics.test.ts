@@ -1,6 +1,6 @@
-import { computeMetrics } from '../../../src/backend/algorithm/metrics/SchedulingMetrics';
-import { Job } from '../../../src/backend/algorithm/model/Job';
-import { Task } from '../../../src/backend/algorithm/model/Task';
+import { computeMetrics } from '../../../../src/backend/algorithm/metrics/SchedulingMetrics';
+import { Job } from '../../../../src/backend/algorithm/model/Job';
+import { Task } from '../../../../src/backend/algorithm/model/Task';
 
 describe('SchedulingMetrics', () => {
   it('computes critical path as the longest job duration', () => {

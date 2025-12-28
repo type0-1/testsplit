@@ -1,6 +1,6 @@
-import { validateInputs, validateOutput } from '../../../src/backend/algorithm/validation/SchedulerValidator';
-import { Task } from '../../../src/backend/algorithm/model/Task';
-import { Job } from '../../../src/backend/algorithm/model/Job';
+import { validateInputs, validateOutput } from '../../../../src/backend/algorithm/validation/SchedulerValidator';
+import { Task } from '../../../../src/backend/algorithm/model/Task';
+import { Job } from '../../../../src/backend/algorithm/model/Job';
 
 describe('SchedulerValidator', () => {
   describe('validateInputs', () => {
