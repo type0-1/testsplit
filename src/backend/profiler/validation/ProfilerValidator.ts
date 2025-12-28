@@ -1,8 +1,8 @@
 import { TestResult } from '../../models/TestResult'
 
 export function validateResults(results: TestResult[]): void {
-  if (!Array.isArray(results)) {
-    throw new Error('Profiler input must be an array');
+  if (!Array.isArray(results) || results.length === 0) {
+    throw new Error('No test results provided for profiling');
   }
 
   for (const result of results) {
@@ -11,3 +11,4 @@ export function validateResults(results: TestResult[]): void {
     }
   }
 }
+
