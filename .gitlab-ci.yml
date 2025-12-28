@@ -13,3 +13,10 @@ unit_tests:
     - npm ci
   script:
     - npm test
+  
+integration_tests:
+  stage: integration
+  image: node:20
+  script:
+    - npm ci
+    - npm run test:integration
