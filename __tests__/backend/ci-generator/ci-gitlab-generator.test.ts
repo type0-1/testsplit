@@ -1,4 +1,4 @@
-import { generateGitLabCIConfig } from '../src/backend/generator/GitLabCIGenerator';
+import { generateGitLabCIConfig } from '../../../src/backend/generator/GitLabCIGenerator';
 
 describe('GitLabCIGenerator', () => {
   test('generates a GitLab CI config with one job per test group', () => {

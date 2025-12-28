@@ -1,11 +1,6 @@
 import { readFileSync } from 'fs';
 import { XMLParser } from 'fast-xml-parser';
-
-export interface TestResult {
-  name: string;
-  duration: number;
-  status: 'passed' | 'failed' | 'skipped';
-}
+import { TestResult } from '../models/TestResult'
 
 export function parseJUnitXML(filePath: string): TestResult[] {
   const xml = readFileSync(filePath, 'utf-8');
