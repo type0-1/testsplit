@@ -1,4 +1,4 @@
-import { generateGitHubActionsConfig } from '../../../src/backend/generator/GitHubActionsGenerator';
+import { generateGitHubActionsConfig } from '../../../../src/backend/generator/GitHubActionsGenerator';
 
 describe('GitHubActionsGenerator', () => {
   test('generates a workflow with one job per group', () => {
