@@ -1,5 +1,6 @@
 stages:
-  - test
+  - unit test
+  - integration test
 
 unit_tests:
   stage: test

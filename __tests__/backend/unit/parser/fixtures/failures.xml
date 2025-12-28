@@ -1,0 +1,9 @@
+<testsuite name="ExampleSuite">
+  <testcase classname="ExampleTest" name="testPass" time="0.1"/>
+  <testcase classname="ExampleTest" name="testSkip" time="0.2">
+    <skipped/>
+  </testcase>
+  <testcase classname="ExampleTest" name="testFail" time="0.3">
+    <failure message="boom"/>
+  </testcase>
+</testsuite>
