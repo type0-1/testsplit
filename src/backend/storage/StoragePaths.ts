@@ -1,13 +1,21 @@
-import path from 'path';
+// src/backend/storage/StoragePaths.ts
+import * as path from 'path';
+import { RunId } from './Types';
 
-export const BASE_DATA_DIR = '.data';
-export const PROFILES_DIR = path.join(BASE_DATA_DIR, 'profiles');
-export const DISTRIBUTIONS_DIR = path.join(BASE_DATA_DIR, 'distributions');
+export const DEFAULT_BASE_DIR = '.data';
 
-export function profilePath(runId: string): string {
-  return path.join(PROFILES_DIR, `${runId}.json`);
+export function profilesDir(baseDir: string = DEFAULT_BASE_DIR): string {
+  return path.join(baseDir, 'profiles');
 }
 
-export function distributionPath(runId: string): string {
-  return path.join(DISTRIBUTIONS_DIR, `${runId}.json`);
+export function distributionsDir(baseDir: string = DEFAULT_BASE_DIR): string {
+  return path.join(baseDir, 'distributions');
+}
+
+export function profilePath(runId: RunId, baseDir?: string): string {
+  return path.join(profilesDir(baseDir), `${runId}.json`);
+}
+
+export function distributionPath(runId: RunId, baseDir?: string): string {
+  return path.join(distributionsDir(baseDir), `${runId}.json`);
 }
