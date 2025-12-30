@@ -20,18 +20,10 @@ export class FileStore {
   }
 
   saveProfile(runId: RunId, profile: unknown): void {
-    fs.writeFileSync(
-      profilePath(runId, this.baseDir),
-      JSON.stringify(profile, null, 2),
-      'utf-8',
-    );
+    fs.writeFileSync(profilePath(runId, this.baseDir), JSON.stringify(profile, null, 2), 'utf-8');
   }
 
   saveDistribution(runId: RunId, distribution: unknown): void {
-    fs.writeFileSync(
-      distributionPath(runId, this.baseDir),
-      JSON.stringify(distribution, null, 2),
-      'utf-8',
-    );
+    fs.writeFileSync(distributionPath(runId, this.baseDir), JSON.stringify(distribution, null, 2), 'utf-8');
   }
 }

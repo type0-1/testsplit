@@ -1,4 +1,3 @@
-// src/backend/storage/StoragePaths.ts
 import * as path from 'path';
 import { RunId } from './Types';
 
