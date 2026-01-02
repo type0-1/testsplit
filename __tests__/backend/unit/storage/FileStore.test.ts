@@ -8,7 +8,7 @@ describe('FileStore', () => {
   let store: FileStore;
 
   beforeEach(() => {
-    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'testsplit-')); // creating a temp file for each test
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'testsplit-'));
     store = new FileStore(tempDir);
   });
 
