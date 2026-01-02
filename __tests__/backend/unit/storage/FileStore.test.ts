@@ -27,8 +27,8 @@ describe('FileStore', () => {
       testCount: 2,
       totalDuration: 3.4,
       testResults: [
-        { id: 'A', name: 'A', duration: 1.2, status: 'passed' },
-        { id: 'B', name: 'B', duration: 2.2, status: 'passed' },
+        { name: 'A', duration: 1.2, status: 'passed' },
+        { name: 'B', duration: 2.2, status: 'passed' },
       ],
     };
 
