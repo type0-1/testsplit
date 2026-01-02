@@ -20,12 +20,10 @@ describe('TestSplitEngine', () => {
 
     const result = engine.run(xmlPath, 2, true);
 
-    // Core behaviour
     expect(result.profile.testCount).toBeGreaterThan(0);
     expect(result.distribution.jobs.length).toBe(2);
     expect(result.runId).toBeDefined();
 
-    // Persistence behaviour
     const profilePath = path.join(tempDir, 'profiles', `${result.runId}.json`);
     const distributionPath = path.join(tempDir, 'distributions', `${result.runId}.json`);
 
