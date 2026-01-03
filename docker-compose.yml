@@ -1,0 +1,10 @@
+services:
+  testsplit:
+    build: .
+    container_name: testsplit
+    volumes:
+      - testsplit-data:/app/.data # mount volume
+    command: npm test
+
+volumes: # defining top level volume
+  testsplit-data: 
