@@ -1,13 +1,13 @@
-// src/backend/storage/FileStore.ts
-
 import * as fs from 'fs';
 import {
   profilesDir,
   distributionsDir,
   profilePath,
   distributionPath,
+  historicalProfilePath
 } from './StoragePaths';
 import { RunId } from './Types';
+
 
 export class FileStore {
   constructor(private baseDir: string = '.data') {
@@ -26,4 +26,9 @@ export class FileStore {
   saveDistribution(runId: RunId, distribution: unknown): void {
     fs.writeFileSync(distributionPath(runId, this.baseDir), JSON.stringify(distribution, null, 2), 'utf-8');
   }
+
+  saveHistoricalProfile(historicalProfile: unknown): void {
+    fs.writeFileSync(historicalProfilePath(this.baseDir), JSON.stringify(historicalProfile, null, 2), 'utf-8');
+  }
+
 }
