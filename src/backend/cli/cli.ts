@@ -5,16 +5,19 @@ import { hideBin } from 'yargs/helpers';
 import * as path from 'path';
 
 import { TestSplitEngine } from '../core/TestSplitEngine';
+import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
+import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
+import { Task } from '../algorithm/model/Task';
+
+type Platform = 'github' | 'gitlab';
 
 const argv = yargs(hideBin(process.argv))
   .option('junit', {
     type: 'string',
-    describe: 'Path to JUnit XML report',
     demandOption: true,
   })
   .option('jobs', {
     type: 'number',
-    describe: 'Number of parallel jobs',
     default: 2,
   })
   .option('platform', {
@@ -31,8 +34,19 @@ const argv = yargs(hideBin(process.argv))
 
 const junitPath = path.resolve(argv.junit);
 const jobCount = argv.jobs;
+const platform = argv.platform as Platform;
 
 const engine = new TestSplitEngine();
 const result = engine.run(junitPath, jobCount, false);
 
-console.log(`Scheduled ${result.distribution.jobs.length} jobs`);
+const jobs = result.distribution.jobs.map((job, index: number) => ({
+  id: index + 1,
+  tests: job.tasks.map((t: Task) => t.id),
+}));
+
+const ciConfig =
+  platform === 'github'
+    ? generateGitHubActionsConfig(jobs)
+    : generateGitLabCIConfig(jobs);
+
+console.log(ciConfig);
