@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
+import * as fs from 'fs';
+import * as path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import * as path from 'path';
 
 import { TestSplitEngine } from '../core/TestSplitEngine';
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
@@ -35,6 +36,7 @@ const argv = yargs(hideBin(process.argv))
 const junitPath = path.resolve(argv.junit);
 const jobCount = argv.jobs;
 const platform = argv.platform as Platform;
+const outPath = path.resolve(argv.out);
 
 const engine = new TestSplitEngine();
 const result = engine.run(junitPath, jobCount, false);
@@ -49,4 +51,6 @@ const ciConfig =
     ? generateGitHubActionsConfig(jobs)
     : generateGitLabCIConfig(jobs);
 
-console.log(ciConfig);
+fs.writeFileSync(outPath, ciConfig, 'utf-8');
+
+console.log(`CI configuration written to ${outPath}`);
