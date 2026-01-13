@@ -2,8 +2,11 @@
 
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+import * as path from 'path';
 
-yargs(hideBin(process.argv))
+import { TestSplitEngine } from '../core/TestSplitEngine';
+
+const argv = yargs(hideBin(process.argv))
   .option('junit', {
     type: 'string',
     describe: 'Path to JUnit XML report',
@@ -18,12 +21,18 @@ yargs(hideBin(process.argv))
     type: 'string',
     choices: ['github', 'gitlab'],
     default: 'github',
-    describe: 'CI platform',
   })
   .option('out', {
     type: 'string',
-    describe: 'Output file for CI config',
     default: 'testsplit.yml',
   })
   .help()
-  .parse();
+  .parseSync();
+
+const junitPath = path.resolve(argv.junit);
+const jobCount = argv.jobs;
+
+const engine = new TestSplitEngine();
+const result = engine.run(junitPath, jobCount, false);
+
+console.log(`Scheduled ${result.distribution.jobs.length} jobs`);
