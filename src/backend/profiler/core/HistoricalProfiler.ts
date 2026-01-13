@@ -1,5 +1,3 @@
-// src/backend/profiler/core/HistoricalProfiler.ts
-
 import { Profiler } from './Profiler';
 import { Profile } from '../model/Profile';
 import { TestResult } from '../../models/TestResult';
