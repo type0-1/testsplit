@@ -65,4 +65,27 @@ describe('FileStore', () => {
     const written = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     expect(written).toEqual(distribution);
   });
+
+  it('writes a historical profile JSON file correctly', () => {
+  const historicalProfile = {
+    runCount: 3,
+    totalTests: 12,
+    averageTestDuration: 1.8,
+    testDurationVariance: 0.42,
+    profiles: [
+      { testCount: 4, totalDuration: 6, averageDuration: 1.5, testResults: [] },
+      { testCount: 4, totalDuration: 7, averageDuration: 1.75, testResults: [] },
+      { testCount: 4, totalDuration: 8, averageDuration: 2.0, testResults: [] },
+    ],
+  };
+
+  store.saveHistoricalProfile(historicalProfile);
+
+  const filePath = path.join(tempDir, 'profiles', 'historical.json');
+  expect(fs.existsSync(filePath)).toBe(true);
+
+  const written = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  expect(written).toEqual(historicalProfile);
+});
+
 });
