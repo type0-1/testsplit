@@ -7,7 +7,7 @@ import { generateRunId } from '../helpers/RunId'
 export class TestSplitEngine {
   private profiler = new Profiler();
   private scheduler = new LPTScheduler();
-  private store = new FileStore();
+  private store: FileStore;
 
   constructor(baseDir?: string){
     this.store = new FileStore(baseDir);
