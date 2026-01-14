@@ -18,3 +18,7 @@ export function profilePath(runId: RunId, baseDir?: string): string {
 export function distributionPath(runId: RunId, baseDir?: string): string {
   return path.join(distributionsDir(baseDir), `${runId}.json`);
 }
+
+export function historicalProfilePath(baseDir: string = DEFAULT_BASE_DIR): string {
+  return path.join(profilesDir(baseDir), 'historical.json');
+}
