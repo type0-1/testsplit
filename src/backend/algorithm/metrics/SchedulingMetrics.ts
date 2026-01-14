@@ -5,6 +5,7 @@ export interface SchedulingMetrics {
   minJobTime: number;
   idealJobTime: number;
   balanceRatio: number;
+  predictedSpeedUp: number;
 }
 
 export function computeMetrics( jobs: Job[], totalDuration: number): SchedulingMetrics {
@@ -17,7 +18,8 @@ export function computeMetrics( jobs: Job[], totalDuration: number): SchedulingM
     criticalPath: max,
     minJobTime: min,
     idealJobTime: ideal,
-    balanceRatio: ideal === 0 ? 1 : max / ideal //  Measure for LPT algorithm goal of minimising parallel execution time
+    balanceRatio: ideal === 0 ? 1 : max / ideal, //  Measure for LPT algorithm goal of minimising parallel execution time
+    predictedSpeedUp: max === 0 ? 1: totalDuration / max
   };
 
 }
