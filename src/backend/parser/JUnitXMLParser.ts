@@ -17,7 +17,11 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
 
   const parsed = parser.parse(xml);
 
-  const testcases = parsed.testsuite?.testcase ?? [];
+  if (!parsed.testsuite) {
+    throw new Error(`Invalid JUnit XML: missing <testsuite> in ${filePath}`);
+  }
+
+  const testcases = parsed.testsuite.testcase ?? [];
   const cases = Array.isArray(testcases) ? testcases : [testcases];
 
   return cases.map((tc: any) => {
@@ -29,9 +33,22 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
       status = 'failed';
     }
 
+    const testName =
+      tc.classname && tc.name
+        ? `${tc.classname}.${tc.name}`
+        : (tc.name ?? 'unknown-test');
+
+    let duration = 0;
+    if (tc.time !== undefined) {
+      const parsedTime = Number(tc.time);
+      if (!Number.isNaN(parsedTime)) {
+        duration = parsedTime;
+      }
+    }
+
     return {
-      name: tc.classname ? `${tc.classname}.${tc.name}` : tc.name,
-      duration: Number(tc.time) || 0,
+      name: testName,
+      duration,
       status,
     };
   });
