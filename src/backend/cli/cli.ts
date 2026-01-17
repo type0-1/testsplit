@@ -9,6 +9,7 @@ import { TestSplitEngine } from '../core/TestSplitEngine';
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
+import { renderBar } from '../utils/Terminal';
 
 type Platform = 'github' | 'gitlab';
 
@@ -23,30 +24,77 @@ yargs(hideBin(process.argv))
       type: 'number',
       default: 2,
       describe: 'Number of parallel jobs'
+    })
+    .option('explain', {
+      type: 'boolean',
+      default: false,
+      describe: 'Explain profiling results in plain English'
     }),
     argv => {
       const junitPath = path.resolve(argv.junit as string);
       const jobCount = argv.jobs as number;
+      const explain = argv.explain as boolean;
       const engine = new TestSplitEngine();
       const { profile, distribution } = engine.run(junitPath, jobCount, false);
       const m = distribution.metrics;
 
-      console.log('\nTestSplit Profile Summary\n');
+      // Find the test that is a bottleneck
+      const bottleneckTest = profile.testResults.length === 0 ? null : profile.testResults.reduce((max, t) => t.duration > max.duration ? t : max);
+      const predictedSpeedUp = m.criticalPath === 0 ? 1 : profile.totalDuration / m.criticalPath;
+
+      /**
+       * Interpretation logic below, an attempt to include some explainability (just a start)
+       */
+      let interpretation = '';
+
+      if (bottleneckTest) {
+        const dominantRatio = bottleneckTest.duration / profile.totalDuration;
+
+        if (dominantRatio > 0.8) {
+          interpretation = 'Execution is dominated by a single long-running test, limiting achievable parallel speed-up.';
+        } else if (m.balanceRatio > 2) {
+          interpretation = 'Workload is unevenly distributed across jobs.';
+        } else {
+          interpretation = 'Workload is well balanced for parallel execution.';
+        }
+      }
+
+      console.log('Profile Summary');
+      console.log('------------------------');
       console.log(`Tests parsed:       ${profile.testCount}`);
       console.log(`Total duration:     ${profile.totalDuration.toFixed(2)}s`);
-      console.log(`Parallel jobs:      ${distribution.jobCount}`);
+      console.log(`Parallel jobs:      ${distribution.jobCount}\n`);
+
+      console.log('Scheduling metrics');
+      console.log('------------------');
       console.log(`Critical path:      ${m.criticalPath.toFixed(2)}s`);
-      console.log(`Predicted speed-up: ${m.predictedSpeedUp.toFixed(2)}×`);
+      console.log(`Predicted speed-up: ${predictedSpeedUp.toFixed(2)}×`);
       console.log(`Balance ratio:      ${m.balanceRatio.toFixed(2)}\n`);
 
-      console.log('Job distribution:');
+      console.log('Job distribution');
+      console.log('----------------');
+
+      const maxJobTime = Math.max(...distribution.jobs.map(j => j.totalTime));
+
       distribution.jobs.forEach((job, i) => {
-        console.log(
-          `  Job ${i + 1}: ${job.totalTime.toFixed(2)}s (${job.tasks.length} tests)`
-        );
+        const bar = renderBar(job.totalTime, maxJobTime);
+        console.log(`  Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests)`);
       });
       console.log();
 
+      if (bottleneckTest) {
+        console.log('Bottleneck test');
+        console.log('---------------');
+        console.log(
+          `  ${bottleneckTest.name} (${bottleneckTest.duration.toFixed(2)}s)\n`
+        );
+      }
+
+      if (explain && interpretation) {
+        console.log('Interpretation');
+        console.log('--------------');
+        console.log(`  ${interpretation}\n`);
+      }
     }
   )
   .command('generate-config', 'Generate CI configuration from test profile', y => y
