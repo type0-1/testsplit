@@ -38,6 +38,15 @@ yargs(hideBin(process.argv))
       console.log(`Critical path:      ${m.criticalPath.toFixed(2)}s`);
       console.log(`Predicted speed-up: ${m.predictedSpeedUp.toFixed(2)}×`);
       console.log(`Balance ratio:      ${m.balanceRatio.toFixed(2)}\n`);
+
+      console.log('Job distribution:');
+      distribution.jobs.forEach((job, i) => {
+        console.log(
+          `  Job ${i + 1}: ${job.totalTime.toFixed(2)}s (${job.tasks.length} tests)`
+        );
+      });
+      console.log();
+
     }
   )
   .command('generate-config', 'Generate CI configuration from test profile', y => y
