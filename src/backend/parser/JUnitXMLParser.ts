@@ -1,4 +1,5 @@
-import { readFileSync, statSync } from 'fs';
+import { readFileSync, statSync, readdirSync } from 'fs';
+import { join } from 'path';
 import { XMLParser } from 'fast-xml-parser';
 import { TestResult } from '../models/TestResult';
 
@@ -43,13 +44,18 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
 export function parseJUnitXML(path: string): TestResult[] {
   const stats = statSync(path);
 
+  // Single file
   if (stats.isFile()) {
-    return parseJUnitXMLFile(path);
+    return path.endsWith('.xml') ? parseJUnitXMLFile(path) : [];
   }
 
+  // Directory (recursive)
   if (stats.isDirectory()) {
-    throw new Error('Directory parsing not implemented yet');
+    return readdirSync(path).flatMap((entry) =>
+      parseJUnitXML(join(path, entry)),
+    );
   }
 
-  throw new Error('Unsupported path type');
+  // Other (symlink, socket, etc.)
+  return [];
 }
