@@ -36,6 +36,7 @@ yargs(hideBin(process.argv))
       const explain = argv.explain as boolean;
       const engine = new TestSplitEngine();
       const { profile, distribution } = engine.run(junitPath, jobCount, false);
+      const zeroDurationTests = profile.testResults.filter(t => t.duration === 0);
       const m = distribution.metrics;
 
       // Find the test that is a bottleneck
@@ -58,6 +59,26 @@ yargs(hideBin(process.argv))
           interpretation = 'Workload is well balanced for parallel execution.';
         }
       }
+
+      if (zeroDurationTests.length > 0) {
+        console.log('Zero-duration tests');
+        console.log('-------------------');
+        console.log(
+          `  ${zeroDurationTests.length} tests reported 0.00s execution time`
+        );
+
+        // Show a few examples (avoid spam)
+        zeroDurationTests.slice(0, 5).forEach(t => {
+          console.log(`  - ${t.name}`);
+        });
+
+        if (zeroDurationTests.length > 5) {
+          console.log(`  ...and ${zeroDurationTests.length - 5} more\n`);
+        } else {
+          console.log();
+        }
+      }
+
 
       console.log('Profile Summary');
       console.log('------------------------');
