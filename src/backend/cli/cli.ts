@@ -67,7 +67,7 @@ yargs(hideBin(process.argv))
           `  ${zeroDurationTests.length} tests reported 0.00s execution time`
         );
 
-        // Show a few examples (avoid spam)
+        // Show the first five results obtained
         zeroDurationTests.slice(0, 5).forEach(t => {
           console.log(`  - ${t.name}`);
         });
