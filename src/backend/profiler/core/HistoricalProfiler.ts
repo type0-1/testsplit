@@ -2,51 +2,82 @@ import { Profiler } from './Profiler';
 import { Profile } from '../model/Profile';
 import { TestResult } from '../../models/TestResult';
 
-export interface TestHistoricalStats {
+export interface HistoricalTestStats {
+  testName: string;
   runCount: number;
   meanDuration: number;
   variance: number;
+  stdDev: number;
+  min: number;
+  max: number;
 }
+
 export interface HistoricalProfile {
   runCount: number;
   totalTests: number;
   averageTestDuration: number;
   testDurationVariance: number;
   profiles: Profile[];
-  perTestStats: Record<string, TestHistoricalStats>
+  perTestStats: Record<string, HistoricalTestStats>;
 }
 
 export class HistoricalProfiler extends Profiler {
   private profiles: Profile[] = [];
 
-  private buildTestDurationMap(profiles: Profile[]): Record<string, number[]> {
-      const map: Record<string, number[]> = {};
-
-      for (const profile of profiles) {
-        for (const result of profile.testResults) {
-          if (!map[result.name]) {
-            map[result.name] = [];
-          }
-          map[result.name].push(result.duration);
-        }
-      }
-
-      return map;
+  addProfile(profile: Profile): void {
+    this.profiles.push(profile);
   }
 
-  private computePerTestStats(testDurationMap: Record<string, number[]>): Record<string, TestHistoricalStats> {
-    const stats: Record<string, TestHistoricalStats> = {};
+  addProfiles(profiles: Profile[]): void {
+    for (const p of profiles) {
+      this.addProfile(p);
+    }
+  }
+
+  setProfiles(profiles: Profile[]): void {
+    this.profiles = [...profiles];
+  }
+
+  getProfiles(): Profile[] {
+    return [...this.profiles];
+  }
+
+  private buildTestDurationMap(profiles: Profile[]): Record<string, number[]> {
+    const map: Record<string, number[]> = {};
+
+    for (const profile of profiles) {
+      for (const result of profile.testResults) {
+        if (!map[result.name]) {
+          map[result.name] = [];
+        }
+        map[result.name].push(result.duration);
+      }
+    }
+
+    return map;
+  }
+
+  private computePerTestStats(
+    testDurationMap: Record<string, number[]>): Record<string, HistoricalTestStats> {
+    const stats: Record<string, HistoricalTestStats> = {};
 
     for (const [testName, durations] of Object.entries(testDurationMap)) {
-      const mean = durations.reduce((sum, d) => sum + d, 0) / durations.length;
-      const variance = durations.reduce((sum, d) => sum + Math.pow(d - mean, 2), 0) / durations.length;
+      const runCount = durations.length;
+      const mean = runCount === 0 ? 0 : durations.reduce((sum, d) => sum + d, 0) / runCount;
+      const variance = runCount === 0 ? 0 : durations.reduce((sum, d) => sum + Math.pow(d - mean, 2), 0) / runCount;
+      const stdDev = Math.sqrt(variance);
+      const min = runCount === 0 ? 0 : Math.min(...durations);
+      const max = runCount === 0 ? 0 : Math.max(...durations);
 
       stats[testName] = {
-        runCount: durations.length,
+        testName,
+        runCount,
         meanDuration: mean,
         variance,
+        stdDev,
+        min,
+        max,
       };
-      
     }
 
     return stats;
@@ -58,7 +89,6 @@ export class HistoricalProfiler extends Profiler {
     return profile;
   }
 
-
   generateHistoricalProfile(): HistoricalProfile {
     if (this.profiles.length === 0) {
       throw new Error('No profiling runs available');
@@ -67,17 +97,17 @@ export class HistoricalProfiler extends Profiler {
     const runCount = this.profiles.length;
     const totalTests = this.profiles.reduce((sum, p) => sum + p.testCount, 0);
     const allDurations = this.profiles.flatMap(p => p.testResults.map(r => r.duration));
-    const mean = allDurations.reduce((sum, d) => sum + d, 0) / allDurations.length;
-    const variance = allDurations.reduce((sum, d) => sum + Math.pow(d - mean, 2), 0) / allDurations.length;
+    const averageTestDuration = allDurations.length === 0 ? 0 : allDurations.reduce((sum, d) => sum + d, 0) / allDurations.length;
+    const testDurationVariance = allDurations.length === 0 ? 0 : allDurations.reduce((sum, d) => sum + Math.pow(d - averageTestDuration, 2),0) / allDurations.length;
     const testDurationMap = this.buildTestDurationMap(this.profiles);
     const perTestStats = this.computePerTestStats(testDurationMap);
 
     return {
       runCount,
       totalTests,
-      averageTestDuration: mean,
-      testDurationVariance: variance,
-      profiles: this.profiles,
+      averageTestDuration,
+      testDurationVariance,
+      profiles: this.getProfiles(),
       perTestStats,
     };
   }
