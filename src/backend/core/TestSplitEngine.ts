@@ -1,11 +1,11 @@
 import { parseJUnitXML } from '../parser/JUnitXMLParser';
-import { Profiler } from '../profiler/core/Profiler';
+import { HistoricalProfiler } from '../profiler/core/HistoricalProfiler'
 import { LPTScheduler } from '../algorithm/core/LPTScheduler';
 import { Task } from '../algorithm/model/Task';
 import { FileStore } from '../storage/FileStore';
 import { generateRunId } from '../helpers/RunId'
 export class TestSplitEngine {
-  private profiler = new Profiler();
+  private profiler = new HistoricalProfiler();
   private scheduler = new LPTScheduler();
   private store: FileStore;
 
