@@ -35,17 +35,13 @@ yargs(hideBin(process.argv))
       const jobCount = argv.jobs as number;
       const explain = argv.explain as boolean;
       const engine = new TestSplitEngine();
-      const { profile, distribution } = engine.run(junitPath, jobCount, false);
+      const { profile, distribution } = engine.run(junitPath, jobCount, true);
       const zeroDurationTests = profile.testResults.filter(t => t.duration === 0);
       const m = distribution.metrics;
 
-      // Find the test that is a bottleneck
       const bottleneckTest = profile.testResults.length === 0 ? null : profile.testResults.reduce((max, t) => t.duration > max.duration ? t : max);
       const predictedSpeedUp = m.criticalPath === 0 ? 1 : profile.totalDuration / m.criticalPath;
 
-      /**
-       * Interpretation logic below, an attempt to include some explainability (just a start)
-       */
       let interpretation = '';
 
       if (bottleneckTest) {
