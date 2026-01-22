@@ -13,7 +13,12 @@ import { renderBar } from '../utils/Terminal';
 
 type Platform = 'github' | 'gitlab';
 
-yargs(hideBin(process.argv))
+/**
+ * Some Phase B features such as standard deviation and mean are computed but not interfaced via the CLI as of yet,
+ * looking to move on to other stuff before focusing on statistics developers may not care so much about during daily usage..
+ */
+
+yargs(hideBin(process.argv)) 
   .command('profile', 'Profile tests and display scheduling metrics', y => y
     .option('junit', {
       type: 'string',
