@@ -7,7 +7,7 @@ import {
   historicalProfilePath
 } from './StoragePaths';
 import { RunId } from './Types';
-
+import { Profile } from '../profiler/model/Profile'
 
 export class FileStore {
   constructor(private baseDir: string = '.data') {
@@ -29,6 +29,43 @@ export class FileStore {
 
   saveHistoricalProfile(historicalProfile: unknown): void {
     fs.writeFileSync(historicalProfilePath(this.baseDir), JSON.stringify(historicalProfile, null, 2), 'utf-8');
+  }
+
+  loadProfiles(): Profile[] {
+    const dir = profilesDir(this.baseDir);
+
+    if (!fs.existsSync(dir)) {
+      return [];
+    }
+
+    const files = fs.readdirSync(dir);
+    const profiles: Profile[] = [];
+
+    for (const file of files) {
+      if (!file.endsWith('.json')) {
+        continue;
+      }
+
+      const fullPath = `${dir}/${file}`;
+
+      try {
+        const raw = fs.readFileSync(fullPath, 'utf-8');
+        const parsed = JSON.parse(raw) as Profile;
+        const testCountIsNumber = typeof parsed.testCount === 'number';
+        const totalDurationIsNumber = typeof parsed.totalDuration === 'number';
+
+        // Minimal structural validation
+        if (parsed && Array.isArray(parsed.testResults) && testCountIsNumber && totalDurationIsNumber) {
+          profiles.push(parsed);
+        }
+      } catch (err) {
+        console.warn(
+          `Warning: failed to load profile ${file}: ${(err as Error).message}`
+        );
+      }
+    }
+
+    return profiles;
   }
 
 }
