@@ -95,7 +95,7 @@ yargs(hideBin(process.argv))
 
       distribution.jobs.forEach((job, i) => {
         const bar = renderBar(job.totalTime, maxJobTime);
-        console.log(`  Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests)`);
+        console.log(`  Job ${i}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests)`);
       });
       console.log();
 
