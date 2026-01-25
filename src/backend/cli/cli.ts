@@ -51,6 +51,12 @@ yargs(hideBin(process.argv))
 
       const engine = new TestSplitEngine();
       const { profile, distribution } = engine.run(junitPath, jobCount, true);
+
+      if (profile.testCount === 0) {
+        console.error('Error: no test cases were parsed from the JUnit input');
+        process.exit(1);
+      }
+
       const zeroDurationTests = profile.testResults.filter(
         (t) => t.duration === 0,
       );
