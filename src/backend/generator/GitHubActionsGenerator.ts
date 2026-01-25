@@ -16,6 +16,13 @@ export function generateGitHubActionsConfig(jobs: JobGroup[]): string {
   if (jobs.length === 0) {
     throw new Error('No jobs provided for GitHub Actions configuration');
   }
+
+  for (const job of jobs) {
+    if (job.tests.length === 0) {
+      throw new Error(`Job ${job.id} has no tests assigned`);
+    }
+  }
+
   const jobsYaml = jobs.map(renderGitHubJob).join('\n');
 
   return `name: TestSplit CI
