@@ -13,6 +13,10 @@ import { renderBar } from '../utils/Terminal';
 
 type Platform = 'github' | 'gitlab';
 
+function resolveJUnitPath(input: unknown): string {
+  return path.resolve(input as string);
+}
+
 yargs(hideBin(process.argv))
   .command(
     'profile',
@@ -35,7 +39,7 @@ yargs(hideBin(process.argv))
           describe: 'Explain profiling results in plain English',
         }),
     (argv) => {
-      const junitPath = path.resolve(argv.junit as string);
+      const junitPath = resolveJUnitPath(argv.junit);
       const jobCount = argv.jobs as number;
       const explain = argv.explain as boolean;
 
@@ -171,7 +175,7 @@ yargs(hideBin(process.argv))
           default: 'testsplit.yml',
         }),
     (argv) => {
-      const junitPath = path.resolve(argv.junit as string);
+      const junitPath = resolveJUnitPath(argv.junit);
       const jobCount = argv.jobs as number;
       const platform = argv.platform as Platform;
       const outPath = path.resolve(argv.out as string);
