@@ -17,6 +17,9 @@ function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
 
+const EXIT_SUCCESS = 0;
+const EXIT_FAILURE = 1;
+
 yargs(hideBin(process.argv))
   .command(
     'profile',
@@ -45,12 +48,12 @@ yargs(hideBin(process.argv))
 
       if (!Number.isInteger(jobCount) || jobCount <= 0) {
         console.error('Error: --jobs must be a positive integer');
-        process.exit(1);
+        process.exit(EXIT_FAILURE);
       }
 
       if (!fs.existsSync(junitPath)) {
         console.error(`Error: JUnit path does not exist: ${junitPath}`);
-        process.exit(1);
+        process.exit(EXIT_FAILURE);
       }
 
       const engine = new TestSplitEngine();
@@ -58,7 +61,7 @@ yargs(hideBin(process.argv))
 
       if (profile.testCount === 0) {
         console.error('Error: no test cases were parsed from the JUnit input');
-        process.exit(1);
+        process.exit(EXIT_FAILURE);
       }
 
       const zeroDurationTests = profile.testResults.filter(
@@ -183,23 +186,23 @@ yargs(hideBin(process.argv))
 
       if (!fs.existsSync(outDir)) {
         console.error(`Error: output directory does not exist: ${outDir}`);
-        process.exit(1);
+        process.exit(EXIT_FAILURE);
       }
 
       if (fs.existsSync(outPath) && fs.statSync(outPath).isDirectory()) {
         console.error('Error: --out must be a file path, not a directory');
-        process.exit(1);
+        process.exit(EXIT_FAILURE);
       }
 
       // Argument validation
       if (!fs.existsSync(junitPath)) {
         console.error(`Error: JUnit path does not exist: ${junitPath}`);
-        process.exit(1);
+        process.exit(EXIT_FAILURE);
       }
 
       if (!Number.isInteger(jobCount) || jobCount <= 0) {
         console.error('Error: --jobs must be a positive integer');
-        process.exit(1);
+        process.exit(EXIT_FAILURE);
       }
 
       // Main logic with error handling
@@ -222,7 +225,7 @@ yargs(hideBin(process.argv))
       } catch (err: unknown) {
         console.error('Error: failed to generate CI configuration');
         console.error(err instanceof Error ? err.message : err);
-        process.exit(1);
+        process.exit(EXIT_FAILURE);
       }
     },
   )
