@@ -179,6 +179,17 @@ yargs(hideBin(process.argv))
       const jobCount = argv.jobs as number;
       const platform = argv.platform as Platform;
       const outPath = path.resolve(argv.out as string);
+      const outDir = path.dirname(outPath);
+
+      if (!fs.existsSync(outDir)) {
+        console.error(`Error: output directory does not exist: ${outDir}`);
+        process.exit(1);
+      }
+
+      if (fs.existsSync(outPath) && fs.statSync(outPath).isDirectory()) {
+        console.error('Error: --out must be a file path, not a directory');
+        process.exit(1);
+      }
 
       // Argument validation
       if (!fs.existsSync(junitPath)) {
