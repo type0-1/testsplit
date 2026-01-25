@@ -1,4 +1,4 @@
-import { JobGroup } from './GitHubActionsGenerator';
+import { JobGroup } from './JobGroup';
 
 export function validateJobGroups(
   jobs: JobGroup[],
