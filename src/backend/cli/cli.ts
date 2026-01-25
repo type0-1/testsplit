@@ -197,7 +197,7 @@ yargs(hideBin(process.argv))
         fs.writeFileSync(outPath, ciConfig, 'utf-8');
         console.log(`CI configuration written to ${outPath}`);
       } catch (err) {
-        console.error('Failed to generate CI configuration');
+        console.error('Error: failed to generate CI configuration');
         console.error(err instanceof Error ? err.message : err);
         process.exit(1);
       }
