@@ -143,6 +143,8 @@ yargs(hideBin(process.argv))
         console.log('--------------');
         console.log(`  ${interpretation}\n`);
       }
+
+      console.log('Profile completed successfully.');
     },
   )
   .command(
