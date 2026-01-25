@@ -4,6 +4,9 @@ export interface JobGroup {
 }
 
 export function generateGitHubActionsConfig(jobs: JobGroup[]): string {
+  if (jobs.length === 0) {
+    throw new Error('No jobs provided for GitHub Actions configuration');
+  }
   const jobsYaml = jobs
     .map(
       (job) => `
