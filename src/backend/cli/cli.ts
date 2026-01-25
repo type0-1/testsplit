@@ -38,6 +38,12 @@ yargs(hideBin(process.argv))
       const junitPath = path.resolve(argv.junit as string);
       const jobCount = argv.jobs as number;
       const explain = argv.explain as boolean;
+
+      if (!Number.isInteger(jobCount) || jobCount <= 0) {
+        console.error('Error: --jobs must be a positive integer');
+        process.exit(1);
+      }
+
       const engine = new TestSplitEngine();
       const { profile, distribution } = engine.run(junitPath, jobCount, true);
       const zeroDurationTests = profile.testResults.filter(
