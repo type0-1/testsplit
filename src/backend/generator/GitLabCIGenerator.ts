@@ -1,9 +1,5 @@
+import { JobGroup } from './JobGroup';
 import { validateJobGroups } from './JobGroupValidator';
-
-export interface JobGroup {
-  id: number;
-  tests: string[];
-}
 
 function renderGitLabJob(job: JobGroup): string {
   return `
