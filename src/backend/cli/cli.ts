@@ -44,6 +44,11 @@ yargs(hideBin(process.argv))
         process.exit(1);
       }
 
+      if (!fs.existsSync(junitPath)) {
+        console.error(`Error: JUnit path does not exist: ${junitPath}`);
+        process.exit(1);
+      }
+
       const engine = new TestSplitEngine();
       const { profile, distribution } = engine.run(junitPath, jobCount, true);
       const zeroDurationTests = profile.testResults.filter(
