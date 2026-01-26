@@ -13,4 +13,16 @@ describe('GitHubActionsGenerator', () => {
     expect(yaml).toContain('npm test -- TestA TestB');
     expect(yaml).toContain('npm test -- TestC');
   });
+
+  test('throws when no jobs are provided', () => {
+    expect(() => generateGitHubActionsConfig([])).toThrow(
+      'No jobs provided for GitHub Actions configuration',
+    );
+  });
+
+  test('throws when a job has no tests', () => {
+    expect(() => generateGitHubActionsConfig([{ id: 1, tests: [] }])).toThrow(
+      'Job 1 has no tests assigned',
+    );
+  });
 });

@@ -13,12 +13,14 @@ import { renderBar } from '../utils/Terminal';
 
 type Platform = 'github' | 'gitlab';
 
-/**
- * Some Phase B features such as standard deviation and mean are computed but not interfaced via the CLI as of yet,
- * looking to move on to other stuff before focusing on statistics developers may not care so much about during daily usage..
- */
+function resolveJUnitPath(input: unknown): string {
+  return path.resolve(input as string);
+}
 
-yargs(hideBin(process.argv)) 
+const EXIT_SUCCESS = 0;
+const EXIT_FAILURE = 1;
+
+yargs(hideBin(process.argv))
   .command('profile', 'Profile tests and display scheduling metrics', y => y
     .option('junit', {
       type: 'string',
@@ -39,13 +41,38 @@ yargs(hideBin(process.argv))
       const junitPath = path.resolve(argv.junit as string);
       const jobCount = argv.jobs as number;
       const explain = argv.explain as boolean;
+
+      if (!Number.isInteger(jobCount) || jobCount <= 0) {
+        console.error('Error: --jobs must be a positive integer');
+        process.exit(EXIT_FAILURE);
+      }
+
+      if (!fs.existsSync(junitPath)) {
+        console.error(`Error: JUnit path does not exist: ${junitPath}`);
+        process.exit(EXIT_FAILURE);
+      }
+
       const engine = new TestSplitEngine();
       const { profile, distribution } = engine.run(junitPath, jobCount, true);
-      const zeroDurationTests = profile.testResults.filter(t => t.duration === 0);
+
+      if (profile.testCount === 0) {
+        console.error('Error: no test cases were parsed from the JUnit input');
+        process.exit(EXIT_FAILURE);
+      }
+
+      const zeroDurationTests = profile.testResults.filter(
+        (t) => t.duration === 0,
+      );
       const m = distribution.metrics;
 
-      const bottleneckTest = profile.testResults.length === 0 ? null : profile.testResults.reduce((max, t) => t.duration > max.duration ? t : max);
-      const predictedSpeedUp = m.criticalPath === 0 ? 1 : profile.totalDuration / m.criticalPath;
+      const bottleneckTest =
+        profile.testResults.length === 0
+          ? null
+          : profile.testResults.reduce((max, t) =>
+              t.duration > max.duration ? t : max,
+            );
+      const predictedSpeedUp =
+        m.criticalPath === 0 ? 1 : profile.totalDuration / m.criticalPath;
 
       let interpretation = '';
 
@@ -53,7 +80,8 @@ yargs(hideBin(process.argv))
         const dominantRatio = bottleneckTest.duration / profile.totalDuration;
 
         if (dominantRatio > 0.8) {
-          interpretation = 'Execution is dominated by a single long-running test, limiting achievable parallel speed-up.';
+          interpretation =
+            'Execution is dominated by a single long-running test, limiting achievable parallel speed-up.';
         } else if (m.balanceRatio > 2) {
           interpretation = 'Workload is unevenly distributed across jobs.';
         } else {
@@ -65,11 +93,11 @@ yargs(hideBin(process.argv))
         console.log('Zero-duration tests');
         console.log('-------------------');
         console.log(
-          `  ${zeroDurationTests.length} tests reported 0.00s execution time`
+          `  ${zeroDurationTests.length} tests reported 0.00s execution time`,
         );
 
         // Show the first five results obtained
-        zeroDurationTests.slice(0, 5).forEach(t => {
+        zeroDurationTests.slice(0, 5).forEach((t) => {
           console.log(`  - ${t.name}`);
         });
 
@@ -79,7 +107,6 @@ yargs(hideBin(process.argv))
           console.log();
         }
       }
-
 
       console.log('Profile Summary');
       console.log('------------------------');
@@ -96,11 +123,11 @@ yargs(hideBin(process.argv))
       console.log('Job distribution');
       console.log('----------------');
 
-      const maxJobTime = Math.max(...distribution.jobs.map(j => j.totalTime));
+      const maxJobTime = Math.max(...distribution.jobs.map((j) => j.totalTime));
 
       distribution.jobs.forEach((job, i) => {
         const bar = renderBar(job.totalTime, maxJobTime);
-        console.log(`  Job ${i}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests)`);
+        console.log(`  Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests)`);
       });
       console.log();
 
@@ -108,7 +135,7 @@ yargs(hideBin(process.argv))
         console.log('Bottleneck test');
         console.log('---------------');
         console.log(
-          `  ${bottleneckTest.name} (${bottleneckTest.duration.toFixed(2)}s)\n`
+          `  ${bottleneckTest.name} (${bottleneckTest.duration.toFixed(2)}s)\n`,
         );
       }
 
@@ -117,49 +144,86 @@ yargs(hideBin(process.argv))
         console.log('--------------');
         console.log(`  ${interpretation}\n`);
       }
-    }
+
+      console.log('Profile completed successfully.');
+    },
   )
-  .command('generate-config', 'Generate CI configuration from test profile', y => y
-    .option('junit', {
-      type: 'string',
-      demandOption: true,
-      describe: 'Path to JUnit XML file or directory'
-    })
-    .option('jobs', {
-      type: 'number',
-      default: 2,
-    })
-    .option('platform', {
-      type: 'string',
-      choices: ['github', 'gitlab'],
-      default: 'github',
-    })
-    .option('out', {
-      type: 'string',
-      default: 'testsplit.yml',
-    }),
-    argv => {
-      const junitPath = path.resolve(argv.junit as string);
+  .command(
+    'generate-config',
+    'Generate CI configuration from test profile',
+    (y) =>
+      y
+        .option('junit', {
+          type: 'string',
+          demandOption: true,
+          describe: 'Path to JUnit XML file or directory',
+        })
+        .option('jobs', {
+          type: 'number',
+          default: 2,
+        })
+        .option('platform', {
+          type: 'string',
+          choices: ['github', 'gitlab'],
+          default: 'github',
+        })
+        .option('out', {
+          type: 'string',
+          default: 'testsplit.yml',
+        }),
+    (argv) => {
+      const junitPath = resolveJUnitPath(argv.junit);
       const jobCount = argv.jobs as number;
       const platform = argv.platform as Platform;
       const outPath = path.resolve(argv.out as string);
-      const engine = new TestSplitEngine();
-      const result = engine.run(junitPath, jobCount, false);
-  
-      const jobs = result.distribution.jobs.map((job, index) => ({
-        id: index + 1,
-        tests: job.tasks.map((t: Task) => t.id),
-      }));
+      const outDir = path.dirname(outPath);
 
-      const ciConfig =
-        platform === 'github'
-          ? generateGitHubActionsConfig(jobs)
-          : generateGitLabCIConfig(jobs);
+      if (!fs.existsSync(outDir)) {
+        console.error(`Error: output directory does not exist: ${outDir}`);
+        process.exit(EXIT_FAILURE);
+      }
 
-      fs.writeFileSync(outPath, ciConfig, 'utf-8');
-      console.log(`CI configuration written to ${outPath}`);
-    }
+      if (fs.existsSync(outPath) && fs.statSync(outPath).isDirectory()) {
+        console.error('Error: --out must be a file path, not a directory');
+        process.exit(EXIT_FAILURE);
+      }
+
+      // Argument validation
+      if (!fs.existsSync(junitPath)) {
+        console.error(`Error: JUnit path does not exist: ${junitPath}`);
+        process.exit(EXIT_FAILURE);
+      }
+
+      if (!Number.isInteger(jobCount) || jobCount <= 0) {
+        console.error('Error: --jobs must be a positive integer');
+        process.exit(EXIT_FAILURE);
+      }
+
+      // Main logic with error handling
+      try {
+        const engine = new TestSplitEngine();
+        const result = engine.run(junitPath, jobCount, false);
+
+        const jobs = result.distribution.jobs.map((job, index) => ({
+          id: index + 1,
+          tests: job.tasks.map((t: Task) => t.id),
+        }));
+
+        const ciConfig =
+          platform === 'github'
+            ? generateGitHubActionsConfig(jobs)
+            : generateGitLabCIConfig(jobs);
+
+        fs.writeFileSync(outPath, ciConfig, 'utf-8');
+        console.log(`CI configuration written to ${outPath}`);
+      } catch (err: unknown) {
+        console.error('Error: failed to generate CI configuration');
+        console.error(err instanceof Error ? err.message : err);
+        process.exit(EXIT_FAILURE);
+      }
+    },
   )
+
   .demandCommand()
   .help()
   .parse();

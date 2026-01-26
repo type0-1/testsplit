@@ -16,4 +16,16 @@ describe('GitLabCIGenerator', () => {
     expect(yaml).toContain('npm test -- TestA TestB');
     expect(yaml).toContain('npm test -- TestC');
   });
+
+  test('throws when no jobs are provided', () => {
+    expect(() => generateGitLabCIConfig([])).toThrow(
+      'No jobs provided for GitLab CI configuration',
+    );
+  });
+
+  test('throws when a job has no tests', () => {
+    expect(() => generateGitLabCIConfig([{ id: 1, tests: [] }])).toThrow(
+      'Job 1 has no tests assigned',
+    );
+  });
 });
