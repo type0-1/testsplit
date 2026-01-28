@@ -21,28 +21,24 @@ const EXIT_SUCCESS = 0;
 const EXIT_FAILURE = 1;
 
 yargs(hideBin(process.argv))
-  .command(
-    'profile',
-    'Profile tests and display scheduling metrics',
-    (y) =>
-      y
-        .option('junit', {
-          type: 'string',
-          demandOption: true,
-          describe: 'Path to JUnit XML file or directory',
-        })
-        .option('jobs', {
-          type: 'number',
-          default: 2,
-          describe: 'Number of parallel jobs',
-        })
-        .option('explain', {
-          type: 'boolean',
-          default: false,
-          describe: 'Explain profiling results in plain English',
-        }),
-    (argv) => {
-      const junitPath = resolveJUnitPath(argv.junit);
+  .command('profile', 'Profile tests and display scheduling metrics', y => y
+    .option('junit', {
+      type: 'string',
+      demandOption: true,
+      describe: 'Path to JUnit XML file or directory'
+    })
+    .option('jobs', {
+      type: 'number',
+      default: 2,
+      describe: 'Number of parallel jobs'
+    })
+    .option('explain', {
+      type: 'boolean',
+      default: false,
+      describe: 'Explain profiling results in plain English'
+    }),
+    argv => {
+      const junitPath = path.resolve(argv.junit as string);
       const jobCount = argv.jobs as number;
       const explain = argv.explain as boolean;
 
@@ -131,9 +127,7 @@ yargs(hideBin(process.argv))
 
       distribution.jobs.forEach((job, i) => {
         const bar = renderBar(job.totalTime, maxJobTime);
-        console.log(
-          `  Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests)`,
-        );
+        console.log(`  Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests)`);
       });
       console.log();
 

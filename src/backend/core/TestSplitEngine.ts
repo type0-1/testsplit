@@ -14,17 +14,34 @@ export class TestSplitEngine {
   }
 
   run(xmlPath: string, jobCount: number, persist: boolean) {
-    const results = parseJUnitXML(xmlPath);
-    const profile = this.profiler.generateProfile(results);
-    const tasks: Task[] = profile.testResults.map(r => ({id: r.name, duration: r.duration})); // Map tasks to profiler
-    const distribution = this.scheduler.schedule(tasks, jobCount); // Schedule tasks
-    const runId = generateRunId();
+    const previousProfiles = this.store.loadProfiles();
 
-    if(persist){
-      this.store.saveProfile(runId, profile)
-      this.store.saveDistribution(runId, distribution)
+    for (const profile of previousProfiles) {
+      this.profiler.addProfile(profile);
     }
 
-    return { runId, profile, distribution };
+    const results = parseJUnitXML(xmlPath);
+    const profile = this.profiler.generateProfile(results);
+    this.profiler.addProfile(profile);
+
+    const tasks: Task[] = profile.testResults.map(r => ({
+      id: r.name,
+      duration: r.duration
+    }));
+
+    const distribution = this.scheduler.schedule(tasks, jobCount);
+    const runId = generateRunId();
+
+    if (persist) {
+      this.store.saveProfile(runId, profile);
+      this.store.saveDistribution(runId, distribution);
+    }
+
+    return {
+      runId,
+      profile,
+      distribution,
+      historicalProfile: this.profiler.generateHistoricalProfile()
+    };
   }
 }
