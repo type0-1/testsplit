@@ -6,6 +6,7 @@ export interface ProfileMetadata {
   generatedAt: string | null;
 }
 export interface Profile {
+  schemaVersion: number;
   testResults: TestResult[];
   totalDuration: number;
   averageDuration: number;

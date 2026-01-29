@@ -10,6 +10,7 @@ import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator
 import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
 import { renderBar } from '../utils/Terminal';
+import { FileStore } from '../storage/FileStore'
 
 type Platform = 'github' | 'gitlab';
 
@@ -54,6 +55,26 @@ yargs(hideBin(process.argv))
 
       const engine = new TestSplitEngine();
       const { profile, distribution } = engine.run(junitPath, jobCount, true);
+
+
+      try {
+        const store = new FileStore();
+        const deltas = {
+          runAt: new Date().toISOString(),
+          commit: profile.metadata?.commit?.sha ?? null,
+          testCount: profile.testCount,
+          totalDuration: profile.totalDuration,
+          averageDuration: profile.averageDuration,
+          criticalPath: distribution.metrics.criticalPath,
+          balanceRatio: distribution.metrics.balanceRatio,
+        };
+
+        store.saveHistoricalDeltas(deltas);
+      } catch (err) {
+        // Persistence failures should never break profiling
+        console.warn('Warning: failed to persist historical deltas');
+      }
+
 
       if (profile.testCount === 0) {
         console.error('Error: no test cases were parsed from the JUnit input');

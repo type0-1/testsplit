@@ -1,2 +1,2 @@
-export const PROFILE_SCHEMA_VERSION = 1;
+export const PROFILE_SCHEMA_VERSION = 2;
 export const DISTRIBUTION_SCHEMA_VERSION = 1;

@@ -3,6 +3,7 @@ import { TestResult } from '../../models/TestResult';
 import { Profile } from '../model/Profile';
 import { validateResults } from '../validation/ProfilerValidator';
 import { ProfileMetadata } from '../model/Profile';
+import { PROFILE_SCHEMA_VERSION } from '../../storage/SchemaVersions';
 export class Profiler {
   generateProfile(results: TestResult[], commit?: CommitInfo): Profile {
     validateResults(results);
@@ -12,6 +13,7 @@ export class Profiler {
     const averageDuration = testCount === 0 ? 0 : totalDuration / testCount;
 
     return {
+      schemaVersion: PROFILE_SCHEMA_VERSION,
       testResults: results,
       testCount,
       totalDuration,
