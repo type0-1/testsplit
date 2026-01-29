@@ -82,7 +82,7 @@ export class FileStore {
   saveHistoricalDeltas(deltas: unknown): void {
     const dir = this.deltasDir();
 
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const timestamp = `${Date.now()}-${process.hrtime.bigint()}`; // adding uniqueness for timestamp field (nanosecond accuracy via hrtime)
     const filename = `delta-${timestamp}.json`;
     const fullPath = path.join(dir, filename);
 
