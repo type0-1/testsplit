@@ -95,4 +95,64 @@ describe('FileStore', () => {
     expect(written).toEqual(historicalProfile);
   });
 
+   it('saves and loads historical deltas', () => {
+    store.saveHistoricalDeltas({ change: 1 });
+    store.saveHistoricalDeltas({ change: 2 });
+
+    const deltas = store.loadHistoricalDeltas(10);
+
+    expect(deltas.length).toBe(2);
+    expect(deltas[0]).toHaveProperty('deltas');
+  });
+
+  it('keeps only the most recent 50 delta files uncompressed', () => {
+    for (let i = 0; i < 60; i++) {
+      store.saveHistoricalDeltas({ run: i });
+    }
+
+    const deltasDir = path.join(tempDir, 'history', 'deltas');
+    expect(fs.existsSync(deltasDir)).toBe(true);
+
+    const files = fs.readdirSync(deltasDir);
+    const jsonFiles = files.filter(f => f.endsWith('.json'));
+    const gzFiles = files.filter(f => f.endsWith('.json.gz'));
+
+    expect(jsonFiles.length).toBe(50);
+    expect(gzFiles.length).toBe(10);
+  });
+
+  it('compresses older delta files using gzip', () => {
+    for (let i = 0; i < 55; i++) {
+      store.saveHistoricalDeltas({ run: i });
+    }
+
+    const deltasDir = path.join(tempDir, 'history', 'deltas');
+    const files = fs.readdirSync(deltasDir);
+    const hasCompressed = files.some(f => f.endsWith('.json.gz'));
+
+    expect(hasCompressed).toBe(true);
+  });
+
+  it('loads compressed delta files correctly', () => {
+    for (let i = 0; i < 55; i++) {
+      store.saveHistoricalDeltas({ run: i });
+    }
+
+    const deltas = store.loadHistoricalDeltas(5);
+
+    expect(deltas.length).toBe(5);
+    expect(deltas[0]).toHaveProperty('deltas');
+  });
+
+  it('cleans up old archived delta files beyond the limit', () => {
+    for (let i = 0; i < 600; i++) {
+      store.saveHistoricalDeltas({ run: i });
+    }
+
+    const deltasDir = path.join(tempDir, 'history', 'deltas');
+    const gzFiles = fs.readdirSync(deltasDir)
+      .filter(f => f.endsWith('.json.gz'));
+      
+    expect(gzFiles.length).toBeLessThanOrEqual(500);
+  });
 });
