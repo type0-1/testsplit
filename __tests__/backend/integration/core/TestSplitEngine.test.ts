@@ -1,4 +1,5 @@
 import { TestSplitEngine } from '../../../../src/backend/core/TestSplitEngine';
+import { FileStore } from '../../../../src/backend/storage/FileStore';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as os from 'os';
@@ -17,7 +18,6 @@ describe('TestSplitEngine', () => {
   it('runs parser, profiler, scheduler and persists results', () => {
     const engine = new TestSplitEngine(tempDir);
     const xmlPath = path.join(__dirname, 'fixtures', 'basic.xml');
-
     const result = engine.run(xmlPath, 2, true);
 
     expect(result.profile.testCount).toBeGreaterThan(0);
@@ -26,8 +26,16 @@ describe('TestSplitEngine', () => {
 
     const profilePath = path.join(tempDir, 'profiles', `${result.runId}.json`);
     const distributionPath = path.join(tempDir, 'distributions', `${result.runId}.json`);
+    const store = new FileStore(tempDir);
+    const profiles = store.loadProfiles();
+    const loadedProfile = profiles[0];
+
 
     expect(fs.existsSync(profilePath)).toBe(true);
     expect(fs.existsSync(distributionPath)).toBe(true);
+    expect(profiles.length).toBeGreaterThan(0);
+    expect(loadedProfile.metadata).toBeDefined();
+    expect(loadedProfile.metadata.generatedAt).toBeDefined();
+
   });
 });
