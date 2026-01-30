@@ -2,6 +2,20 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
+import { HistoricalDelta } from '../../../../src/backend/models/HistoricalDelta';
+
+function makeDelta(overrides?: Partial<HistoricalDelta>): HistoricalDelta {
+  return {
+    runAt: new Date().toISOString(),
+    commit: null,
+    testCount: 1,
+    totalDuration: 1,
+    averageDuration: 1,
+    criticalPath: 1,
+    balanceRatio: 1,
+    ...overrides,
+  };
+}
 
 describe('FileStore', () => {
   let tempDir: string;
@@ -96,8 +110,8 @@ describe('FileStore', () => {
   });
 
    it('saves and loads historical deltas', () => {
-    store.saveHistoricalDeltas({ change: 1 });
-    store.saveHistoricalDeltas({ change: 2 });
+    store.saveHistoricalDeltas(makeDelta());
+    store.saveHistoricalDeltas(makeDelta());
 
     const deltas = store.loadHistoricalDeltas(10);
 
@@ -107,7 +121,7 @@ describe('FileStore', () => {
 
   it('keeps only the most recent 50 delta files uncompressed', () => {
     for (let i = 0; i < 60; i++) {
-      store.saveHistoricalDeltas({ run: i });
+      store.saveHistoricalDeltas(makeDelta());
     }
 
     const deltasDir = path.join(tempDir, 'history', 'deltas');
@@ -123,7 +137,7 @@ describe('FileStore', () => {
 
   it('compresses older delta files using gzip', () => {
     for (let i = 0; i < 55; i++) {
-      store.saveHistoricalDeltas({ run: i });
+      store.saveHistoricalDeltas(makeDelta());
     }
 
     const deltasDir = path.join(tempDir, 'history', 'deltas');
@@ -135,7 +149,7 @@ describe('FileStore', () => {
 
   it('loads compressed delta files correctly', () => {
     for (let i = 0; i < 55; i++) {
-      store.saveHistoricalDeltas({ run: i });
+      store.saveHistoricalDeltas(makeDelta());
     }
 
     const deltas = store.loadHistoricalDeltas(5);
@@ -146,7 +160,7 @@ describe('FileStore', () => {
 
   it('cleans up old archived delta files beyond the limit', () => {
     for (let i = 0; i < 600; i++) {
-      store.saveHistoricalDeltas({ run: i });
+      store.saveHistoricalDeltas(makeDelta());
     }
 
     const deltasDir = path.join(tempDir, 'history', 'deltas');

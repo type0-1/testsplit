@@ -4,8 +4,10 @@ import * as path from 'path';
 
 import { profilesDir, distributionsDir, profilePath, distributionPath, historicalProfilePath } from './StoragePaths';
 import { RunId } from './Types';
-import { Profile } from '../profiler/model/Profile'
-import { DISTRIBUTION_SCHEMA_VERSION, PROFILE_SCHEMA_VERSION } from './SchemaVersions';
+import { Profile } from '../profiler/model/Profile';
+import { DISTRIBUTION_SCHEMA_VERSION } from './SchemaVersions';
+import { HistoricalDelta } from '../models/HistoricalDelta';
+import { StoredHistoricalDelta } from '../models/StoredHistoricalDelta';
 
 const DELTAS_DIR = 'history/deltas';
 const MAX_UNCOMPRESSED_DELTAS = 50;
@@ -33,8 +35,8 @@ export class FileStore {
   // Method to integrate preventive measures for infinite file storage growth (compress old delta files)
   private rotateHistoricalDeltas(): void {
     const dir = this.deltasDir();
-    const jsonFiles = fs.readdirSync(dir).filter(f => f.endsWith('.json') && f.startsWith('delta-')).sort(); 
-    const toCompress = jsonFiles.slice(0,Math.max(0, jsonFiles.length - MAX_UNCOMPRESSED_DELTAS));
+    const jsonFiles = fs.readdirSync(dir).filter(f => f.endsWith('.json') && f.startsWith('delta-')).sort();
+    const toCompress = jsonFiles.slice(0, Math.max(0, jsonFiles.length - MAX_UNCOMPRESSED_DELTAS));
 
     for (const file of toCompress) {
       const fullPath = path.join(dir, file);
@@ -48,7 +50,7 @@ export class FileStore {
 
   private cleanupOldArchivedDeltas(): void {
     const dir = this.deltasDir();
-    const gzFiles = fs.readdirSync(dir).filter(f => f.endsWith('.json.gz')).sort()
+    const gzFiles = fs.readdirSync(dir).filter(f => f.endsWith('.json.gz')).sort();
 
     if (gzFiles.length <= MAX_ARCHIVED_DELTAS) {
       return;
@@ -67,11 +69,11 @@ export class FileStore {
 
   saveDistribution(runId: RunId, distribution: unknown): void {
     const wrapped = {
-    schemaVersion: DISTRIBUTION_SCHEMA_VERSION,
-    runId,
-    createdAt: new Date().toISOString(),
-    distribution
-  };
+      schemaVersion: DISTRIBUTION_SCHEMA_VERSION,
+      runId,
+      createdAt: new Date().toISOString(),
+      distribution
+    };
     fs.writeFileSync(distributionPath(runId, this.baseDir), JSON.stringify(wrapped, null, 2), 'utf-8');
   }
 
@@ -79,14 +81,14 @@ export class FileStore {
     fs.writeFileSync(historicalProfilePath(this.baseDir), JSON.stringify(historicalProfile, null, 2), 'utf-8');
   }
 
-  saveHistoricalDeltas(deltas: unknown): void {
+  saveHistoricalDeltas(deltas: HistoricalDelta): void {
     const dir = this.deltasDir();
 
     const timestamp = `${Date.now()}-${process.hrtime.bigint()}`; // adding uniqueness for timestamp field (nanosecond accuracy via hrtime)
     const filename = `delta-${timestamp}.json`;
     const fullPath = path.join(dir, filename);
 
-    const payload = {
+    const payload: StoredHistoricalDelta = {
       createdAt: new Date().toISOString(),
       deltas
     };
@@ -97,15 +99,20 @@ export class FileStore {
     this.cleanupOldArchivedDeltas();
   }
 
-  loadHistoricalDeltas(limit: number = 10): unknown[] {
+  loadHistoricalDeltas(limit: number = 10): StoredHistoricalDelta[] {
     const dir = this.deltasDir();
 
     if (!fs.existsSync(dir)) {
       return [];
     }
 
-    const files = fs.readdirSync(dir).filter(f => f.startsWith('delta-')).sort().reverse().slice(0, limit);
-    const results: unknown[] = [];
+    const files = fs.readdirSync(dir)
+      .filter(f => f.startsWith('delta-'))
+      .sort()
+      .reverse()
+      .slice(0, limit);
+
+    const results: StoredHistoricalDelta[] = [];
 
     for (const file of files) {
       const fullPath = path.join(dir, file);
@@ -146,7 +153,7 @@ export class FileStore {
 
       try {
         const raw = fs.readFileSync(fullPath, 'utf-8');
-        const parsed = JSON.parse(raw); 
+        const parsed = JSON.parse(raw);
         const profile: Profile | undefined = parsed && typeof parsed.schemaVersion === 'number' ? parsed.profile : parsed;
 
         if (!profile) {
@@ -168,6 +175,4 @@ export class FileStore {
 
     return profiles;
   }
-
-
 }

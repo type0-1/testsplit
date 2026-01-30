@@ -1,26 +1,8 @@
 import { Profiler } from './Profiler';
 import { Profile } from '../model/Profile';
 import { TestResult } from '../../models/TestResult';
-
-export interface HistoricalTestStats {
-  testName: string;
-  runCount: number;
-  meanDuration: number;
-  variance: number;
-  stdDev: number;
-  min: number;
-  max: number;
-}
-
-export interface HistoricalProfile {
-  runCount: number;
-  totalTests: number;
-  averageTestDuration: number;
-  testDurationVariance: number;
-  profiles: Profile[];
-  perTestStats: Record<string, HistoricalTestStats>;
-}
-
+import { HistoricalProfile } from '../../models/HistoricalProfile';
+import { HistoricalTestStats } from '../../models/HistoricalTestStats';
 export class HistoricalProfiler extends Profiler {
   private profiles: Profile[] = [];
 
