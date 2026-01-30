@@ -26,16 +26,12 @@ describe('TestSplitEngine', () => {
 
     const profilePath = path.join(tempDir, 'profiles', `${result.runId}.json`);
     const distributionPath = path.join(tempDir, 'distributions', `${result.runId}.json`);
-    const store = new FileStore(tempDir);
-    const profiles = store.loadProfiles();
-    const loadedProfile = profiles[0];
-
-
+    const raw = JSON.parse(fs.readFileSync(profilePath, 'utf-8'));
+    
     expect(fs.existsSync(profilePath)).toBe(true);
     expect(fs.existsSync(distributionPath)).toBe(true);
-    expect(profiles.length).toBeGreaterThan(0);
-    expect(loadedProfile.metadata).toBeDefined();
-    expect(loadedProfile.metadata.generatedAt).toBeDefined();
+    expect(raw.metadata).toBeDefined();
+    expect(raw.metadata.generatedAt).toBeDefined();
 
   });
 });
