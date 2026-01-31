@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run --rm -v "$(pwd)/.data:/app/.data" 2026-csc1097-oloruns2-siddikm3-testsplit node dist/backend/cli/cli.js "$@"
