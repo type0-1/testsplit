@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <!-- Root element: testsuite or testsuites -->
+  <xs:element name="testsuites">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="testsuite" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="testsuite">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="properties" minOccurs="0"/>
+        <xs:element ref="testcase" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="system-out" type="xs:string" minOccurs="0"/>
+        <xs:element name="system-err" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="tests" type="xs:string" use="required"/>
+      <xs:attribute name="failures" type="xs:string"/>
+      <xs:attribute name="errors" type="xs:string"/>
+      <xs:attribute name="skipped" type="xs:string"/>
+      <xs:attribute name="time" type="xs:string"/>
+      <xs:attribute name="timestamp" type="xs:string"/>
+      <xs:attribute name="hostname" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="properties">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="property">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="value" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="testcase">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="skipped"/>
+        <xs:element ref="error"/>
+        <xs:element ref="failure"/>
+        <xs:element name="system-out" type="xs:string"/>
+        <xs:element name="system-err" type="xs:string"/>
+      </xs:choice>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="classname" type="xs:string"/>
+      <xs:attribute name="time" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="skipped">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="message" type="xs:string"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="error">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="message" type="xs:string"/>
+          <xs:attribute name="type" type="xs:string"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="failure">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="message" type="xs:string"/>
+          <xs:attribute name="type" type="xs:string"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

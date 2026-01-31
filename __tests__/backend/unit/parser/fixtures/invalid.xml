@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite>
+  <testcase classname="com.example.Test" name="testInvalid" time="1.5"/>
+</testsuite>

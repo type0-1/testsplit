@@ -16,6 +16,7 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "fast-xml-parser": "5.3.3"
+    "fast-xml-parser": "5.3.3",
+    "@xmldom/xmldom": "0.9.5"
   }
 }
