@@ -2,6 +2,10 @@ services:
   testsplit:
     build: .
     container_name: testsplit
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
     volumes:
       - testsplit-data:/app/.data # mount volume
     command: npm test
