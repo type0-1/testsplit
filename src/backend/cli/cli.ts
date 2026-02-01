@@ -14,6 +14,28 @@ import { FileStore } from '../storage/FileStore';
 
 type Platform = 'github' | 'gitlab';
 
+function findExistingCIFile(platform: Platform): string | null {
+  if (platform === 'github') {
+    const workflowsDir = path.resolve('.github/workflows');
+    if (!fs.existsSync(workflowsDir)) {
+      return null;
+    }
+
+    const files = fs
+      .readdirSync(workflowsDir)
+      .filter((f) => f.endsWith('.yml') || f.endsWith('.yaml'));
+
+    return files.length > 0 ? path.join(workflowsDir, files[0]) : null;
+  }
+
+  if (platform === 'gitlab') {
+    const gitlabPath = path.resolve('.gitlab-ci.yml');
+    return fs.existsSync(gitlabPath) ? gitlabPath : null;
+  }
+
+  return null;
+}
+
 function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
@@ -208,6 +230,7 @@ yargs(hideBin(process.argv))
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
       const dryRun = argv['dry-run'] as boolean;
+      const existingCIPath = findExistingCIFile(platform);
 
       if (!fs.existsSync(outDir)) {
         console.error(`Error: output directory does not exist: ${outDir}`);
