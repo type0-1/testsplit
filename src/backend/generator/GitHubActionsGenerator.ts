@@ -1,5 +1,6 @@
 import { JobGroup } from './JobGroup';
 import { validateJobGroups } from './JobGroupValidator';
+import { getSchemaValidator } from './getSchemaValidator';
 
 function renderGitHubJob(job: JobGroup): string {
   return `
@@ -15,10 +16,15 @@ export function generateGitHubActionsConfig(jobs: JobGroup[]): string {
 
   const jobsYaml = jobs.map(renderGitHubJob).join('\n');
 
-  return `name: TestSplit CI
+  const yamlOutput = `name: TestSplit CI
 
 on: [push, pull_request]
 
 jobs:${jobsYaml}
 `;
+
+  const validator = getSchemaValidator('github');
+  validator?.validate(yamlOutput);
+
+  return yamlOutput;
 }
