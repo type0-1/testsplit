@@ -333,7 +333,7 @@ yargs(hideBin(process.argv))
         console.log(`  ${interpretation}\n`);
       }
 
-      console.log('Profile completed successfully.');
+      console.log(chalk.green('✔ Profile completed successfully.'));
     },
   )
   .command(
