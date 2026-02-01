@@ -37,6 +37,41 @@ function findExistingCIFile(platform: Platform): string | null {
   return null;
 }
 
+function findTestJobs(config: any, platform: Platform): string[] {
+  const testJobs: string[] = [];
+  if (!config) return testJobs;
+
+  if (platform === 'github') {
+    const jobs = config.jobs ?? {};
+    for (const [jobName, job] of Object.entries<any>(jobs)) {
+      const steps = job.steps ?? [];
+      for (const step of steps) {
+        if (
+          typeof step.run === 'string' &&
+          step.run.toLowerCase().includes('test')
+        ) {
+          testJobs.push(jobName);
+          break;
+        }
+      }
+    }
+  }
+
+  if (platform === 'gitlab') {
+    for (const [jobName, job] of Object.entries<any>(config)) {
+      const script = job?.script;
+      if (!script) continue;
+
+      const lines = Array.isArray(script) ? script : [script];
+      if (lines.some((l) => l.toLowerCase().includes('test'))) {
+        testJobs.push(jobName);
+      }
+    }
+  }
+
+  return testJobs;
+}
+
 function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
@@ -239,6 +274,8 @@ yargs(hideBin(process.argv))
         const raw = fs.readFileSync(existingCIPath, 'utf-8');
         existingCIConfig = YAML.parse(raw);
       }
+
+      const testJobs = findTestJobs(existingCIConfig, platform);
 
       if (!fs.existsSync(outDir)) {
         console.error(`Error: output directory does not exist: ${outDir}`);
