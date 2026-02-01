@@ -12,6 +12,7 @@ import { Task } from '../algorithm/model/Task';
 import { renderBar } from '../utils/Terminal';
 import { FileStore } from '../storage/FileStore';
 import YAML from 'yaml';
+import chalk from 'chalk';
 
 type Platform = 'github' | 'gitlab';
 
@@ -204,12 +205,14 @@ yargs(hideBin(process.argv))
       const explain = argv.explain as boolean;
 
       if (!Number.isInteger(jobCount) || jobCount <= 0) {
-        console.error('Error: --jobs must be a positive integer');
+        console.error(chalk.red('✖ Error: --jobs must be a positive integer'));
         process.exit(EXIT_FAILURE);
       }
 
       if (!fs.existsSync(junitPath)) {
-        console.error(`Error: JUnit path does not exist: ${junitPath}`);
+        console.error(
+          chalk.red(`✖ Error: JUnit path does not exist: ${junitPath}`),
+        );
         process.exit(EXIT_FAILURE);
       }
 
@@ -235,7 +238,9 @@ yargs(hideBin(process.argv))
       }
 
       if (profile.testCount === 0) {
-        console.error('Error: no test cases were parsed from the JUnit input');
+        console.error(
+          chalk.red('✖ Error: no test cases were parsed from the JUnit input'),
+        );
         process.exit(EXIT_FAILURE);
       }
 
@@ -376,23 +381,29 @@ yargs(hideBin(process.argv))
       const testJobs = findTestJobs(existingCIConfig, platform);
 
       if (!fs.existsSync(outDir)) {
-        console.error(`Error: output directory does not exist: ${outDir}`);
+        console.error(
+          chalk.red(`✖ Error: output directory does not exist: ${outDir}`),
+        );
         process.exit(EXIT_FAILURE);
       }
 
       if (fs.existsSync(outPath) && fs.statSync(outPath).isDirectory()) {
-        console.error('Error: --out must be a file path, not a directory');
+        console.error(
+          chalk.red('✖ Error: --out must be a file path, not a directory'),
+        );
         process.exit(EXIT_FAILURE);
       }
 
       // Argument validation
       if (!fs.existsSync(junitPath)) {
-        console.error(`Error: JUnit path does not exist: ${junitPath}`);
+        console.error(
+          chalk.red(`✖ Error: JUnit path does not exist: ${junitPath}`),
+        );
         process.exit(EXIT_FAILURE);
       }
 
       if (!Number.isInteger(jobCount) || jobCount <= 0) {
-        console.error('Error: --jobs must be a positive integer');
+        console.error(chalk.red('✖ Error: --jobs must be a positive integer'));
         process.exit(EXIT_FAILURE);
       }
 
@@ -478,8 +489,16 @@ yargs(hideBin(process.argv))
           console.log(`CI configuration written to ${outPath}`);
         }
       } catch (err: unknown) {
-        console.error('Error: failed to generate CI configuration');
-        console.error(err instanceof Error ? err.message : err);
+        console.error(
+          chalk.red('✖ Error: failed to generate CI configuration'),
+        );
+
+        if (err instanceof Error) {
+          console.error(chalk.red(err.message));
+        } else {
+          console.error(chalk.red(String(err)));
+        }
+
         process.exit(EXIT_FAILURE);
       }
     },
