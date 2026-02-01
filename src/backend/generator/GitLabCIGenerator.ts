@@ -1,5 +1,6 @@
 import { JobGroup } from './JobGroup';
 import { validateJobGroups } from './JobGroupValidator';
+import { getSchemaValidator } from './getSchemaValidator';
 
 function renderGitLabJob(job: JobGroup): string {
   return `
@@ -14,8 +15,14 @@ export function generateGitLabCIConfig(jobs: JobGroup[]): string {
 
   const jobsYaml = jobs.map(renderGitLabJob).join('\n');
 
-  return `stages:
+  const yamlOutput = `stages:
   - test
 ${jobsYaml}
 `;
+
+  // Commit: validation scaffolding (no-op)
+  const validator = getSchemaValidator('gitlab');
+  validator?.validate(yamlOutput);
+
+  return yamlOutput;
 }
