@@ -11,6 +11,7 @@ import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
 import { renderBar } from '../utils/Terminal';
 import { FileStore } from '../storage/FileStore';
+import YAML from 'yaml';
 
 type Platform = 'github' | 'gitlab';
 
@@ -231,6 +232,13 @@ yargs(hideBin(process.argv))
       const outDir = path.dirname(outPath);
       const dryRun = argv['dry-run'] as boolean;
       const existingCIPath = findExistingCIFile(platform);
+
+      let existingCIConfig: any = null;
+
+      if (existingCIPath) {
+        const raw = fs.readFileSync(existingCIPath, 'utf-8');
+        existingCIConfig = YAML.parse(raw);
+      }
 
       if (!fs.existsSync(outDir)) {
         console.error(`Error: output directory does not exist: ${outDir}`);
