@@ -10,7 +10,7 @@ import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator
 import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
 import { renderBar } from '../utils/Terminal';
-import { FileStore } from '../storage/FileStore'
+import { FileStore } from '../storage/FileStore';
 
 type Platform = 'github' | 'gitlab';
 
@@ -22,23 +22,27 @@ const EXIT_SUCCESS = 0;
 const EXIT_FAILURE = 1;
 
 yargs(hideBin(process.argv))
-  .command('profile', 'Profile tests and display scheduling metrics', y => y
-    .option('junit', {
-      type: 'string',
-      demandOption: true,
-      describe: 'Path to JUnit XML file or directory'
-    })
-    .option('jobs', {
-      type: 'number',
-      default: 2,
-      describe: 'Number of parallel jobs'
-    })
-    .option('explain', {
-      type: 'boolean',
-      default: false,
-      describe: 'Explain profiling results in plain English'
-    }),
-    argv => {
+  .command(
+    'profile',
+    'Profile tests and display scheduling metrics',
+    (y) =>
+      y
+        .option('junit', {
+          type: 'string',
+          demandOption: true,
+          describe: 'Path to JUnit XML file or directory',
+        })
+        .option('jobs', {
+          type: 'number',
+          default: 2,
+          describe: 'Number of parallel jobs',
+        })
+        .option('explain', {
+          type: 'boolean',
+          default: false,
+          describe: 'Explain profiling results in plain English',
+        }),
+    (argv) => {
       const junitPath = path.resolve(argv.junit as string);
       const jobCount = argv.jobs as number;
       const explain = argv.explain as boolean;
@@ -55,7 +59,6 @@ yargs(hideBin(process.argv))
 
       const engine = new TestSplitEngine();
       const { profile, distribution } = engine.run(junitPath, jobCount, true);
-
 
       try {
         const store = new FileStore();
@@ -74,7 +77,6 @@ yargs(hideBin(process.argv))
         // Persistence failures should never break profiling
         console.warn('Warning: failed to persist historical deltas');
       }
-
 
       if (profile.testCount === 0) {
         console.error('Error: no test cases were parsed from the JUnit input');
@@ -148,7 +150,9 @@ yargs(hideBin(process.argv))
 
       distribution.jobs.forEach((job, i) => {
         const bar = renderBar(job.totalTime, maxJobTime);
-        console.log(`  Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests)`);
+        console.log(
+          `  Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests)`,
+        );
       });
       console.log();
 
@@ -191,6 +195,11 @@ yargs(hideBin(process.argv))
         .option('out', {
           type: 'string',
           default: 'testsplit.yml',
+        })
+        .option('dry-run', {
+          type: 'boolean',
+          default: false,
+          describe: 'Print CI config without writing files',
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
@@ -198,6 +207,7 @@ yargs(hideBin(process.argv))
       const platform = argv.platform as Platform;
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
+      const dryRun = argv['dry-run'] as boolean;
 
       if (!fs.existsSync(outDir)) {
         console.error(`Error: output directory does not exist: ${outDir}`);
@@ -235,8 +245,12 @@ yargs(hideBin(process.argv))
             ? generateGitHubActionsConfig(jobs)
             : generateGitLabCIConfig(jobs);
 
-        fs.writeFileSync(outPath, ciConfig, 'utf-8');
-        console.log(`CI configuration written to ${outPath}`);
+        if (dryRun) {
+          process.stdout.write(ciConfig);
+        } else {
+          fs.writeFileSync(outPath, ciConfig, 'utf-8');
+          console.log(`CI configuration written to ${outPath}`);
+        }
       } catch (err: unknown) {
         console.error('Error: failed to generate CI configuration');
         console.error(err instanceof Error ? err.message : err);
