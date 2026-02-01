@@ -234,7 +234,9 @@ yargs(hideBin(process.argv))
         store.saveHistoricalDeltas(deltas);
       } catch (err) {
         // Persistence failures should never break profiling
-        console.warn('Warning: failed to persist historical deltas');
+        console.warn(
+          chalk.yellow('⚠ Warning: failed to persist historical deltas'),
+        );
       }
 
       if (profile.testCount === 0) {
