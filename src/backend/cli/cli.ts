@@ -72,6 +72,48 @@ function findTestJobs(config: any, platform: Platform): string[] {
   return testJobs;
 }
 
+function extractTestCommands(
+  config: any,
+  platform: Platform,
+  testJobs: string[],
+): string[] {
+  const commands: string[] = [];
+  if (!config) return commands;
+
+  if (platform === 'github') {
+    for (const jobName of testJobs) {
+      const job = config.jobs?.[jobName];
+      const steps = job?.steps ?? [];
+
+      for (const step of steps) {
+        if (
+          typeof step.run === 'string' &&
+          step.run.toLowerCase().includes('test')
+        ) {
+          commands.push(step.run.trim());
+        }
+      }
+    }
+  }
+
+  if (platform === 'gitlab') {
+    for (const jobName of testJobs) {
+      const job = config[jobName];
+      const script = job?.script;
+      if (!script) continue;
+
+      const lines = Array.isArray(script) ? script : [script];
+      for (const line of lines) {
+        if (line.toLowerCase().includes('test')) {
+          commands.push(line.trim());
+        }
+      }
+    }
+  }
+
+  return commands;
+}
+
 function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
