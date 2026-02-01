@@ -114,6 +114,35 @@ function extractTestCommands(
   return commands;
 }
 
+function buildGitHubSplitJobs(
+  baseJob: any,
+  jobs: { id: number; tests: string[] }[],
+  testCommand: string,
+): Record<string, any> {
+  const splitJobs: Record<string, any> = {};
+
+  for (const job of jobs) {
+    const clonedJob = JSON.parse(JSON.stringify(baseJob));
+
+    clonedJob.steps = clonedJob.steps.map((step: any) => {
+      if (
+        typeof step.run === 'string' &&
+        step.run.toLowerCase().includes('test')
+      ) {
+        return {
+          ...step,
+          run: `${testCommand} ${job.tests.join(' ')}`.trim(),
+        };
+      }
+      return step;
+    });
+
+    splitJobs[`job-${job.id}`] = clonedJob;
+  }
+
+  return splitJobs;
+}
+
 function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
@@ -350,10 +379,44 @@ yargs(hideBin(process.argv))
           tests: job.tasks.map((t: Task) => t.id),
         }));
 
-        const ciConfig =
-          platform === 'github'
-            ? generateGitHubActionsConfig(jobs)
-            : generateGitLabCIConfig(jobs);
+        let ciConfig: string;
+
+        if (platform === 'github' && existingCIConfig) {
+          const testJobs = findTestJobs(existingCIConfig, platform);
+          if (testJobs.length === 0) {
+            throw new Error(
+              'No test job found in existing GitHub Actions workflow',
+            );
+          }
+
+          const testCommands = extractTestCommands(
+            existingCIConfig,
+            platform,
+            testJobs,
+          );
+
+          const baseJobName = testJobs[0];
+          const baseJob = existingCIConfig.jobs[baseJobName];
+          const testCommand = testCommands[0];
+
+          const splitJobs = buildGitHubSplitJobs(baseJob, jobs, testCommand);
+
+          // Remove original test job
+          delete existingCIConfig.jobs[baseJobName];
+
+          // Inject split jobs
+          existingCIConfig.jobs = {
+            ...existingCIConfig.jobs,
+            ...splitJobs,
+          };
+
+          ciConfig = YAML.stringify(existingCIConfig);
+        } else {
+          ciConfig =
+            platform === 'github'
+              ? generateGitHubActionsConfig(jobs)
+              : generateGitLabCIConfig(jobs);
+        }
 
         if (dryRun) {
           process.stdout.write(ciConfig);
