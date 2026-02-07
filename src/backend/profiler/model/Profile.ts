@@ -4,6 +4,13 @@ import { TestResult } from '../../models/TestResult';
 export interface ProfileMetadata {
   commit: CommitInfo | null;
   generatedAt: string | null;
+
+  cpuModel: string;
+  cpuCores: number;
+  osVersion: string;
+  platform: string;
+  nodeVersion: string;
+  containerVersion: string;
 }
 export interface Profile {
   schemaVersion: number;
@@ -11,5 +18,5 @@ export interface Profile {
   totalDuration: number;
   averageDuration: number;
   testCount: number;
-  metadata: ProfileMetadata
+  metadata: ProfileMetadata;
 }
