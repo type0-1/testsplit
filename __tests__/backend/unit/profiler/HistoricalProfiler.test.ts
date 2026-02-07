@@ -28,7 +28,7 @@ describe('HistoricalProfiler', () => {
 
   it('throws an error when generating historical profile with no runs', () => {
     expect(() => profiler.generateHistoricalProfile()).toThrow(
-      'No profiling runs available'
+      'No profiling runs available',
     );
   });
 
@@ -67,5 +67,55 @@ describe('HistoricalProfiler', () => {
     profiler.reset();
 
     expect(() => profiler.generateHistoricalProfile()).toThrow();
+  });
+
+  it('marks stable tests as not unstable', () => {
+    const stableRun1: TestResult[] = [
+      { name: 'StableTest', duration: 10, status: 'passed' },
+    ];
+
+    const stableRun2: TestResult[] = [
+      { name: 'StableTest', duration: 11, status: 'passed' },
+    ];
+
+    profiler.addRun(stableRun1);
+    profiler.addRun(stableRun2);
+
+    const historical = profiler.generateHistoricalProfile();
+    const stats = historical.perTestStats['StableTest'];
+
+    expect(stats.unstable).toBe(false);
+    expect(stats.zeroDuration).toBe(false);
+  });
+
+  it('detects unstable tests using coefficient of variation', () => {
+    const spikyRun1: TestResult[] = [
+      { name: 'SpikyTest', duration: 1, status: 'passed' },
+    ];
+
+    const spikyRun2: TestResult[] = [
+      { name: 'SpikyTest', duration: 10, status: 'passed' },
+    ];
+
+    profiler.addRun(spikyRun1);
+    profiler.addRun(spikyRun2);
+
+    const historical = profiler.generateHistoricalProfile();
+    const stats = historical.perTestStats['SpikyTest'];
+
+    expect(stats.unstable).toBe(true);
+  });
+
+  it('flags tests with zero duration', () => {
+    const zeroRun: TestResult[] = [
+      { name: 'ZeroTest', duration: 0, status: 'passed' },
+    ];
+
+    profiler.addRun(zeroRun);
+
+    const historical = profiler.generateHistoricalProfile();
+    const stats = historical.perTestStats['ZeroTest'];
+
+    expect(stats.zeroDuration).toBe(true);
   });
 });
