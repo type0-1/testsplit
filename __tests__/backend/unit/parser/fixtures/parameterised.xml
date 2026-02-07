@@ -1,0 +1,4 @@
+<testsuite name="ParamSuite" tests="2">
+  <testcase classname="ExampleTest" name="testMethod[1]" time="0.1"/>
+  <testcase classname="ExampleTest" name="testMethod[2]" time="0.2"/>
+</testsuite>

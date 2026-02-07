@@ -21,4 +21,20 @@ describe('JUnitXMLParser', () => {
     const statuses = results.map((r) => r.status);
     expect(statuses).toEqual(['passed', 'skipped', 'failed']);
   });
+
+  test('parses multiple suites under <testsuites>', () => {
+    const results = parseJUnitXML(fixture('multi-suite.xml'));
+
+    expect(results).toHaveLength(2);
+    expect(results[0].name).toBe('A.test1');
+    expect(results[1].name).toBe('B.test2');
+  });
+
+  test('handles parameterised tests', () => {
+    const results = parseJUnitXML(fixture('parameterised.xml'));
+
+    expect(results).toHaveLength(2);
+    expect(results[0].name).toBe('ExampleTest.testMethod[1]');
+    expect(results[1].name).toBe('ExampleTest.testMethod[2]');
+  });
 });

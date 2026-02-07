@@ -9,5 +9,5 @@
     "types": ["node", "jest"],
     "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": ["src", "__tests__/backend/JUnitXMLParser.test.ts"]
 }

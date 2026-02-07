@@ -1,0 +1,8 @@
+<testsuites>
+  <testsuite name="Suite1" tests="1">
+    <testcase classname="A" name="test1" time="0.1"/>
+  </testsuite>
+  <testsuite name="Suite2" tests="1">
+    <testcase classname="B" name="test2" time="0.2"/>
+  </testsuite>
+</testsuites>
