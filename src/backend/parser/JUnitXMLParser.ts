@@ -12,32 +12,44 @@ function validateXMLStructure(xml: string, filePath: string): void {
         console.warn(`[XML Error] ${filePath}: ${msg}`);
       },
     });
-    
+
     const doc = parser.parseFromString(xml, 'text/xml');
-    
+
     // Need <testsuite> or <testsuites> root
     const root = doc.documentElement;
-    if (!root || (root.tagName !== 'testsuite' && root.tagName !== 'testsuites')) {
-      console.warn(`[Schema Validation] ${filePath}: Missing required root element <testsuite> or <testsuites>`);
+    if (
+      !root ||
+      (root.tagName !== 'testsuite' && root.tagName !== 'testsuites')
+    ) {
+      console.warn(
+        `[Schema Validation] ${filePath}: Missing required root element <testsuite> or <testsuites>`,
+      );
       return;
     }
-    
+
     // Check for required name/tests attrs
-    const testsuites = root.tagName === 'testsuites' 
-      ? Array.from(root.getElementsByTagName('testsuite'))
-      : [root];
-    
+    const testsuites =
+      root.tagName === 'testsuites'
+        ? Array.from(root.getElementsByTagName('testsuite'))
+        : [root];
+
     for (const suite of testsuites) {
       if (suite && !suite.hasAttribute('name')) {
-        console.warn(`[Schema Validation] ${filePath}: <testsuite> missing required 'name' attribute`);
+        console.warn(
+          `[Schema Validation] ${filePath}: <testsuite> missing required 'name' attribute`,
+        );
       }
       if (suite && !suite.hasAttribute('tests')) {
-        console.warn(`[Schema Validation] ${filePath}: <testsuite> missing required 'tests' attribute`);
+        console.warn(
+          `[Schema Validation] ${filePath}: <testsuite> missing required 'tests' attribute`,
+        );
       }
     }
   } catch (error) {
     // Warn but don't crash
-    console.warn(`[Schema Validation] ${filePath}: ${error instanceof Error ? error.message : 'Unknown validation error'}`);
+    console.warn(
+      `[Schema Validation] ${filePath}: ${error instanceof Error ? error.message : 'Unknown validation error'}`,
+    );
   }
 }
 
@@ -53,17 +65,42 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
     attributeNamePrefix: '',
   });
 
-  const parsed = parser.parse(xml);
-
-  if (!parsed.testsuite) {
-    console.warn(`[Parser] ${filePath}: Missing <testsuite> element, skipping file`);
+  let parsed: any;
+  try {
+    parsed = parser.parse(xml);
+  } catch (error) {
+    console.warn(`[Parser] ${filePath}: Failed to parse XML`);
     return [];
   }
 
-  const testcases = parsed.testsuite.testcase ?? [];
-  const cases = Array.isArray(testcases) ? testcases : [testcases];
+  let suites: any[] = [];
 
-  return cases.map((tc: any) => {
+  if (parsed.testsuite) {
+    suites = [parsed.testsuite];
+  } else if (parsed.testsuites?.testsuite) {
+    suites = Array.isArray(parsed.testsuites.testsuite)
+      ? parsed.testsuites.testsuite
+      : [parsed.testsuites.testsuite];
+  } else {
+    console.warn(
+      `[Parser] ${filePath}: Missing <testsuite> or <testsuites> element`,
+    );
+    return [];
+  }
+
+  const allTestCases: any[] = [];
+
+  for (const suite of suites) {
+    if (!suite.testcase) continue;
+
+    const cases = Array.isArray(suite.testcase)
+      ? suite.testcase
+      : [suite.testcase];
+
+    allTestCases.push(...cases);
+  }
+
+  return allTestCases.map((tc: any) => {
     let status: 'passed' | 'failed' | 'skipped' = 'passed';
 
     if (tc.skipped !== undefined) {
