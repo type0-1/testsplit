@@ -5,6 +5,7 @@ import { HistoricalProfile } from '../../models/HistoricalProfile';
 import { HistoricalTestStats } from '../../models/HistoricalTestStats';
 export class HistoricalProfiler extends Profiler {
   private static readonly INSTABILITY_THRESHOLD = 0.5;
+  private static readonly SMOOTHING_FACTOR = 0.6;
   private profiles: Profile[] = [];
 
   addProfile(profile: Profile): void {
@@ -51,6 +52,18 @@ export class HistoricalProfiler extends Profiler {
         runCount === 0
           ? 0
           : durations.reduce((sum, d) => sum + d, 0) / runCount;
+      let smoothedMean = mean;
+
+      if (runCount > 1) {
+        const previousMean =
+          durations.slice(0, -1).reduce((sum, d) => sum + d, 0) /
+          (runCount - 1);
+
+        smoothedMean =
+          HistoricalProfiler.SMOOTHING_FACTOR * mean +
+          (1 - HistoricalProfiler.SMOOTHING_FACTOR) * previousMean;
+      }
+
       const variance =
         runCount === 0
           ? 0
@@ -68,7 +81,7 @@ export class HistoricalProfiler extends Profiler {
       stats[testName] = {
         testName,
         runCount,
-        meanDuration: mean,
+        meanDuration: smoothedMean,
         variance,
         stdDev,
         min,
