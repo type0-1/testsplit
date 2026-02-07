@@ -111,6 +111,14 @@ export class HistoricalProfiler extends Profiler {
           ) / allDurations.length;
     const testDurationMap = this.buildTestDurationMap(this.profiles);
     const perTestStats = this.computePerTestStats(testDurationMap);
+    const firstEnv = this.profiles[0].metadata;
+
+    const environmentConsistent = this.profiles.every(
+      (p) =>
+        p.metadata.cpuModel === firstEnv.cpuModel &&
+        p.metadata.platform === firstEnv.platform &&
+        p.metadata.containerVersion === firstEnv.containerVersion,
+    );
 
     return {
       runCount,
@@ -119,6 +127,7 @@ export class HistoricalProfiler extends Profiler {
       testDurationVariance,
       profiles: this.getProfiles(),
       perTestStats,
+      environmentConsistent,
     };
   }
 
