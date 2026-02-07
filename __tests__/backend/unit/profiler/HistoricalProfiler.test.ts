@@ -118,4 +118,81 @@ describe('HistoricalProfiler', () => {
 
     expect(stats.zeroDuration).toBe(true);
   });
+
+  it('marks environment as consistent when all runs share same metadata', () => {
+    const baseMetadata = {
+      commit: { hash: 'abc', message: 'test' } as any,
+      generatedAt: '2024-01-01',
+      cpuModel: 'Intel',
+      cpuCores: 8,
+      osVersion: 'macOS',
+      platform: 'darwin',
+      nodeVersion: 'v18',
+      containerVersion: '1.0',
+    };
+
+    profiler.setProfiles([
+      {
+        schemaVersion: 1,
+        testResults: [],
+        testCount: 0,
+        totalDuration: 0,
+        averageDuration: 0,
+        metadata: baseMetadata,
+      },
+      {
+        schemaVersion: 1,
+        testResults: [],
+        testCount: 0,
+        totalDuration: 0,
+        averageDuration: 0,
+        metadata: baseMetadata,
+      },
+    ]);
+
+    const historical = profiler.generateHistoricalProfile();
+
+    expect(historical.environmentConsistent).toBe(true);
+  });
+
+  it('marks environment as inconsistent when metadata differs between runs', () => {
+    const metadata1 = {
+      commit: { hash: 'abc', message: 'test' } as any,
+      generatedAt: '2024-01-01',
+      cpuModel: 'Intel',
+      cpuCores: 8,
+      osVersion: 'macOS',
+      platform: 'darwin',
+      nodeVersion: 'v18',
+      containerVersion: '1.0',
+    };
+
+    const metadata2 = {
+      ...metadata1,
+      cpuModel: 'AMD', // change CPU
+    };
+
+    profiler.setProfiles([
+      {
+        schemaVersion: 1,
+        testResults: [],
+        testCount: 0,
+        totalDuration: 0,
+        averageDuration: 0,
+        metadata: metadata1,
+      },
+      {
+        schemaVersion: 1,
+        testResults: [],
+        testCount: 0,
+        totalDuration: 0,
+        averageDuration: 0,
+        metadata: metadata2,
+      },
+    ]);
+
+    const historical = profiler.generateHistoricalProfile();
+
+    expect(historical.environmentConsistent).toBe(false);
+  });
 });
