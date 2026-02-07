@@ -6,4 +6,7 @@ export interface HistoricalTestStats {
   stdDev: number;
   min: number;
   max: number;
+  coefficientOfVariation: number;
+  unstable: boolean;
+  zeroDuration: boolean;
 }

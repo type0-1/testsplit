@@ -4,6 +4,7 @@ import { TestResult } from '../../models/TestResult';
 import { HistoricalProfile } from '../../models/HistoricalProfile';
 import { HistoricalTestStats } from '../../models/HistoricalTestStats';
 export class HistoricalProfiler extends Profiler {
+  private static readonly INSTABILITY_THRESHOLD = 0.5;
   private profiles: Profile[] = [];
 
   addProfile(profile: Profile): void {
@@ -40,16 +41,29 @@ export class HistoricalProfiler extends Profiler {
   }
 
   private computePerTestStats(
-    testDurationMap: Record<string, number[]>): Record<string, HistoricalTestStats> {
+    testDurationMap: Record<string, number[]>,
+  ): Record<string, HistoricalTestStats> {
     const stats: Record<string, HistoricalTestStats> = {};
 
     for (const [testName, durations] of Object.entries(testDurationMap)) {
       const runCount = durations.length;
-      const mean = runCount === 0 ? 0 : durations.reduce((sum, d) => sum + d, 0) / runCount;
-      const variance = runCount === 0 ? 0 : durations.reduce((sum, d) => sum + Math.pow(d - mean, 2), 0) / runCount;
+      const mean =
+        runCount === 0
+          ? 0
+          : durations.reduce((sum, d) => sum + d, 0) / runCount;
+      const variance =
+        runCount === 0
+          ? 0
+          : durations.reduce((sum, d) => sum + Math.pow(d - mean, 2), 0) /
+            runCount;
       const stdDev = Math.sqrt(variance);
       const min = runCount === 0 ? 0 : Math.min(...durations);
       const max = runCount === 0 ? 0 : Math.max(...durations);
+      const coefficientOfVariation = mean > 0 ? stdDev / mean : 0;
+      const unstable =
+        coefficientOfVariation > HistoricalProfiler.INSTABILITY_THRESHOLD;
+
+      const zeroDuration = durations.some((d) => d === 0);
 
       stats[testName] = {
         testName,
@@ -59,6 +73,9 @@ export class HistoricalProfiler extends Profiler {
         stdDev,
         min,
         max,
+        coefficientOfVariation,
+        unstable,
+        zeroDuration,
       };
     }
 
@@ -78,9 +95,20 @@ export class HistoricalProfiler extends Profiler {
 
     const runCount = this.profiles.length;
     const totalTests = this.profiles.reduce((sum, p) => sum + p.testCount, 0);
-    const allDurations = this.profiles.flatMap(p => p.testResults.map(r => r.duration));
-    const averageTestDuration = allDurations.length === 0 ? 0 : allDurations.reduce((sum, d) => sum + d, 0) / allDurations.length;
-    const testDurationVariance = allDurations.length === 0 ? 0 : allDurations.reduce((sum, d) => sum + Math.pow(d - averageTestDuration, 2),0) / allDurations.length;
+    const allDurations = this.profiles.flatMap((p) =>
+      p.testResults.map((r) => r.duration),
+    );
+    const averageTestDuration =
+      allDurations.length === 0
+        ? 0
+        : allDurations.reduce((sum, d) => sum + d, 0) / allDurations.length;
+    const testDurationVariance =
+      allDurations.length === 0
+        ? 0
+        : allDurations.reduce(
+            (sum, d) => sum + Math.pow(d - averageTestDuration, 2),
+            0,
+          ) / allDurations.length;
     const testDurationMap = this.buildTestDurationMap(this.profiles);
     const perTestStats = this.computePerTestStats(testDurationMap);
 
