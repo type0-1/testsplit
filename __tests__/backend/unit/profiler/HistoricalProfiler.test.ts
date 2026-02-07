@@ -195,4 +195,34 @@ describe('HistoricalProfiler', () => {
 
     expect(historical.environmentConsistent).toBe(false);
   });
+
+  it('does not apply smoothing for a single run', () => {
+    profiler.addRun([{ name: 'TestA', duration: 10, status: 'passed' }]);
+
+    const historical = profiler.generateHistoricalProfile();
+    const stats = historical.perTestStats['TestA'];
+
+    expect(stats.meanDuration).toBe(10);
+  });
+
+  it('applies smoothing when multiple runs exist', () => {
+    profiler.addRun([{ name: 'TestA', duration: 10, status: 'passed' }]);
+    profiler.addRun([{ name: 'TestA', duration: 20, status: 'passed' }]);
+
+    const historical = profiler.generateHistoricalProfile();
+    const stats = historical.perTestStats['TestA'];
+
+    expect(stats.meanDuration).toBeCloseTo(13);
+  });
+
+  it('reduces spike impact using smoothing', () => {
+    profiler.addRun([{ name: 'SpikeTest', duration: 10, status: 'passed' }]);
+    profiler.addRun([{ name: 'SpikeTest', duration: 100, status: 'passed' }]);
+
+    const historical = profiler.generateHistoricalProfile();
+    const stats = historical.perTestStats['SpikeTest'];
+
+    // Raw mean would be 55
+    expect(stats.meanDuration).toBeLessThan(55);
+  });
 });
