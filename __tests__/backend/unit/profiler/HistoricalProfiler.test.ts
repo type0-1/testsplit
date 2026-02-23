@@ -119,7 +119,7 @@ describe('HistoricalProfiler', () => {
     expect(stats.zeroDuration).toBe(true);
   });
 
-  it('marks environment as consistent when all runs share same metadata', () => {
+  it('collects metadata from all runs into metadata array', () => {
     const baseMetadata = {
       commit: { hash: 'abc', message: 'test' } as any,
       generatedAt: '2024-01-01',
@@ -152,10 +152,12 @@ describe('HistoricalProfiler', () => {
 
     const historical = profiler.generateHistoricalProfile();
 
-    expect(historical.environmentConsistent).toBe(true);
+    expect(historical.metadata).toHaveLength(2);
+    expect(historical.metadata[0].cpuModel).toBe('Intel');
+    expect(historical.metadata[1].cpuModel).toBe('Intel');
   });
 
-  it('marks environment as inconsistent when metadata differs between runs', () => {
+  it('collects differing metadata from each run into metadata array', () => {
     const metadata1 = {
       commit: { hash: 'abc', message: 'test' } as any,
       generatedAt: '2024-01-01',
@@ -169,7 +171,7 @@ describe('HistoricalProfiler', () => {
 
     const metadata2 = {
       ...metadata1,
-      cpuModel: 'AMD', // change CPU
+      cpuModel: 'AMD',
     };
 
     profiler.setProfiles([
@@ -193,9 +195,10 @@ describe('HistoricalProfiler', () => {
 
     const historical = profiler.generateHistoricalProfile();
 
-    expect(historical.environmentConsistent).toBe(false);
+    expect(historical.metadata).toHaveLength(2);
+    expect(historical.metadata[0].cpuModel).toBe('Intel');
+    expect(historical.metadata[1].cpuModel).toBe('AMD');
   });
-
   it('does not apply smoothing for a single run', () => {
     profiler.addRun([{ name: 'TestA', duration: 10, status: 'passed' }]);
 
