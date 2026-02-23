@@ -118,4 +118,111 @@ describe('HistoricalProfiler', () => {
 
     expect(stats.zeroDuration).toBe(true);
   });
+
+  it('marks environment as consistent when all runs share same metadata', () => {
+    const baseMetadata = {
+      commit: { hash: 'abc', message: 'test' } as any,
+      generatedAt: '2024-01-01',
+      cpuModel: 'Intel',
+      cpuCores: 8,
+      osVersion: 'macOS',
+      platform: 'darwin',
+      nodeVersion: 'v18',
+      containerVersion: '1.0',
+    };
+
+    profiler.setProfiles([
+      {
+        schemaVersion: 1,
+        testResults: [],
+        testCount: 0,
+        totalDuration: 0,
+        averageDuration: 0,
+        metadata: baseMetadata,
+      },
+      {
+        schemaVersion: 1,
+        testResults: [],
+        testCount: 0,
+        totalDuration: 0,
+        averageDuration: 0,
+        metadata: baseMetadata,
+      },
+    ]);
+
+    const historical = profiler.generateHistoricalProfile();
+
+    expect(historical.environmentConsistent).toBe(true);
+  });
+
+  it('marks environment as inconsistent when metadata differs between runs', () => {
+    const metadata1 = {
+      commit: { hash: 'abc', message: 'test' } as any,
+      generatedAt: '2024-01-01',
+      cpuModel: 'Intel',
+      cpuCores: 8,
+      osVersion: 'macOS',
+      platform: 'darwin',
+      nodeVersion: 'v18',
+      containerVersion: '1.0',
+    };
+
+    const metadata2 = {
+      ...metadata1,
+      cpuModel: 'AMD', // change CPU
+    };
+
+    profiler.setProfiles([
+      {
+        schemaVersion: 1,
+        testResults: [],
+        testCount: 0,
+        totalDuration: 0,
+        averageDuration: 0,
+        metadata: metadata1,
+      },
+      {
+        schemaVersion: 1,
+        testResults: [],
+        testCount: 0,
+        totalDuration: 0,
+        averageDuration: 0,
+        metadata: metadata2,
+      },
+    ]);
+
+    const historical = profiler.generateHistoricalProfile();
+
+    expect(historical.environmentConsistent).toBe(false);
+  });
+
+  it('does not apply smoothing for a single run', () => {
+    profiler.addRun([{ name: 'TestA', duration: 10, status: 'passed' }]);
+
+    const historical = profiler.generateHistoricalProfile();
+    const stats = historical.perTestStats['TestA'];
+
+    expect(stats.meanDuration).toBe(10);
+  });
+
+  it('applies smoothing when multiple runs exist', () => {
+    profiler.addRun([{ name: 'TestA', duration: 10, status: 'passed' }]);
+    profiler.addRun([{ name: 'TestA', duration: 20, status: 'passed' }]);
+
+    const historical = profiler.generateHistoricalProfile();
+    const stats = historical.perTestStats['TestA'];
+
+    expect(stats.meanDuration).toBeCloseTo(13);
+  });
+
+  it('reduces spike impact using smoothing', () => {
+    profiler.addRun([{ name: 'SpikeTest', duration: 10, status: 'passed' }]);
+    profiler.addRun([{ name: 'SpikeTest', duration: 100, status: 'passed' }]);
+
+    const historical = profiler.generateHistoricalProfile();
+    const stats = historical.perTestStats['SpikeTest'];
+
+    // Raw mean would be 55
+    expect(stats.meanDuration).toBeLessThan(55);
+  });
 });
