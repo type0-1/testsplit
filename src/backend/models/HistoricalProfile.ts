@@ -1,4 +1,4 @@
-import { Profile } from '../profiler/model/Profile';
+import { Profile, ProfileMetadata } from '../profiler/model/Profile';
 import { HistoricalTestStats } from './HistoricalTestStats';
 
 export interface HistoricalProfile {
@@ -8,5 +8,5 @@ export interface HistoricalProfile {
   testDurationVariance: number;
   profiles: Profile[];
   perTestStats: Record<string, HistoricalTestStats>;
-  environmentConsistent: boolean;
+  metadata: ProfileMetadata[];
 }
