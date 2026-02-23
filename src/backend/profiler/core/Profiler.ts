@@ -4,6 +4,8 @@ import { Profile } from '../model/Profile';
 import { validateResults } from '../validation/ProfilerValidator';
 import { ProfileMetadata } from '../model/Profile';
 import { PROFILE_SCHEMA_VERSION } from '../../storage/SchemaVersions';
+import { EnvironmentCollector } from './EnvironmentCollector';
+
 import os from 'os';
 export class Profiler {
   generateProfile(results: TestResult[], commit?: CommitInfo): Profile {
@@ -19,7 +21,7 @@ export class Profiler {
       testCount,
       totalDuration,
       averageDuration,
-      metadata: this.collectMetadata(commit),
+      metadata: EnvironmentCollector.collect(commit),
     };
   }
 
