@@ -24,18 +24,4 @@ export class Profiler {
       metadata: EnvironmentCollector.collect(commit),
     };
   }
-
-  private collectMetadata(commit?: CommitInfo): ProfileMetadata {
-    return {
-      commit: commit ?? CommitTracker.getCurrentCommit(),
-      generatedAt: new Date().toISOString(),
-
-      cpuModel: os.cpus()[0]?.model ?? 'unknown',
-      cpuCores: os.cpus().length,
-      osVersion: typeof os.version === 'function' ? os.version() : 'unknown',
-      platform: os.platform(),
-      nodeVersion: process.version,
-      containerVersion: process.env.CONTAINER_VERSION ?? 'unknown',
-    };
-  }
 }
