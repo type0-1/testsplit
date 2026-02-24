@@ -1,4 +1,4 @@
-import { CommitInfo, CommitTracker } from '../../helpers/CommitTracker';
+import { CommitInfo } from '../../helpers/CommitTracker';
 import { TestResult } from '../../models/TestResult';
 import { Profile } from '../model/Profile';
 import { validateResults } from '../validation/ProfilerValidator';
