@@ -9,4 +9,5 @@ export interface HistoricalTestStats {
   coefficientOfVariation: number;
   unstable: boolean;
   zeroDuration: boolean;
+  isOutlier: boolean;
 }

@@ -89,7 +89,22 @@ export class HistoricalProfiler extends Profiler {
         coefficientOfVariation,
         unstable,
         zeroDuration,
+        isOutlier: false,
       };
+    }
+
+    const means = Object.values(stats).map((s) => s.meanDuration);
+    
+    if (means.length > 1) {
+      const suiteMean = means.reduce((sum, m) => sum + m, 0) / means.length;
+      const suiteVariance = means.reduce((sum, m) => sum + Math.pow(m - suiteMean, 2), 0) / means.length;
+      const suiteStdDev = Math.sqrt(suiteVariance);
+      const outlierThreshold = suiteMean + 2 * suiteStdDev;
+
+      for (const s of Object.values(stats)) {
+        s.isOutlier = s.meanDuration > outlierThreshold;
+      }
+
     }
 
     return stats;
