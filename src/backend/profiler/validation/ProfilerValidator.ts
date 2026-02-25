@@ -17,7 +17,7 @@ export function flagZeroDurationTests(results: TestResult[]): TestResult[] {
   return results.filter((r) => r.duration === 0);
 }
 
-export function detectInstability(results: TestResult[]): string[] {
+export function detectOutlierTests(results: TestResult[]): string[] {
   if (results.length < 2) return [];
 
   const durations = results.map((r) => r.duration);
