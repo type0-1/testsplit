@@ -107,6 +107,7 @@ describe('HistoricalProfiler', () => {
   });
 
   it('flags tests with zero duration', () => {
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     const zeroRun: TestResult[] = [
       { name: 'ZeroTest', duration: 0, status: 'passed' },
     ];
@@ -117,6 +118,7 @@ describe('HistoricalProfiler', () => {
     const stats = historical.perTestStats['ZeroTest'];
 
     expect(stats.zeroDuration).toBe(true);
+    warnSpy.mockRestore();
   });
 
   it('collects metadata from all runs into metadata array', () => {
@@ -227,5 +229,47 @@ describe('HistoricalProfiler', () => {
 
     // Raw mean would be 55
     expect(stats.meanDuration).toBeLessThan(55);
+  });
+
+  it('flags a test as an outlier when its mean duration is far above the suite mean', () => {
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    // 6 normal tests are needed to dilute the outlier's effect on the suite mean + 2σ threshold
+    profiler.addRun([
+      { name: 'TestA', duration: 1, status: 'passed' },
+      { name: 'TestB', duration: 1, status: 'passed' },
+      { name: 'TestC', duration: 1, status: 'passed' },
+      { name: 'TestD', duration: 1, status: 'passed' },
+      { name: 'TestE', duration: 1, status: 'passed' },
+      { name: 'TestF', duration: 1, status: 'passed' },
+      { name: 'SlowTest', duration: 100, status: 'passed' },
+    ]);
+
+    const historical = profiler.generateHistoricalProfile();
+
+    expect(historical.perTestStats['SlowTest'].isOutlier).toBe(true);
+    expect(historical.perTestStats['TestA'].isOutlier).toBe(false);
+    warnSpy.mockRestore();
+  });
+
+  it('does not flag any test as an outlier when durations are similar', () => {
+    profiler.addRun([
+      { name: 'TestA', duration: 10, status: 'passed' },
+      { name: 'TestB', duration: 11, status: 'passed' },
+      { name: 'TestC', duration: 12, status: 'passed' },
+    ]);
+
+    const historical = profiler.generateHistoricalProfile();
+
+    expect(historical.perTestStats['TestA'].isOutlier).toBe(false);
+    expect(historical.perTestStats['TestB'].isOutlier).toBe(false);
+    expect(historical.perTestStats['TestC'].isOutlier).toBe(false);
+  });
+
+  it('does not flag a test as an outlier when only one test exists', () => {
+    profiler.addRun([{ name: 'OnlyTest', duration: 999, status: 'passed' }]);
+
+    const historical = profiler.generateHistoricalProfile();
+
+    expect(historical.perTestStats['OnlyTest'].isOutlier).toBe(false);
   });
 });
