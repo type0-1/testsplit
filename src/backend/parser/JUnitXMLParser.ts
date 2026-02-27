@@ -68,12 +68,12 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
   let parsed: any;
   try {
     parsed = parser.parse(xml);
-  } catch (error) {
+  } catch {
     console.warn(`[Parser] ${filePath}: Failed to parse XML`);
     return [];
   }
 
-  let suites: any[] = [];
+  let suites: any[];
 
   if (parsed.testsuite) {
     suites = [parsed.testsuite];

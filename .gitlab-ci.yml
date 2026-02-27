@@ -3,6 +3,18 @@ stages:
   - unit tests
   - integration tests
  
+lint:
+  stage: build
+  image: node:20.11.1-bullseye-slim
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+  before_script:
+    - npm ci
+  script:
+    - npm run lint
+
 typecheck_and_build: # may switch to swc or esbuild if build times become an issue
   stage: build
   image: node:20.11.1-bullseye-slim

@@ -175,7 +175,6 @@ function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
 
-const EXIT_SUCCESS = 0;
 const EXIT_FAILURE = 1;
 
 yargs(hideBin(process.argv))
@@ -232,7 +231,7 @@ yargs(hideBin(process.argv))
         };
 
         store.saveHistoricalDeltas(deltas);
-      } catch (err) {
+      } catch {
         // Persistence failures should never break profiling
         console.warn(
           chalk.yellow('Warning: failed to persist historical deltas'),
@@ -379,8 +378,6 @@ yargs(hideBin(process.argv))
         const raw = fs.readFileSync(existingCIPath, 'utf-8');
         existingCIConfig = YAML.parse(raw);
       }
-
-      const testJobs = findTestJobs(existingCIConfig, platform);
 
       if (!fs.existsSync(outDir)) {
         console.error(
