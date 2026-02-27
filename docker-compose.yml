@@ -6,9 +6,10 @@ services:
       resources:
         limits:
           cpus: "2.0"
+          memory: "4g"
     volumes:
-      - testsplit-data:/app/.data # mount volume
-    command: npm test
+      - testsplit-data:/app/.data # mount volume
+    command: npm run test:all
 
 volumes: # defining top level volume
-  testsplit-data: 
+  testsplit-data:

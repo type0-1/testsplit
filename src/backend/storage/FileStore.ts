@@ -126,7 +126,7 @@ export class FileStore {
           const raw = fs.readFileSync(fullPath, 'utf-8');
           results.push(JSON.parse(raw));
         }
-      } catch (err) {
+      } catch {
         console.warn(`Warning: failed to load delta ${file}`);
       }
     }

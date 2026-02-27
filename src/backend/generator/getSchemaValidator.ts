@@ -1,7 +1,7 @@
 import { CIPlatform, CISchemaValidator } from './CISchemaValidator';
 
 export function getSchemaValidator(
-  platform: CIPlatform,
+  _platform: CIPlatform,
 ): CISchemaValidator | null {
   return null;
 }

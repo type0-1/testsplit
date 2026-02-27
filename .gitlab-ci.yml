@@ -1,10 +1,36 @@
 stages:
+  - build
   - unit tests
   - integration tests
+ 
+lint:
+  stage: build
+  image: node:20.19.0-bullseye-slim
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+  before_script:
+    - npm ci
+  script:
+    - npm run lint
+
+typecheck_and_build: # may switch to swc or esbuild if build times become an issue
+  stage: build
+  image: node:20.19.0-bullseye-slim
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+  before_script:
+    - npm ci
+  script:
+    - npm run typecheck
+    - npm run build
 
 unit_tests:
   stage: unit tests
-  image: node:20
+  image: node:20.19.0-bullseye-slim
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -13,10 +39,16 @@ unit_tests:
     - npm ci
   script:
     - npm test
+  coverage: '/All files[^|]*\|[^|]*\|\s*([\d\.]+)/'
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+    expire_in: 30 days
 
 integration_tests:
   stage: integration tests
-  image: node:20
+  image: node:20.19.0-bullseye-slim
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
