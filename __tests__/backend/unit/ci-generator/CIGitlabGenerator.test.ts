@@ -28,4 +28,10 @@ describe('GitLabCIGenerator', () => {
       'Job 1 has no tests assigned',
     );
   });
+
+  test('throws when generated YAML is syntactically invalid', () => {
+    expect(() =>
+      generateGitLabCIConfig([{ id: 1, tests: ['TestA\ninvalid: ['] }]),
+    ).toThrow('Invalid YAML generated:');
+  });
 });

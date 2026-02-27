@@ -1,6 +1,7 @@
 import { JobGroup } from './JobGroup';
 import { validateJobGroups } from './JobGroupValidator';
 import { getSchemaValidator } from './getSchemaValidator';
+import { validateYamlSyntax } from './YAMLSyntaxValidator';
 
 function renderGitHubJob(job: JobGroup): string {
   return `
@@ -22,6 +23,8 @@ on: [push, pull_request]
 
 jobs:${jobsYaml}
 `;
+
+  validateYamlSyntax(yamlOutput);
 
   const validator = getSchemaValidator('github');
   validator?.validate(yamlOutput);
