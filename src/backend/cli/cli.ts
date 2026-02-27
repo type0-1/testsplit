@@ -205,13 +205,13 @@ yargs(hideBin(process.argv))
       const explain = argv.explain as boolean;
 
       if (!Number.isInteger(jobCount) || jobCount <= 0) {
-        console.error(chalk.red('✖ Error: --jobs must be a positive integer'));
+        console.error(chalk.red('Error: --jobs must be a positive integer'));
         process.exit(EXIT_FAILURE);
       }
 
       if (!fs.existsSync(junitPath)) {
         console.error(
-          chalk.red(`✖ Error: JUnit path does not exist: ${junitPath}`),
+          chalk.red(`Error: JUnit path does not exist: ${junitPath}`),
         );
         process.exit(EXIT_FAILURE);
       }
@@ -235,13 +235,13 @@ yargs(hideBin(process.argv))
       } catch (err) {
         // Persistence failures should never break profiling
         console.warn(
-          chalk.yellow('⚠ Warning: failed to persist historical deltas'),
+          chalk.yellow('Warning: failed to persist historical deltas'),
         );
       }
 
       if (profile.testCount === 0) {
         console.error(
-          chalk.red('✖ Error: no test cases were parsed from the JUnit input'),
+          chalk.red('Error: no test cases were parsed from the JUnit input'),
         );
         process.exit(EXIT_FAILURE);
       }
@@ -333,7 +333,7 @@ yargs(hideBin(process.argv))
         console.log(`  ${interpretation}\n`);
       }
 
-      console.log(chalk.green('✔ Profile completed successfully.'));
+      console.log(chalk.green('Profile completed successfully.'));
     },
   )
   .command(
@@ -384,14 +384,14 @@ yargs(hideBin(process.argv))
 
       if (!fs.existsSync(outDir)) {
         console.error(
-          chalk.red(`✖ Error: output directory does not exist: ${outDir}`),
+          chalk.red(`Error: output directory does not exist: ${outDir}`),
         );
         process.exit(EXIT_FAILURE);
       }
 
       if (fs.existsSync(outPath) && fs.statSync(outPath).isDirectory()) {
         console.error(
-          chalk.red('✖ Error: --out must be a file path, not a directory'),
+          chalk.red('Error: --out must be a file path, not a directory'),
         );
         process.exit(EXIT_FAILURE);
       }
@@ -399,13 +399,13 @@ yargs(hideBin(process.argv))
       // Argument validation
       if (!fs.existsSync(junitPath)) {
         console.error(
-          chalk.red(`✖ Error: JUnit path does not exist: ${junitPath}`),
+          chalk.red(`Error: JUnit path does not exist: ${junitPath}`),
         );
         process.exit(EXIT_FAILURE);
       }
 
       if (!Number.isInteger(jobCount) || jobCount <= 0) {
-        console.error(chalk.red('✖ Error: --jobs must be a positive integer'));
+        console.error(chalk.red('Error: --jobs must be a positive integer'));
         process.exit(EXIT_FAILURE);
       }
 
@@ -492,7 +492,7 @@ yargs(hideBin(process.argv))
         }
       } catch (err: unknown) {
         console.error(
-          chalk.red('✖ Error: failed to generate CI configuration'),
+          chalk.red('Error: failed to generate CI configuration'),
         );
 
         if (err instanceof Error) {
@@ -523,7 +523,7 @@ yargs(hideBin(process.argv))
 
           const raw = fs.readFileSync(filePath, 'utf-8');
           let parsed: any;
-          
+
           try {
             parsed = YAML.parse(raw);
           } catch (err) {
@@ -558,7 +558,7 @@ yargs(hideBin(process.argv))
           }
 
           if (issues.length > 0) {
-            console.error(chalk.red(`✖ Validation failed (${issues.length} issue${issues.length > 1 ? 's' : ''})`));
+            console.error(chalk.red(`Validation failed (${issues.length} issue${issues.length > 1 ? 's' : ''})`));
             issues.forEach((issue) => console.error(chalk.red(`  - ${issue}`)));
             process.exit(EXIT_FAILURE);
           }

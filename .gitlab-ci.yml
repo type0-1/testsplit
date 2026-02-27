@@ -27,6 +27,12 @@ unit_tests:
     - npm ci
   script:
     - npm test
+  coverage: '/All files[^|]*\|[^|]*\|\s*([\d\.]+)/'
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+    expire_in: 30 days
 
 integration_tests:
   stage: integration tests
