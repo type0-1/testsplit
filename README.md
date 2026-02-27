@@ -1,30 +1,13 @@
-# CA400 template repo
+# TestSplit
 
-This is a template for CA400 projects.
+[![pipeline status](https://gitlab.computing.dcu.ie/oloruns2/2026-csc1097-oloruns2-siddikm3/badges/main/pipeline.svg)](https://gitlab.computing.dcu.ie/oloruns2/2026-csc1097-oloruns2-siddikm3/-/commits/main)
+[![coverage report](https://gitlab.computing.dcu.ie/oloruns2/2026-csc1097-oloruns2-siddikm3/badges/main/coverage.svg)](https://gitlab.computing.dcu.ie/oloruns2/2026-csc1097-oloruns2-siddikm3/-/commits/main)
 
-## 1. Create your repo
+A CLI tool that parallelises Maven/JUnit test suites across CI jobs using the LPT (Longest Processing Time) scheduling algorithm, reducing pipeline wait times.
 
-One person from your project team should fork this repo, then add other teammates as project members on GitLab.
+## Authors
 
-## 2. Name your repo appropriately
+- Samson Oloruntola (22714745)
+- Marjia Siddik (22306501)
 
-The name of your project must be of the form `2024-ca400-XXXXXXX`, where "`XXXXXXX`"
-should be replaced with your usernames (e.g. `2024-ca400-sblott-pclarke`).
-**Note** that the year should be set as appropriate to your year of study. For example, in the
-2022/2023 academic year this would change to '2023-ca400-sblott-pclarke'), 
-in the 2023/2024 academic year this would change to '2024-ca400-sblott-pclarke'), etc. 
-
-It is the *name of your repo* which matters (not the name of your project).
-
-You can change the name of your repo on GitLab under:
-
-- Settings / General / Advanced / Change path
-
-It looks like this:
-
-![change-repo-path](./res/repo-change-path.png "Change repo path.")
-
-You should replace all of this file with a README describing your own project.
-
-## Additional resources
-
+Supervisor: Paul Clarke — DCU CSC1097 2025/2026
