@@ -259,10 +259,15 @@ yargs(hideBin(process.argv))
           tests: job.tasks.map((t: Task) => t.id),
         }));
 
+        const resourceConstraints = {
+          cpuCores: result.profile.metadata.cpuCores,
+          memoryLimitMb: result.profile.metadata.memoryLimitMb ?? null,
+        };
+
         const ciConfig =
           platform === 'github'
-            ? generateGitHubActionsConfig(jobs, mavenBin)
-            : generateGitLabCIConfig(jobs, mavenBin);
+            ? generateGitHubActionsConfig(jobs, mavenBin, resourceConstraints)
+            : generateGitLabCIConfig(jobs, mavenBin, resourceConstraints);
 
         if (dryRun) {
           process.stdout.write(ciConfig);

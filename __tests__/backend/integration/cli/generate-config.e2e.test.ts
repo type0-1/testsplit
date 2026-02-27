@@ -36,6 +36,12 @@ describe('generate-config CLI integration', () => {
       const yamlOutput = fs.readFileSync(outPath, 'utf-8');
       const parsed = YAML.parse(yamlOutput);
 
+      expect(yamlOutput).toContain(
+        '# Resource constraints captured during profiling',
+      );
+      expect(yamlOutput).toContain('# cpu_limit:');
+      expect(yamlOutput).toContain('# memory_limit_mb:');
+
       expect(parsed.jobs).toBeDefined();
 
       const jobNames = Object.keys(parsed.jobs);

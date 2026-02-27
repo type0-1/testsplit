@@ -1,5 +1,6 @@
 import { JobGroup } from './JobGroup';
 import { validateJobGroups } from './JobGroupValidator';
+import type { CIResourceConstraints } from './GitHubActionsGenerator';
 import { getSchemaValidator } from './getSchemaValidator';
 import { validateYamlSyntax } from './YAMLSyntaxValidator';
 
@@ -14,12 +15,17 @@ job-${job.id}:
 export function generateGitLabCIConfig(
   jobs: JobGroup[],
   mavenBin: string = 'mvn',
+  resourceConstraints?: CIResourceConstraints,
 ): string {
   validateJobGroups(jobs, 'GitLab CI');
 
   const jobsYaml = jobs.map((job) => renderGitLabJob(job, mavenBin)).join('\n');
 
-  const yamlOutput = `stages:
+  const constraintsComment = resourceConstraints
+    ? `# Resource constraints captured during profiling\n# Keep baseline and optimized runs on identical container config\n# cpu_limit: ${resourceConstraints.cpuCores}\n# memory_limit_mb: ${resourceConstraints.memoryLimitMb ?? 'unknown'}\n`
+    : '';
+
+  const yamlOutput = `${constraintsComment}stages:
   - test
 ${jobsYaml}
 `;

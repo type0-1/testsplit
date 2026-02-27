@@ -34,6 +34,7 @@ export class Profiler {
       platform: os.platform(),
       nodeVersion: process.version,
       containerVersion: process.env.CONTAINER_VERSION ?? 'unknown',
+      memoryLimitMb: Math.round(os.totalmem() / (1024 * 1024)),
     };
   }
 }

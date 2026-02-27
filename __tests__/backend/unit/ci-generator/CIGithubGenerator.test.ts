@@ -26,6 +26,18 @@ describe('GitHubActionsGenerator', () => {
     expect(parsed.jobs['job-1'].steps[1].run).toBe(`mvn test -Dtest=${fqcn}`);
   });
 
+  test('documents profiling resource constraints in YAML comments', () => {
+    const yaml = generateGitHubActionsConfig(
+      [{ id: 1, tests: ['TestA'] }],
+      'mvn',
+      { cpuCores: 2, memoryLimitMb: 2048 },
+    );
+
+    expect(yaml).toContain('# Resource constraints captured during profiling');
+    expect(yaml).toContain('# cpu_limit: 2');
+    expect(yaml).toContain('# memory_limit_mb: 2048');
+  });
+
   test('uses custom maven binary when provided', () => {
     const yaml = generateGitHubActionsConfig(
       [{ id: 1, tests: ['TestA', 'TestB'] }],

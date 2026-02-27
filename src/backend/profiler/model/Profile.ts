@@ -11,6 +11,7 @@ export interface ProfileMetadata {
   platform: string;
   nodeVersion: string;
   containerVersion: string;
+  memoryLimitMb?: number | null;
 }
 export interface Profile {
   schemaVersion: number;

@@ -25,6 +25,18 @@ describe('GitLabCIGenerator', () => {
     expect(parsed['job-1'].script[0]).toBe(`mvn test -Dtest=${fqcn}`);
   });
 
+  test('documents profiling resource constraints in YAML comments', () => {
+    const yaml = generateGitLabCIConfig(
+      [{ id: 1, tests: ['TestA'] }],
+      'mvn',
+      { cpuCores: 2, memoryLimitMb: 2048 },
+    );
+
+    expect(yaml).toContain('# Resource constraints captured during profiling');
+    expect(yaml).toContain('# cpu_limit: 2');
+    expect(yaml).toContain('# memory_limit_mb: 2048');
+  });
+
   test('uses custom maven binary when provided', () => {
     const yaml = generateGitLabCIConfig(
       [{ id: 1, tests: ['TestA', 'TestB'] }],
