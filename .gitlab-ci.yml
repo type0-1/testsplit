@@ -5,7 +5,7 @@ stages:
  
 lint:
   stage: build
-  image: node:20.11.1-bullseye-slim
+  image: node:20.19.0-bullseye-slim
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -17,7 +17,7 @@ lint:
 
 typecheck_and_build: # may switch to swc or esbuild if build times become an issue
   stage: build
-  image: node:20.11.1-bullseye-slim
+  image: node:20.19.0-bullseye-slim
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -30,7 +30,7 @@ typecheck_and_build: # may switch to swc or esbuild if build times become an iss
 
 unit_tests:
   stage: unit tests
-  image: node:20.11.1-bullseye-slim
+  image: node:20.19.0-bullseye-slim
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -48,7 +48,7 @@ unit_tests:
 
 integration_tests:
   stage: integration tests
-  image: node:20.11.1-bullseye-slim
+  image: node:20.19.0-bullseye-slim
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
