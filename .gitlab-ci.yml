@@ -2,8 +2,8 @@ stages:
   - build
   - unit tests
   - integration tests
-
-typecheck_and_build:
+ 
+typecheck_and_build: # may switch to swc or esbuild if build times become an issue
   stage: build
   image: node:20.11.1-bullseye-slim
   cache:
