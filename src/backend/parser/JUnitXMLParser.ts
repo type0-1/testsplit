@@ -3,6 +3,7 @@ import { join } from 'path';
 import { XMLParser } from 'fast-xml-parser';
 import { DOMParser } from '@xmldom/xmldom';
 import { TestResult } from '../models/TestResult';
+import { TestResultParser } from './TestResultParser';
 
 // Validate XML structure. Warn on issues but keep going.
 function validateXMLStructure(xml: string, filePath: string): void {
@@ -130,8 +131,7 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
   });
 }
 
-// Parse file or directory (recurses if needed)
-export function parseJUnitXML(path: string): TestResult[] {
+function parseJUnitXMLPath(path: string): TestResult[] {
   const stats = statSync(path);
 
   // Single file
@@ -142,10 +142,21 @@ export function parseJUnitXML(path: string): TestResult[] {
   // Directory (recursive)
   if (stats.isDirectory()) {
     return readdirSync(path).flatMap((entry) =>
-      parseJUnitXML(join(path, entry)),
+      parseJUnitXMLPath(join(path, entry)),
     );
   }
 
   // Other (symlink, socket, etc.)
   return [];
+}
+
+export class JUnitXMLParser implements TestResultParser {
+  parse(path: string): TestResult[] {
+    return parseJUnitXMLPath(path);
+  }
+}
+
+// Backward-compatible function export
+export function parseJUnitXML(path: string): TestResult[] {
+  return new JUnitXMLParser().parse(path);
 }
