@@ -124,6 +124,7 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
 
     return {
       name: testName,
+      classname: tc.classname ?? undefined,
       duration,
       status,
     };
