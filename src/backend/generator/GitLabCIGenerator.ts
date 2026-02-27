@@ -3,18 +3,21 @@ import { validateJobGroups } from './JobGroupValidator';
 import { getSchemaValidator } from './getSchemaValidator';
 import { validateYamlSyntax } from './YAMLSyntaxValidator';
 
-function renderGitLabJob(job: JobGroup): string {
+function renderGitLabJob(job: JobGroup, mavenBin: string): string {
   return `
 job-${job.id}:
   stage: test
   script:
-    - npm test -- ${job.tests.join(' ')}`;
+    - ${mavenBin} test -Dtest=${job.tests.join(',')}`;
 }
 
-export function generateGitLabCIConfig(jobs: JobGroup[]): string {
+export function generateGitLabCIConfig(
+  jobs: JobGroup[],
+  mavenBin: string = 'mvn',
+): string {
   validateJobGroups(jobs, 'GitLab CI');
 
-  const jobsYaml = jobs.map(renderGitLabJob).join('\n');
+  const jobsYaml = jobs.map((job) => renderGitLabJob(job, mavenBin)).join('\n');
 
   const yamlOutput = `stages:
   - test

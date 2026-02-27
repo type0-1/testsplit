@@ -359,6 +359,11 @@ yargs(hideBin(process.argv))
           type: 'string',
           default: 'testsplit.yml',
         })
+        .option('maven-bin', {
+          type: 'string',
+          default: 'mvn',
+          describe: 'Maven executable to run tests (e.g., mvn or ./mvnw)',
+        })
         .option('dry-run', {
           type: 'boolean',
           default: false,
@@ -370,6 +375,7 @@ yargs(hideBin(process.argv))
       const platform = argv.platform as Platform;
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
+      const mavenBin = argv['maven-bin'] as string;
       const dryRun = argv['dry-run'] as boolean;
       const existingCIPath = findExistingCIFile(platform);
 
@@ -480,8 +486,8 @@ yargs(hideBin(process.argv))
           // Fallback: no existing CI file
           ciConfig =
             platform === 'github'
-              ? generateGitHubActionsConfig(jobs)
-              : generateGitLabCIConfig(jobs);
+              ? generateGitHubActionsConfig(jobs, mavenBin)
+              : generateGitLabCIConfig(jobs, mavenBin);
         }
 
         if (dryRun) {

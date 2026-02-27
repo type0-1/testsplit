@@ -2,12 +2,17 @@ import { spawnSync } from 'child_process';
 import * as path from 'path';
 
 const CLI_PATH = path.resolve(__dirname, '../../../../src/backend/cli/cli.ts');
+const WORKSPACE_ROOT = path.resolve(__dirname, '../../../../');
 
 describe('CLI generate-config output path validation', () => {
   test('fails when output directory does not exist', () => {
     const result = spawnSync(
-      'npx',
+      'npm',
       [
+        '--prefix',
+        WORKSPACE_ROOT,
+        'exec',
+        '--',
         'ts-node',
         CLI_PATH,
         'generate-config',
@@ -17,6 +22,8 @@ describe('CLI generate-config output path validation', () => {
         '2',
         '--platform',
         'github',
+        '--maven-bin',
+        './mvnw',
         '--out',
         'nonexistent-dir/ci.yml',
       ],
@@ -31,8 +38,12 @@ describe('CLI generate-config output path validation', () => {
 
   test('fails when --out is a directory', () => {
     const result = spawnSync(
-      'npx',
+      'npm',
       [
+        '--prefix',
+        WORKSPACE_ROOT,
+        'exec',
+        '--',
         'ts-node',
         CLI_PATH,
         'generate-config',

@@ -3,19 +3,22 @@ import { validateJobGroups } from './JobGroupValidator';
 import { getSchemaValidator } from './getSchemaValidator';
 import { validateYamlSyntax } from './YAMLSyntaxValidator';
 
-function renderGitHubJob(job: JobGroup): string {
+function renderGitHubJob(job: JobGroup, mavenBin: string): string {
   return `
   job-${job.id}:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm test -- ${job.tests.join(' ')}`;
+      - run: ${mavenBin} test -Dtest=${job.tests.join(',')}`;
 }
 
-export function generateGitHubActionsConfig(jobs: JobGroup[]): string {
+export function generateGitHubActionsConfig(
+  jobs: JobGroup[],
+  mavenBin: string = 'mvn',
+): string {
   validateJobGroups(jobs, 'GitHub Actions');
 
-  const jobsYaml = jobs.map(renderGitHubJob).join('\n');
+  const jobsYaml = jobs.map((job) => renderGitHubJob(job, mavenBin)).join('\n');
 
   const yamlOutput = `name: TestSplit CI
 

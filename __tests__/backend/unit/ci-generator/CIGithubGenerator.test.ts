@@ -10,8 +10,17 @@ describe('GitHubActionsGenerator', () => {
     expect(yaml).toContain('name: TestSplit CI');
     expect(yaml).toContain('job-1:');
     expect(yaml).toContain('job-2:');
-    expect(yaml).toContain('npm test -- TestA TestB');
-    expect(yaml).toContain('npm test -- TestC');
+    expect(yaml).toContain('mvn test -Dtest=TestA,TestB');
+    expect(yaml).toContain('mvn test -Dtest=TestC');
+  });
+
+  test('uses custom maven binary when provided', () => {
+    const yaml = generateGitHubActionsConfig(
+      [{ id: 1, tests: ['TestA', 'TestB'] }],
+      './mvnw',
+    );
+
+    expect(yaml).toContain('./mvnw test -Dtest=TestA,TestB');
   });
 
   test('throws when no jobs are provided', () => {
