@@ -11,165 +11,9 @@ import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
 import { renderBar } from '../utils/Terminal';
 import { FileStore } from '../storage/FileStore';
-import YAML from 'yaml';
 import chalk from 'chalk';
 
 type Platform = 'github' | 'gitlab';
-
-function findExistingCIFile(platform: Platform): string | null {
-  if (platform === 'github') {
-    const workflowsDir = path.resolve('.github/workflows');
-    if (!fs.existsSync(workflowsDir)) {
-      return null;
-    }
-
-    const files = fs
-      .readdirSync(workflowsDir)
-      .filter((f) => f.endsWith('.yml') || f.endsWith('.yaml'));
-
-    return files.length > 0 ? path.join(workflowsDir, files[0]) : null;
-  }
-
-  if (platform === 'gitlab') {
-    const gitlabPath = path.resolve('.gitlab-ci.yml');
-    return fs.existsSync(gitlabPath) ? gitlabPath : null;
-  }
-
-  return null;
-}
-
-function findTestJobs(config: any, platform: Platform): string[] {
-  const testJobs: string[] = [];
-  if (!config) return testJobs;
-
-  if (platform === 'github') {
-    const jobs = config.jobs ?? {};
-    for (const [jobName, job] of Object.entries<any>(jobs)) {
-      const steps = job.steps ?? [];
-      for (const step of steps) {
-        if (
-          typeof step.run === 'string' &&
-          step.run.toLowerCase().includes('test')
-        ) {
-          testJobs.push(jobName);
-          break;
-        }
-      }
-    }
-  }
-
-  if (platform === 'gitlab') {
-    for (const [jobName, job] of Object.entries<any>(config)) {
-      const script = job?.script;
-      if (!script) continue;
-
-      const lines = Array.isArray(script) ? script : [script];
-      if (lines.some((l) => l.toLowerCase().includes('test'))) {
-        testJobs.push(jobName);
-      }
-    }
-  }
-
-  return testJobs;
-}
-
-function extractTestCommands(
-  config: any,
-  platform: Platform,
-  testJobs: string[],
-): string[] {
-  const commands: string[] = [];
-  if (!config) return commands;
-
-  if (platform === 'github') {
-    for (const jobName of testJobs) {
-      const job = config.jobs?.[jobName];
-      const steps = job?.steps ?? [];
-
-      for (const step of steps) {
-        if (
-          typeof step.run === 'string' &&
-          step.run.toLowerCase().includes('test')
-        ) {
-          commands.push(step.run.trim());
-        }
-      }
-    }
-  }
-
-  if (platform === 'gitlab') {
-    for (const jobName of testJobs) {
-      const job = config[jobName];
-      const script = job?.script;
-      if (!script) continue;
-
-      const lines = Array.isArray(script) ? script : [script];
-      for (const line of lines) {
-        if (line.toLowerCase().includes('test')) {
-          commands.push(line.trim());
-        }
-      }
-    }
-  }
-
-  return commands;
-}
-
-function buildGitHubSplitJobs(
-  baseJob: any,
-  jobs: { id: number; tests: string[] }[],
-  testCommand: string,
-): Record<string, any> {
-  const splitJobs: Record<string, any> = {};
-
-  for (const job of jobs) {
-    const clonedJob = JSON.parse(JSON.stringify(baseJob));
-
-    clonedJob.steps = clonedJob.steps.map((step: any) => {
-      if (
-        typeof step.run === 'string' &&
-        step.run.toLowerCase().includes('test')
-      ) {
-        return {
-          ...step,
-          run: `${testCommand} ${job.tests.join(' ')}`.trim(),
-        };
-      }
-      return step;
-    });
-
-    splitJobs[`job-${job.id}`] = clonedJob;
-  }
-
-  return splitJobs;
-}
-
-function buildGitLabSplitJobs(
-  baseJob: any,
-  jobs: { id: number; tests: string[] }[],
-  testCommand: string,
-): Record<string, any> {
-  const splitJobs: Record<string, any> = {};
-
-  for (const job of jobs) {
-    const clonedJob = JSON.parse(JSON.stringify(baseJob));
-
-    const scriptLines = Array.isArray(clonedJob.script)
-      ? clonedJob.script
-      : [clonedJob.script];
-
-    clonedJob.script = scriptLines.map((line: string) => {
-      if (line.toLowerCase().includes('test')) {
-        return `${testCommand} ${job.tests.join(' ')}`.trim();
-      }
-      return line;
-    });
-
-    splitJobs[`job-${job.id}`] = clonedJob;
-  }
-
-  return splitJobs;
-}
 
 function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
@@ -377,16 +221,6 @@ yargs(hideBin(process.argv))
       const outDir = path.dirname(outPath);
       const mavenBin = argv['maven-bin'] as string;
       const dryRun = argv['dry-run'] as boolean;
-      const existingCIPath = findExistingCIFile(platform);
-
-      let existingCIConfig: any = null;
-
-      if (existingCIPath) {
-        const raw = fs.readFileSync(existingCIPath, 'utf-8');
-        existingCIConfig = YAML.parse(raw);
-      }
-
-      const testJobs = findTestJobs(existingCIConfig, platform);
 
       if (!fs.existsSync(outDir)) {
         console.error(
@@ -425,70 +259,10 @@ yargs(hideBin(process.argv))
           tests: job.tasks.map((t: Task) => t.id),
         }));
 
-        let ciConfig: string;
-
-        if (platform === 'github' && existingCIConfig) {
-          const testJobs = findTestJobs(existingCIConfig, platform);
-          if (testJobs.length === 0) {
-            throw new Error(
-              'No test job found in existing GitHub Actions workflow',
-            );
-          }
-
-          const testCommands = extractTestCommands(
-            existingCIConfig,
-            platform,
-            testJobs,
-          );
-
-          const baseJobName = testJobs[0];
-          const baseJob = existingCIConfig.jobs[baseJobName];
-          const testCommand = testCommands[0];
-
-          const splitJobs = buildGitHubSplitJobs(baseJob, jobs, testCommand);
-
-          // Remove original test job
-          delete existingCIConfig.jobs[baseJobName];
-
-          // Inject split jobs
-          existingCIConfig.jobs = {
-            ...existingCIConfig.jobs,
-            ...splitJobs,
-          };
-
-          ciConfig = YAML.stringify(existingCIConfig);
-        } else if (platform === 'gitlab' && existingCIConfig) {
-          const testJobs = findTestJobs(existingCIConfig, platform);
-          if (testJobs.length === 0) {
-            throw new Error('No test job found in existing GitLab CI config');
-          }
-
-          const testCommands = extractTestCommands(
-            existingCIConfig,
-            platform,
-            testJobs,
-          );
-
-          const baseJobName = testJobs[0];
-          const baseJob = existingCIConfig[baseJobName];
-          const testCommand = testCommands[0];
-
-          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand);
-
-          // Remove original test job
-          delete existingCIConfig[baseJobName];
-
-          // Inject split jobs
-          Object.assign(existingCIConfig, splitJobs);
-
-          ciConfig = YAML.stringify(existingCIConfig);
-        } else {
-          // Fallback: no existing CI file
-          ciConfig =
-            platform === 'github'
-              ? generateGitHubActionsConfig(jobs, mavenBin)
-              : generateGitLabCIConfig(jobs, mavenBin);
-        }
+        const ciConfig =
+          platform === 'github'
+            ? generateGitHubActionsConfig(jobs, mavenBin)
+            : generateGitLabCIConfig(jobs, mavenBin);
 
         if (dryRun) {
           process.stdout.write(ciConfig);
