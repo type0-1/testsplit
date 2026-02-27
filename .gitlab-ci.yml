@@ -1,10 +1,24 @@
 stages:
+  - build
   - unit tests
   - integration tests
 
+typecheck_and_build:
+  stage: build
+  image: node:20.11.1-bullseye-slim
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+  before_script:
+    - npm ci
+  script:
+    - npm run typecheck
+    - npm run build
+
 unit_tests:
   stage: unit tests
-  image: node:20
+  image: node:20.11.1-bullseye-slim
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -16,7 +30,7 @@ unit_tests:
 
 integration_tests:
   stage: integration tests
-  image: node:20
+  image: node:20.11.1-bullseye-slim
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
