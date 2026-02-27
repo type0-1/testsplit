@@ -14,10 +14,6 @@ function parseYaml(yamlText: string): Record<string, unknown> {
 function validateGitHubSchema(yamlText: string): void {
   const config = parseYaml(yamlText);
 
-  if (!('name' in config)) {
-    throw new Error('GitHub Actions schema violation: missing top-level "name"');
-  }
-
   if (!('on' in config)) {
     throw new Error('GitHub Actions schema violation: missing top-level "on"');
   }
@@ -48,9 +44,32 @@ function validateGitLabSchema(yamlText: string): void {
     throw new Error('GitLab CI schema violation: "stages" must be a non-empty array');
   }
 
-  const jobEntries = Object.entries(config).filter(([key]) => key !== 'stages');
-  if (jobEntries.length === 0) {
-    throw new Error('GitLab CI schema violation: at least one job is required');
+  const hasJobWithScript = Object.entries(config).some(([key, value]) => {
+    if (key === 'stages') {
+      return false;
+    }
+
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      return false;
+    }
+
+    const script = (value as Record<string, unknown>).script;
+
+    if (typeof script === 'string') {
+      return script.trim().length > 0;
+    }
+
+    if (Array.isArray(script)) {
+      return script.length > 0;
+    }
+
+    return false;
+  });
+
+  if (!hasJobWithScript) {
+    throw new Error(
+      'GitLab CI schema violation: at least one job with "script" is required',
+    );
   }
 }
 

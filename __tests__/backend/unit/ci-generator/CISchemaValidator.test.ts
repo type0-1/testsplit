@@ -6,8 +6,7 @@ describe('CISchemaValidator', () => {
 
     expect(validator).not.toBeNull();
     expect(() =>
-      validator!.validate(`name: CI
-on: [push]
+      validator!.validate(`on: [push]
 jobs:
   job-1:
     runs-on: ubuntu-latest
@@ -49,6 +48,22 @@ job-1:
       validator!.validate(`stages:
   - test
 `),
-    ).toThrow('GitLab CI schema violation: at least one job is required');
+    ).toThrow(
+      'GitLab CI schema violation: at least one job with "script" is required',
+    );
+  });
+
+  test('detects GitLab jobs without script blocks', () => {
+    const validator = getSchemaValidator('gitlab');
+
+    expect(() =>
+      validator!.validate(`stages:
+  - test
+job-1:
+  stage: test
+`),
+    ).toThrow(
+      'GitLab CI schema violation: at least one job with "script" is required',
+    );
   });
 });
