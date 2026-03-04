@@ -16,7 +16,7 @@ import chalk from 'chalk';
 
 type Platform = 'github' | 'gitlab';
 
-function findExistingCIFile(platform: Platform): string | null {
+export function findExistingCIFile(platform: Platform): string | null {
   if (platform === 'github') {
     const workflowsDir = path.resolve('.github/workflows');
     if (!fs.existsSync(workflowsDir)) {
@@ -38,7 +38,7 @@ function findExistingCIFile(platform: Platform): string | null {
   return null;
 }
 
-function findTestJobs(config: any, platform: Platform): string[] {
+export function findTestJobs(config: any, platform: Platform): string[] {
   const testJobs: string[] = [];
   if (!config) return testJobs;
 
@@ -73,7 +73,7 @@ function findTestJobs(config: any, platform: Platform): string[] {
   return testJobs;
 }
 
-function extractTestCommands(
+export function extractTestCommands(
   config: any,
   platform: Platform,
   testJobs: string[],
@@ -115,7 +115,7 @@ function extractTestCommands(
   return commands;
 }
 
-function buildGitHubSplitJobs(
+export function buildGitHubSplitJobs(
   baseJob: any,
   jobs: { id: number; tests: string[] }[],
   testCommand: string,
@@ -144,7 +144,7 @@ function buildGitHubSplitJobs(
   return splitJobs;
 }
 
-function buildGitLabSplitJobs(
+export function buildGitLabSplitJobs(
   baseJob: any,
   jobs: { id: number; tests: string[] }[],
   testCommand: string,
