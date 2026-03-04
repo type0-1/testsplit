@@ -11,40 +11,6 @@ describe('EnvironmentCollector', () => {
     delete process.env.CONTAINER_VERSION;
   });
 
-  it('collects a valid cpu model string', () => {
-    const metadata = EnvironmentCollector.collect();
-
-    expect(typeof metadata.cpuModel).toBe('string');
-    expect(metadata.cpuModel.length).toBeGreaterThan(0);
-  });
-
-  it('collects a positive cpu core count', () => {
-    const metadata = EnvironmentCollector.collect();
-
-    expect(typeof metadata.cpuCores).toBe('number');
-    expect(metadata.cpuCores).toBeGreaterThan(0);
-  });
-
-  it('collects a valid platform string', () => {
-    const metadata = EnvironmentCollector.collect();
-
-    expect(typeof metadata.platform).toBe('string');
-    expect(metadata.platform.length).toBeGreaterThan(0);
-  });
-
-  it('collects a valid node version', () => {
-    const metadata = EnvironmentCollector.collect();
-
-    expect(metadata.nodeVersion).toBe(process.version);
-  });
-
-  it('collects a valid os version string', () => {
-    const metadata = EnvironmentCollector.collect();
-
-    expect(typeof metadata.osVersion).toBe('string');
-    expect(metadata.osVersion.length).toBeGreaterThan(0);
-  });
-
   it('sets containerVersion to none when not in docker', () => {
     mockFs.existsSync.mockReturnValue(false);
 

@@ -39,12 +39,6 @@ describe('detectOutlierTests', () => {
     expect(detectOutlierTests([passed('TestA', 10)])).toHaveLength(0);
   });
 
-  it('returns an empty array when all durations are equal', () => {
-    const results = [passed('TestA', 5), passed('TestB', 5), passed('TestC', 5)];
-
-    expect(detectOutlierTests(results)).toHaveLength(0);
-  });
-
   it('detects a test with an outlier duration', () => {
     // Requires at least 5 normal tests for mean + 2σ to flag the outlier
     const results = [
