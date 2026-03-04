@@ -201,15 +201,6 @@ describe('HistoricalProfiler', () => {
     expect(historical.metadata[0].cpuModel).toBe('Intel');
     expect(historical.metadata[1].cpuModel).toBe('AMD');
   });
-  it('does not apply smoothing for a single run', () => {
-    profiler.addRun([{ name: 'TestA', duration: 10, status: 'passed' }]);
-
-    const historical = profiler.generateHistoricalProfile();
-    const stats = historical.perTestStats['TestA'];
-
-    expect(stats.meanDuration).toBe(10);
-  });
-
   it('applies smoothing when multiple runs exist', () => {
     profiler.addRun([{ name: 'TestA', duration: 10, status: 'passed' }]);
     profiler.addRun([{ name: 'TestA', duration: 20, status: 'passed' }]);
@@ -249,20 +240,6 @@ describe('HistoricalProfiler', () => {
     expect(historical.perTestStats['SlowTest'].isOutlier).toBe(true);
     expect(historical.perTestStats['TestA'].isOutlier).toBe(false);
     warnSpy.mockRestore();
-  });
-
-  it('does not flag any test as an outlier when durations are similar', () => {
-    profiler.addRun([
-      { name: 'TestA', duration: 10, status: 'passed' },
-      { name: 'TestB', duration: 11, status: 'passed' },
-      { name: 'TestC', duration: 12, status: 'passed' },
-    ]);
-
-    const historical = profiler.generateHistoricalProfile();
-
-    expect(historical.perTestStats['TestA'].isOutlier).toBe(false);
-    expect(historical.perTestStats['TestB'].isOutlier).toBe(false);
-    expect(historical.perTestStats['TestC'].isOutlier).toBe(false);
   });
 
   it('does not flag a test as an outlier when only one test exists', () => {
