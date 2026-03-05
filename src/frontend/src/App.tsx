@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { Gauge, Timer, Share2, AlertTriangle } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import './App.css'
+import Overview from './pages/Overview'
 
 type Page = 'overview' | 'durations' | 'scheduling' | 'instability'
 
@@ -13,10 +14,10 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { id: 'overview',     label: 'Overview',     icon: Gauge },
-  { id: 'durations',    label: 'Durations',    icon: Timer },
-  { id: 'scheduling',   label: 'Scheduling',   icon: Share2 },
-  { id: 'instability',  label: 'Instability',  icon: AlertTriangle },
+  { id: 'overview', label: 'Overview', icon: Gauge },
+  { id: 'durations', label: 'Durations', icon: Timer },
+  { id: 'scheduling', label: 'Scheduling', icon: Share2 },
+  { id: 'instability', label: 'Instability', icon: AlertTriangle },
 ]
 
 interface SidebarProps {
@@ -164,9 +165,9 @@ export default function App() {
             transition={{ duration: 0.15, ease: 'easeOut' }}
             className="h-full"
           >
-            {page === 'overview'    && <ComingSoon title="Overview" />}
-            {page === 'durations'   && <ComingSoon title="Durations" />}
-            {page === 'scheduling'  && <ComingSoon title="Scheduling" />}
+            {page === 'overview' && <Overview/>}
+            {page === 'durations' && <ComingSoon title="Durations" />}
+            {page === 'scheduling' && <ComingSoon title="Scheduling" />}
             {page === 'instability' && <ComingSoon title="Instability" />}
           </motion.div>
         </AnimatePresence>
