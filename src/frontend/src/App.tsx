@@ -4,6 +4,7 @@ import { Gauge, Timer, Share2, AlertTriangle } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import './App.css'
 import Overview from './pages/Overview'
+import { Durations } from './pages/Durations'
 
 type Page = 'overview' | 'durations' | 'scheduling' | 'instability'
 
@@ -166,7 +167,7 @@ export default function App() {
             className="h-full"
           >
             {page === 'overview' && <Overview/>}
-            {page === 'durations' && <ComingSoon title="Durations" />}
+            {page === 'durations' && <Durations />}
             {page === 'scheduling' && <ComingSoon title="Scheduling" />}
             {page === 'instability' && <ComingSoon title="Instability" />}
           </motion.div>
