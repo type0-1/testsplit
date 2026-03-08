@@ -22,7 +22,7 @@ app.get('/api/summary', async (_req, reply) => {
     : [];
 
   return {
-    totalTests: historical?.totalTests ?? latest?.testCount ?? 0,
+    totalTests: perTestStats.length > 0 ? perTestStats.length : (latest?.testCount ?? 0),
     runCount: historical?.runCount ?? 0,
     avgDuration: historical?.averageTestDuration ?? latest?.averageDuration ?? 0,
     unstableCount: perTestStats.filter(t => t.unstable).length,
