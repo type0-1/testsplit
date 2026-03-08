@@ -1,5 +1,6 @@
 import { TestResult } from '../../models/TestResult';
 import { ProfileMetadata } from '../model/Profile';
+import { computeOutlierThreshold } from '../../utils/stats';
 
 export function validateResults(results: TestResult[]): void {
   if (!Array.isArray(results) || results.length === 0) {
@@ -17,17 +18,10 @@ export function flagZeroDurationTests(results: TestResult[]): TestResult[] {
   return results.filter((r) => r.duration === 0);
 }
 
+// Outlier detection logic: see computeOutlierThreshold in utils/stats.ts
 export function detectOutlierTests(results: TestResult[]): string[] {
-  if (results.length < 2) return [];
-
-  const durations = results.map((r) => r.duration);
-  const mean = durations.reduce((sum, d) => sum + d, 0) / durations.length;
-  const variance = durations.reduce((sum, d) => sum + Math.pow(d - mean, 2), 0) / durations.length;
-  const stdDev = Math.sqrt(variance);
-
-  if (stdDev === 0) return [];
-
-  return results.filter((r) => r.duration > mean + 2 * stdDev).map((r) => r.name);
+  const threshold = computeOutlierThreshold(results.map((r) => r.duration));
+  return results.filter((r) => r.duration > threshold).map((r) => r.name);
 }
 
 export function validateCommitPresence(metadata: ProfileMetadata): void {

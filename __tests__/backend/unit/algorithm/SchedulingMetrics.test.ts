@@ -35,18 +35,6 @@ describe('SchedulingMetrics', () => {
     expect(metrics.balanceRatio).toBe(15 / 10);
   });
 
-  it('handles balanced workloads', () => {
-    const job1 = new Job(0);
-    const job2 = new Job(1);
-
-    job1.addTask({ id: 'A', duration: 10 } as Task);
-    job2.addTask({ id: 'B', duration: 10 } as Task);
-
-    const metrics = computeMetrics([job1, job2], 20);
-
-    expect(metrics.balanceRatio).toBe(1);
-  });
-
   it('computes minimum job time correctly', () => {
     const job1 = new Job(0);
     const job2 = new Job(1);

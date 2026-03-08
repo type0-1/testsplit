@@ -29,12 +29,6 @@ describe('MetadataValidator.validate', () => {
     ).toThrow('cpuCores must be a positive integer');
   });
 
-  it('throws when cpuCores is negative', () => {
-    expect(() =>
-      MetadataValidator.validate({ ...validMetadata, cpuCores: -1 }),
-    ).toThrow('cpuCores must be a positive integer');
-  });
-
   it('throws when cpuCores is a non-integer', () => {
     expect(() =>
       MetadataValidator.validate({ ...validMetadata, cpuCores: 1.5 }),

@@ -3,6 +3,19 @@ import { Profile } from '../model/Profile';
 import { TestResult } from '../../models/TestResult';
 import { HistoricalProfile } from '../../models/HistoricalProfile';
 import { HistoricalTestStats } from '../../models/HistoricalTestStats';
+import { computeOutlierThreshold } from '../../utils/stats';
+
+/**
+ * References:
+ *  Smoothing Factor inspired by Forecasting: Principles and Practices (https://robjhyndman.com/uwafiles/fpp-notes.pdf)
+ *  - We use the smoothing factor (page 35) uses the following formula: (alpha*curr_value) + ((1-alpha)*prev_smoothed_val)), 
+ *  0.6 is not the final value, but just used to give more weignt to recent runs while considering historical data.
+ * 
+ *  Instability Threshold inspired by Coefficient of Variation (https://personal.utdallas.edu/~herve/abdi-cv2010-pretty.pdf)
+ * - We consider a test unstable if its coefficient of variation exceeds 0.5, indicating that the std is half the mean, meaning test dur. is highly relative to its avg.
+ *
+ *  Outlier Detection: see computeOutlierThreshold in utils/stats.ts
+ */
 export class HistoricalProfiler extends Profiler {
   private static readonly INSTABILITY_THRESHOLD = 0.5;
   private static readonly SMOOTHING_FACTOR = 0.6;
@@ -64,18 +77,12 @@ export class HistoricalProfiler extends Profiler {
           (1 - HistoricalProfiler.SMOOTHING_FACTOR) * previousMean;
       }
 
-      const variance =
-        runCount === 0
-          ? 0
-          : durations.reduce((sum, d) => sum + Math.pow(d - mean, 2), 0) /
-            runCount;
+      const variance = runCount === 0 ? 0 : durations.reduce((sum, d) => sum + Math.pow(d - mean, 2), 0) / runCount;
       const stdDev = Math.sqrt(variance);
       const min = runCount === 0 ? 0 : Math.min(...durations);
       const max = runCount === 0 ? 0 : Math.max(...durations);
       const coefficientOfVariation = mean > 0 ? stdDev / mean : 0;
-      const unstable =
-        coefficientOfVariation > HistoricalProfiler.INSTABILITY_THRESHOLD;
-
+      const unstable = coefficientOfVariation > HistoricalProfiler.INSTABILITY_THRESHOLD;
       const zeroDuration = durations.some((d) => d === 0);
 
       stats[testName] = {
@@ -94,17 +101,12 @@ export class HistoricalProfiler extends Profiler {
     }
 
     const means = Object.values(stats).map((s) => s.meanDuration);
-    
     if (means.length > 1) {
-      const suiteMean = means.reduce((sum, m) => sum + m, 0) / means.length;
-      const suiteVariance = means.reduce((sum, m) => sum + Math.pow(m - suiteMean, 2), 0) / means.length;
-      const suiteStdDev = Math.sqrt(suiteVariance);
-      const outlierThreshold = suiteMean + 2 * suiteStdDev;
+      const outlierThreshold = computeOutlierThreshold(means);
 
       for (const s of Object.values(stats)) {
         s.isOutlier = s.meanDuration > outlierThreshold;
       }
-
     }
 
     return stats;
