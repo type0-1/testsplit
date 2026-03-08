@@ -5,6 +5,7 @@ import type { LucideIcon } from 'lucide-react'
 import './App.css'
 import Overview from './pages/Overview'
 import { Durations } from './pages/Durations'
+import { Scheduling } from './pages/Scheduling'
 
 type Page = 'overview' | 'durations' | 'scheduling' | 'instability'
 
@@ -173,7 +174,7 @@ export default function App() {
           >
             {page === 'overview' && <Overview/>}
             {page === 'durations' && <Durations />}
-            {page === 'scheduling' && <ComingSoon title="Scheduling" />}
+            {page === 'scheduling' && <Scheduling />}
             {page === 'instability' && <ComingSoon title="Instability" />}
           </motion.div>
         </AnimatePresence>
