@@ -13,6 +13,9 @@ type Page = 'overview' | 'durations' | 'scheduling' | 'instability'
 /**
  * References: 
  * https://www.youtube.com/watch?v=B7k5rOgmOGY
+ * 
+ * TODO: Integrate a Fastify API client to fetch real data from the backend and replace mock data in the frontend.
+ * side note: (include pagination for large testsuites, CORS, env variables, etc.)
  */
 
 interface NavItem {
