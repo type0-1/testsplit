@@ -8,6 +8,7 @@ import { Profile } from '../profiler/model/Profile';
 import { DISTRIBUTION_SCHEMA_VERSION } from './SchemaVersions';
 import { HistoricalDelta } from '../models/HistoricalDelta';
 import { StoredHistoricalDelta } from '../models/StoredHistoricalDelta';
+import { HistoricalProfile } from '../models/HistoricalProfile';
 
 const DELTAS_DIR = 'history/deltas';
 const MAX_UNCOMPRESSED_DELTAS = 50;
@@ -132,6 +133,43 @@ export class FileStore {
     }
 
     return results;
+  }
+
+  loadHistoricalProfile(): HistoricalProfile | null {
+    const filePath = historicalProfilePath(this.baseDir);
+
+    if (!fs.existsSync(filePath)) {
+      return null;
+    }
+
+    try {
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      return JSON.parse(raw) as HistoricalProfile;
+    } catch {
+      return null;
+    }
+  }
+
+  loadLatestDistribution(): unknown | null {
+    const dir = distributionsDir(this.baseDir);
+
+    if (!fs.existsSync(dir)) {
+      return null;
+    }
+
+    const files = fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort();
+
+    if (files.length === 0) {
+      return null;
+    }
+
+    try {
+      const raw = fs.readFileSync(path.join(dir, files[files.length - 1]), 'utf-8');
+      const parsed = JSON.parse(raw);
+      return parsed.distribution ?? parsed;
+    } catch {
+      return null;
+    }
   }
 
   loadProfiles(): Profile[] {
