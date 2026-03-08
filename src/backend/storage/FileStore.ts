@@ -192,7 +192,7 @@ export class FileStore {
       try {
         const raw = fs.readFileSync(fullPath, 'utf-8');
         const parsed = JSON.parse(raw);
-        const profile: Profile | undefined = parsed && typeof parsed.schemaVersion === 'number' ? parsed.profile : parsed;
+        const profile: Profile | undefined = parsed?.profile ?? parsed;
 
         if (!profile) {
           continue;
