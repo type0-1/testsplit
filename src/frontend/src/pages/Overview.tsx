@@ -69,7 +69,7 @@ function StatPanel({ label, value, format, sub, rail, active, delay, last }: Sta
       <div className="metric-value" aria-live="polite" style={{ fontSize: '2.1rem', lineHeight: 1, color: 'var(--g7)' }}>
         {format(animated)}
       </div>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.56rem', color: 'var(--g5)', marginTop: '0.55rem', letterSpacing: '0.05em' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.56rem', color: 'var(--g6)', marginTop: '0.55rem', letterSpacing: '0.05em' }}>
         {sub}
       </div>
     </div>

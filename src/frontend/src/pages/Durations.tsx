@@ -54,7 +54,7 @@ function TestRow({ test, index }: { test: TestStat; index: number }) {
     >
       <div style={{ width: 180, flexShrink: 0 }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--g7)', lineHeight: 1.3 }}>{method}</div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', color: 'var(--g5)', lineHeight: 1.3 }}>{cls}</div>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', color: 'var(--g6)', lineHeight: 1.3 }}>{cls}</div>
       </div>
 
       <div style={{ flex: 1, height: 16, background: 'var(--g3)', position: 'relative', overflow: 'hidden' }}>
@@ -100,7 +100,7 @@ function HistogramPanel() {
         <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.57rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--g6)' }}>
           Distribution
         </span>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g5)', marginLeft: 'auto' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)', marginLeft: 'auto' }}>
           {ALL_TESTS.length} tests
         </span>
       </div>
@@ -108,7 +108,7 @@ function HistogramPanel() {
       <div className="flex items-end gap-3 px-5 py-3" style={{ height: 100 }}>
         {counts.map((b, i) => (
           <div key={b.label} className="flex flex-col items-center gap-1" style={{ flex: 1 }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: '0.55rem', color: b.count > 0 ? 'var(--cyan)' : 'var(--g4)' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: '0.55rem', color: b.count > 0 ? 'var(--cyan)' : 'var(--g5)' }}>
               {b.count}
             </span>
             <div style={{ width: '100%', height: 60, display: 'flex', alignItems: 'flex-end' }}>
@@ -122,7 +122,7 @@ function HistogramPanel() {
                 />
               </div>
             </div>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.48rem', color: 'var(--g5)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.48rem', color: 'var(--g6)', textAlign: 'center', whiteSpace: 'nowrap' }}>
               {b.label}
             </span>
           </div>
@@ -182,13 +182,13 @@ export function Durations() {
               <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.57rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--g6)' }}>{p.label}</span>
             </div>
             <div className="metric-value" style={{ fontSize: '2.1rem', lineHeight: 1, color: 'var(--g7)' }}>{p.value}</div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.56rem', color: 'var(--g5)', marginTop: '0.55rem', letterSpacing: '0.05em' }}>{p.sub}</div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.56rem', color: 'var(--g6)', marginTop: '0.55rem', letterSpacing: '0.05em' }}>{p.sub}</div>
           </div>
         ))}
       </section>
 
       <div className="flex items-center gap-2 px-5 py-2 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g5)', marginRight: 4 }}>sort</span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)', marginRight: 4 }}>sort</span>
         {SORT_BUTTONS.map(btn => {
           const active = sortKey === btn.key
           return (
