@@ -6,6 +6,7 @@ import './App.css'
 import Overview from './pages/Overview'
 import { Durations } from './pages/Durations'
 import { Scheduling } from './pages/Scheduling'
+import { Instability } from './pages/Instability'
 
 type Page = 'overview' | 'durations' | 'scheduling' | 'instability'
 
@@ -129,33 +130,6 @@ function Sidebar({ page, onNavigate }: SidebarProps) {
   )
 }
 
-function ComingSoon({ title }: { title: string }) {
-  return (
-    <div className="flex items-center justify-center h-full">
-      <div className="text-center">
-        <p style={{
-          fontFamily: 'var(--font-display)',
-          fontWeight: 600,
-          fontSize: '0.7rem',
-          letterSpacing: '0.2em',
-          textTransform: 'uppercase',
-          color: 'var(--g5)',
-        }}>
-          {title}
-        </p>
-        <p style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.6rem',
-          color: 'var(--g5)',
-          marginTop: '0.5rem',
-        }}>
-          — in progress —
-        </p>
-      </div>
-    </div>
-  )
-}
-
 export default function App() {
   const [page, setPage] = useState<Page>('overview')
 
@@ -175,7 +149,7 @@ export default function App() {
             {page === 'overview' && <Overview/>}
             {page === 'durations' && <Durations />}
             {page === 'scheduling' && <Scheduling />}
-            {page === 'instability' && <ComingSoon title="Instability" />}
+            {page === 'instability' && <Instability />}
           </motion.div>
         </AnimatePresence>
       </main>
