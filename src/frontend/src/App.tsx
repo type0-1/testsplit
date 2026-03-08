@@ -8,6 +8,11 @@ import { Durations } from './pages/Durations'
 
 type Page = 'overview' | 'durations' | 'scheduling' | 'instability'
 
+/**
+ * References: 
+ * https://www.youtube.com/watch?v=B7k5rOgmOGY
+ */
+
 interface NavItem {
   id: Page
   label: string

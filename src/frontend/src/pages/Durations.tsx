@@ -6,6 +6,15 @@ import type { TestStat } from '@/data/mockData'
 const ALL_TESTS = Object.values(MOCK_TEST_STATS)
 const MAX_DURATION = Math.max(...ALL_TESTS.map(t => t.meanDuration))
 
+const BUCKETS = [
+  { label: '< 0.1s', min: 0, max: 0.1 },
+  { label: '0.1 - 0.5s', min: 0.1, max: 0.5 },
+  { label: '0.5 - 1s', min: 0.5, max: 1 },
+  { label: '1 - 2s', min: 1, max: 2 },
+  { label: '2 - 5s', min: 2, max: 5 },
+  { label: '> 5s', min: 5, max: Infinity },
+]
+
 function testColor(t: TestStat): string {
   if (t.isOutlier) return 'var(--orange)'
   if (t.unstable) return 'var(--amber)'
@@ -72,6 +81,52 @@ function TestRow({ test, index }: { test: TestStat; index: number }) {
         <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: '0.62rem', color, width: 48, textAlign: 'right' }}>
           {test.meanDuration.toFixed(2)}s
         </span>
+      </div>
+    </div>
+  )
+}
+
+function HistogramPanel() {
+  const counts = BUCKETS.map(b => ({
+    ...b,
+    count: ALL_TESTS.filter(t => t.meanDuration >= b.min && t.meanDuration < b.max).length,
+  }))
+  const maxCount = Math.max(...counts.map(b => b.count))
+
+  return (
+    <div className="shrink-0" style={{ borderTop: '1px solid var(--g4)' }}>
+      <div className="flex items-center gap-2 px-5 py-2" style={{ borderBottom: '1px solid var(--g4)' }}>
+        <div style={{ width: 2, height: 10, background: 'var(--cyan)', flexShrink: 0 }} />
+        <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.57rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--g6)' }}>
+          Distribution
+        </span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g5)', marginLeft: 'auto' }}>
+          {ALL_TESTS.length} tests
+        </span>
+      </div>
+
+      <div className="flex items-end gap-3 px-5 py-3" style={{ height: 100 }}>
+        {counts.map((b, i) => (
+          <div key={b.label} className="flex flex-col items-center gap-1" style={{ flex: 1 }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: '0.55rem', color: b.count > 0 ? 'var(--cyan)' : 'var(--g4)' }}>
+              {b.count}
+            </span>
+            <div style={{ width: '100%', height: 60, display: 'flex', alignItems: 'flex-end' }}>
+              <div style={{ width: '100%', background: 'var(--g3)', position: 'relative', overflow: 'hidden' }}>
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: maxCount === 0 ? 0 : (b.count / maxCount) * 60 }}
+                  transition={{ duration: 0.5, delay: 0.06 * i, ease: 'easeOut' }}
+                  style={{ width: '100%', background: 'var(--cyan-dim)', borderTop: '2px solid var(--cyan)' }}
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.48rem', color: 'var(--g5)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+              {b.label}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   )
@@ -156,10 +211,13 @@ export function Durations() {
         })}
       </div>
 
-      <div className="flex-1 overflow-auto" style={{ minHeight: 0 }} role="table" aria-label="Test durations">
-        {sorted.map((test, i) => (
-          <TestRow key={test.testName} test={test} index={i} />
-        ))}
+      <div className="flex flex-col flex-1 overflow-hidden" style={{ minHeight: 0 }}>
+        <div className="flex-1 overflow-auto" role="table" aria-label="Test durations">
+          {sorted.map((test, i) => (
+            <TestRow key={test.testName} test={test} index={i} />
+          ))}
+        </div>
+        <HistogramPanel />
       </div>
     </div>
   )
