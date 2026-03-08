@@ -156,7 +156,10 @@ export function Durations() {
       <header className="flex items-center justify-between px-5 py-3 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
         <div className="flex items-center gap-3">
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--g7)' }}>Durations</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g5)', letterSpacing: '0.05em' }}>/ Per-Test Breakdown</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', letterSpacing: '0.05em' }}>
+            <span style={{ color: 'var(--orange)' }}>/</span>
+            <span style={{ color: 'var(--g6)' }}> Per-Test Breakdown</span>
+          </span>
         </div>
         <div className="flex items-center gap-4">
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)' }}>Last run: 2026-01-19</span>

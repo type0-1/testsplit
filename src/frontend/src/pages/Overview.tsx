@@ -323,8 +323,9 @@ export default function Overview() {
           }}>
             Overview
           </span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g5)', letterSpacing: '0.05em' }}>
-            / System Calibration
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', letterSpacing: '0.05em' }}>
+            <span style={{ color: 'var(--orange)' }}>/</span>
+            <span style={{ color: 'var(--g6)' }}> System Calibration</span>
           </span>
         </div>
         <div className="flex items-center gap-4">
