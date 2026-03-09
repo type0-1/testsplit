@@ -49,7 +49,7 @@ export async function buildApp() {
     const limitN = Math.min(parseInt(limit, 10) || 100, 500);
     const offsetN = parseInt(offset, 10) || 0;
 
-    let tests = Object.values(historical.perTestStats) as HistoricalTestStats[];
+    const tests = Object.values(historical.perTestStats) as HistoricalTestStats[];
 
     if (sort === 'cv') {
       tests.sort((a, b) => b.coefficientOfVariation - a.coefficientOfVariation);
