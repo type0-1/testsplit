@@ -145,12 +145,20 @@ describe('TestSplitEngine', () => {
       expect(mockStoreInstance.saveDistribution).toHaveBeenCalledWith('2026-01-01T00-00-00-000Z', mockDistribution);
     });
 
+    it('saves historical profile when persist=true', () => {
+      const engine = new TestSplitEngine('/tmp/test');
+      engine.run('tests.xml', 2, true);
+
+      expect(mockStoreInstance.saveHistoricalProfile).toHaveBeenCalledWith(mockHistoricalProfile);
+    });
+
     it('does not save when persist=false', () => {
       const engine = new TestSplitEngine('/tmp/test');
       engine.run('tests.xml', 2, false);
 
       expect(mockStoreInstance.saveProfile).not.toHaveBeenCalled();
       expect(mockStoreInstance.saveDistribution).not.toHaveBeenCalled();
+      expect(mockStoreInstance.saveHistoricalProfile).not.toHaveBeenCalled();
     });
   });
 });
