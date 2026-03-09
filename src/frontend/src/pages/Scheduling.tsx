@@ -1,9 +1,10 @@
 import { motion } from 'motion/react'
-import { MOCK_SUMMARY, MOCK_JOBS } from '@/data/mockData'
+import { useApi } from '@/hooks/useApi'
+import type { SummaryResponse, JobsResponse } from '@/types/api'
 
-const MAX_JOB_TIME = Math.max(...MOCK_JOBS.map(j => j.totalTime))
+function JobBarsPanel({ jobs, makespan, balanceRatio }: { jobs: { jobId: number; totalTime: number; tests: string[] }[]; makespan: number; balanceRatio: number }) {
+  const maxJobTime = Math.max(...jobs.map(j => j.totalTime), 1)
 
-function JobBarsPanel() {
   return (
     <div className="flex flex-col flex-1 overflow-auto" style={{ minHeight: 0 }}>
       <div className="flex items-center gap-2 px-5 py-3 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
@@ -12,14 +13,14 @@ function JobBarsPanel() {
           Job Distribution
         </span>
         <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)', marginLeft: 'auto' }}>
-          makespan {MOCK_SUMMARY.makespan.toFixed(2)}s · {Math.round(MOCK_SUMMARY.balanceRatio * 100)}% balance
+          makespan {makespan.toFixed(2)}s · {Math.round(balanceRatio * 100)}% balance
         </span>
       </div>
 
       <div className="flex flex-col gap-3 px-5 py-5" role="list">
-        {MOCK_JOBS.map((job, i) => {
-          const isSlowest = job.totalTime === MAX_JOB_TIME
-          const pct = (job.totalTime / MOCK_SUMMARY.makespan) * 100
+        {jobs.map((job, i) => {
+          const isSlowest = job.totalTime === maxJobTime
+          const pct = makespan > 0 ? (job.totalTime / makespan) * 100 : 0
           const color = isSlowest ? 'var(--amber)' : 'var(--cyan)'
           const colorDim = isSlowest ? 'var(--amber-dim)' : 'var(--cyan-dim)'
 
@@ -76,6 +77,12 @@ function JobBarsPanel() {
 }
 
 export function Scheduling() {
+  const { data: summary } = useApi<SummaryResponse>('/api/summary')
+  const { data: jobsData } = useApi<JobsResponse>('/api/jobs')
+
+  const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
+  const jobs = jobsData?.jobs ?? []
+
   return (
     <div className="flex flex-col h-full overflow-hidden" aria-label="Scheduling">
       <header className="flex items-center justify-between px-5 py-3 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
@@ -87,19 +94,21 @@ export function Scheduling() {
           </span>
         </div>
         <div className="flex items-center gap-4">
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)' }}>Last run: 2026-01-19</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)' }}>
+            {jobs.length > 0 ? `${jobs.length} jobs` : 'Loading…'}
+          </span>
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.52rem', letterSpacing: '0.1em', color: 'var(--cyan)', background: 'var(--cyan-dim)', border: '1px solid var(--cyan)', padding: '2px 7px' }}>
-            {MOCK_JOBS.length} JOBS
+            {jobs.length} JOBS
           </span>
         </div>
       </header>
 
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
         {[
-          { label: 'Makespan', value: `${MOCK_SUMMARY.makespan.toFixed(2)}s`, sub: 'critical path duration', rail: 'var(--cyan)' },
-          { label: 'Speed-up', value: `${MOCK_SUMMARY.speedupFactor.toFixed(2)}×`, sub: `vs ${MOCK_SUMMARY.sequentialDuration.toFixed(2)}s sequential`, rail: 'var(--green)' },
-          { label: 'Balance', value: `${Math.round(MOCK_SUMMARY.balanceRatio * 100)}%`, sub: 'load balance ratio', rail: 'var(--amber)' },
-          { label: 'Parallel Jobs', value: `${MOCK_JOBS.length}`, sub: `${MOCK_SUMMARY.totalTests} tests distributed`, rail: 'var(--g5)' },
+          { label: 'Makespan', value: `${s.makespan.toFixed(2)}s`, sub: 'critical path duration', rail: 'var(--cyan)' },
+          { label: 'Speed-up', value: `${s.speedupFactor.toFixed(2)}×`, sub: `vs ${s.sequentialDuration.toFixed(2)}s sequential`, rail: 'var(--green)' },
+          { label: 'Balance', value: `${Math.round(s.balanceRatio * 100)}%`, sub: 'load balance ratio', rail: 'var(--amber)' },
+          { label: 'Parallel Jobs', value: `${jobs.length}`, sub: `${s.totalTests} tests distributed`, rail: 'var(--g5)' },
         ].map((p, i, arr) => (
           <div key={p.label} className="flex flex-col justify-between p-4" style={{ borderRight: i === arr.length - 1 ? 'none' : '1px solid var(--g4)' }}>
             <div className="flex items-center gap-2 mb-4">
@@ -112,7 +121,9 @@ export function Scheduling() {
         ))}
       </section>
 
-      <JobBarsPanel />
+      {jobs.length > 0 && (
+        <JobBarsPanel jobs={jobs} makespan={s.makespan} balanceRatio={s.balanceRatio} />
+      )}
     </div>
   )
 }

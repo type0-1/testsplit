@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
-import { MOCK_TEST_STATS, MOCK_SUMMARY } from '@/data/mockData'
-import type { TestStat } from '@/data/mockData'
-
-const ALL_TESTS = Object.values(MOCK_TEST_STATS)
-const MAX_DURATION = Math.max(...ALL_TESTS.map(t => t.meanDuration))
+import { useApi } from '@/hooks/useApi'
+import type { SummaryResponse, TestsResponse, TestStat } from '@/types/api'
 
 const BUCKETS = [
   { label: '< 0.1s', min: 0, max: 0.1 },
@@ -39,10 +36,10 @@ function sortTests(tests: TestStat[], key: SortKey, asc: boolean): TestStat[] {
   })
 }
 
-function TestRow({ test, index }: { test: TestStat; index: number }) {
+function TestRow({ test, index, maxDuration }: { test: TestStat; index: number; maxDuration: number }) {
   const cls = test.testName.includes('.') ? test.testName.substring(0, test.testName.lastIndexOf('.')) : ''
   const method = test.testName.split('.').pop() ?? test.testName
-  const barPct = (test.meanDuration / MAX_DURATION) * 100
+  const barPct = maxDuration > 0 ? (test.meanDuration / maxDuration) * 100 : 0
   const color = testColor(test)
   const colorDim = testColorDim(test)
 
@@ -61,7 +58,7 @@ function TestRow({ test, index }: { test: TestStat; index: number }) {
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${barPct}%` }}
-          transition={{ duration: 0.5, delay: 0.05 * index, ease: 'easeOut' }}
+          transition={{ duration: 0.5, delay: 0.05 * Math.min(index, 20), ease: 'easeOut' }}
           style={{ position: 'absolute', left: 0, top: 0, bottom: 0, background: colorDim, borderRight: `2px solid ${color}` }}
           aria-hidden="true"
         />
@@ -86,12 +83,12 @@ function TestRow({ test, index }: { test: TestStat; index: number }) {
   )
 }
 
-function HistogramPanel() {
+function HistogramPanel({ tests }: { tests: TestStat[] }) {
   const counts = BUCKETS.map(b => ({
     ...b,
-    count: ALL_TESTS.filter(t => t.meanDuration >= b.min && t.meanDuration < b.max).length,
+    count: tests.filter(t => t.meanDuration >= b.min && t.meanDuration < b.max).length,
   }))
-  const maxCount = Math.max(...counts.map(b => b.count))
+  const maxCount = Math.max(...counts.map(b => b.count), 1)
 
   return (
     <div className="shrink-0" style={{ borderTop: '1px solid var(--g4)' }}>
@@ -101,7 +98,7 @@ function HistogramPanel() {
           Distribution
         </span>
         <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)', marginLeft: 'auto' }}>
-          {ALL_TESTS.length} tests
+          {tests.length} tests
         </span>
       </div>
 
@@ -115,7 +112,7 @@ function HistogramPanel() {
               <div style={{ width: '100%', background: 'var(--g3)', position: 'relative', overflow: 'hidden' }}>
                 <motion.div
                   initial={{ height: 0 }}
-                  animate={{ height: maxCount === 0 ? 0 : (b.count / maxCount) * 60 }}
+                  animate={{ height: (b.count / maxCount) * 60 }}
                   transition={{ duration: 0.5, delay: 0.06 * i, ease: 'easeOut' }}
                   style={{ width: '100%', background: 'var(--cyan-dim)', borderTop: '2px solid var(--cyan)' }}
                   aria-hidden="true"
@@ -133,12 +130,17 @@ function HistogramPanel() {
 }
 
 export function Durations() {
-  const fastest = ALL_TESTS.reduce((a, b) => a.meanDuration < b.meanDuration ? a : b)
-  const slowest = ALL_TESTS.reduce((a, b) => a.meanDuration > b.meanDuration ? a : b)
+  const { data: summary } = useApi<SummaryResponse>('/api/summary')
+  const { data: testsData } = useApi<TestsResponse>('/api/tests?sort=duration&limit=500')
   const [sortKey, setSortKey] = useState<SortKey>('duration')
   const [asc, setAsc] = useState(false)
 
-  const sorted = sortTests(ALL_TESTS, sortKey, asc)
+  const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
+  const allTests = testsData?.tests ?? []
+  const maxDuration = allTests.length > 0 ? Math.max(...allTests.map(t => t.meanDuration)) : 1
+  const fastest = allTests.length > 0 ? allTests.reduce((a, b) => a.meanDuration < b.meanDuration ? a : b) : null
+  const slowest = allTests.length > 0 ? allTests.reduce((a, b) => a.meanDuration > b.meanDuration ? a : b) : null
+  const sorted = sortTests(allTests, sortKey, asc)
 
   function handleSort(key: SortKey) {
     if (key === sortKey) setAsc(a => !a)
@@ -162,19 +164,21 @@ export function Durations() {
           </span>
         </div>
         <div className="flex items-center gap-4">
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)' }}>Last run: 2026-01-19</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)' }}>
+            {allTests.length > 0 ? `${allTests.length} tests loaded` : 'Loading…'}
+          </span>
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.52rem', letterSpacing: '0.1em', color: 'var(--orange)', background: 'var(--orange-dim)', border: '1px solid var(--orange)', padding: '2px 7px' }}>
-            {ALL_TESTS.length} TESTS
+            {allTests.length} TESTS
           </span>
         </div>
       </header>
 
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
         {[
-          { label: 'Total Tests', value: `${MOCK_SUMMARY.totalTests}`, sub: `across ${MOCK_SUMMARY.runCount} runs`, rail: 'var(--orange)' },
-          { label: 'Avg Duration', value: `${MOCK_SUMMARY.avgDuration.toFixed(2)}s`, sub: 'mean across all tests', rail: 'var(--g5)' },
-          { label: 'Slowest', value: `${slowest.meanDuration.toFixed(2)}s`, sub: slowest.testName.split('.').pop() ?? '', rail: 'var(--amber)' },
-          { label: 'Fastest', value: `${fastest.meanDuration.toFixed(2)}s`, sub: fastest.testName.split('.').pop() ?? '', rail: 'var(--green)' },
+          { label: 'Total Tests', value: `${s.totalTests}`, sub: `across ${s.runCount} runs`, rail: 'var(--orange)' },
+          { label: 'Avg Duration', value: `${s.avgDuration.toFixed(2)}s`, sub: 'mean across all tests', rail: 'var(--g5)' },
+          { label: 'Slowest', value: slowest ? `${slowest.meanDuration.toFixed(2)}s` : '—', sub: slowest?.testName.split('.').pop() ?? '', rail: 'var(--amber)' },
+          { label: 'Fastest', value: fastest ? `${fastest.meanDuration.toFixed(2)}s` : '—', sub: fastest?.testName.split('.').pop() ?? '', rail: 'var(--green)' },
         ].map((p, i, arr) => (
           <div key={p.label} className="flex flex-col justify-between p-4" style={{ borderRight: i === arr.length - 1 ? 'none' : '1px solid var(--g4)' }}>
             <div className="flex items-center gap-2 mb-4">
@@ -217,10 +221,10 @@ export function Durations() {
       <div className="flex flex-col flex-1 overflow-hidden" style={{ minHeight: 0 }}>
         <div className="flex-1 overflow-auto" role="table" aria-label="Test durations">
           {sorted.map((test, i) => (
-            <TestRow key={test.testName} test={test} index={i} />
+            <TestRow key={test.testName} test={test} index={i} maxDuration={maxDuration} />
           ))}
         </div>
-        <HistogramPanel />
+        <HistogramPanel tests={allTests} />
       </div>
     </div>
   )
