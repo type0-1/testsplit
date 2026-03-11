@@ -10,13 +10,16 @@ import { computeOutlierThreshold } from '../../utils/stats';
 /**
  * References:
  *  Smoothing Factor inspired by Forecasting: Principles and Practices (https://robjhyndman.com/uwafiles/fpp-notes.pdf)
- *  - We use the smoothing factor (page 35) uses the following formula: (alpha*curr_value) + ((1-alpha)*prev_smoothed_val)), 
+ *  - We use the smoothing factor (page 35) uses the formula: (alpha*curr_value) + ((1-alpha)*prev_smoothed_val)), 
  *  0.6 is not the final value, but just used to give more weignt to recent runs while considering historical data.
  * 
  *  Instability Threshold inspired by Coefficient of Variation (https://personal.utdallas.edu/~herve/abdi-cv2010-pretty.pdf)
- * - We consider a test unstable if its coefficient of variation exceeds 0.5, indicating that the std is half the mean, meaning test dur. is highly relative to its avg.
+ * - Consider a test unstable if its coefficient of variation exceeds 0.5, indicating that the std is half the mean, meaning test dur. is highly relative to its avg.
  *
  *  Outlier Detection: see computeOutlierThreshold in utils/stats.ts
+ * 
+ * - Regression Detection: (https://uen.pressbooks.pub/uvumqr/chapter/3-5-calculate-relative-change-as-a-percentage-increase-decrease/)
+ *   Rolling change/average: https://www.itl.nist.gov/div898/handbook/pmc/section4/pmc421.htm
  */
 export class HistoricalProfiler extends Profiler {
   private static readonly INSTABILITY_THRESHOLD = 0.5;
