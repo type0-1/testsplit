@@ -35,6 +35,7 @@ export class TestSplitEngine {
     if (persist) {
       this.store.saveProfile(runId, profile);
       this.store.saveDistribution(runId, distribution);
+      this.store.saveHistoricalProfile(this.profiler.generateHistoricalProfile());
     }
 
     return {

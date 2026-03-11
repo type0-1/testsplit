@@ -4,16 +4,8 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip as RechartsTooltip, ResponsiveContainer,
 } from 'recharts'
-import {
-  MOCK_SUMMARY, MOCK_TRENDS, MOCK_JOBS, MOCK_TEST_STATS,
-  TREND_KEYS, TREND_COLORS, TREND_KEY_LABELS,
-} from '@/data/mockData'
-import type { TrendKey } from '@/data/mockData'
-
-/*
-  TODO - extend both StatPanelProps and TooltipPayloadItem
-  as we add more pages and move away from mock data.
-*/
+import { useApi } from '@/hooks/useApi'
+import type { SummaryResponse, TestsResponse, JobsResponse, TrendsResponse, TestStat, TrendPoint } from '@/types/api'
 
 function useCountUp(target: number, active: boolean, delay = 0): number {
   const [val, setVal] = useState(0)
@@ -101,13 +93,11 @@ function ChartTooltip({ active, payload, label }: {
   )
 }
 
-// Instability panel (shows tests w/ high variation and outliers)
-function InstabilityPanel() {
-  const unstable = Object.values(MOCK_TEST_STATS).filter(t => t.unstable).sort((a, b) => b.coefficientOfVariation - a.coefficientOfVariation)
+function InstabilityPanel({ tests }: { tests: TestStat[] }) {
+  const unstable = tests.filter(t => t.unstable).sort((a, b) => b.coefficientOfVariation - a.coefficientOfVariation)
 
   return (
     <div className="flex flex-col h-full" style={{ borderLeft: '1px solid var(--g4)' }}>
-      {/* Header */}
       <div className="flex items-center gap-2 px-4 py-3" style={{ borderBottom: '1px solid var(--g4)' }}>
         <div style={{ width: 2, height: 10, background: 'var(--amber)', flexShrink: 0 }} />
         <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.57rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--g6)' }}>
@@ -118,7 +108,6 @@ function InstabilityPanel() {
         </span>
       </div>
 
-      {/* Entries */}
       <div className="flex-1 overflow-auto">
         {unstable.map(t => {
           const method = t.testName.split('.').pop() ?? t.testName
@@ -150,7 +139,6 @@ function InstabilityPanel() {
                 {cls}
               </div>
 
-              {/* Metrics row */}
               <div className="flex items-center gap-3">
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: 'var(--amber)' }}>
                   CV {(t.coefficientOfVariation * 100).toFixed(0)}%
@@ -163,7 +151,6 @@ function InstabilityPanel() {
                 </span>
               </div>
 
-              {/* Variance bar */}
               <div style={{ height: 2, background: 'var(--g3)', marginTop: '0.45rem', overflow: 'hidden' }}>
                 <motion.div
                   initial={{ width: 0 }}
@@ -180,30 +167,24 @@ function InstabilityPanel() {
   )
 }
 
-// Display distribution + critical path based on LPT scheduling of jobs 
-
-function JobDistributionPanel() {
-  const makespan = MOCK_SUMMARY.makespan
-  const maxTime = Math.max(...MOCK_JOBS.map(j => j.totalTime))
+function JobDistributionPanel({ jobs, makespan, balanceRatio }: { jobs: { jobId: number; totalTime: number; tests: string[] }[]; makespan: number; balanceRatio: number }) {
+  const maxTime = Math.max(...jobs.map(j => j.totalTime))
 
   return (
     <div style={{ borderTop: '1px solid var(--g4)', padding: '12px 16px 16px' }}>
-
-      {/* Header */}
       <div className="flex items-center gap-2 mb-3">
         <div style={{ width: 2, height: 10, background: 'var(--cyan)', flexShrink: 0 }} />
         <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.57rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--g6)' }}>
           LPT Job Distribution
         </span>
         <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)', marginLeft: 'auto' }}>
-          {MOCK_JOBS.length} parallel jobs · makespan {makespan.toFixed(2)}s ·{' '}
-          {Math.round(MOCK_SUMMARY.balanceRatio * 100)}% balance
+          {jobs.length} parallel jobs · makespan {makespan.toFixed(2)}s ·{' '}
+          {Math.round(balanceRatio * 100)}% balance
         </span>
       </div>
 
-      {/* Bars */}
       <div className="flex flex-col gap-1.5" role="list">
-        {MOCK_JOBS.map(job => {
+        {jobs.map(job => {
           const pct = (job.totalTime / makespan) * 100
           const isSlowest = job.totalTime === maxTime
           return (
@@ -262,28 +243,55 @@ function JobDistributionPanel() {
   )
 }
 
-// Overview Page (main content using the functions defined above)
+const TREND_LINES = [
+  { key: 'totalDuration', label: 'Total', color: 'var(--orange)' },
+  { key: 'averageDuration', label: 'Average', color: 'var(--cyan)' },
+] as const
+
+function formatRunLabel(runAt: string, index: number): string {
+  try {
+    return new Date(runAt).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })
+  } catch {
+    return `Run ${index + 1}`
+  }
+}
 
 export default function Overview() {
   const [calibrated, setCalibrated] = useState(false)
+  const { data: summary } = useApi<SummaryResponse>('/api/summary')
+  const { data: testsData } = useApi<TestsResponse>('/api/tests?sort=cv&limit=100')
+  const { data: jobsData } = useApi<JobsResponse>('/api/jobs')
+  const { data: trendsData } = useApi<TrendsResponse>('/api/trends?limit=20')
 
   useEffect(() => {
     const t = setTimeout(() => setCalibrated(true), 420)
     return () => clearTimeout(t)
   }, [])
 
+  const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
+  const tests = testsData?.tests ?? []
+  const jobs = jobsData?.jobs ?? []
+  const rawTrends = trendsData?.trends ?? []
+  const chartData = rawTrends.map((t: TrendPoint, i: number) => ({
+    run: formatRunLabel(t.runAt, i),
+    totalDuration: parseFloat(t.totalDuration.toFixed(2)),
+    averageDuration: parseFloat(t.averageDuration.toFixed(3)),
+  }))
+
+  const lastRun = rawTrends.length > 0 ? new Date(rawTrends[rawTrends.length - 1].runAt).toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }) : '—'
+
   const PANELS = [
     {
       label: 'Total Tests',
-      value: MOCK_SUMMARY.totalTests,
+      value: s.totalTests,
       format: (v: number) => String(Math.round(v)),
-      sub: `across ${MOCK_SUMMARY.runCount} profiling runs`,
+      sub: `across ${s.runCount} profiling runs`,
       rail: 'var(--orange)',
       delay: 0,
     },
     {
       label: 'Seq. Duration',
-      value: MOCK_SUMMARY.sequentialDuration,
+      value: s.sequentialDuration,
       format: (v: number) => `${v.toFixed(1)}s`,
       sub: 'unparallelised total',
       rail: 'var(--g5)',
@@ -291,17 +299,17 @@ export default function Overview() {
     },
     {
       label: 'Makespan',
-      value: MOCK_SUMMARY.makespan,
+      value: s.makespan,
       format: (v: number) => `${v.toFixed(2)}s`,
-      sub: 'critical path · 4 jobs',
+      sub: `critical path · ${jobs.length} jobs`,
       rail: 'var(--cyan)',
       delay: 240,
     },
     {
       label: 'Speed-up',
-      value: MOCK_SUMMARY.speedupFactor,
+      value: s.speedupFactor,
       format: (v: number) => `${v.toFixed(2)}×`,
-      sub: `${MOCK_SUMMARY.unstableCount} unstable · ${MOCK_SUMMARY.outlierCount} outlier`,
+      sub: `${s.unstableCount} unstable · ${s.outlierCount} outlier`,
       rail: 'var(--green)',
       delay: 360,
     },
@@ -310,7 +318,6 @@ export default function Overview() {
   return (
     <div className="flex flex-col h-full overflow-hidden" aria-label="Overview">
 
-      {/* Header */}
       <header className="flex items-center justify-between px-5 py-3 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
         <div className="flex items-center gap-3">
           <span style={{
@@ -330,7 +337,7 @@ export default function Overview() {
         </div>
         <div className="flex items-center gap-4">
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)' }}>
-            Last run: 2026-01-19
+            Last run: {lastRun}
           </span>
           <span style={{
             fontFamily: 'var(--font-display)',
@@ -342,31 +349,12 @@ export default function Overview() {
             border: '1px solid var(--orange)',
             padding: '2px 7px',
           }}>
-            RUN 5 / 5
+            RUN {s.runCount}
           </span>
         </div>
       </header>
 
-      {/*  Stat panels + scanline */}
       <section className="relative shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Key metrics">
-        {/* CI Scanline Calibration */}
-        <motion.div
-          aria-hidden="true"
-          initial={{ top: 0, opacity: 1 }}
-          animate={{ top: '100%', opacity: [1, 1, 0] }}
-          transition={{ duration: 0.7, ease: 'linear', times: [0, 0.85, 1] }}
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            height: 1,
-            background: 'linear-gradient(90deg, transparent 0%, var(--orange) 20%, var(--orange) 80%, transparent 100%)',
-            zIndex: 10,
-            pointerEvents: 'none',
-            boxShadow: '0 0 6px var(--orange)',
-          }}
-        />
-
         <div className="grid grid-cols-4">
           {PANELS.map((p, i) => (
             <StatPanel
@@ -379,10 +367,8 @@ export default function Overview() {
         </div>
       </section>
 
-      {/* Middle row: trend chart + instability  */}
       <div className="flex flex-1 overflow-hidden" style={{ minHeight: 0 }}>
 
-        {/* Duration trend chart */}
         <div className="flex flex-col flex-1 overflow-hidden" style={{ minWidth: 0 }}>
           <div className="flex items-center gap-2 px-5 py-3 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
             <div style={{ width: 2, height: 10, background: 'var(--orange)', flexShrink: 0 }} />
@@ -397,17 +383,16 @@ export default function Overview() {
               Duration Trend
             </span>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)', marginLeft: 'auto' }}>
-              top 5 tests - 5 runs
+              total & avg · last {chartData.length} runs
             </span>
           </div>
 
-          {/* Legend */}
           <div className="flex items-center gap-4 px-5 py-2 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
-            {TREND_KEYS.map(k => (
-              <div key={k} className="flex items-center gap-1.5">
-                <div style={{ width: 12, height: 2, background: TREND_COLORS[k as TrendKey] }} />
+            {TREND_LINES.map(l => (
+              <div key={l.key} className="flex items-center gap-1.5">
+                <div style={{ width: 12, height: 2, background: l.color }} />
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', color: 'var(--g6)' }}>
-                  {TREND_KEY_LABELS[k as TrendKey].split('.').pop()}
+                  {l.label}
                 </span>
               </div>
             ))}
@@ -415,20 +400,20 @@ export default function Overview() {
 
           <div className="flex-1 px-3 py-3" style={{ minHeight: 0 }}>
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={MOCK_TRENDS} margin={{ top: 4, right: 16, left: -16, bottom: 0 }}>
+              <LineChart data={chartData} margin={{ top: 4, right: 16, left: -16, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="2 4" stroke="var(--g4)" vertical={false} />
                 <XAxis dataKey="run" tick={{ fontFamily: 'var(--font-mono)', fontSize: 9, fill: 'var(--g6)' }} axisLine={{ stroke: 'var(--g4)' }} tickLine={false} />
                 <YAxis tick={{ fontFamily: 'var(--font-mono)', fontSize: 9, fill: 'var(--g6)' }} axisLine={false} tickLine={false} tickFormatter={(v: number) => `${v}s`} />
                 <RechartsTooltip content={<ChartTooltip />} cursor={{ stroke: 'var(--g5)', strokeWidth: 1, strokeDasharray: '3 3' }} />
-                {TREND_KEYS.map(k => (
+               {TREND_LINES.map(l => (
                   <Line
-                    key={k}
+                    key={l.key}
                     type="monotone"
-                    dataKey={k}
-                    name={TREND_KEY_LABELS[k as TrendKey].split('.').pop()}
-                    stroke={TREND_COLORS[k as TrendKey]}
+                    dataKey={l.key}
+                    name={l.label}
+                    stroke={l.color}
                     strokeWidth={1.5}
-                    dot={{ r: 2, fill: TREND_COLORS[k as TrendKey], strokeWidth: 0 }}
+                    dot={{ r: 2, fill: l .color, strokeWidth: 0 }}
                     activeDot={{ r: 3.5, strokeWidth: 0 }}
                     isAnimationActive={true}
                     animationDuration={800}
@@ -440,15 +425,15 @@ export default function Overview() {
           </div>
         </div>
 
-        {/* Instability panel */}
         <div className="w-[240px] shrink-0 overflow-hidden flex flex-col">
-          <InstabilityPanel />
+          <InstabilityPanel tests={tests} />
         </div>
       </div>
 
-      {/* Job distribution  */}
       <div className="shrink-0">
-        <JobDistributionPanel />
+        {jobs.length > 0 && (
+          <JobDistributionPanel jobs={jobs} makespan={s.makespan} balanceRatio={s.balanceRatio} />
+        )}
       </div>
 
     </div>

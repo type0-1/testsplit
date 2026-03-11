@@ -1,20 +1,11 @@
 import { motion } from 'motion/react'
 import { ScatterChart, Scatter, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
-import { MOCK_TEST_STATS, MOCK_SUMMARY } from '@/data/mockData'
-import type { TestStat } from '@/data/mockData'
-
-const ALL_TESTS = Object.values(MOCK_TEST_STATS)
-const MAX_CV = Math.max(...ALL_TESTS.map(t => t.coefficientOfVariation))
-const AVG_CV = ALL_TESTS.reduce((sum, t) => sum + t.coefficientOfVariation, 0) / ALL_TESTS.length
-const SORTED_BY_CV = [...ALL_TESTS].sort((a, b) => b.coefficientOfVariation - a.coefficientOfVariation)
+import { useApi } from '@/hooks/useApi'
+import type { SummaryResponse, TestsResponse, TestStat } from '@/types/api'
 
 function toPoint(t: TestStat) {
   return { x: parseFloat(t.meanDuration.toFixed(3)), y: parseFloat((t.coefficientOfVariation * 100).toFixed(1)), name: t.testName.split('.').pop() }
 }
-
-const SCATTER_OUTLIERS = ALL_TESTS.filter(t => t.isOutlier).map(toPoint)
-const SCATTER_UNSTABLE = ALL_TESTS.filter(t => !t.isOutlier && t.unstable).map(toPoint)
-const SCATTER_STABLE = ALL_TESTS.filter(t => !t.isOutlier && !t.unstable).map(toPoint)
 
 function cvColor(t: TestStat): string {
   if (t.isOutlier) return 'var(--orange)'
@@ -28,7 +19,11 @@ function cvColorDim(t: TestStat): string {
   return 'var(--cyan-dim)'
 }
 
-function ScatterPanel() {
+function ScatterPanel({ tests }: { tests: TestStat[] }) {
+  const outliers = tests.filter(t => t.isOutlier).map(toPoint)
+  const unstable = tests.filter(t => !t.isOutlier && t.unstable).map(toPoint)
+  const stable = tests.filter(t => !t.isOutlier && !t.unstable).map(toPoint)
+
   return (
     <div className="shrink-0" style={{ borderTop: '1px solid var(--g4)' }}>
       <div className="flex items-center gap-2 px-5 py-2" style={{ borderBottom: '1px solid var(--g4)' }}>
@@ -69,9 +64,9 @@ function ScatterPanel() {
               formatter={(value: number | string | undefined, name: string | undefined) => [name === 'CV' ? `${value}%` : `${value}s`, name ?? '']}
             />
             <ReferenceLine y={50} stroke="var(--amber)" strokeDasharray="3 3" strokeOpacity={0.5} />
-            <Scatter name="Stable" data={SCATTER_STABLE} fill="var(--cyan)" opacity={0.7} r={3} />
-            <Scatter name="Unstable" data={SCATTER_UNSTABLE} fill="var(--amber)" opacity={0.85} r={4} />
-            <Scatter name="Outlier" data={SCATTER_OUTLIERS} fill="var(--orange)" opacity={0.95} r={5} />
+            <Scatter name="Stable" data={stable} fill="var(--cyan)" opacity={0.7} r={3} />
+            <Scatter name="Unstable" data={unstable} fill="var(--amber)" opacity={0.85} r={4} />
+            <Scatter name="Outlier" data={outliers} fill="var(--orange)" opacity={0.95} r={5} />
           </ScatterChart>
         </ResponsiveContainer>
       </div>
@@ -79,10 +74,10 @@ function ScatterPanel() {
   )
 }
 
-function InstabilityRow({ test, index }: { test: TestStat; index: number }) {
+function InstabilityRow({ test, index, maxCv }: { test: TestStat; index: number; maxCv: number }) {
   const cls = test.testName.includes('.') ? test.testName.substring(0, test.testName.lastIndexOf('.')) : ''
   const method = test.testName.split('.').pop() ?? test.testName
-  const cvPct = (test.coefficientOfVariation / MAX_CV) * 100
+  const cvPct = maxCv > 0 ? (test.coefficientOfVariation / maxCv) * 100 : 0
   const color = cvColor(test)
   const colorDim = cvColorDim(test)
 
@@ -97,7 +92,7 @@ function InstabilityRow({ test, index }: { test: TestStat; index: number }) {
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${cvPct}%` }}
-          transition={{ duration: 0.5, delay: 0.05 * index, ease: 'easeOut' }}
+          transition={{ duration: 0.5, delay: 0.05 * Math.min(index, 20), ease: 'easeOut' }}
           style={{ position: 'absolute', left: 0, top: 0, bottom: 0, background: colorDim, borderRight: `2px solid ${color}` }}
           aria-hidden="true"
         />
@@ -123,6 +118,15 @@ function InstabilityRow({ test, index }: { test: TestStat; index: number }) {
 }
 
 export function Instability() {
+  const { data: summary } = useApi<SummaryResponse>('/api/summary')
+  const { data: testsData } = useApi<TestsResponse>('/api/tests?sort=cv&limit=500')
+
+  const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
+  const allTests = testsData?.tests ?? []
+  const maxCv = allTests.length > 0 ? Math.max(...allTests.map(t => t.coefficientOfVariation)) : 1
+  const avgCv = allTests.length > 0 ? allTests.reduce((sum, t) => sum + t.coefficientOfVariation, 0) / allTests.length : 0
+  const highestCvTest = allTests.length > 0 ? allTests[0] : null // sorted by cv desc from API
+
   return (
     <div className="flex flex-col h-full overflow-hidden" aria-label="Instability">
       <header className="flex items-center justify-between px-5 py-3 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
@@ -134,19 +138,21 @@ export function Instability() {
           </span>
         </div>
         <div className="flex items-center gap-4">
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)' }}>Last run: 2026-01-19</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.54rem', color: 'var(--g6)' }}>
+            {allTests.length > 0 ? `${allTests.length} tests loaded` : 'Loading…'}
+          </span>
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.52rem', letterSpacing: '0.1em', color: 'var(--amber)', background: 'var(--amber-dim)', border: '1px solid var(--amber)', padding: '2px 7px' }}>
-            {MOCK_SUMMARY.unstableCount} UNSTABLE
+            {s.unstableCount} UNSTABLE
           </span>
         </div>
       </header>
 
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
         {[
-          { label: 'Unstable Tests', value: `${MOCK_SUMMARY.unstableCount}`, sub: `of ${MOCK_SUMMARY.totalTests} total tests`, rail: 'var(--amber)' },
-          { label: 'Outliers', value: `${MOCK_SUMMARY.outlierCount}`, sub: 'exceed mean + 2σ threshold', rail: 'var(--orange)' },
-          { label: 'Highest CV', value: `${(MAX_CV * 100).toFixed(0)}%`, sub: ALL_TESTS.find(t => t.coefficientOfVariation === MAX_CV)?.testName.split('.').pop() ?? '', rail: 'var(--chart-5)' },
-          { label: 'Avg CV', value: `${(AVG_CV * 100).toFixed(0)}%`, sub: 'coefficient of variation', rail: 'var(--g5)' },
+          { label: 'Unstable Tests', value: `${s.unstableCount}`, sub: `of ${s.totalTests} total tests`, rail: 'var(--amber)' },
+          { label: 'Outliers', value: `${s.outlierCount}`, sub: 'exceed mean + 2σ threshold', rail: 'var(--orange)' },
+          { label: 'Highest CV', value: `${(maxCv * 100).toFixed(0)}%`, sub: highestCvTest?.testName.split('.').pop() ?? '', rail: 'var(--chart-5)' },
+          { label: 'Avg CV', value: `${(avgCv * 100).toFixed(0)}%`, sub: 'coefficient of variation', rail: 'var(--g5)' },
         ].map((p, i, arr) => (
           <div key={p.label} className="flex flex-col justify-between p-4" style={{ borderRight: i === arr.length - 1 ? 'none' : '1px solid var(--g4)' }}>
             <div className="flex items-center gap-2 mb-4">
@@ -161,11 +167,11 @@ export function Instability() {
 
       <div className="flex flex-col flex-1 overflow-hidden" style={{ minHeight: 0 }}>
         <div className="flex-1 overflow-auto" role="table" aria-label="Test instability">
-          {SORTED_BY_CV.map((test, i) => (
-            <InstabilityRow key={test.testName} test={test} index={i} />
+          {allTests.map((test, i) => (
+            <InstabilityRow key={test.testName} test={test} index={i} maxCv={maxCv} />
           ))}
         </div>
-        <ScatterPanel />
+        <ScatterPanel tests={allTests} />
       </div>
     </div>
   )

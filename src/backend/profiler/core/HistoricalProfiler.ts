@@ -128,17 +128,9 @@ export class HistoricalProfiler extends Profiler {
     const allDurations = this.profiles.flatMap((p) =>
       p.testResults.map((r) => r.duration),
     );
-    const averageTestDuration =
-      allDurations.length === 0
-        ? 0
-        : allDurations.reduce((sum, d) => sum + d, 0) / allDurations.length;
+    const averageTestDuration = allDurations.length === 0 ? 0: allDurations.reduce((sum, d) => sum + d, 0) / allDurations.length;
     const testDurationVariance =
-      allDurations.length === 0
-        ? 0
-        : allDurations.reduce(
-            (sum, d) => sum + Math.pow(d - averageTestDuration, 2),
-            0,
-          ) / allDurations.length;
+      allDurations.length === 0 ? 0 : allDurations.reduce((sum, d) => sum + Math.pow(d - averageTestDuration, 2), 0,) / allDurations.length;
     const testDurationMap = this.buildTestDurationMap(this.profiles);
     const perTestStats = this.computePerTestStats(testDurationMap);
     const metadata = this.profiles.map(p => p.metadata);
