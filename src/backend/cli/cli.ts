@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import * as fs from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
@@ -190,7 +191,7 @@ yargs(hideBin(process.argv))
         })
         .option('jobs', {
           type: 'number',
-          default: 2,
+          default: os.cpus().length,
           describe: 'Number of parallel jobs',
         })
         .option('explain', {
@@ -200,12 +201,18 @@ yargs(hideBin(process.argv))
         }),
     (argv) => {
       const junitPath = path.resolve(argv.junit as string);
-      const jobCount = argv.jobs as number;
+      let jobCount = argv.jobs as number;
       const explain = argv.explain as boolean;
+      const availableCores = os.cpus().length;
 
       if (!Number.isInteger(jobCount) || jobCount <= 0) {
         console.error(chalk.red('Error: --jobs must be a positive integer'));
         process.exit(EXIT_FAILURE);
+      }
+
+      if (jobCount > availableCores) {
+        console.warn(chalk.yellow(`Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`));
+        jobCount = availableCores;
       }
 
       if (!fs.existsSync(junitPath)) {
@@ -295,15 +302,22 @@ yargs(hideBin(process.argv))
 
       console.log('Profile Summary');
       console.log('------------------------');
-      console.log(`Tests parsed:       ${profile.testCount}`);
-      console.log(`Total duration:     ${profile.totalDuration.toFixed(2)}s`);
-      console.log(`Parallel jobs:      ${distribution.jobCount}\n`);
+      console.log(`Tests parsed: ${profile.testCount}`);
+      console.log(`Total duration: ${profile.totalDuration.toFixed(2)}s`);
+      console.log(`Parallel jobs: ${distribution.jobCount}\n`);
 
       console.log('Scheduling metrics');
       console.log('------------------');
-      console.log(`Critical path:      ${m.criticalPath.toFixed(2)}s`);
+      console.log(`Critical path: ${m.criticalPath.toFixed(2)}s`);
       console.log(`Predicted speed-up: ${predictedSpeedUp.toFixed(2)}×`);
-      console.log(`Balance ratio:      ${m.balanceRatio.toFixed(2)}\n`);
+      console.log(`Balance ratio: ${m.balanceRatio.toFixed(2)}\n`);
+
+      const efficiency = ((jobCount / availableCores) * 100).toFixed(0);
+      console.log('Core utilisation');
+      console.log('----------------');
+      console.log(`Available cores: ${availableCores}`);
+      console.log(`Parallel jobs: ${jobCount}`);
+      console.log(`Efficiency: ${efficiency}%\n`);
 
       console.log('Job distribution');
       console.log('----------------');
@@ -347,7 +361,8 @@ yargs(hideBin(process.argv))
         })
         .option('jobs', {
           type: 'number',
-          default: 2,
+          default: os.cpus().length,
+          describe: 'Number of parallel jobs',
         })
         .option('platform', {
           type: 'string',
@@ -365,8 +380,14 @@ yargs(hideBin(process.argv))
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
-      const jobCount = argv.jobs as number;
+      let jobCount = argv.jobs as number;
       const platform = argv.platform as Platform;
+      const availableCores = os.cpus().length;
+
+      if (jobCount > availableCores) {
+        console.warn(chalk.yellow(`Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`));
+        jobCount = availableCores;
+      }
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
       const dryRun = argv['dry-run'] as boolean;
