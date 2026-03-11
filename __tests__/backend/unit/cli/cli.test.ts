@@ -49,6 +49,7 @@ const mockYAML = YAML as unknown as { parse: jest.Mock; stringify: jest.Mock };
 let profileHandler: (argv: any) => void;
 let generateConfigHandler: (argv: any) => void;
 let validateHandler: (argv: any) => void;
+let compareHandler: (argv: any) => void;
 
 beforeAll(() => {
   const yargsInstance = (yargs as jest.MockedFunction<typeof yargs>).mock.results[0]?.value;
@@ -56,6 +57,7 @@ beforeAll(() => {
   profileHandler = calls.find(c => c[0] === 'profile')?.[3];
   generateConfigHandler = calls.find(c => c[0] === 'generate-config')?.[3];
   validateHandler = calls.find(c => c[0] === 'validate')?.[3];
+  compareHandler = calls.find(c => c[0] === 'compare')?.[3];
 });
 
 const mockEngineResult = {
@@ -346,6 +348,81 @@ describe('generate-config command handler', () => {
       generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false }),
     ).toThrow('exit(1)');
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('failed to generate'));
+  });
+});
+
+describe('compare command handler', () => {
+  let mockStore: { loadHistoricalDeltas: jest.Mock };
+
+  const deltaA = {
+    createdAt: '2026-01-01T00:00:00.000Z',
+    deltas: { runAt: '2026-01-01T00:00:00.000Z', commit: 'abc1234', testCount: 10, totalDuration: 100, averageDuration: 10, criticalPath: 50, balanceRatio: 1.0 },
+  };
+  const deltaB = {
+    createdAt: '2026-01-02T00:00:00.000Z',
+    deltas: { runAt: '2026-01-02T00:00:00.000Z', commit: 'def5678', testCount: 12, totalDuration: 90, averageDuration: 9, criticalPath: 45, balanceRatio: 1.04 },
+  };
+  const deltaRegressed = {
+    createdAt: '2026-01-02T00:00:00.000Z',
+    deltas: { runAt: '2026-01-02T00:00:00.000Z', commit: null, testCount: 10, totalDuration: 130, averageDuration: 13, criticalPath: 80, balanceRatio: 2.0 },
+  };
+
+  beforeEach(() => {
+    jest.spyOn(process, 'exit').mockImplementation((code) => { throw new Error(`exit(${code})`); });
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    mockStore = { loadHistoricalDeltas: jest.fn() };
+    MockFileStore.mockImplementation(() => mockStore as any);
+  });
+
+  afterEach(() => jest.restoreAllMocks());
+
+  it('exits when no historical runs exist', () => {
+    mockStore.loadHistoricalDeltas.mockReturnValue([]);
+    expect(() => compareHandler({ runs: 2, data: '.data', threshold: 10 })).toThrow('exit(1)');
+    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('No historical runs found'));
+  });
+
+  it('exits when only one run exists', () => {
+    mockStore.loadHistoricalDeltas.mockReturnValue([deltaA]);
+    expect(() => compareHandler({ runs: 2, data: '.data', threshold: 10 })).toThrow('exit(1)');
+    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('at least 2 runs'));
+  });
+
+  it('prints the delta table with Run A and Run B columns', () => {
+    mockStore.loadHistoricalDeltas.mockReturnValue([deltaB, deltaA]); // newest first
+    compareHandler({ runs: 2, data: '.data', threshold: 10 });
+
+    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Run A'));
+    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Run B'));
+    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Delta'));
+  });
+
+  it('prints metric rows in the table', () => {
+    mockStore.loadHistoricalDeltas.mockReturnValue([deltaB, deltaA]);
+    compareHandler({ runs: 2, data: '.data', threshold: 10 });
+
+    const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
+    expect(allCalls).toContain('Critical path');
+    expect(allCalls).toContain('Balance ratio');
+    expect(allCalls).toContain('Total duration');
+  });
+
+  it('shows no regressions when metrics improve', () => {
+    mockStore.loadHistoricalDeltas.mockReturnValue([deltaB, deltaA]); // B is newer with lower criticalPath
+    compareHandler({ runs: 2, data: '.data', threshold: 10 });
+
+    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('No regressions detected'));
+  });
+
+  it('shows regression warning when critical path worsens beyond threshold', () => {
+    mockStore.loadHistoricalDeltas.mockReturnValue([deltaRegressed, deltaA]); // newest first
+    compareHandler({ runs: 2, data: '.data', threshold: 10 });
+
+    const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
+    expect(allCalls).toContain('REGRESSION');
+    expect(allCalls).toContain('Critical path');
   });
 });
 
