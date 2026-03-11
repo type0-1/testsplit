@@ -355,23 +355,6 @@ export default function Overview() {
       </header>
 
       <section className="relative shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Key metrics">
-        <motion.div
-          aria-hidden="true"
-          initial={{ top: 0, opacity: 1 }}
-          animate={{ top: '100%', opacity: [1, 1, 0] }}
-          transition={{ duration: 0.7, ease: 'linear', times: [0, 0.85, 1] }}
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            height: 1,
-            background: 'linear-gradient(90deg, transparent 0%, var(--orange) 20%, var(--orange) 80%, transparent 100%)',
-            zIndex: 10,
-            pointerEvents: 'none',
-            boxShadow: '0 0 6px var(--orange)',
-          }}
-        />
-
         <div className="grid grid-cols-4">
           {PANELS.map((p, i) => (
             <StatPanel
@@ -422,7 +405,7 @@ export default function Overview() {
                 <XAxis dataKey="run" tick={{ fontFamily: 'var(--font-mono)', fontSize: 9, fill: 'var(--g6)' }} axisLine={{ stroke: 'var(--g4)' }} tickLine={false} />
                 <YAxis tick={{ fontFamily: 'var(--font-mono)', fontSize: 9, fill: 'var(--g6)' }} axisLine={false} tickLine={false} tickFormatter={(v: number) => `${v}s`} />
                 <RechartsTooltip content={<ChartTooltip />} cursor={{ stroke: 'var(--g5)', strokeWidth: 1, strokeDasharray: '3 3' }} />
-                {TREND_LINES.map(l => (
+               {TREND_LINES.map(l => (
                   <Line
                     key={l.key}
                     type="monotone"
@@ -430,7 +413,7 @@ export default function Overview() {
                     name={l.label}
                     stroke={l.color}
                     strokeWidth={1.5}
-                    dot={{ r: 2, fill: l.color, strokeWidth: 0 }}
+                    dot={{ r: 2, fill: l .color, strokeWidth: 0 }}
                     activeDot={{ r: 3.5, strokeWidth: 0 }}
                     isAnimationActive={true}
                     animationDuration={800}
