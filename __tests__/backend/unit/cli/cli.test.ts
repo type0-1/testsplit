@@ -50,6 +50,7 @@ let profileHandler: (argv: any) => void;
 let generateConfigHandler: (argv: any) => void;
 let validateHandler: (argv: any) => void;
 let compareHandler: (argv: any) => void;
+let benchmarkHandler: (argv: any) => void;
 
 beforeAll(() => {
   const yargsInstance = (yargs as jest.MockedFunction<typeof yargs>).mock.results[0]?.value;
@@ -58,6 +59,7 @@ beforeAll(() => {
   generateConfigHandler = calls.find(c => c[0] === 'generate-config')?.[3];
   validateHandler = calls.find(c => c[0] === 'validate')?.[3];
   compareHandler = calls.find(c => c[0] === 'compare')?.[3];
+  benchmarkHandler = calls.find(c => c[0] === 'benchmark')?.[3];
 });
 
 const mockEngineResult = {
@@ -252,6 +254,18 @@ describe('profile command handler', () => {
     });
     expect(() => profileHandler({ junit: '/test.xml', jobs: 2, explain: false })).toThrow('exit(1)');
   });
+
+  it('prints analysis time in profile summary (D1)', () => {
+    profileHandler({ junit: '/test.xml', jobs: 2, explain: false });
+    const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
+    expect(allCalls).toMatch(/Analysis time: \d+(\.\d+)?ms/);
+  });
+
+  it('prints vs ideal deviation for each job in job distribution (D3)', () => {
+    profileHandler({ junit: '/test.xml', jobs: 2, explain: false });
+    const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
+    expect(allCalls).toContain('vs ideal');
+  });
 });
 
 describe('generate-config command handler', () => {
@@ -423,6 +437,62 @@ describe('compare command handler', () => {
     const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
     expect(allCalls).toContain('REGRESSION');
     expect(allCalls).toContain('Critical path');
+  });
+});
+
+describe('benchmark command handler', () => {
+  let mockEngine: { run: jest.Mock };
+
+  beforeEach(() => {
+    jest.spyOn(process, 'exit').mockImplementation((code) => { throw new Error(`exit(${code})`); });
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    mockEngine = { run: jest.fn().mockReturnValue(mockEngineResult) };
+    MockTestSplitEngine.mockImplementation(() => mockEngine as any);
+    mockFs.existsSync.mockReturnValue(true);
+  });
+
+  afterEach(() => jest.restoreAllMocks());
+
+  it('exits when junit path does not exist', () => {
+    mockFs.existsSync.mockReturnValue(false);
+    expect(() => benchmarkHandler({ junit: '/bad.xml', jobs: 2 })).toThrow('exit(1)');
+    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('does not exist'));
+  });
+
+  it('exits when no test cases were parsed', () => {
+    mockEngine.run.mockReturnValue({
+      ...mockEngineResult,
+      profile: { ...mockEngineResult.profile, testCount: 0, testResults: [] },
+    });
+    expect(() => benchmarkHandler({ junit: '/test.xml', jobs: 2 })).toThrow('exit(1)');
+    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('no test cases'));
+  });
+
+  it('prints Benchmark Report header', () => {
+    benchmarkHandler({ junit: '/test.xml', jobs: 2 });
+    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Benchmark Report'));
+  });
+
+  it('prints sequential and parallel (predicted) durations', () => {
+    benchmarkHandler({ junit: '/test.xml', jobs: 2 });
+    const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
+    expect(allCalls).toContain('Sequential');
+    expect(allCalls).toContain('Parallel');
+  });
+
+  it('prints speedup and time saved', () => {
+    benchmarkHandler({ junit: '/test.xml', jobs: 2 });
+    const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
+    expect(allCalls).toMatch(/Speedup:\s+\d+\.\d+×/);
+    expect(allCalls).toContain('Time saved');
+  });
+
+  it('prints analysis time in ms', () => {
+    benchmarkHandler({ junit: '/test.xml', jobs: 2 });
+    const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
+    expect(allCalls).toMatch(/Analysis time:\s+\d+(\.\d+)?ms/);
   });
 });
 
