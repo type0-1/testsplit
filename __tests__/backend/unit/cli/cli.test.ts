@@ -201,9 +201,9 @@ describe('profile command handler', () => {
   afterEach(() => jest.restoreAllMocks());
 
   it('outputs profile and scheduling summary', () => {
-    profileHandler({ junit: '/test.xml', jobs: 2, explain: false });
+    profileHandler({ junit: '/test.xml', jobs: 2, explain: false, algorithm: 'lpt', 'variance-weight': 1.0 });
 
-    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 2, true);
+    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 2, true, 'lpt', 1.0);
     expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Profile Summary'));
     expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Scheduling metrics'));
   });
