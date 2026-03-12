@@ -243,7 +243,7 @@ yargs(hideBin(process.argv))
 
       const engine = new TestSplitEngine();
       const profileStart = performance.now();
-      const { profile, distribution } = engine.run(junitPath, jobCount, true);
+      const { profile, distribution } = engine.run(junitPath, jobCount, true, algorithm, varianceWeight);
       const analysisMs = (performance.now() - profileStart).toFixed(1);
 
       try {
