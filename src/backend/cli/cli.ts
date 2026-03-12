@@ -6,7 +6,7 @@ import * as path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { TestSplitEngine } from '../core/TestSplitEngine';
+import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
@@ -199,11 +199,18 @@ yargs(hideBin(process.argv))
           type: 'boolean',
           default: false,
           describe: 'Explain profiling results in plain English',
+        })
+        .option('algorithm', {
+          type: 'string',
+          choices: ['lpt', 'multifit'] as const,
+          default: 'lpt',
+          describe: 'Scheduling algorithm to use',
         }),
     (argv) => {
       const junitPath = path.resolve(argv.junit as string);
       let jobCount = argv.jobs as number;
       const explain = argv.explain as boolean;
+      const algorithm = argv.algorithm as Algorithm;
       const availableCores = os.cpus().length;
 
       if (!Number.isInteger(jobCount) || jobCount <= 0) {
@@ -224,7 +231,7 @@ yargs(hideBin(process.argv))
       }
 
       const engine = new TestSplitEngine();
-      const { profile, distribution } = engine.run(junitPath, jobCount, true);
+      const { profile, distribution } = engine.run(junitPath, jobCount, true, algorithm);
 
       try {
         const store = new FileStore();
@@ -378,11 +385,18 @@ yargs(hideBin(process.argv))
           type: 'boolean',
           default: false,
           describe: 'Print CI config without writing files',
+        })
+        .option('algorithm', {
+          type: 'string',
+          choices: ['lpt', 'multifit'] as const,
+          default: 'lpt',
+          describe: 'Scheduling algorithm to use',
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
       let jobCount = argv.jobs as number;
       const platform = argv.platform as Platform;
+      const algorithm = argv.algorithm as Algorithm;
       const availableCores = os.cpus().length;
 
       if (jobCount > availableCores) {
@@ -431,7 +445,7 @@ yargs(hideBin(process.argv))
       // Main logic with error handling
       try {
         const engine = new TestSplitEngine();
-        const result = engine.run(junitPath, jobCount, false);
+        const result = engine.run(junitPath, jobCount, false, algorithm);
 
         const jobs = result.distribution.jobs.map((job, index) => ({
           id: index + 1,

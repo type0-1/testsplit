@@ -1,19 +1,22 @@
 import { parseJUnitXML } from '../parser/JUnitXMLParser';
 import { HistoricalProfiler } from '../profiler/core/HistoricalProfiler'
 import { LPTScheduler } from '../algorithm/core/LPTScheduler';
+import { MULTIFITScheduler } from '../algorithm/core/MULTIFITScheduler';
 import { Task } from '../algorithm/model/Task';
 import { FileStore } from '../storage/FileStore';
 import { generateRunId } from '../helpers/RunId'
+
+export type Algorithm = 'lpt' | 'multifit';
+
 export class TestSplitEngine {
   private profiler = new HistoricalProfiler();
-  private scheduler = new LPTScheduler();
   private store: FileStore;
 
   constructor(baseDir?: string){
     this.store = new FileStore(baseDir);
   }
 
-  run(xmlPath: string, jobCount: number, persist: boolean) {
+  run(xmlPath: string, jobCount: number, persist: boolean, algorithm: Algorithm = 'lpt') {
     const previousProfiles = this.store.loadProfiles();
 
     for (const profile of previousProfiles) {
@@ -29,7 +32,8 @@ export class TestSplitEngine {
       duration: r.duration
     }));
 
-    const distribution = this.scheduler.schedule(tasks, jobCount);
+    const scheduler = algorithm === 'multifit' ? new MULTIFITScheduler() : new LPTScheduler();
+    const distribution = scheduler.schedule(tasks, jobCount);
     const runId = generateRunId();
 
     if (persist) {
