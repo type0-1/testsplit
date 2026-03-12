@@ -17,6 +17,13 @@ import YAML from 'yaml';
 import chalk from 'chalk';
 
 type Platform = 'github' | 'gitlab';
+const EXIT_FAILURE = 1;
+const TABLE_WIDTH = 66;
+const SECTION_WIDTH = 40;
+const COL_LABEL = 18;
+const COL_VALUE = 18;
+const COL_DELTA = 14;
+const SEP = '-'.repeat(TABLE_WIDTH);
 
 export function findExistingCIFile(platform: Platform): string | null {
   if (platform === 'github') {
@@ -177,8 +184,6 @@ function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
 
-const EXIT_FAILURE = 1;
-
 yargs(hideBin(process.argv))
   .command(
     'profile',
@@ -224,7 +229,9 @@ yargs(hideBin(process.argv))
       }
 
       const engine = new TestSplitEngine();
+      const profileStart = performance.now();
       const { profile, distribution } = engine.run(junitPath, jobCount, true);
+      const analysisMs = (performance.now() - profileStart).toFixed(1);
 
       try {
         const store = new FileStore();
@@ -305,7 +312,8 @@ yargs(hideBin(process.argv))
       console.log('------------------------');
       console.log(`Tests parsed: ${profile.testCount}`);
       console.log(`Total duration: ${profile.totalDuration.toFixed(2)}s`);
-      console.log(`Parallel jobs: ${distribution.jobCount}\n`);
+      console.log(`Parallel jobs: ${distribution.jobCount}`);
+      console.log(`Analysis time: ${analysisMs}ms\n`);
 
       console.log('Scheduling metrics');
       console.log('------------------');
@@ -324,12 +332,14 @@ yargs(hideBin(process.argv))
       console.log('----------------');
 
       const maxJobTime = Math.max(...distribution.jobs.map((j) => j.totalTime));
+      const idealTime = profile.totalDuration / distribution.jobCount;
 
       distribution.jobs.forEach((job, i) => {
         const bar = renderBar(job.totalTime, maxJobTime);
-        console.log(
-          `  Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests)`,
-        );
+        const diff = job.totalTime - idealTime;
+        const sign = diff >= 0 ? '+' : '';
+        const diffStr = `${sign}${diff.toFixed(2)}s vs ideal`;
+        console.log(`Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests, ${diffStr})`);
       });
       console.log();
 
@@ -569,13 +579,6 @@ yargs(hideBin(process.argv))
       const aTime = sorted[0].createdAt;
       const bTime = sorted[sorted.length - 1].createdAt;
 
-      const TABLE_WIDTH = 66;
-      const SECTION_WIDTH = 40;
-      const COL_LABEL = 18;
-      const COL_VALUE = 18;
-      const COL_DELTA = 14;
-      const SEP = '-'.repeat(TABLE_WIDTH);
-
       function deltaStr(prev: number, curr: number, unit: string, lowerIsBetter: boolean): string {
         const diff = curr - prev;
         const sign = diff >= 0 ? '+' : '';
@@ -632,6 +635,63 @@ yargs(hideBin(process.argv))
           console.log(chalk.red(`REGRESSION ${label}: ${avg} --> ${curr} (+${pct}%)`));
         }
       }
+      console.log();
+    },
+  )
+  .command(
+    'benchmark',
+    'Compare sequential vs predicted parallel performance',
+    (y) =>
+      y
+        .option('junit', {
+          type: 'string',
+          demandOption: true,
+          describe: 'Path to JUnit XML file or directory',
+        })
+        .option('jobs', {
+          type: 'number',
+          default: os.cpus().length,
+          describe: 'Number of parallel jobs',
+        }),
+    (argv) => {
+      const junitPath = path.resolve(argv.junit as string);
+      const jobCount = argv.jobs as number;
+
+      if (!fs.existsSync(junitPath)) {
+        console.error(chalk.red(`Error: JUnit path does not exist: ${junitPath}`));
+        process.exit(EXIT_FAILURE);
+      }
+
+      const benchEngine = new TestSplitEngine();
+      const benchStart = performance.now();
+      const { profile, distribution } = benchEngine.run(junitPath, jobCount, false);
+      const benchMs = (performance.now() - benchStart).toFixed(1);
+
+      if (profile.testCount === 0) {
+        console.error(chalk.red('Error: no test cases were parsed from the JUnit input'));
+        process.exit(EXIT_FAILURE);
+      }
+
+      const sequential = profile.totalDuration;
+      const parallel = distribution.metrics.criticalPath;
+      const speedup = parallel === 0 ? 1 : sequential / parallel;
+      const timeSaved = sequential - parallel;
+      const timeSavedPct = sequential === 0 ? 0 : (timeSaved / sequential) * 100;
+
+      const BENCH_SEP = '-'.repeat(SECTION_WIDTH);
+
+      console.log('\nBenchmark Report');
+      console.log(BENCH_SEP);
+      console.log(`Tests: ${profile.testCount}`);
+      console.log(`Jobs: ${jobCount}`);
+      console.log(BENCH_SEP);
+      console.log(`Sequential: ${sequential.toFixed(2)}s`);
+      console.log(`Parallel: ${parallel.toFixed(2)}s  (predicted)`);
+      console.log(`Time saved: ${timeSaved.toFixed(2)}s  (${timeSavedPct.toFixed(1)}%)`);
+      console.log(`Speedup: ${speedup.toFixed(2)}×`);
+      console.log(`Balance ratio: ${distribution.metrics.balanceRatio.toFixed(3)}`);
+      console.log(BENCH_SEP);
+      console.log(`Analysis time: ${benchMs}ms`);
       console.log();
     },
   )
