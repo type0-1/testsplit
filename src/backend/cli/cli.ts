@@ -205,12 +205,18 @@ yargs(hideBin(process.argv))
           choices: ['lpt', 'multifit'] as const,
           default: 'lpt',
           describe: 'Scheduling algorithm to use',
+        })
+        .option('variance-weight', {
+          type: 'number',
+          default: 1.0,
+          describe: 'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
         }),
     (argv) => {
       const junitPath = path.resolve(argv.junit as string);
       let jobCount = argv.jobs as number;
       const explain = argv.explain as boolean;
       const algorithm = argv.algorithm as Algorithm;
+      const varianceWeight = argv['variance-weight'] as number;
       const availableCores = os.cpus().length;
 
       if (!Number.isInteger(jobCount) || jobCount <= 0) {
@@ -231,7 +237,7 @@ yargs(hideBin(process.argv))
       }
 
       const engine = new TestSplitEngine();
-      const { profile, distribution } = engine.run(junitPath, jobCount, true, algorithm);
+      const { profile, distribution } = engine.run(junitPath, jobCount, true, algorithm, varianceWeight);
 
       try {
         const store = new FileStore();
@@ -391,12 +397,18 @@ yargs(hideBin(process.argv))
           choices: ['lpt', 'multifit'] as const,
           default: 'lpt',
           describe: 'Scheduling algorithm to use',
+        })
+        .option('variance-weight', {
+          type: 'number',
+          default: 1.0,
+          describe: 'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
       let jobCount = argv.jobs as number;
       const platform = argv.platform as Platform;
       const algorithm = argv.algorithm as Algorithm;
+      const varianceWeight = argv['variance-weight'] as number;
       const availableCores = os.cpus().length;
 
       if (jobCount > availableCores) {
@@ -445,7 +457,7 @@ yargs(hideBin(process.argv))
       // Main logic with error handling
       try {
         const engine = new TestSplitEngine();
-        const result = engine.run(junitPath, jobCount, false, algorithm);
+        const result = engine.run(junitPath, jobCount, false, algorithm, varianceWeight);
 
         const jobs = result.distribution.jobs.map((job, index) => ({
           id: index + 1,

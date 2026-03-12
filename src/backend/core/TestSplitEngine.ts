@@ -16,7 +16,7 @@ export class TestSplitEngine {
     this.store = new FileStore(baseDir);
   }
 
-  run(xmlPath: string, jobCount: number, persist: boolean, algorithm: Algorithm = 'lpt') {
+  run(xmlPath: string, jobCount: number, persist: boolean, algorithm: Algorithm = 'lpt', varianceWeight = 1.0) {
     const previousProfiles = this.store.loadProfiles();
 
     for (const profile of previousProfiles) {
@@ -27,10 +27,13 @@ export class TestSplitEngine {
     const profile = this.profiler.generateProfile(results);
     this.profiler.addProfile(profile);
 
-    const tasks: Task[] = profile.testResults.map(r => ({
-      id: r.name,
-      duration: r.duration
-    }));
+    const { perTestStats } = this.profiler.generateHistoricalProfile();
+
+    const tasks: Task[] = profile.testResults.map(r => {
+      const stats = perTestStats[r.name];
+      const duration = stats ? stats.meanDuration + varianceWeight * stats.stdDev : r.duration;
+      return { id: r.name, duration };
+    });
 
     const scheduler = algorithm === 'multifit' ? new MULTIFITScheduler() : new LPTScheduler();
     const distribution = scheduler.schedule(tasks, jobCount);
