@@ -5,6 +5,57 @@ import { DOMParser } from '@xmldom/xmldom';
 import { TestResult } from '../models/TestResult';
 import { TestResultParser } from './TestResultParser';
 
+function parseDurationFromProperty(
+  properties: Map<string, string>,
+  secondKeys: string[],
+  millisecondKeys: string[],
+): number | undefined {
+  for (const key of secondKeys) {
+    const raw = properties.get(key);
+    if (raw === undefined) {
+      continue;
+    }
+
+    const parsed = Number(raw);
+    if (Number.isFinite(parsed)) {
+      return parsed;
+    }
+  }
+
+  for (const key of millisecondKeys) {
+    const raw = properties.get(key);
+    if (raw === undefined) {
+      continue;
+    }
+
+    const parsed = Number(raw);
+    if (Number.isFinite(parsed)) {
+      return parsed / 1000;
+    }
+  }
+
+  return undefined;
+}
+
+function suitePropertyMap(suite: any): Map<string, string> {
+  const propertyNodes = suite?.properties?.property;
+  if (!propertyNodes) {
+    return new Map<string, string>();
+  }
+
+  const nodes = Array.isArray(propertyNodes) ? propertyNodes : [propertyNodes];
+  const map = new Map<string, string>();
+
+  for (const node of nodes) {
+    if (typeof node?.name !== 'string') {
+      continue;
+    }
+    map.set(node.name, String(node.value ?? ''));
+  }
+
+  return map;
+}
+
 // Validate XML structure. Warn on issues but keep going.
 function validateXMLStructure(xml: string, filePath: string): void {
   try {
@@ -89,46 +140,84 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
     return [];
   }
 
-  const allTestCases: any[] = [];
+  const results: TestResult[] = [];
 
   for (const suite of suites) {
-    if (!suite.testcase) continue;
+    if (!suite.testcase) {
+      continue;
+    }
+
+    const properties = suitePropertyMap(suite);
+    const suiteStartupDuration = parseDurationFromProperty(
+      properties,
+      [
+        'surefire.suite.startup.seconds',
+        'surefire.startup.seconds',
+        'suite.startup.seconds',
+        'suite.startup.time',
+      ],
+      [
+        'surefire.suite.startup.millis',
+        'surefire.startup.millis',
+        'suite.startup.millis',
+      ],
+    );
+    const suiteTeardownDuration = parseDurationFromProperty(
+      properties,
+      [
+        'surefire.suite.teardown.seconds',
+        'surefire.teardown.seconds',
+        'suite.teardown.seconds',
+        'suite.teardown.time',
+      ],
+      [
+        'surefire.suite.teardown.millis',
+        'surefire.teardown.millis',
+        'suite.teardown.millis',
+      ],
+    );
 
     const cases = Array.isArray(suite.testcase)
       ? suite.testcase
       : [suite.testcase];
 
-    allTestCases.push(...cases);
+    for (const tc of cases) {
+      let status: 'passed' | 'failed' | 'skipped' = 'passed';
+
+      if (tc.skipped !== undefined) {
+        status = 'skipped';
+      } else if (tc.failure !== undefined || tc.error !== undefined) {
+        status = 'failed';
+      }
+
+      const testName =
+        tc.classname && tc.name
+          ? `${tc.classname}.${tc.name}`
+          : (tc.name ?? 'unknown-test');
+
+      let duration = 0;
+      if (tc.time !== undefined) {
+        const parsedTime = Number(tc.time);
+        if (!Number.isNaN(parsedTime)) {
+          duration = parsedTime;
+        }
+      }
+
+      results.push({
+        name: testName,
+        duration,
+        status,
+        ...(suiteStartupDuration !== undefined
+          ? { suiteStartupDuration }
+          : {}),
+        ...(suiteTeardownDuration !== undefined
+          ? { suiteTeardownDuration }
+          : {}),
+      });
+    }
   }
 
-  return allTestCases.map((tc: any) => {
-    let status: 'passed' | 'failed' | 'skipped' = 'passed';
-
-    if (tc.skipped !== undefined) {
-      status = 'skipped';
-    } else if (tc.failure !== undefined || tc.error !== undefined) {
-      status = 'failed';
-    }
-
-    const testName =
-      tc.classname && tc.name
-        ? `${tc.classname}.${tc.name}`
-        : (tc.name ?? 'unknown-test');
-
-    let duration = 0;
-    if (tc.time !== undefined) {
-      const parsedTime = Number(tc.time);
-      if (!Number.isNaN(parsedTime)) {
-        duration = parsedTime;
-      }
-    }
-
-    return {
-      name: testName,
-      duration,
-      status,
-    };
-  });
+  return results;
 }
 
 function parseJUnitXMLPath(path: string): TestResult[] {

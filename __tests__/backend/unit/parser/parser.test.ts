@@ -37,4 +37,20 @@ describe('JUnitXMLParser', () => {
     expect(results[0].name).toBe('ExampleTest.testMethod[1]');
     expect(results[1].name).toBe('ExampleTest.testMethod[2]');
   });
+
+  test('parses surefire suite startup and teardown metadata', () => {
+    const results = parseJUnitXML(fixture('surefire-lifecycle.xml'));
+
+    expect(results).toHaveLength(2);
+    expect(results[0]).toMatchObject({
+      name: 'SurefireTest.testA',
+      suiteStartupDuration: 0.08,
+      suiteTeardownDuration: 0.12,
+    });
+    expect(results[1]).toMatchObject({
+      name: 'SurefireTest.testB',
+      suiteStartupDuration: 0.08,
+      suiteTeardownDuration: 0.12,
+    });
+  });
 });

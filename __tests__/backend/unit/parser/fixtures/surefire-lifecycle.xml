@@ -1,0 +1,8 @@
+<testsuite name="SurefireSuite" tests="2" time="0.30">
+  <properties>
+    <property name="surefire.suite.startup.seconds" value="0.08" />
+    <property name="surefire.suite.teardown.millis" value="120" />
+  </properties>
+  <testcase classname="SurefireTest" name="testA" time="0.05" />
+  <testcase classname="SurefireTest" name="testB" time="0.07" />
+</testsuite>
