@@ -56,6 +56,27 @@ function suitePropertyMap(suite: any): Map<string, string> {
   return map;
 }
 
+function packageFromClassName(className?: string): string | undefined {
+  if (!className) {
+    return undefined;
+  }
+
+  const lastDot = className.lastIndexOf('.');
+  if (lastDot <= 0) {
+    return undefined;
+  }
+
+  return className.slice(0, lastDot);
+}
+
+function filePathFromClassName(className?: string): string | undefined {
+  if (!className) {
+    return undefined;
+  }
+
+  return `${className.replace(/\./g, '/')}.java`;
+}
+
 // Validate XML structure. Warn on issues but keep going.
 function validateXMLStructure(xml: string, filePath: string): void {
   try {
@@ -194,6 +215,15 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
         tc.classname && tc.name
           ? `${tc.classname}.${tc.name}`
           : (tc.name ?? 'unknown-test');
+      const className =
+        typeof tc.classname === 'string'
+          ? tc.classname
+          : (typeof suite.name === 'string' ? suite.name : undefined);
+      const packageName = packageFromClassName(className);
+      const filePath =
+        (typeof tc.file === 'string' && tc.file.length > 0
+          ? tc.file
+          : undefined) ?? filePathFromClassName(className);
 
       let duration = 0;
       if (tc.time !== undefined) {
@@ -207,6 +237,9 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
         name: testName,
         duration,
         status,
+        ...(filePath ? { filePath } : {}),
+        ...(packageName ? { packageName } : {}),
+        ...(className ? { className } : {}),
         ...(suiteStartupDuration !== undefined
           ? { suiteStartupDuration }
           : {}),

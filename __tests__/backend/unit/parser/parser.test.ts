@@ -8,10 +8,12 @@ describe('JUnitXMLParser', () => {
     const results = parseJUnitXML(fixture('basic.xml'));
 
     expect(results).toHaveLength(2);
-    expect(results[0]).toEqual({
+    expect(results[0]).toMatchObject({
       name: 'ExampleTest.testA',
       duration: 0.12,
       status: 'passed',
+      className: 'ExampleTest',
+      filePath: 'ExampleTest.java',
     });
   });
 
@@ -27,7 +29,11 @@ describe('JUnitXMLParser', () => {
 
     expect(results).toHaveLength(2);
     expect(results[0].name).toBe('A.test1');
+    expect(results[0].className).toBe('A');
+    expect(results[0].filePath).toBe('A.java');
     expect(results[1].name).toBe('B.test2');
+    expect(results[1].className).toBe('B');
+    expect(results[1].filePath).toBe('B.java');
   });
 
   test('handles parameterised tests', () => {
@@ -35,6 +41,8 @@ describe('JUnitXMLParser', () => {
 
     expect(results).toHaveLength(2);
     expect(results[0].name).toBe('ExampleTest.testMethod[1]');
+    expect(results[0].className).toBe('ExampleTest');
+    expect(results[0].filePath).toBe('ExampleTest.java');
     expect(results[1].name).toBe('ExampleTest.testMethod[2]');
   });
 
