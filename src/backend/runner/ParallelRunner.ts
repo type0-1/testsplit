@@ -21,7 +21,7 @@ function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: string,): Promise<JobResult> {
+export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: string): Promise<JobResult> {
   return new Promise((resolve) => {
     const testNames = job.tasks.map((t) => t.id);
     const filter = testNames.map(escapeRegex).join(filterJoin);
@@ -47,12 +47,7 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
   });
 }
 
-export function runAllJobs(
-  jobs: Job[],
-  cmd: string,
-  filterFlag: string,
-  filterJoin: string,
-): Promise<JobResult[]> {
+export function runAllJobs(jobs: Job[], cmd: string, filterFlag: string, filterJoin: string): Promise<JobResult[]> {
   const activeJobs = jobs.filter((j) => j.tasks.length > 0);
   return Promise.all(activeJobs.map((j) => runJob(j, cmd, filterFlag, filterJoin)));
 }
