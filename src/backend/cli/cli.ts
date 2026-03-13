@@ -211,7 +211,7 @@ yargs(hideBin(process.argv))
           default: 'lpt',
           describe: 'Scheduling algorithm to use',
         })
-        .option('variance-weight', {
+        .option('risk-factor', {
           type: 'number',
           default: 1.0,
           describe: 'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
@@ -221,7 +221,7 @@ yargs(hideBin(process.argv))
       let jobCount = argv.jobs as number;
       const explain = argv.explain as boolean;
       const algorithm = argv.algorithm as Algorithm;
-      const varianceWeight = argv['variance-weight'] as number;
+      const riskFactor = argv['risk-factor'] as number;
       const availableCores = os.cpus().length;
 
       if (!Number.isInteger(jobCount) || jobCount <= 0) {
@@ -243,7 +243,7 @@ yargs(hideBin(process.argv))
 
       const engine = new TestSplitEngine();
       const profileStart = performance.now();
-      const { profile, distribution } = engine.run(junitPath, jobCount, true, algorithm, varianceWeight);
+      const { profile, distribution } = engine.run(junitPath, jobCount, true, algorithm, riskFactor);
       const analysisMs = (performance.now() - profileStart).toFixed(1);
 
       try {
@@ -408,7 +408,7 @@ yargs(hideBin(process.argv))
           default: 'lpt',
           describe: 'Scheduling algorithm to use',
         })
-        .option('variance-weight', {
+        .option('risk-factor', {
           type: 'number',
           default: 1.0,
           describe: 'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
@@ -418,7 +418,7 @@ yargs(hideBin(process.argv))
       let jobCount = argv.jobs as number;
       const platform = argv.platform as Platform;
       const algorithm = argv.algorithm as Algorithm;
-      const varianceWeight = argv['variance-weight'] as number;
+      const riskFactor = argv['risk-factor'] as number;
       const availableCores = os.cpus().length;
 
       if (jobCount > availableCores) {
@@ -467,7 +467,7 @@ yargs(hideBin(process.argv))
       // Main logic with error handling
       try {
         const engine = new TestSplitEngine();
-        const result = engine.run(junitPath, jobCount, false, algorithm, varianceWeight);
+        const result = engine.run(junitPath, jobCount, false, algorithm, riskFactor);
 
         const jobs = result.distribution.jobs.map((job, index) => ({
           id: index + 1,

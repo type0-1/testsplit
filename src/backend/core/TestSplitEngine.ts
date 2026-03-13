@@ -16,7 +16,7 @@ export class TestSplitEngine {
     this.store = new FileStore(baseDir);
   }
 
-  run(xmlPath: string, jobCount: number, persist: boolean, algorithm: Algorithm = 'lpt', varianceWeight = 1.0) {
+  run(xmlPath: string, jobCount: number, persist: boolean, algorithm: Algorithm = 'lpt', riskFactor = 1.0) {
     const previousProfiles = this.store.loadProfiles();
 
     for (const profile of previousProfiles) {
@@ -31,7 +31,7 @@ export class TestSplitEngine {
 
     const tasks: Task[] = profile.testResults.map(r => {
       const stats = perTestStats[r.name];
-      const duration = stats ? stats.meanDuration + varianceWeight * stats.stdDev : r.duration;
+      const duration = stats ? stats.meanDuration + riskFactor * stats.stdDev : r.duration;
       return { id: r.name, duration };
     });
 
