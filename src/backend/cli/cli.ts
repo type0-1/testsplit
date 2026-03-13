@@ -126,7 +126,7 @@ export function extractTestCommands(
 
 export function buildGitHubSplitJobs(
   baseJob: any,
-  jobs: { id: number; tests: string[] }[],
+  jobs: { id: number; tests: string[]; needs?: number[] }[],
   testCommand: string,
 ): Record<string, any> {
   const splitJobs: Record<string, any> = {};
@@ -147,6 +147,11 @@ export function buildGitHubSplitJobs(
       return step;
     });
 
+    delete clonedJob.needs;
+    if (job.needs && job.needs.length > 0) {
+      clonedJob.needs = job.needs.map((id) => `job-${id}`);
+    }
+
     splitJobs[`job-${job.id}`] = clonedJob;
   }
 
@@ -155,7 +160,7 @@ export function buildGitHubSplitJobs(
 
 export function buildGitLabSplitJobs(
   baseJob: any,
-  jobs: { id: number; tests: string[] }[],
+  jobs: { id: number; tests: string[]; needs?: number[] }[],
   testCommand: string,
 ): Record<string, any> {
   const splitJobs: Record<string, any> = {};
@@ -178,6 +183,39 @@ export function buildGitLabSplitJobs(
   }
 
   return splitJobs;
+}
+
+function buildJobsWithDependencies(distributionJobs: { tasks: Task[] }[]): { id: number; tests: string[]; needs?: number[] }[] {
+  const taskToJobId = new Map<string, number>();
+
+  distributionJobs.forEach((job, index) => {
+    const jobId = index + 1;
+    for (const task of job.tasks) {
+      taskToJobId.set(task.id, jobId);
+    }
+  });
+
+  return distributionJobs.map((job, index) => {
+    const jobId = index + 1;
+    const needs = new Set<number>();
+
+    for (const task of job.tasks) {
+      for (const dependencyId of task.dependencies ?? []) {
+        const dependencyJobId = taskToJobId.get(dependencyId);
+        if (dependencyJobId !== undefined && dependencyJobId !== jobId) {
+          needs.add(dependencyJobId);
+        }
+      }
+    }
+
+    const sortedNeeds = [...needs].sort((a, b) => a - b);
+
+    return {
+      id: jobId,
+      tests: job.tasks.map((t) => t.id),
+      ...(sortedNeeds.length > 0 ? { needs: sortedNeeds } : {}),
+    };
+  });
 }
 
 function resolveJUnitPath(input: unknown): string {
@@ -469,10 +507,7 @@ yargs(hideBin(process.argv))
         const engine = new TestSplitEngine();
         const result = engine.run(junitPath, jobCount, false, algorithm, riskFactor);
 
-        const jobs = result.distribution.jobs.map((job, index) => ({
-          id: index + 1,
-          tests: job.tasks.map((t: Task) => t.id),
-        }));
+        const jobs = buildJobsWithDependencies(result.distribution.jobs);
 
         let ciConfig: string;
 

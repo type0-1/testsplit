@@ -26,4 +26,15 @@ describe('validateJobGroups', () => {
       'Job 1 has no tests assigned',
     );
   });
+
+  it('throws when a job depends on an unknown job id', () => {
+    const jobs: JobGroup[] = [
+      { id: 1, tests: ['testA'] },
+      { id: 2, tests: ['testB'], needs: [3] },
+    ];
+
+    expect(() => validateJobGroups(jobs, 'GitHub Actions')).toThrow(
+      'Job 2 depends on unknown job 3',
+    );
+  });
 });

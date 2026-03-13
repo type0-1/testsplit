@@ -3,9 +3,14 @@ import { validateJobGroups } from './JobGroupValidator';
 import { getSchemaValidator } from './getSchemaValidator';
 
 function renderGitHubJob(job: JobGroup): string {
+  const needsLine =
+    job.needs && job.needs.length > 0
+      ? `\n    needs: [${job.needs.map((id) => `job-${id}`).join(', ')}]`
+      : '';
+
   return `
   job-${job.id}:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest${needsLine}
     steps:
       - uses: actions/checkout@v4
       - run: npm test -- ${job.tests.join(' ')}`;
