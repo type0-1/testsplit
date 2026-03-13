@@ -3,18 +3,21 @@ import { TestSplitEngine } from '../../../../src/backend/core/TestSplitEngine';
 jest.mock('../../../../src/backend/parser/JUnitXMLParser');
 jest.mock('../../../../src/backend/profiler/core/HistoricalProfiler');
 jest.mock('../../../../src/backend/algorithm/core/LPTScheduler');
+jest.mock('../../../../src/backend/algorithm/core/MULTIFITScheduler');
 jest.mock('../../../../src/backend/storage/FileStore');
 jest.mock('../../../../src/backend/helpers/RunId');
 
 import { parseJUnitXML } from '../../../../src/backend/parser/JUnitXMLParser';
 import { HistoricalProfiler } from '../../../../src/backend/profiler/core/HistoricalProfiler';
 import { LPTScheduler } from '../../../../src/backend/algorithm/core/LPTScheduler';
+import { MULTIFITScheduler } from '../../../../src/backend/algorithm/core/MULTIFITScheduler';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
 import { generateRunId } from '../../../../src/backend/helpers/RunId';
 
 const mockParseJUnitXML = parseJUnitXML as jest.MockedFunction<typeof parseJUnitXML>;
 const MockHistoricalProfiler = HistoricalProfiler as jest.MockedClass<typeof HistoricalProfiler>;
 const MockLPTScheduler = LPTScheduler as jest.MockedClass<typeof LPTScheduler>;
+const MockMULTIFITScheduler = MULTIFITScheduler as jest.MockedClass<typeof MULTIFITScheduler>;
 const MockFileStore = FileStore as jest.MockedClass<typeof FileStore>;
 const mockGenerateRunId = generateRunId as jest.MockedFunction<typeof generateRunId>;
 
@@ -91,6 +94,7 @@ describe('TestSplitEngine', () => {
     MockFileStore.mockImplementation(() => mockStoreInstance);
     MockHistoricalProfiler.mockImplementation(() => mockProfilerInstance);
     MockLPTScheduler.mockImplementation(() => mockSchedulerInstance);
+    MockMULTIFITScheduler.mockImplementation(() => mockSchedulerInstance as any);
 
     mockParseJUnitXML.mockReturnValue(mockTestResults);
     mockGenerateRunId.mockReturnValue('2026-01-01T00-00-00-000Z');
@@ -159,6 +163,58 @@ describe('TestSplitEngine', () => {
       expect(mockStoreInstance.saveProfile).not.toHaveBeenCalled();
       expect(mockStoreInstance.saveDistribution).not.toHaveBeenCalled();
       expect(mockStoreInstance.saveHistoricalProfile).not.toHaveBeenCalled();
+    });
+
+    it('uses LPTScheduler by default', () => {
+      const engine = new TestSplitEngine('/tmp/test');
+      engine.run('tests.xml', 2, false);
+
+      expect(MockLPTScheduler).toHaveBeenCalled();
+      expect(MockMULTIFITScheduler).not.toHaveBeenCalled();
+    });
+
+    it('uses MULTIFITScheduler when algorithm=multifit', () => {
+      const engine = new TestSplitEngine('/tmp/test');
+      engine.run('tests.xml', 2, false, 'multifit');
+
+      expect(MockMULTIFITScheduler).toHaveBeenCalled();
+      expect(MockLPTScheduler).not.toHaveBeenCalled();
+    });
+
+    it('applies variance-aware weighting: task duration = meanDuration + k * stdDev', () => {
+      mockProfilerInstance.generateHistoricalProfile.mockReturnValue({
+        ...mockHistoricalProfile,
+        perTestStats: {
+          TestA: { testName: 'TestA', runCount: 3, meanDuration: 2.0, stdDev: 0.5, variance: 0.25, min: 1.5, max: 2.5, coefficientOfVariation: 0.25, unstable: false, zeroDuration: false, isOutlier: false },
+          TestB: { testName: 'TestB', runCount: 3, meanDuration: 3.0, stdDev: 1.0, variance: 1.0, min: 2.0, max: 4.0, coefficientOfVariation: 0.33, unstable: false, zeroDuration: false, isOutlier: false },
+        },
+      });
+
+      const engine = new TestSplitEngine('/tmp/test');
+      engine.run('tests.xml', 2, false, 'lpt', 2.0); // k=2
+
+      // TestA: 2.0 + 2.0 * 0.5 = 3.0; TestB: 3.0 + 2.0 * 1.0 = 5.0
+      expect(mockSchedulerInstance.schedule).toHaveBeenCalledWith(
+        [
+          { id: 'TestA', duration: 3.0 },
+          { id: 'TestB', duration: 5.0 },
+        ],
+        2,
+      );
+    });
+
+    it('falls back to raw duration when perTestStats has no entry for a test', () => {
+      // perTestStats is {} (empty) — default mock; raw r.duration is used
+      const engine = new TestSplitEngine('/tmp/test');
+      engine.run('tests.xml', 3, false);
+
+      expect(mockSchedulerInstance.schedule).toHaveBeenCalledWith(
+        [
+          { id: 'TestA', duration: 1.0 },
+          { id: 'TestB', duration: 2.0 },
+        ],
+        3,
+      );
     });
   });
 });
