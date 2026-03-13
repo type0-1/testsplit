@@ -24,4 +24,34 @@ describe('LPTScheduler', () => {
   it('throws for a negative task duration', () => {
     expect(() => new LPTScheduler().schedule([{ id: 'A', duration: -1 }], 1)).toThrow();
   });
+
+  it('respects dependency order while scheduling longest ready tasks first', () => {
+    const tasks: Task[] = [
+      { id: 'A', duration: 4 },
+      { id: 'B', duration: 9, dependencies: ['A'] },
+      { id: 'C', duration: 7 },
+      { id: 'D', duration: 3, dependencies: ['B'] },
+    ];
+
+    const result = new LPTScheduler().schedule(tasks, 1);
+    expect(result.jobs[0].tasks.map((t) => t.id)).toEqual(['C', 'A', 'B', 'D']);
+  });
+
+  it('throws when a task depends on an unknown task id', () => {
+    const tasks: Task[] = [
+      { id: 'A', duration: 4, dependencies: ['Z'] },
+      { id: 'B', duration: 5 },
+    ];
+
+    expect(() => new LPTScheduler().schedule(tasks, 2)).toThrow('depends on unknown task');
+  });
+
+  it('throws for cyclic dependencies', () => {
+    const tasks: Task[] = [
+      { id: 'A', duration: 5, dependencies: ['B'] },
+      { id: 'B', duration: 6, dependencies: ['A'] },
+    ];
+
+    expect(() => new LPTScheduler().schedule(tasks, 2)).toThrow('Dependency cycle detected');
+  });
 });
