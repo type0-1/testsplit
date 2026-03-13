@@ -78,7 +78,7 @@ export class MULTIFITScheduler {
       let placed = false;
 
       for (const job of jobs) {
-        if (job.totalTime + task.duration <= binCapacity) {
+        if (job.totalTime + task.duration <= binCapacity + 1e-9) {
           job.addTask(task);
           placed = true;
           break;
