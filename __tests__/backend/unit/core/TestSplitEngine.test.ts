@@ -204,7 +204,7 @@ describe('TestSplitEngine', () => {
     });
 
     it('falls back to raw duration when perTestStats has no entry for a test', () => {
-      // perTestStats is {} (empty) — default mock; raw r.duration is used
+      // perTestStats is {} (empty) - default mock; raw r.duration is used
       const engine = new TestSplitEngine('/tmp/test');
       engine.run('tests.xml', 3, false);
 

@@ -20,7 +20,7 @@ const taskArb = fc.record({
 const tasksArb = fc.uniqueArray(taskArb, { minLength: 1, maxLength: 30, selector: (t) => t.id });
 const jobCountArb = fc.integer({ min: 1, max: 8 });
 
-describe.each(schedulers)('$name — property-based', ({ create }) => {
+describe.each(schedulers)('$name - property-based', ({ create }) => {
   it('partition invariant: every task assigned to exactly one job', () => {
     fc.assert(
       fc.property(tasksArb, jobCountArb, (tasks, jobCount) => {
