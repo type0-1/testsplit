@@ -118,8 +118,7 @@ async function runWorkerDynamic(initialTasks: Task[], sharedQueue: WorkQueue, jo
 
 /**
  * Dynamic work queue: each worker starts with its statically assigned tasks,
- * then pulls from the shared queue when its local queue empties, no worker
- * goes idle while tests remain.
+ * then pulls from the shared queue when its local queue empties, no worker goes idle while tests remain.
  */
 export function runAllJobsDynamic(jobs: Job[], cmd: string, filterFlag: string): Promise<JobResult[]> {
   const activeJobs = jobs.filter((j) => j.tasks.length > 0);
