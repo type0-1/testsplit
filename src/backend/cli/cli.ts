@@ -7,7 +7,7 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
-import { runAllJobs } from '../runner/ParallelRunner';
+import { runAllJobs, runAllJobsDynamic } from '../runner/ParallelRunner';
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
@@ -858,6 +858,11 @@ yargs(hideBin(process.argv))
           type: 'number',
           default: 1.0,
           describe: 'Variance weight k: schedules using meanDuration + k * stdDev',
+        })
+        .option('dynamic', {
+          type: 'boolean',
+          default: false,
+          describe: 'Enable dynamic work queue: workers pull the next test when idle instead of going idle',
         }),
     async (argv) => {
       const junitPath = path.resolve(argv.junit as string);
@@ -867,6 +872,7 @@ yargs(hideBin(process.argv))
       const filterJoin = argv['filter-join'] as string;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
+      const dynamic = argv.dynamic as boolean;
 
       if (!fs.existsSync(junitPath)) {
         console.error(chalk.red(`Error: --junit path does not exist: ${junitPath}`));
@@ -882,7 +888,9 @@ yargs(hideBin(process.argv))
 
       console.log(chalk.bold(`\nSpawning ${distribution.jobs.length} job(s) using ${algorithm.toUpperCase()}...\n`));
 
-      const results = await runAllJobs(distribution.jobs, cmd, filterFlag, filterJoin);
+      const results = await (dynamic
+        ? runAllJobsDynamic(distribution.jobs, cmd, filterFlag)
+        : runAllJobs(distribution.jobs, cmd, filterFlag, filterJoin));
 
       let allPassed = true;
       for (const r of results) {

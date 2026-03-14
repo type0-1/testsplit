@@ -3,6 +3,8 @@ import { writeFileSync, unlinkSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { Job } from '../algorithm/model/Job';
+import { Task } from '../algorithm/model/Task';
+import { WorkQueue } from './WorkQueue';
 
 const MAX_INLINE_ARG = 50_000;
 
@@ -51,7 +53,7 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
     child.stderr.on('data', (chunk: Buffer) => stderrChunks.push(chunk));
 
     child.on('close', (code) => {
-      if (tempFile) try { unlinkSync(tempFile); } catch (e) { console.log('Failed to cleanup temp file'); } // cleanup temp file it created
+      if (tempFile) try { unlinkSync(tempFile); } catch (e) { console.log('Failed to cleanup temp file', e); } // cleanup temp file it created
       resolve({
         jobId: job.jobId,
         testNames,
@@ -67,4 +69,60 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
 export function runAllJobs(jobs: Job[], cmd: string, filterFlag: string, filterJoin: string): Promise<JobResult[]> {
   const activeJobs = jobs.filter((j) => j.tasks.length > 0);
   return Promise.all(activeJobs.map((j) => runJob(j, cmd, filterFlag, filterJoin)));
+}
+
+function runSingleTest(task: Task, cmd: string, filterFlag: string): Promise<{ exitCode: number; stdout: string; stderr: string }> {
+  return new Promise((resolve) => {
+    const fullCmd = `${cmd} ${filterFlag} ${JSON.stringify(escapeRegex(task.id))}`;
+    const stdoutChunks: Buffer[] = [];
+    const stderrChunks: Buffer[] = [];
+    const child = spawn('sh', ['-c', fullCmd], { stdio: 'pipe' });
+    child.stdout.on('data', (c: Buffer) => stdoutChunks.push(c));
+    child.stderr.on('data', (c: Buffer) => stderrChunks.push(c));
+    child.on('close', (code) => resolve({
+      exitCode: code ?? 1,
+      stdout: Buffer.concat(stdoutChunks).toString(),
+      stderr: Buffer.concat(stderrChunks).toString(),
+    }));
+  });
+}
+
+async function runWorkerDynamic(initialTasks: Task[], sharedQueue: WorkQueue, jobId: number, cmd: string, filterFlag: string): Promise<JobResult> {
+  const start = performance.now();
+  const testNames: string[] = [];
+  let exitCode = 0;
+  const stdoutParts: string[] = [];
+  const stderrParts: string[] = [];
+  const localQueue = [...initialTasks];
+
+  while (true) {
+    const task = localQueue.shift() ?? sharedQueue.pull();
+    if (!task) break;
+
+    testNames.push(task.id);
+    const result = await runSingleTest(task, cmd, filterFlag);
+    if (result.exitCode !== 0) exitCode = result.exitCode;
+    stdoutParts.push(result.stdout);
+    stderrParts.push(result.stderr);
+  }
+
+  return {
+    jobId,
+    testNames,
+    wallClockMs: performance.now() - start,
+    exitCode,
+    stdout: stdoutParts.join(''),
+    stderr: stderrParts.join(''),
+  };
+}
+
+/**
+ * Dynamic work queue: each worker starts with its statically assigned tasks,
+ * then pulls from the shared queue when its local queue empties, no worker
+ * goes idle while tests remain.
+ */
+export function runAllJobsDynamic(jobs: Job[], cmd: string, filterFlag: string): Promise<JobResult[]> {
+  const activeJobs = jobs.filter((j) => j.tasks.length > 0);
+  const sharedQueue = new WorkQueue(activeJobs.flatMap((j) => j.tasks));
+  return Promise.all(activeJobs.map((j) => runWorkerDynamic([], sharedQueue, j.jobId, cmd, filterFlag)));
 }
