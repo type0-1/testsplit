@@ -7,7 +7,7 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
-import { runAllJobs, runAllJobsDynamic } from '../runner/ParallelRunner';
+import { runAllJobs, runAllJobsDynamic, runAllJobsWorkStealing } from '../runner/ParallelRunner';
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
@@ -863,6 +863,11 @@ yargs(hideBin(process.argv))
           type: 'boolean',
           default: false,
           describe: 'Enable dynamic work queue: workers pull the next test when idle instead of going idle',
+        })
+        .option('steal', {
+          type: 'boolean',
+          default: false,
+          describe: 'Enable work stealing: idle workers steal the largest task from the busiest peer',
         }),
     async (argv) => {
       const junitPath = path.resolve(argv.junit as string);
@@ -873,6 +878,7 @@ yargs(hideBin(process.argv))
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
       const dynamic = argv.dynamic as boolean;
+      const steal = argv.steal as boolean;
 
       if (!fs.existsSync(junitPath)) {
         console.error(chalk.red(`Error: --junit path does not exist: ${junitPath}`));
@@ -888,9 +894,11 @@ yargs(hideBin(process.argv))
 
       console.log(chalk.bold(`\nSpawning ${distribution.jobs.length} job(s) using ${algorithm.toUpperCase()}...\n`));
 
-      const results = await (dynamic
-        ? runAllJobsDynamic(distribution.jobs, cmd, filterFlag)
-        : runAllJobs(distribution.jobs, cmd, filterFlag, filterJoin));
+      const results = await (steal
+        ? runAllJobsWorkStealing(distribution.jobs, cmd, filterFlag)
+        : dynamic
+          ? runAllJobsDynamic(distribution.jobs, cmd, filterFlag)
+          : runAllJobs(distribution.jobs, cmd, filterFlag, filterJoin));
 
       let allPassed = true;
       for (const r of results) {

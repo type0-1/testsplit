@@ -4,7 +4,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import { Job } from '../algorithm/model/Job';
 import { Task } from '../algorithm/model/Task';
-import { WorkQueue } from './WorkQueue';
+import { WorkQueue, WorkerQueue } from './WorkQueue';
 
 const MAX_INLINE_ARG = 50_000;
 
@@ -124,4 +124,38 @@ export function runAllJobsDynamic(jobs: Job[], cmd: string, filterFlag: string):
   const activeJobs = jobs.filter((j) => j.tasks.length > 0);
   const sharedQueue = new WorkQueue(activeJobs.flatMap((j) => j.tasks));
   return Promise.all(activeJobs.map((j) => runWorkerDynamic([], sharedQueue, j.jobId, cmd, filterFlag)));
+}
+
+async function runWorkerStealing(myQueue: WorkerQueue, allQueues: WorkerQueue[], jobId: number, cmd: string, filterFlag: string): Promise<JobResult> {
+  const start = performance.now();
+  const testNames: string[] = [];
+  let exitCode = 0;
+  const stdoutParts: string[] = [];
+  const stderrParts: string[] = [];
+
+  while (true) {
+    let task = myQueue.pop();
+
+    if (!task) {
+      const victim = allQueues
+        .filter((q) => q !== myQueue && !q.isEmpty)
+        .sort((a, b) => b.totalWork - a.totalWork)[0];
+      task = victim?.steal();
+      if (!task) break;
+    }
+
+    testNames.push(task.id);
+    const result = await runSingleTest(task, cmd, filterFlag);
+    if (result.exitCode !== 0) exitCode = result.exitCode;
+    stdoutParts.push(result.stdout);
+    stderrParts.push(result.stderr);
+  }
+
+  return { jobId, testNames, wallClockMs: performance.now() - start, exitCode, stdout: stdoutParts.join(''), stderr: stderrParts.join('') };
+}
+
+export function runAllJobsWorkStealing(jobs: Job[], cmd: string, filterFlag: string): Promise<JobResult[]> {
+  const activeJobs = jobs.filter((j) => j.tasks.length > 0);
+  const queues = activeJobs.map((j) => new WorkerQueue(j.tasks));
+  return Promise.all(activeJobs.map((j, i) => runWorkerStealing(queues[i], queues, j.jobId, cmd, filterFlag)));
 }
