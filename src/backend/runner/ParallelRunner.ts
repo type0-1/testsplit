@@ -51,7 +51,7 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
     child.stderr.on('data', (chunk: Buffer) => stderrChunks.push(chunk));
 
     child.on('close', (code) => {
-      if (tempFile) try { unlinkSync(tempFile); } catch { /* ignore cleanup errors */ }
+      if (tempFile) try { unlinkSync(tempFile); } catch {} // cleanup temp file it created
       resolve({
         jobId: job.jobId,
         testNames,
