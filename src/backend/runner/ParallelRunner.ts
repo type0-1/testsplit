@@ -1,5 +1,10 @@
 import { spawn } from 'child_process';
+import { writeFileSync, unlinkSync } from 'fs';
+import { tmpdir } from 'os';
+import { join } from 'path';
 import { Job } from '../algorithm/model/Job';
+
+const MAX_INLINE_ARG = 50_000;
 
 export interface JobResult {
   jobId: number;
@@ -25,7 +30,18 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
   return new Promise((resolve) => {
     const testNames = job.tasks.map((t) => t.id);
     const filter = testNames.map(escapeRegex).join(filterJoin);
-    const fullCmd = `${cmd} ${filterFlag} ${JSON.stringify(filter)}`;
+
+    let fullCmd: string;
+    let tempFile: string | null = null;
+
+    if (filter.length > MAX_INLINE_ARG) {
+      tempFile = join(tmpdir(), `testsplit-job-${job.jobId}-${Date.now()}.txt`);
+      writeFileSync(tempFile, filter);
+      fullCmd = `${cmd} ${filterFlag} @${tempFile}`;
+    } else {
+      fullCmd = `${cmd} ${filterFlag} ${JSON.stringify(filter)}`;
+    }
+
     const stdoutChunks: Buffer[] = [];
     const stderrChunks: Buffer[] = [];
     const start = performance.now();
@@ -35,6 +51,7 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
     child.stderr.on('data', (chunk: Buffer) => stderrChunks.push(chunk));
 
     child.on('close', (code) => {
+      if (tempFile) try { unlinkSync(tempFile); } catch { /* ignore cleanup errors */ }
       resolve({
         jobId: job.jobId,
         testNames,

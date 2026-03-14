@@ -19,7 +19,7 @@ describe('MULTIFITScheduler', () => {
     ];
     const result = new MULTIFITScheduler().schedule(tasks, 3);
     const total = tasks.reduce((s, t) => s + t.duration, 0); // 35
-    const lb = Math.max(9, total / 3);                       // 11.67
+    const lb = Math.max(9, total / 3); // 11.67
 
     expect(result.metrics.criticalPath).toBeLessThanOrEqual(lb * 1.22 + 0.01);
   });

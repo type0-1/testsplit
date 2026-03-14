@@ -7,6 +7,7 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
+import { runAllJobs } from '../runner/ParallelRunner';
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
@@ -817,6 +818,85 @@ yargs(hideBin(process.argv))
           console.log(chalk.green(`${filePath} is a valid ${platform === 'github' ? 'GitHub Actions' : 'GitLab CI'} configuration.`));
         },
       )
+  .command(
+    'run',
+    'Schedule and execute test subsets in parallel, recording real wall-clock time per job',
+    (y) =>
+      y
+        .option('junit', {
+          type: 'string',
+          demandOption: true,
+          describe: 'Path to JUnit XML test report',
+        })
+        .option('jobs', {
+          type: 'number',
+          demandOption: true,
+          describe: 'Number of parallel jobs to spawn',
+        })
+        .option('cmd', {
+          type: 'string',
+          demandOption: true,
+          describe: 'Base test command (e.g. "npx jest" or "mvn test -Dtest")',
+        })
+        .option('filter-flag', {
+          type: 'string',
+          default: '--testNamePattern',
+          describe: 'Flag used to pass a test filter to the test runner',
+        })
+        .option('filter-join', {
+          type: 'string',
+          default: '|',
+          describe: 'Separator used to join multiple test names into one filter value',
+        })
+        .option('algorithm', {
+          type: 'string',
+          choices: ['lpt', 'multifit'] as const,
+          default: 'lpt',
+          describe: 'Scheduling algorithm',
+        })
+        .option('risk-factor', {
+          type: 'number',
+          default: 1.0,
+          describe: 'Variance weight k: schedules using meanDuration + k * stdDev',
+        }),
+    async (argv) => {
+      const junitPath = path.resolve(argv.junit as string);
+      const jobCount = argv.jobs as number;
+      const cmd = argv.cmd as string;
+      const filterFlag = argv['filter-flag'] as string;
+      const filterJoin = argv['filter-join'] as string;
+      const algorithm = argv.algorithm as Algorithm;
+      const riskFactor = argv['risk-factor'] as number;
+
+      if (!fs.existsSync(junitPath)) {
+        console.error(chalk.red(`Error: --junit path does not exist: ${junitPath}`));
+        process.exit(EXIT_FAILURE);
+      }
+      if (!Number.isInteger(jobCount) || jobCount < 1) {
+        console.error(chalk.red('Error: --jobs must be a positive integer'));
+        process.exit(EXIT_FAILURE);
+      }
+
+      const engine = new TestSplitEngine();
+      const { distribution } = engine.run(junitPath, jobCount, false, algorithm, riskFactor);
+
+      console.log(chalk.bold(`\nSpawning ${distribution.jobs.length} job(s) using ${algorithm.toUpperCase()}...\n`));
+
+      const results = await runAllJobs(distribution.jobs, cmd, filterFlag, filterJoin);
+
+      let allPassed = true;
+      for (const r of results) {
+        const status = r.exitCode === 0 ? chalk.green('PASS') : chalk.red('FAIL');
+        console.log(`Job ${r.jobId}  ${status}  ${r.wallClockMs.toFixed(0)}ms  (${r.testNames.length} tests)`);
+        if (r.exitCode !== 0) allPassed = false;
+      }
+
+      const maxWall = Math.max(...results.map((r) => r.wallClockMs));
+      console.log(chalk.bold(`\nCritical path (slowest job): ${maxWall.toFixed(0)}ms`));
+
+      if (!allPassed) process.exit(EXIT_FAILURE);
+    },
+  )
   .demandCommand()
   .help()
   .parse();
