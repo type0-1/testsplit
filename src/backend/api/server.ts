@@ -5,7 +5,7 @@ import { HistoricalTestStats } from '../models/HistoricalTestStats';
 
 export async function buildApp() {
   const app = Fastify();
-  const store = new FileStore();
+  const store = new FileStore(process.env.DATA_DIR ?? '.data');
   const defaultCorsOrigins = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',

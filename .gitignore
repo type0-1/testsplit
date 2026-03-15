@@ -1,8 +1,8 @@
 node_modules/
 dist/
 .data/
-<<<<<<< HEAD
 .coverage/
-=======
 coverage/
->>>>>>> origin/main
+.data-e2e/
+test-results/
+coverage/playwright-report/

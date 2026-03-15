@@ -200,6 +200,11 @@ yargs(hideBin(process.argv))
           default: os.cpus().length,
           describe: 'Number of parallel jobs',
         })
+        .option('data', {
+          type: 'string',
+          default: '.data',
+          describe: 'Path to data directory',
+        })
         .option('explain', {
           type: 'boolean',
           default: false,
@@ -220,6 +225,7 @@ yargs(hideBin(process.argv))
     (argv) => {
       const junitPath = path.resolve(argv.junit as string);
       let jobCount = argv.jobs as number;
+      const dataDir = argv.data as string;
       const explain = argv.explain as boolean;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
@@ -246,7 +252,7 @@ yargs(hideBin(process.argv))
         process.exit(EXIT_FAILURE);
       }
 
-      const engine = new TestSplitEngine();
+      const engine = new TestSplitEngine(dataDir);
       const profileStart = performance.now();
       const { profile, distribution } = engine.run(
         junitPath,

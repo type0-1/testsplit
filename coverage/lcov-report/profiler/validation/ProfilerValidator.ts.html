@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">78.94% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>15/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>7/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>12/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -97,64 +97,64 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { TestResult } from '../../models/TestResult';
 import { ProfileMetadata } from '../model/Profile';
-<span class="cstat-no" title="statement not covered" >import { computeOutlierThreshold } from '../../utils/stats';</span>
+import { computeOutlierThreshold } from '../../utils/stats';
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >v</span>alidateResults(</span>results: TestResult[]): void {
-<span class="cstat-no" title="statement not covered" >  if (!Array.isArray(results) || results.length === 0) {</span>
+export function validateResults(results: TestResult[]): void {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!Array.isArray(results) || results.length === 0) {
 <span class="cstat-no" title="statement not covered" >    throw new Error('No test results provided for profiling');</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  for (const result of results) {</span>
-<span class="cstat-no" title="statement not covered" >    if (!Number.isFinite(result.duration) || result.duration &lt; 0) {</span>
+  for (const result of results) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!Number.isFinite(result.duration) || result.duration &lt; 0) {
 <span class="cstat-no" title="statement not covered" >      throw new Error(`Invalid duration for test ${result.name}`);</span>
     }
   }
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >f</span>lagZeroDurationTests(</span>results: TestResult[]): TestResult[] {
-<span class="cstat-no" title="statement not covered" >  return results.filter(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >r.duration === 0)</span>;</span>
+export function flagZeroDurationTests(results: TestResult[]): TestResult[] {
+  return results.filter((r) =&gt; r.duration === 0);
 }
 &nbsp;
 // Outlier detection logic: see computeOutlierThreshold in utils/stats.ts
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >d</span>etectOutlierTests(</span>results: TestResult[]): string[] {
-  const threshold = <span class="cstat-no" title="statement not covered" >computeOutlierThreshold(results.map(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >r.duration)</span>);</span>
-<span class="cstat-no" title="statement not covered" >  return results.filter(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >r.duration &gt; threshold)</span>.map(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >r.name)</span>;</span>
+export function detectOutlierTests(results: TestResult[]): string[] {
+  const threshold = computeOutlierThreshold(results.map((r) =&gt; r.duration));
+  return results.filter((r) =&gt; r.duration &gt; threshold).map(<span class="fstat-no" title="function not covered" >(r</span>) =&gt; <span class="cstat-no" title="statement not covered" >r.name)</span>;
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >v</span>alidateCommitPresence(</span>metadata: ProfileMetadata): void {
-<span class="cstat-no" title="statement not covered" >  if (!metadata.commit) {</span>
+export function validateCommitPresence(metadata: ProfileMetadata): void {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!metadata.commit) {
 <span class="cstat-no" title="statement not covered" >    console.warn('Warning: no commit information available in profile metadata');</span>
   }
 }
@@ -166,7 +166,7 @@ import { ProfileMetadata } from '../model/Profile';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-15T15:51:40.174Z
+                at 2026-03-15T18:33:59.544Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

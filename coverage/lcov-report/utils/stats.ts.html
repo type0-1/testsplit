@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">81.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>9/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -84,32 +84,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">114304x</span>
+<span class="cline-any cline-yes">114304x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * Outlier Detection inspired by Z-Score method (https://www.itl.nist.gov/div898/handbook/eda/section3/eda35h.html)
  * - Computes the upper outlier threshold as mean + 2 std's.
  * - Returns Infinity if std dev is 0 (all values identical, no outliers possible).
  */
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >c</span>omputeOutlierThreshold(</span>values: number[]): number {
-<span class="cstat-no" title="statement not covered" >  if (values.length &lt; 2) <span class="cstat-no" title="statement not covered" >return Infinity;</span></span>
+export function computeOutlierThreshold(values: number[]): number {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (values.length &lt; 2) <span class="cstat-no" title="statement not covered" >return Infinity;</span>
 &nbsp;
-  const mean = <span class="cstat-no" title="statement not covered" >values.reduce(<span class="fstat-no" title="function not covered" >(s</span>um, v) =&gt; <span class="cstat-no" title="statement not covered" >sum + v,</span> 0) / values.length;</span>
-  const variance = <span class="cstat-no" title="statement not covered" >values.reduce(<span class="fstat-no" title="function not covered" >(s</span>um, v) =&gt; <span class="cstat-no" title="statement not covered" >sum + Math.pow(v - mean, 2),</span> 0) / values.length;</span>
-  const stdDev = <span class="cstat-no" title="statement not covered" >Math.sqrt(variance);</span>
+  const mean = values.reduce((sum, v) =&gt; sum + v, 0) / values.length;
+  const variance = values.reduce((sum, v) =&gt; sum + Math.pow(v - mean, 2), 0) / values.length;
+  const stdDev = Math.sqrt(variance);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (stdDev === 0) <span class="cstat-no" title="statement not covered" >return Infinity;</span></span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (stdDev === 0) <span class="cstat-no" title="statement not covered" >return Infinity;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return mean + 2 * stdDev;</span>
+  return mean + 2 * stdDev;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -118,7 +118,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-15T15:51:40.174Z
+                at 2026-03-15T18:33:59.544Z
             </div>
         <script src="../prettify.js"></script>
         <script>

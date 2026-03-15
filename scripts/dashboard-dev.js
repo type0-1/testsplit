@@ -5,6 +5,8 @@ const { spawn } = require('child_process');
 const rootDir = path.resolve(__dirname, '..');
 const frontendDir = path.join(rootDir, 'src', 'frontend');
 const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+const apiPort = Number.parseInt(process.env.API_PORT ?? '3001', 10);
+const apiBaseUrl = `http://localhost:${apiPort}`;
 
 function waitForApiHealth(maxAttempts = 60, delayMs = 500) {
   return new Promise((resolve, reject) => {
@@ -13,7 +15,7 @@ function waitForApiHealth(maxAttempts = 60, delayMs = 500) {
     const check = () => {
       attempts += 1;
 
-      const req = http.get('http://localhost:3001/api/health', (res) => {
+      const req = http.get(`${apiBaseUrl}/api/health`, (res) => {
         if (res.statusCode === 200) {
           res.resume();
           resolve();
@@ -48,7 +50,7 @@ function waitForApiHealth(maxAttempts = 60, delayMs = 500) {
 
 function checkApiHealthOnce() {
   return new Promise((resolve) => {
-    const req = http.get('http://localhost:3001/api/health', (res) => {
+    const req = http.get(`${apiBaseUrl}/api/health`, (res) => {
       const healthy = res.statusCode === 200;
       res.resume();
       resolve(healthy);
@@ -62,11 +64,11 @@ function checkApiHealthOnce() {
   });
 }
 
-function startProcess(command, args, cwd) {
+function startProcess(command, args, cwd, env = process.env) {
   return spawn(command, args, {
     cwd,
     stdio: 'inherit',
-    env: process.env,
+    env,
   });
 }
 
@@ -84,7 +86,10 @@ async function main() {
     console.log('[dashboard] API already healthy. Reusing existing backend.');
   } else {
     console.log('[dashboard] Starting API...');
-    apiProcess = startProcess(npmCmd, ['run', 'api'], rootDir);
+    apiProcess = startProcess(npmCmd, ['run', 'api'], rootDir, {
+      ...process.env,
+      PORT: String(apiPort),
+    });
   }
 
   const shutdown = () => {
@@ -106,11 +111,14 @@ async function main() {
   }
 
   try {
-    console.log('[dashboard] Waiting for API health at /api/health...');
+    console.log(`[dashboard] Waiting for API health at ${apiBaseUrl}/api/health...`);
     await waitForApiHealth();
     console.log('[dashboard] API is healthy. Starting frontend dev server...');
 
-    const frontendProcess = startProcess(npmCmd, ['run', 'dev'], frontendDir);
+    const frontendProcess = startProcess(npmCmd, ['run', 'dev'], frontendDir, {
+      ...process.env,
+      API_PROXY_TARGET: process.env.API_PROXY_TARGET ?? apiBaseUrl,
+    });
 
     frontendProcess.on('exit', (code) => {
       shutdown();

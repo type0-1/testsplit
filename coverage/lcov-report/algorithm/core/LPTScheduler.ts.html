@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -106,39 +106,39 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,10 +148,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Task } from '../model/Task';
-<span class="cstat-no" title="statement not covered" >import { Job } from '../model/Job';</span>
+import { Job } from '../model/Job';
 import { JobDistribution } from '../model/JobDistribution';
-<span class="cstat-no" title="statement not covered" >import { computeMetrics } from '../metrics/SchedulingMetrics';</span>
-<span class="cstat-no" title="statement not covered" >import { validateInputs, validateOutput } from '../validation/SchedulerValidator';</span>
+import { computeMetrics } from '../metrics/SchedulingMetrics';
+import { validateInputs, validateOutput } from '../validation/SchedulerValidator';
 &nbsp;
 /**
  * References: 
@@ -159,28 +159,28 @@ import { JobDistribution } from '../model/JobDistribution';
  *  - res/references/lpt4_3.pdf
  */
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export class L</span>PTScheduler {
+export class LPTScheduler {
 &nbsp;
-<span class="fstat-no" title="function not covered" >  schedule(</span>tasks: Task[], jobCount: number): JobDistribution {
-<span class="cstat-no" title="statement not covered" >    validateInputs(tasks, jobCount); </span>// Explicitly validate to satisfy LPT assumptions
+  schedule(tasks: Task[], jobCount: number): JobDistribution {
+    validateInputs(tasks, jobCount); // Explicitly validate to satisfy LPT assumptions
     
-    const sorted = <span class="cstat-no" title="statement not covered" >[...tasks].sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >b.duration - a.duration)</span>;</span> // LPT ordering (via descending duration)
-    const jobs: Job[] = <span class="cstat-no" title="statement not covered" >[];</span>
+    const sorted = [...tasks].sort((a, b) =&gt; b.duration - a.duration); // LPT ordering (via descending duration)
+    const jobs: Job[] = [];
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; jobCount; i++) {</span>
-<span class="cstat-no" title="statement not covered" >      jobs.push(new Job(i));</span>
+    for (let i = 0; i &lt; jobCount; i++) {
+      jobs.push(new Job(i));
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    for (const task of sorted) {</span>
-      const lightestJob = <span class="cstat-no" title="statement not covered" >jobs.reduce(<span class="fstat-no" title="function not covered" >(m</span>in, job) =&gt; <span class="cstat-no" title="statement not covered" >job.totalTime &lt; min.totalTime ? job : min)</span>;</span> // Greedily choose job w/ lightest load and assign to task.
-<span class="cstat-no" title="statement not covered" >      lightestJob.addTask(task);</span>
+    for (const task of sorted) {
+      const lightestJob = jobs.reduce((min, job) =&gt; job.totalTime &lt; min.totalTime ? job : min); // Greedily choose job w/ lightest load and assign to task.
+      lightestJob.addTask(task);
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    validateOutput(tasks, jobs);</span>
+    validateOutput(tasks, jobs);
     
-    const totalDuration = <span class="cstat-no" title="statement not covered" >tasks.reduce(<span class="fstat-no" title="function not covered" >(s</span>um, t) =&gt; <span class="cstat-no" title="statement not covered" >sum + t.duration,</span> 0);</span>
+    const totalDuration = tasks.reduce((sum, t) =&gt; sum + t.duration, 0);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return {</span>
+    return {
       jobs,
       jobCount,
       totalDuration,
@@ -196,7 +196,7 @@ import { JobDistribution } from '../model/JobDistribution';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-15T15:51:40.174Z
+                at 2026-03-15T18:33:59.544Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

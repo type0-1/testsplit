@@ -18,10 +18,10 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run dev',
-    cwd: 'src/frontend',
+    command: 'DATA_DIR=.data-e2e API_PORT=3101 API_PROXY_TARGET=http://localhost:3101 npm run dashboard',
+    cwd: '.',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
-    timeout: 30000,
+    timeout: 90000,
   },
 })
