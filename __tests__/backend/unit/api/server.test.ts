@@ -69,6 +69,16 @@ describe('API server', () => {
     MockFileStore.mockImplementation(() => mockStore);
   });
 
+  describe('GET /api/health', () => {
+    it('returns ok status payload', async () => {
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/health' });
+
+      expect(res.statusCode).toBe(200);
+      expect(JSON.parse(res.body)).toEqual({ status: 'ok' });
+    });
+  });
+
   describe('GET /api/summary', () => {
     it('returns 404 when no historical profile and no deltas', async () => {
       mockStore.loadHistoricalProfile.mockReturnValue(null);

@@ -19,6 +19,8 @@ export async function buildApp() {
 
   await app.register(cors, { origin: corsOrigin });
 
+  app.get('/api/health', async () => ({ status: 'ok' }));
+
   // Endpoint to get summary stats
   app.get('/api/summary', async (_req, reply) => {
     const historical = store.loadHistoricalProfile();
