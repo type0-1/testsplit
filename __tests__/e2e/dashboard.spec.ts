@@ -48,6 +48,26 @@ test.describe('Dashboard navigation', () => {
     await expect(btn).toHaveAttribute('aria-current', 'page')
   })
 
+  test('Instability scatter plot renders with data points', async ({ page }) => {
+    const testsStatus = async () => {
+      const response = await page.request.get('/api/tests?sort=cv&limit=500')
+      return response.status()
+    }
+
+    if ((await testsStatus()) === 404) {
+      seedDockerApiDataIfAvailable()
+    }
+
+    await expect.poll(testsStatus, { timeout: 20000, intervals: [500, 1000, 2000] }).toBe(200)
+
+    await page.goto('/')
+    await page.getByRole('button', { name: /instability/i }).click()
+    await expect(page.getByText(/Duration vs Variance/i)).toBeVisible()
+
+    const points = page.locator('.recharts-scatter .recharts-symbols, .recharts-scatter .recharts-scatter-symbol')
+    await expect.poll(async () => points.count(), { timeout: 10000, intervals: [250, 500, 1000] }).toBeGreaterThan(0)
+  })
+
   test('loads with real profiled data after a profile run', async ({ page }) => {
     const summaryStatus = async () => {
       const response = await page.request.get('/api/summary')
