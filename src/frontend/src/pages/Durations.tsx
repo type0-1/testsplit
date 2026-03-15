@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
 import { useApi } from '@/hooks/useApi'
+import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import type { SummaryResponse, TestsResponse, TestStat } from '@/types/api'
 
 const BUCKETS = [
@@ -130,10 +131,16 @@ function HistogramPanel({ tests }: { tests: TestStat[] }) {
 }
 
 export function Durations() {
-  const { data: summary } = useApi<SummaryResponse>('/api/summary')
-  const { data: testsData } = useApi<TestsResponse>('/api/tests?sort=duration&limit=500')
+  const { data: summary, loading: summaryLoading } = useApi<SummaryResponse>('/api/summary')
+  const { data: testsData, loading: testsLoading } = useApi<TestsResponse>('/api/tests?sort=duration&limit=500')
   const [sortKey, setSortKey] = useState<SortKey>('duration')
   const [asc, setAsc] = useState(false)
+
+  const isLoading = summaryLoading || testsLoading
+
+  if (isLoading) {
+    return <PageLoadingSkeleton title="Durations" accentColor="var(--orange)" />
+  }
 
   const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
   const allTests = testsData?.tests ?? []

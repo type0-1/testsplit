@@ -5,6 +5,7 @@ import {
   Tooltip as RechartsTooltip, ResponsiveContainer,
 } from 'recharts'
 import { useApi } from '@/hooks/useApi'
+import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import type { SummaryResponse, TestsResponse, JobsResponse, TrendsResponse, TestStat, TrendPoint } from '@/types/api'
 
 function useCountUp(target: number, active: boolean, delay = 0): number {
@@ -258,15 +259,21 @@ function formatRunLabel(runAt: string, index: number): string {
 
 export default function Overview() {
   const [calibrated, setCalibrated] = useState(false)
-  const { data: summary } = useApi<SummaryResponse>('/api/summary')
-  const { data: testsData } = useApi<TestsResponse>('/api/tests?sort=cv&limit=100')
-  const { data: jobsData } = useApi<JobsResponse>('/api/jobs')
-  const { data: trendsData } = useApi<TrendsResponse>('/api/trends?limit=20')
+  const { data: summary, loading: summaryLoading } = useApi<SummaryResponse>('/api/summary')
+  const { data: testsData, loading: testsLoading } = useApi<TestsResponse>('/api/tests?sort=cv&limit=100')
+  const { data: jobsData, loading: jobsLoading } = useApi<JobsResponse>('/api/jobs')
+  const { data: trendsData, loading: trendsLoading } = useApi<TrendsResponse>('/api/trends?limit=20')
 
   useEffect(() => {
     const t = setTimeout(() => setCalibrated(true), 420)
     return () => clearTimeout(t)
   }, [])
+
+  const isLoading = summaryLoading || testsLoading || jobsLoading || trendsLoading
+
+  if (isLoading) {
+    return <PageLoadingSkeleton title="Overview" accentColor="var(--orange)" />
+  }
 
   const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
   const tests = testsData?.tests ?? []

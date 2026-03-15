@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { useApi } from '@/hooks/useApi'
+import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import type { SummaryResponse, JobsResponse } from '@/types/api'
 
 function JobBarsPanel({ jobs, makespan, balanceRatio }: { jobs: { jobId: number; totalTime: number; tests: string[] }[]; makespan: number; balanceRatio: number }) {
@@ -77,8 +78,14 @@ function JobBarsPanel({ jobs, makespan, balanceRatio }: { jobs: { jobId: number;
 }
 
 export function Scheduling() {
-  const { data: summary } = useApi<SummaryResponse>('/api/summary')
-  const { data: jobsData } = useApi<JobsResponse>('/api/jobs')
+  const { data: summary, loading: summaryLoading } = useApi<SummaryResponse>('/api/summary')
+  const { data: jobsData, loading: jobsLoading } = useApi<JobsResponse>('/api/jobs')
+
+  const isLoading = summaryLoading || jobsLoading
+
+  if (isLoading) {
+    return <PageLoadingSkeleton title="Scheduling" accentColor="var(--cyan)" />
+  }
 
   const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
   const jobs = jobsData?.jobs ?? []

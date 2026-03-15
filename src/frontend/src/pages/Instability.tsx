@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { ScatterChart, Scatter, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
 import { useApi } from '@/hooks/useApi'
+import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import type { SummaryResponse, TestsResponse, TestStat } from '@/types/api'
 
 function toPoint(t: TestStat) {
@@ -118,8 +119,14 @@ function InstabilityRow({ test, index, maxCv }: { test: TestStat; index: number;
 }
 
 export function Instability() {
-  const { data: summary } = useApi<SummaryResponse>('/api/summary')
-  const { data: testsData } = useApi<TestsResponse>('/api/tests?sort=cv&limit=500')
+  const { data: summary, loading: summaryLoading } = useApi<SummaryResponse>('/api/summary')
+  const { data: testsData, loading: testsLoading } = useApi<TestsResponse>('/api/tests?sort=cv&limit=500')
+
+  const isLoading = summaryLoading || testsLoading
+
+  if (isLoading) {
+    return <PageLoadingSkeleton title="Instability" accentColor="var(--amber)" />
+  }
 
   const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
   const allTests = testsData?.tests ?? []
