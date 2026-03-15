@@ -6,7 +6,16 @@ import { HistoricalTestStats } from '../models/HistoricalTestStats';
 export async function buildApp() {
   const app = Fastify();
   const store = new FileStore();
-  const corsOrigin = process.env.CORS_ORIGIN ?? 'http://localhost:5173';
+  const defaultCorsOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'http://localhost:4173',
+    'http://127.0.0.1:4173',
+  ];
+
+  const corsOrigin = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim()).filter(Boolean)
+    : defaultCorsOrigins;
 
   await app.register(cors, { origin: corsOrigin });
 
