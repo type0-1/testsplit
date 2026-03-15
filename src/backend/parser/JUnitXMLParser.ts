@@ -238,6 +238,7 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
         name: testName,
         duration,
         status,
+        ...(className ? { classname: className } : {}),
         ...(filePath ? { filePath } : {}),
         ...(packageName ? { packageName } : {}),
         ...(className ? { className } : {}),
@@ -250,35 +251,6 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
   }
 
   return results;
-  return allTestCases.map((tc: any) => {
-    let status: 'passed' | 'failed' | 'skipped' = 'passed';
-
-    if (tc.skipped !== undefined) {
-      status = 'skipped';
-    } else if (tc.failure !== undefined || tc.error !== undefined) {
-      status = 'failed';
-    }
-
-    const testName =
-      tc.classname && tc.name
-        ? `${tc.classname}.${tc.name}`
-        : (tc.name ?? 'unknown-test');
-
-    let duration = 0;
-    if (tc.time !== undefined) {
-      const parsedTime = Number(tc.time);
-      if (!Number.isNaN(parsedTime)) {
-        duration = parsedTime;
-      }
-    }
-
-    return {
-      name: testName,
-      classname: tc.classname ?? undefined,
-      duration,
-      status,
-    };
-  });
 }
 
 function parseJUnitXMLPath(path: string): TestResult[] {

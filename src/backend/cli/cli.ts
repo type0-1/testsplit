@@ -450,7 +450,7 @@ yargs(hideBin(process.argv))
       }
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
-      const mavenBin = argv['maven-bin'] as string;
+      const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
       const existingCIPath = findExistingCIFile(platform);
 
@@ -504,15 +504,73 @@ yargs(hideBin(process.argv))
           tests: job.tasks.map((t: Task) => t.id),
         }));
 
-        const resourceConstraints = {
-          cpuCores: result.profile.metadata.cpuCores,
-          memoryLimitMb: result.profile.metadata.memoryLimitMb ?? null,
-        };
+        const metadata = result.profile.metadata;
+        const hasCpuCores = typeof metadata?.cpuCores === 'number';
+        const hasMemoryLimit = metadata?.memoryLimitMb !== undefined;
+        const resourceConstraints =
+          hasCpuCores || hasMemoryLimit
+            ? {
+                cpuCores: metadata?.cpuCores ?? 0,
+                memoryLimitMb: metadata?.memoryLimitMb ?? null,
+              }
+            : undefined;
 
-        const ciConfig =
-          platform === 'github'
-            ? generateGitHubActionsConfig(jobs, mavenBin, resourceConstraints)
-            : generateGitLabCIConfig(jobs, mavenBin, resourceConstraints);
+        let ciConfig: string;
+
+        if (existingCIConfig) {
+          const testJobs = findTestJobs(existingCIConfig, platform);
+          if (testJobs.length === 0) {
+            throw new Error('No test jobs found in existing CI config');
+          }
+
+          const commands = extractTestCommands(existingCIConfig, platform, testJobs);
+          const testCommand = commands[0] ?? `${mavenBin} test -Dtest=`;
+
+          if (platform === 'github') {
+            const baseJobName = testJobs[0];
+            const baseJob = existingCIConfig.jobs?.[baseJobName];
+            if (!baseJob) {
+              throw new Error('Unable to locate base GitHub test job');
+            }
+
+            const splitJobs = buildGitHubSplitJobs(baseJob, jobs, testCommand);
+            for (const jobName of testJobs) {
+              delete existingCIConfig.jobs?.[jobName];
+            }
+            existingCIConfig.jobs = {
+              ...(existingCIConfig.jobs ?? {}),
+              ...splitJobs,
+            };
+            ciConfig = YAML.stringify(existingCIConfig);
+          } else {
+            const baseJobName = testJobs[0];
+            const baseJob = existingCIConfig[baseJobName];
+            if (!baseJob) {
+              throw new Error('Unable to locate base GitLab test job');
+            }
+
+            const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand);
+            for (const jobName of testJobs) {
+              delete existingCIConfig[jobName];
+            }
+            Object.assign(existingCIConfig, splitJobs);
+            ciConfig = YAML.stringify(existingCIConfig);
+          }
+        } else if (platform === 'github') {
+          if (resourceConstraints) {
+            ciConfig = generateGitHubActionsConfig(jobs, mavenBin, resourceConstraints);
+          } else if (mavenBin !== 'mvn') {
+            ciConfig = generateGitHubActionsConfig(jobs, mavenBin);
+          } else {
+            ciConfig = generateGitHubActionsConfig(jobs);
+          }
+        } else if (resourceConstraints) {
+          ciConfig = generateGitLabCIConfig(jobs, mavenBin, resourceConstraints);
+        } else if (mavenBin !== 'mvn') {
+          ciConfig = generateGitLabCIConfig(jobs, mavenBin);
+        } else {
+          ciConfig = generateGitLabCIConfig(jobs);
+        }
 
         if (dryRun) {
           process.stdout.write(ciConfig);

@@ -74,7 +74,7 @@ function validateGitLabSchema(yamlText: string): void {
 }
 
 export function getSchemaValidator(
-  _platform: CIPlatform,
+  platform: CIPlatform,
 ): CISchemaValidator | null {
   if (platform === 'github') {
     return {

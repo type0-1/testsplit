@@ -1,7 +1,7 @@
-import { CommitInfo } from '../../helpers/CommitTracker';
+import os from 'os';
+import { CommitInfo, CommitTracker } from '../../helpers/CommitTracker';
 import { TestResult } from '../../models/TestResult';
 import { Profile } from '../model/Profile';
-import { validateResults } from '../validation/ProfilerValidator';
 import { ProfileMetadata, ProfileGroupings } from '../model/Profile';
 import {
   validateResults,
@@ -10,7 +10,6 @@ import {
   validateCommitPresence,
 } from '../validation/ProfilerValidator';
 import { PROFILE_SCHEMA_VERSION } from '../../storage/SchemaVersions';
-import { EnvironmentCollector } from './EnvironmentCollector';
 
 export class Profiler {
   generateProfile(results: TestResult[], commit?: CommitInfo): Profile {
@@ -35,7 +34,7 @@ export class Profiler {
     const testCount = results.length;
     const totalDuration = results.reduce((sum, r) => sum + r.duration, 0);
     const averageDuration = testCount === 0 ? 0 : totalDuration / testCount;
-    const metadata = EnvironmentCollector.collect(commit);
+    const metadata = this.collectMetadata(results, commit);
 
     validateCommitPresence(metadata);
 
@@ -45,7 +44,7 @@ export class Profiler {
       testCount,
       totalDuration,
       averageDuration,
-      metadata: this.collectMetadata(results, commit),
+      metadata,
     };
   }
 
@@ -65,7 +64,6 @@ export class Profiler {
       containerVersion: process.env.CONTAINER_VERSION ?? 'unknown',
       memoryLimitMb: Math.round(os.totalmem() / (1024 * 1024)),
       groupings: this.buildGroupings(results),
-      metadata,
     };
   }
 
