@@ -10,7 +10,8 @@
     "docker:build": "docker compose build",
     "docker:test": "docker compose run --rm testsplit npm run test:all",
     "docker:shell": "docker compose run --rm testsplit bash",
-    "api": "ts-node src/backend/api/server.ts"
+    "api": "ts-node src/backend/api/server.ts",
+    "dashboard": "node scripts/dashboard-dev.js"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
