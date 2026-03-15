@@ -4,6 +4,12 @@ import { JobDistribution } from '../model/JobDistribution';
 import { computeMetrics } from '../metrics/SchedulingMetrics';
 import { validateInputs, validateOutput } from '../validation/SchedulerValidator';
 
+/**
+ * References: 
+ *  - res/references/Bounds_On_Multiprocessing_Timing_Anomalies.pdf
+ *  - res/references/lpt4_3.pdf
+ */
+
 export class LPTScheduler {
 
   schedule(tasks: Task[], jobCount: number): JobDistribution {

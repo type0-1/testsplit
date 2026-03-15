@@ -204,6 +204,42 @@ describe('FileStore', () => {
     expect(deltas[0]).toHaveProperty('deltas');
   });
 
+  describe('loadHistoricalProfile()', () => {
+    it('returns null when historical.json does not exist', () => {
+      expect(store.loadHistoricalProfile()).toBeNull();
+    });
+
+    it('returns the saved historical profile', () => {
+      const historicalProfile = { runCount: 2, totalTests: 5, averageTestDuration: 1.2, testDurationVariance: 0.1, profiles: [], perTestStats: {}, metadata: [] };
+      store.saveHistoricalProfile(historicalProfile);
+      expect(store.loadHistoricalProfile()).toEqual(historicalProfile);
+    });
+  });
+
+  describe('loadLatestDistribution()', () => {
+    it('returns null when no distributions exist', () => {
+      expect(store.loadLatestDistribution()).toBeNull();
+    });
+
+    it('returns the distribution from the most recently saved file', () => {
+      const dist = { jobCount: 2, jobs: [], metrics: { criticalPath: 5.0 } };
+      store.saveDistribution('run-001', dist);
+      const result = store.loadLatestDistribution() as any;
+      expect(result.jobCount).toBe(2);
+      expect(result.metrics.criticalPath).toBe(5.0);
+    });
+  });
+
+  describe('loadProfiles()', () => {
+    it('returns saved profiles correctly', () => {
+      const profile = { schemaVersion: 1, testCount: 2, totalDuration: 3.0, averageDuration: 1.5, testResults: [{ name: 'A', duration: 1.0, status: 'passed' }], metadata: {} };
+      store.saveProfile('run-abc', profile as any);
+      const profiles = store.loadProfiles();
+      expect(profiles).toHaveLength(1);
+      expect(profiles[0].testCount).toBe(2);
+    });
+  });
+
   it('cleans up old archived delta files beyond the limit', () => {
     for (let i = 0; i < 600; i++) {
       store.saveHistoricalDeltas(makeDelta());

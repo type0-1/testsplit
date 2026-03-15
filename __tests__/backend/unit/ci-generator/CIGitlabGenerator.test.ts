@@ -26,11 +26,10 @@ describe('GitLabCIGenerator', () => {
   });
 
   test('documents profiling resource constraints in YAML comments', () => {
-    const yaml = generateGitLabCIConfig(
-      [{ id: 1, tests: ['TestA'] }],
-      'mvn',
-      { cpuCores: 2, memoryLimitMb: 2048 },
-    );
+    const yaml = generateGitLabCIConfig([{ id: 1, tests: ['TestA'] }], 'mvn', {
+      cpuCores: 2,
+      memoryLimitMb: 2048,
+    });
 
     expect(yaml).toContain('# Resource constraints captured during profiling');
     expect(yaml).toContain('# cpu_limit: 2');

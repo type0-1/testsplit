@@ -3,6 +3,24 @@ import { Profile } from '../model/Profile';
 import { TestResult } from '../../models/TestResult';
 import { HistoricalProfile } from '../../models/HistoricalProfile';
 import { HistoricalTestStats } from '../../models/HistoricalTestStats';
+import { StoredHistoricalDelta } from '../../models/StoredHistoricalDelta';
+import { RegressionFlag } from '../../models/RegressionFlag';
+import { computeOutlierThreshold } from '../../utils/stats';
+
+/**
+ * References:
+ *  Smoothing Factor inspired by Forecasting: Principles and Practices (https://robjhyndman.com/uwafiles/fpp-notes.pdf)
+ *  - We use the smoothing factor (page 35) uses the formula: (alpha*curr_value) + ((1-alpha)*prev_smoothed_val)), 
+ *  0.6 is not the final value, but just used to give more weignt to recent runs while considering historical data.
+ * 
+ *  Instability Threshold inspired by Coefficient of Variation (https://personal.utdallas.edu/~herve/abdi-cv2010-pretty.pdf)
+ * - Consider a test unstable if its coefficient of variation exceeds 0.5, indicating that the std is half the mean, meaning test dur. is highly relative to its avg.
+ *
+ *  Outlier Detection: see computeOutlierThreshold in utils/stats.ts
+ * 
+ * - Regression Detection: (https://uen.pressbooks.pub/uvumqr/chapter/3-5-calculate-relative-change-as-a-percentage-increase-decrease/)
+ *   Rolling change/average: https://www.itl.nist.gov/div898/handbook/pmc/section4/pmc421.htm
+ */
 export class HistoricalProfiler extends Profiler {
   private static readonly INSTABILITY_THRESHOLD = 0.5;
   private static readonly SMOOTHING_FACTOR = 0.6;
@@ -64,18 +82,12 @@ export class HistoricalProfiler extends Profiler {
           (1 - HistoricalProfiler.SMOOTHING_FACTOR) * previousMean;
       }
 
-      const variance =
-        runCount === 0
-          ? 0
-          : durations.reduce((sum, d) => sum + Math.pow(d - mean, 2), 0) /
-            runCount;
+      const variance = runCount === 0 ? 0 : durations.reduce((sum, d) => sum + Math.pow(d - mean, 2), 0) / runCount;
       const stdDev = Math.sqrt(variance);
       const min = runCount === 0 ? 0 : Math.min(...durations);
       const max = runCount === 0 ? 0 : Math.max(...durations);
       const coefficientOfVariation = mean > 0 ? stdDev / mean : 0;
-      const unstable =
-        coefficientOfVariation > HistoricalProfiler.INSTABILITY_THRESHOLD;
-
+      const unstable = coefficientOfVariation > HistoricalProfiler.INSTABILITY_THRESHOLD;
       const zeroDuration = durations.some((d) => d === 0);
 
       stats[testName] = {
@@ -89,7 +101,17 @@ export class HistoricalProfiler extends Profiler {
         coefficientOfVariation,
         unstable,
         zeroDuration,
+        isOutlier: false,
       };
+    }
+
+    const means = Object.values(stats).map((s) => s.meanDuration);
+    if (means.length > 1) {
+      const outlierThreshold = computeOutlierThreshold(means);
+
+      for (const s of Object.values(stats)) {
+        s.isOutlier = s.meanDuration > outlierThreshold;
+      }
     }
 
     return stats;
@@ -111,27 +133,12 @@ export class HistoricalProfiler extends Profiler {
     const allDurations = this.profiles.flatMap((p) =>
       p.testResults.map((r) => r.duration),
     );
-    const averageTestDuration =
-      allDurations.length === 0
-        ? 0
-        : allDurations.reduce((sum, d) => sum + d, 0) / allDurations.length;
+    const averageTestDuration = allDurations.length === 0 ? 0: allDurations.reduce((sum, d) => sum + d, 0) / allDurations.length;
     const testDurationVariance =
-      allDurations.length === 0
-        ? 0
-        : allDurations.reduce(
-            (sum, d) => sum + Math.pow(d - averageTestDuration, 2),
-            0,
-          ) / allDurations.length;
+      allDurations.length === 0 ? 0 : allDurations.reduce((sum, d) => sum + Math.pow(d - averageTestDuration, 2), 0,) / allDurations.length;
     const testDurationMap = this.buildTestDurationMap(this.profiles);
     const perTestStats = this.computePerTestStats(testDurationMap);
-    const firstEnv = this.profiles[0].metadata;
-
-    const environmentConsistent = this.profiles.every(
-      (p) =>
-        p.metadata.cpuModel === firstEnv.cpuModel &&
-        p.metadata.platform === firstEnv.platform &&
-        p.metadata.containerVersion === firstEnv.containerVersion,
-    );
+    const metadata = this.profiles.map(p => p.metadata);
 
     return {
       runCount,
@@ -140,11 +147,38 @@ export class HistoricalProfiler extends Profiler {
       testDurationVariance,
       profiles: this.getProfiles(),
       perTestStats,
-      environmentConsistent,
+      metadata,
     };
   }
 
   reset(): void {
     this.profiles = [];
+  }
+
+  static detectRegressions(deltas: StoredHistoricalDelta[], threshold = 0.10): RegressionFlag[] {
+    if (deltas.length < 2) return [];
+
+    const sorted = [...deltas].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    const latest = sorted[sorted.length - 1].deltas;
+    const previous = sorted.slice(0, -1);
+    const rollingCriticalPath = previous.reduce((sum, d) => sum + d.deltas.criticalPath, 0) / previous.length;
+    const rollingBalanceRatio = previous.reduce((sum, d) => sum + d.deltas.balanceRatio, 0) / previous.length;
+    const flags: RegressionFlag[] = [];
+
+    if (rollingCriticalPath > 0) {
+      const changePercent = (latest.criticalPath - rollingCriticalPath) / rollingCriticalPath;
+      if (changePercent > threshold) {
+        flags.push({ metric: 'criticalPath', rollingAverage: rollingCriticalPath, current: latest.criticalPath, changePercent });
+      }
+    }
+
+    if (rollingBalanceRatio > 0) {
+      const changePercent = (latest.balanceRatio - rollingBalanceRatio) / rollingBalanceRatio;
+      if (changePercent > threshold) {
+        flags.push({ metric: 'balanceRatio', rollingAverage: rollingBalanceRatio, current: latest.balanceRatio, changePercent });
+      }
+    }
+
+    return flags;
   }
 }

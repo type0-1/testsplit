@@ -14,7 +14,9 @@ describe('GitHubActionsGenerator', () => {
     expect(parsed.on).toEqual(['push', 'pull_request']);
     expect(parsed.jobs).toBeDefined();
     expect(Object.keys(parsed.jobs)).toHaveLength(2);
-    expect(parsed.jobs['job-1'].steps[1].run).toBe('mvn test -Dtest=TestA,TestB');
+    expect(parsed.jobs['job-1'].steps[1].run).toBe(
+      'mvn test -Dtest=TestA,TestB',
+    );
     expect(parsed.jobs['job-2'].steps[1].run).toBe('mvn test -Dtest=TestC');
   });
 

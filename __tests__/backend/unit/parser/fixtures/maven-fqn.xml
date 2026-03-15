@@ -1,0 +1,4 @@
+<testsuite name="org.apache.commons.lang3.StringUtilsTest" tests="2">
+  <testcase classname="org.apache.commons.lang3.StringUtilsTest" name="testIsEmpty" time="0.05"/>
+  <testcase classname="org.apache.commons.lang3.StringUtilsTest" name="testTrim" time="0.03"/>
+</testsuite>

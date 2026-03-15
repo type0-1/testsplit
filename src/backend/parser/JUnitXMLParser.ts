@@ -77,7 +77,6 @@ function filePathFromClassName(className?: string): string | undefined {
   return `${className.replace(/\./g, '/')}.java`;
 }
 
-// Validate XML structure. Warn on issues but keep going.
 function validateXMLStructure(xml: string, filePath: string): void {
   try {
     const parser = new DOMParser({
@@ -141,12 +140,12 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
   let parsed: any;
   try {
     parsed = parser.parse(xml);
-  } catch (error) {
+  } catch {
     console.warn(`[Parser] ${filePath}: Failed to parse XML`);
     return [];
   }
 
-  let suites: any[] = [];
+  let suites: any[];
 
   if (parsed.testsuite) {
     suites = [parsed.testsuite];
@@ -218,7 +217,9 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
       const className =
         typeof tc.classname === 'string'
           ? tc.classname
-          : (typeof suite.name === 'string' ? suite.name : undefined);
+          : typeof suite.name === 'string'
+            ? suite.name
+            : undefined;
       const packageName = packageFromClassName(className);
       const filePath =
         (typeof tc.file === 'string' && tc.file.length > 0
@@ -240,9 +241,7 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
         ...(filePath ? { filePath } : {}),
         ...(packageName ? { packageName } : {}),
         ...(className ? { className } : {}),
-        ...(suiteStartupDuration !== undefined
-          ? { suiteStartupDuration }
-          : {}),
+        ...(suiteStartupDuration !== undefined ? { suiteStartupDuration } : {}),
         ...(suiteTeardownDuration !== undefined
           ? { suiteTeardownDuration }
           : {}),
@@ -251,6 +250,35 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
   }
 
   return results;
+  return allTestCases.map((tc: any) => {
+    let status: 'passed' | 'failed' | 'skipped' = 'passed';
+
+    if (tc.skipped !== undefined) {
+      status = 'skipped';
+    } else if (tc.failure !== undefined || tc.error !== undefined) {
+      status = 'failed';
+    }
+
+    const testName =
+      tc.classname && tc.name
+        ? `${tc.classname}.${tc.name}`
+        : (tc.name ?? 'unknown-test');
+
+    let duration = 0;
+    if (tc.time !== undefined) {
+      const parsedTime = Number(tc.time);
+      if (!Number.isNaN(parsedTime)) {
+        duration = parsedTime;
+      }
+    }
+
+    return {
+      name: testName,
+      classname: tc.classname ?? undefined,
+      duration,
+      status,
+    };
+  });
 }
 
 function parseJUnitXMLPath(path: string): TestResult[] {

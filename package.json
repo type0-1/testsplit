@@ -2,24 +2,35 @@
   "scripts": {
     "test:unit": "jest --config jest.unit.config.js",
     "test:integration": "jest --config jest.integration.config.js",
+    "test:all": "npm run test:unit && npm run test:integration",
     "test": "npm run test:unit",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
     "build": "tsc",
     "docker:build": "docker compose build",
-    "docker:test": "docker compose run --rm testsplit npm test",
-    "docker:shell": "docker compose run --rm testsplit bash"
+    "docker:test": "docker compose run --rm testsplit npm run test:all",
+    "docker:shell": "docker compose run --rm testsplit bash",
+    "api": "ts-node src/backend/api/server.ts"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/jest": "30.0.0",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "25.0.3",
+    "eslint": "^10.0.2",
+    "fast-check": "^4.6.0",
     "jest": "30.2.0",
     "ts-jest": "29.4.6",
-    "typescript": "5.9.3"
+    "ts-node": "^10.9.2",
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
+    "@fastify/cors": "^11.2.0",
     "@xmldom/xmldom": "0.9.5",
-    "chalk": "^5.6.2",
+    "chalk": "^4.1.2",
     "fast-xml-parser": "^5.3.4",
+    "fastify": "^5.8.2",
     "js-yaml": "^4.1.1",
     "yaml": "^2.8.2"
   }

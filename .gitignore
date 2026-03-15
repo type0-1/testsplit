@@ -1,4 +1,8 @@
 node_modules/
 dist/
 .data/
+<<<<<<< HEAD
 .coverage/
+=======
+coverage/
+>>>>>>> origin/main
