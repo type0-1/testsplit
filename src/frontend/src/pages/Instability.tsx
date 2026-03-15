@@ -134,8 +134,11 @@ export function Instability() {
     return <PageErrorState title="Instability" error={errorMessage} />
   }
 
-  const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
-  const allTests = testsData?.tests ?? []
+  if (!summary) return <PageErrorState title="Instability" error={summaryError ?? 'No profiling data found. Run: testsplit profile --junit <path>'} />
+  if (!testsData) return <PageErrorState title="Instability" error={testsError ?? 'No profiling data found. Run: testsplit profile --junit <path>'} />
+
+  const s = summary
+  const allTests = testsData.tests
   const maxCv = allTests.length > 0 ? Math.max(...allTests.map(t => t.coefficientOfVariation)) : 1
   const avgCv = allTests.length > 0 ? allTests.reduce((sum, t) => sum + t.coefficientOfVariation, 0) / allTests.length : 0
   const highestCvTest = allTests.length > 0 ? allTests[0] : null // sorted by cv desc from API

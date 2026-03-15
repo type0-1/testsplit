@@ -281,9 +281,13 @@ export default function Overview() {
     return <PageErrorState title="Overview" error={errorMessage} />
   }
 
-  const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
-  const tests = testsData?.tests ?? []
-  const jobs = jobsData?.jobs ?? []
+  if (!summary) return <PageErrorState title="Overview" error={summaryError ?? 'No profiling data found. Run: testsplit profile --junit <path>'} />
+  if (!testsData) return <PageErrorState title="Overview" error={testsError ?? 'No profiling data found. Run: testsplit profile --junit <path>'} />
+  if (!jobsData) return <PageErrorState title="Overview" error={jobsError ?? 'No distribution data found. Run: testsplit profile --junit <path>'} />
+
+  const s = summary
+  const tests = testsData.tests
+  const jobs = jobsData.jobs
   const rawTrends = trendsData?.trends ?? []
   const chartData = rawTrends.map((t: TrendPoint, i: number) => ({
     run: formatRunLabel(t.runAt, i),

@@ -24,6 +24,7 @@ jest.mock('../../../../src/backend/generator/GitLabCIGenerator');
 jest.mock('yaml', () => ({ parse: jest.fn(), stringify: jest.fn(() => 'generated-yaml') }));
 
 import * as fs from 'fs';
+import * as path from 'path';
 import yargs from 'yargs';
 import { TestSplitEngine } from '../../../../src/backend/core/TestSplitEngine';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
@@ -334,7 +335,7 @@ describe('generate-config command handler', () => {
       junit: '/test.xml',
       jobs: 2,
       platform: 'github',
-      out: '/Users/test/.github/workflows/ci.yml',
+      out: path.resolve('.github/workflows/ci.yml'),
       'dry-run': false,
     });
 
@@ -365,7 +366,7 @@ describe('generate-config command handler', () => {
     mockYAML.parse.mockReturnValue({ on: ['push'], jobs: { build: { steps: [{ run: 'npm build' }] } } });
 
     expect(() =>
-      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false }),
+      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: path.resolve('.github/workflows/ci.yml'), 'dry-run': false }),
     ).toThrow('exit(1)');
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('failed to generate'));
   });

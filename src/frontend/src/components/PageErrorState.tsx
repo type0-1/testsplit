@@ -4,13 +4,6 @@ interface PageErrorStateProps {
 }
 
 export function PageErrorState({ title, error }: PageErrorStateProps) {
-  const hintMessage = 'No profiling data found. Run testsplit profile --junit <path>'
-  const normalizedError = error.toLowerCase().replace(/\s+/g, ' ').trim()
-  const repeatsHint =
-    normalizedError.includes('no profiling data found') &&
-    normalizedError.includes('testsplit profile --junit <path>')
-  const detailMessage = repeatsHint ? 'API returned no profiling data.' : `API error: ${error}`
-
   return (
     <div className="flex flex-col h-full overflow-hidden" aria-label={`${title} error`}>
       <header className="flex items-center justify-between px-5 py-3 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
@@ -58,22 +51,10 @@ export function PageErrorState({ title, error }: PageErrorStateProps) {
               fontSize: '0.66rem',
               lineHeight: 1.7,
               color: 'var(--g7)',
-              marginBottom: '0.5rem',
-            }}
-          >
-            {hintMessage}
-          </p>
-
-          <p
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.6rem',
-              lineHeight: 1.6,
-              color: 'var(--g6)',
               wordBreak: 'break-word',
             }}
           >
-            {detailMessage}
+            {error}
           </p>
         </div>
       </div>

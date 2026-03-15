@@ -93,8 +93,11 @@ export function Scheduling() {
     return <PageErrorState title="Scheduling" error={errorMessage} />
   }
 
-  const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
-  const jobs = jobsData?.jobs ?? []
+  if (!summary) return <PageErrorState title="Scheduling" error={summaryError ?? 'No profiling data found. Run: testsplit profile --junit <path>'} />
+  if (!jobsData) return <PageErrorState title="Scheduling" error={jobsError ?? 'No distribution data found. Run: testsplit profile --junit <path>'} />
+
+  const s = summary
+  const jobs = jobsData.jobs
 
   return (
     <div className="flex flex-col h-full overflow-hidden" aria-label="Scheduling">

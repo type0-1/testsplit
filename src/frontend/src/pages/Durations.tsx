@@ -148,8 +148,11 @@ export function Durations() {
     return <PageErrorState title="Durations" error={errorMessage} />
   }
 
-  const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
-  const allTests = testsData?.tests ?? []
+  if (!summary) return <PageErrorState title="Durations" error={summaryError ?? 'No profiling data found. Run: testsplit profile --junit <path>'} />
+  if (!testsData) return <PageErrorState title="Durations" error={testsError ?? 'No profiling data found. Run: testsplit profile --junit <path>'} />
+
+  const s = summary
+  const allTests = testsData.tests
   const maxDuration = allTests.length > 0 ? Math.max(...allTests.map(t => t.meanDuration)) : 1
   const fastest = allTests.length > 0 ? allTests.reduce((a, b) => a.meanDuration < b.meanDuration ? a : b) : null
   const slowest = allTests.length > 0 ? allTests.reduce((a, b) => a.meanDuration > b.meanDuration ? a : b) : null
