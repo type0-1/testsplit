@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">68.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>13/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>6/12</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">68.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>13/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,38 +107,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">1616x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1613x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1610x</span>
-<span class="cline-any cline-yes">9517x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9514x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">1607x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1607x</span>
-<span class="cline-any cline-yes">6873x</span>
-<span class="cline-any cline-yes">9515x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9514x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1606x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Task } from '../model/Task';
@@ -147,19 +147,19 @@ import { Job } from '../model/Job';
 // Helper functions for input and output validation before performing scheduling.
 &nbsp;
 export function validateInputs(tasks: Task[], jobCount: number): void {
-  if (jobCount &lt;= 0) {
-    throw new Error('Job count must be greater than zero');
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (jobCount &lt;= 0) {
+<span class="cstat-no" title="statement not covered" >    throw new Error('Job count must be greater than zero');</span>
   }
-  if (tasks.length === 0) {
-    throw new Error('No tasks provided for scheduling');
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (tasks.length === 0) {
+<span class="cstat-no" title="statement not covered" >    throw new Error('No tasks provided for scheduling');</span>
   }
 &nbsp;
   for (const task of tasks) {
-    if (task.duration &lt; 0) {
-      throw new Error(`Negative duration for task ${task.id}`);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (task.duration &lt; 0) {
+<span class="cstat-no" title="statement not covered" >      throw new Error(`Negative duration for task ${task.id}`);</span>
     }
-    if (!Number.isFinite(task.duration)) {
-      throw new Error(`Invalid duration for task ${task.id}`);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!Number.isFinite(task.duration)) {
+<span class="cstat-no" title="statement not covered" >      throw new Error(`Invalid duration for task ${task.id}`);</span>
     }
   }
 }
@@ -169,15 +169,15 @@ export function validateOutput(tasks: Task[], jobs: Job[]): void {
 &nbsp;
   for (const job of jobs) {
     for (const task of job.tasks) {
-      if (assigned.has(task.id)) {
-        throw new Error(`Duplicate task assignment: ${task.id}`);
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (assigned.has(task.id)) {
+<span class="cstat-no" title="statement not covered" >        throw new Error(`Duplicate task assignment: ${task.id}`);</span>
       }
       assigned.add(task.id);
     }
   }
 &nbsp;
-  if (assigned.size !== tasks.length) {
-    throw new Error('Not all tasks were assigned');
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (assigned.size !== tasks.length) {
+<span class="cstat-no" title="statement not covered" >    throw new Error('Not all tasks were assigned');</span>
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -187,7 +187,7 @@ export function validateOutput(tasks: Task[], jobs: Job[]): void {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-15T13:16:50.117Z
+                at 2026-03-15T14:23:12.547Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

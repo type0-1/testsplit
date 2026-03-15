@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/15</span>
+                <span class='fraction'>10/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/10</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/15</span>
+                <span class='fraction'>10/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -121,7 +121,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -132,34 +132,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">533x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">530x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,13 +187,13 @@ export function validateJobGroups(
   jobs: JobGroup[],
   platformName: string,
 ): void {
-  if (jobs.length === 0) {
-    throw new Error(`No jobs provided for ${platformName} configuration`);
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (jobs.length === 0) {
+<span class="cstat-no" title="statement not covered" >    throw new Error(`No jobs provided for ${platformName} configuration`);</span>
   }
 &nbsp;
   for (const job of jobs) {
-    if (job.tests.length === 0) {
-      throw new Error(`Job ${job.id} has no tests assigned`);
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (job.tests.length === 0) {
+<span class="cstat-no" title="statement not covered" >      throw new Error(`Job ${job.id} has no tests assigned`);</span>
     }
   }
 &nbsp;
@@ -202,15 +202,15 @@ export function validateJobGroups(
 <span class="cstat-no" title="statement not covered" >    return;</span>
   }
 &nbsp;
-  if (jobs.length &gt; limits.maxJobs) {
-    console.warn(
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (jobs.length &gt; limits.maxJobs) {
+<span class="cstat-no" title="statement not covered" >    console.warn(</span>
       `[Validation Warning] ${platformName}: ${jobs.length} jobs exceeds recommended limit (${limits.maxJobs})`,
     );
   }
 &nbsp;
   for (const job of jobs) {
-    if (job.tests.length &gt; limits.maxTestsPerJob) {
-      console.warn(
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (job.tests.length &gt; limits.maxTestsPerJob) {
+<span class="cstat-no" title="statement not covered" >      console.warn(</span>
         `[Validation Warning] ${platformName}: job ${job.id} has ${job.tests.length} tests, exceeds recommended per-job limit (${limits.maxTestsPerJob})`,
       );
     }
@@ -223,7 +223,7 @@ export function validateJobGroups(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-15T13:16:50.117Z
+                at 2026-03-15T14:23:12.547Z
             </div>
         <script src="../prettify.js"></script>
         <script>

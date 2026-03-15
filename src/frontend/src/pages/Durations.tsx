@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'motion/react'
 import { useApi } from '@/hooks/useApi'
 import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
+import { PageErrorState } from '@/components/PageErrorState'
 import type { SummaryResponse, TestsResponse, TestStat } from '@/types/api'
 
 const BUCKETS = [
@@ -131,15 +132,20 @@ function HistogramPanel({ tests }: { tests: TestStat[] }) {
 }
 
 export function Durations() {
-  const { data: summary, loading: summaryLoading } = useApi<SummaryResponse>('/api/summary')
-  const { data: testsData, loading: testsLoading } = useApi<TestsResponse>('/api/tests?sort=duration&limit=500')
+  const { data: summary, loading: summaryLoading, error: summaryError } = useApi<SummaryResponse>('/api/summary')
+  const { data: testsData, loading: testsLoading, error: testsError } = useApi<TestsResponse>('/api/tests?sort=duration&limit=500')
   const [sortKey, setSortKey] = useState<SortKey>('duration')
   const [asc, setAsc] = useState(false)
 
   const isLoading = summaryLoading || testsLoading
+  const errorMessage = summaryError ?? testsError
 
   if (isLoading) {
     return <PageLoadingSkeleton title="Durations" accentColor="var(--orange)" />
+  }
+
+  if (errorMessage) {
+    return <PageErrorState title="Durations" error={errorMessage} />
   }
 
   const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }

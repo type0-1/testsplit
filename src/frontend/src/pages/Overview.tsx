@@ -6,6 +6,7 @@ import {
 } from 'recharts'
 import { useApi } from '@/hooks/useApi'
 import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
+import { PageErrorState } from '@/components/PageErrorState'
 import type { SummaryResponse, TestsResponse, JobsResponse, TrendsResponse, TestStat, TrendPoint } from '@/types/api'
 
 function useCountUp(target: number, active: boolean, delay = 0): number {
@@ -259,10 +260,10 @@ function formatRunLabel(runAt: string, index: number): string {
 
 export default function Overview() {
   const [calibrated, setCalibrated] = useState(false)
-  const { data: summary, loading: summaryLoading } = useApi<SummaryResponse>('/api/summary')
-  const { data: testsData, loading: testsLoading } = useApi<TestsResponse>('/api/tests?sort=cv&limit=100')
-  const { data: jobsData, loading: jobsLoading } = useApi<JobsResponse>('/api/jobs')
-  const { data: trendsData, loading: trendsLoading } = useApi<TrendsResponse>('/api/trends?limit=20')
+  const { data: summary, loading: summaryLoading, error: summaryError } = useApi<SummaryResponse>('/api/summary')
+  const { data: testsData, loading: testsLoading, error: testsError } = useApi<TestsResponse>('/api/tests?sort=cv&limit=100')
+  const { data: jobsData, loading: jobsLoading, error: jobsError } = useApi<JobsResponse>('/api/jobs')
+  const { data: trendsData, loading: trendsLoading, error: trendsError } = useApi<TrendsResponse>('/api/trends?limit=20')
 
   useEffect(() => {
     const t = setTimeout(() => setCalibrated(true), 420)
@@ -270,9 +271,14 @@ export default function Overview() {
   }, [])
 
   const isLoading = summaryLoading || testsLoading || jobsLoading || trendsLoading
+  const errorMessage = summaryError ?? testsError ?? jobsError ?? trendsError
 
   if (isLoading) {
     return <PageLoadingSkeleton title="Overview" accentColor="var(--orange)" />
+  }
+
+  if (errorMessage) {
+    return <PageErrorState title="Overview" error={errorMessage} />
   }
 
   const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }

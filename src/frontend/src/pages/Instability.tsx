@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { ScatterChart, Scatter, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
 import { useApi } from '@/hooks/useApi'
 import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
+import { PageErrorState } from '@/components/PageErrorState'
 import type { SummaryResponse, TestsResponse, TestStat } from '@/types/api'
 
 function toPoint(t: TestStat) {
@@ -119,13 +120,18 @@ function InstabilityRow({ test, index, maxCv }: { test: TestStat; index: number;
 }
 
 export function Instability() {
-  const { data: summary, loading: summaryLoading } = useApi<SummaryResponse>('/api/summary')
-  const { data: testsData, loading: testsLoading } = useApi<TestsResponse>('/api/tests?sort=cv&limit=500')
+  const { data: summary, loading: summaryLoading, error: summaryError } = useApi<SummaryResponse>('/api/summary')
+  const { data: testsData, loading: testsLoading, error: testsError } = useApi<TestsResponse>('/api/tests?sort=cv&limit=500')
 
   const isLoading = summaryLoading || testsLoading
+  const errorMessage = summaryError ?? testsError
 
   if (isLoading) {
     return <PageLoadingSkeleton title="Instability" accentColor="var(--amber)" />
+  }
+
+  if (errorMessage) {
+    return <PageErrorState title="Instability" error={errorMessage} />
   }
 
   const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/16</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -91,26 +91,24 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -119,31 +117,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import os from 'os';
-import fs from 'fs';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import os from 'os';</span>
+<span class="cstat-no" title="statement not covered" >import fs from 'fs';</span>
 import { ProfileMetadata } from '../model/Profile';
-import { CommitInfo, CommitTracker } from '../../helpers/CommitTracker';
+<span class="cstat-no" title="statement not covered" >import { CommitInfo, CommitTracker } from '../../helpers/CommitTracker';</span>
 &nbsp;
-export class EnvironmentCollector {
-  private static isRunningInDocker(): boolean {
-    try {
-      return fs.existsSync('/.dockerenv');
+<span class="cstat-no" title="statement not covered" >export class E</span>nvironmentCollector {
+  private <span class="fstat-no" title="function not covered" >static </span>isRunningInDocker(): boolean {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      return fs.existsSync('/.dockerenv');</span>
     } catch {
-      return false;
+<span class="cstat-no" title="statement not covered" >      return false;</span>
     }
   }
 &nbsp;
-  static collect(commit?: CommitInfo): ProfileMetadata {
-    const cpus = os.cpus();
+<span class="fstat-no" title="function not covered" >  static </span>collect(commit?: CommitInfo): ProfileMetadata {
+    const cpus = <span class="cstat-no" title="statement not covered" >os.cpus();</span>
 &nbsp;
-    return {
+<span class="cstat-no" title="statement not covered" >    return {</span>
       commit: commit ?? CommitTracker.getCurrentCommit(),
       generatedAt: new Date().toISOString(),
-      cpuModel: cpus[0]?.model ?? <span class="branch-1 cbranch-no" title="branch not covered" >'unknown',</span>
-      cpuCores: cpus.length ?? <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
-      osVersion: typeof os.version === 'function' ? os.version() : <span class="branch-1 cbranch-no" title="branch not covered" >'unknown',</span>
-      platform: os.platform() ?? <span class="branch-1 cbranch-no" title="branch not covered" >'unknown',</span>
-      nodeVersion: process.version ?? <span class="branch-1 cbranch-no" title="branch not covered" >'unknown',</span>
+      cpuModel: cpus[0]?.model ?? 'unknown',
+      cpuCores: cpus.length ?? 0,
+      osVersion: typeof os.version === 'function' ? os.version() : 'unknown',
+      platform: os.platform() ?? 'unknown',
+      nodeVersion: process.version ?? 'unknown',
       containerVersion: EnvironmentCollector.isRunningInDocker() ? (process.env.CONTAINER_VERSION ?? 'docker') : 'none',
     };
   }
@@ -154,7 +154,7 @@ export class EnvironmentCollector {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-15T13:16:50.117Z
+                at 2026-03-15T14:23:12.547Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

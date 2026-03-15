@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,84 +104,84 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { JobGroup } from './JobGroup';
-import { validateJobGroups } from './JobGroupValidator';
+<span class="cstat-no" title="statement not covered" >import { validateJobGroups } from './JobGroupValidator';</span>
 import type { CIResourceConstraints } from './GitHubActionsGenerator';
-import { getSchemaValidator } from './getSchemaValidator';
-import { validateYamlSyntax } from './YAMLSyntaxValidator';
+<span class="cstat-no" title="statement not covered" >import { getSchemaValidator } from './getSchemaValidator';</span>
+<span class="cstat-no" title="statement not covered" >import { validateYamlSyntax } from './YAMLSyntaxValidator';</span>
 &nbsp;
-function renderGitLabJob(job: JobGroup, mavenBin: string): string {
-  return `
+function <span class="fstat-no" title="function not covered" >renderGitLabJob(</span>job: JobGroup, mavenBin: string): string {
+<span class="cstat-no" title="statement not covered" >  return `</span>
 job-${job.id}:
   stage: test
   script:
     - ${mavenBin} test -Dtest=${job.tests.join(',')}`;
 }
 &nbsp;
-export function generateGitLabCIConfig(
+<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >g</span>enerateGitLabCIConfig(</span>
   jobs: JobGroup[],
-  mavenBin: string = 'mvn',
+  mavenBin: string = <span class="branch-0 cbranch-no" title="branch not covered" >'mvn',</span>
   resourceConstraints?: CIResourceConstraints,
 ): string {
-  validateJobGroups(jobs, 'GitLab CI');
+<span class="cstat-no" title="statement not covered" >  validateJobGroups(jobs, 'GitLab CI');</span>
 &nbsp;
-  const jobsYaml = jobs.map((job) =&gt; renderGitLabJob(job, mavenBin)).join('\n');
+  const jobsYaml = <span class="cstat-no" title="statement not covered" >jobs.map(<span class="fstat-no" title="function not covered" >(j</span>ob) =&gt; <span class="cstat-no" title="statement not covered" >renderGitLabJob(job, mavenBin))</span>.join('\n');</span>
 &nbsp;
-  const constraintsComment = resourceConstraints
-    ? `# Resource constraints captured during profiling\n# Keep baseline and optimized runs on identical container config\n# cpu_limit: ${resourceConstraints.cpuCores}\n# memory_limit_mb: ${resourceConstraints.memoryLimitMb ?? <span class="branch-1 cbranch-no" title="branch not covered" >'unknown'}</span>\n`
+  const constraintsComment = <span class="cstat-no" title="statement not covered" >resourceConstraints</span>
+    ? `# Resource constraints captured during profiling\n# Keep baseline and optimized runs on identical container config\n# cpu_limit: ${resourceConstraints.cpuCores}\n# memory_limit_mb: ${resourceConstraints.memoryLimitMb ?? 'unknown'}\n`
     : '';
 &nbsp;
-  const yamlOutput = `${constraintsComment}stages:
+  const yamlOutput = <span class="cstat-no" title="statement not covered" >`${constraintsComment}stages:</span>
   - test
 ${jobsYaml}
 `;
 &nbsp;
-  validateYamlSyntax(yamlOutput);
+<span class="cstat-no" title="statement not covered" >  validateYamlSyntax(yamlOutput);</span>
 &nbsp;
   // Commit: validation scaffolding (no-op)
-  const validator = getSchemaValidator('gitlab');
-  validator?.validate(yamlOutput);
+  const validator = <span class="cstat-no" title="statement not covered" >getSchemaValidator('gitlab');</span>
+<span class="cstat-no" title="statement not covered" >  validator?.validate(yamlOutput);</span>
 &nbsp;
-  return yamlOutput;
+<span class="cstat-no" title="statement not covered" >  return yamlOutput;</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -190,7 +190,7 @@ ${jobsYaml}
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-15T13:16:50.117Z
+                at 2026-03-15T14:23:12.547Z
             </div>
         <script src="../prettify.js"></script>
         <script>

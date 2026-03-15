@@ -330,7 +330,13 @@ describe('generate-config command handler', () => {
     mockFs.readFileSync.mockReturnValue('raw-yaml');
     mockYAML.parse.mockReturnValue(existingConfig);
 
-    generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });
+    generateConfigHandler({
+      junit: '/test.xml',
+      jobs: 2,
+      platform: 'github',
+      out: '/Users/test/.github/workflows/ci.yml',
+      'dry-run': false,
+    });
 
     expect(mockYAML.stringify).toHaveBeenCalled();
     expect(existingConfig.jobs).not.toHaveProperty('test');

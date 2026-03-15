@@ -453,10 +453,12 @@ yargs(hideBin(process.argv))
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
       const existingCIPath = findExistingCIFile(platform);
+      const shouldInjectIntoExistingCI =
+        !!existingCIPath && path.resolve(existingCIPath) === outPath;
 
       let existingCIConfig: any = null;
 
-      if (existingCIPath) {
+      if (shouldInjectIntoExistingCI && existingCIPath) {
         const raw = fs.readFileSync(existingCIPath, 'utf-8');
         existingCIConfig = YAML.parse(raw);
       }
