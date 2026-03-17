@@ -10,15 +10,24 @@ type SystemInformationLike = {
 
 async function loadSystemInformation(): Promise<SystemInformationLike | null> {
   try {
-    const imported = (await import('systeminformation')) as unknown as
-      | { default?: SystemInformationLike }
-      | SystemInformationLike;
+    const moduleName = 'systeminformation';
+    const imported = await import(moduleName);
+    const candidate = imported as unknown as {
+      currentLoad?: unknown;
+      default?: { currentLoad?: unknown };
+    };
 
-    if ('currentLoad' in imported && typeof imported.currentLoad === 'function') {
-      return imported;
+    if (typeof candidate.currentLoad === 'function') {
+      return { currentLoad: candidate.currentLoad as SystemInformationLike['currentLoad'] };
     }
 
-    return imported.default ?? null;
+    if (typeof candidate.default?.currentLoad === 'function') {
+      return {
+        currentLoad: candidate.default.currentLoad as SystemInformationLike['currentLoad'],
+      };
+    }
+
+    return null;
   } catch {
     return null;
   }

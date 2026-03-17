@@ -388,6 +388,7 @@ describe('generate-config command handler', () => {
 
     mockFs.existsSync
       .mockReturnValueOnce(true) // workflows dir exists
+      .mockReturnValueOnce(true) // template path (existing ci file) exists
       .mockReturnValueOnce(true) // outDir exists
       .mockReturnValueOnce(false) // outPath not a dir
       .mockReturnValueOnce(true); // junitPath exists
@@ -408,6 +409,36 @@ describe('generate-config command handler', () => {
     expect(Object.keys(existingConfig.jobs)).toEqual(expect.arrayContaining(['job-1', 'job-2']));
   });
 
+  it('injects split jobs into the explicit --template file', () => {
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ run: 'npm test' }] } },
+    };
+
+    mockFs.existsSync
+      .mockReturnValueOnce(false) // findExistingCIFile: no existing CI file
+      .mockReturnValueOnce(true) // explicit template path exists
+      .mockReturnValueOnce(true) // outDir exists
+      .mockReturnValueOnce(false) // outPath not a dir
+      .mockReturnValueOnce(true); // junitPath exists
+    mockFs.readFileSync.mockReturnValue('raw-yaml');
+    mockYAML.parse.mockReturnValue(existingConfig);
+
+    generateConfigHandler({
+      junit: '/test.xml',
+      jobs: 2,
+      platform: 'github',
+      out: '/tmp/out.yml',
+      template: '/tmp/template.yml',
+      'dry-run': false,
+    });
+
+    expect(mockFs.readFileSync).toHaveBeenCalledWith(path.resolve('/tmp/template.yml'), 'utf-8');
+    expect(mockYAML.stringify).toHaveBeenCalled();
+    expect(existingConfig.jobs).not.toHaveProperty('test');
+    expect(Object.keys(existingConfig.jobs)).toEqual(expect.arrayContaining(['job-1', 'job-2']));
+  });
+
   it('exits when output directory does not exist', () => {
     mockFs.existsSync
       .mockReturnValueOnce(false) // no existing CI
@@ -422,6 +453,7 @@ describe('generate-config command handler', () => {
   it('exits on inner error (e.g. no test jobs in existing CI config)', () => {
     mockFs.existsSync
       .mockReturnValueOnce(true) // workflows dir exists
+      .mockReturnValueOnce(true) // template path (existing ci file) exists
       .mockReturnValueOnce(true) // outDir exists
       .mockReturnValueOnce(false) // outPath not a dir
       .mockReturnValueOnce(true); // junitPath exists
@@ -521,12 +553,14 @@ describe('benchmark command handler', () => {
 
     mockEngine = { run: jest.fn().mockReturnValue(mockEngineResult) };
     MockTestSplitEngine.mockImplementation(() => mockEngine as any);
+    mockFs.existsSync.mockReset();
     mockFs.existsSync.mockReturnValue(true);
   });
 
   afterEach(() => jest.restoreAllMocks());
 
   it('exits when junit path does not exist', () => {
+    mockFs.existsSync.mockReset();
     mockFs.existsSync.mockReturnValue(false);
     expect(() => benchmarkHandler({ junit: '/bad.xml', jobs: 2 })).toThrow('exit(1)');
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('does not exist'));

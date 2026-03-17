@@ -467,6 +467,11 @@ yargs(hideBin(process.argv))
           type: 'string',
           default: 'testsplit.yml',
         })
+        .option('template', {
+          type: 'string',
+          describe:
+            'Path to an existing CI YAML template to inject split jobs into',
+        })
         .option('data', {
           type: 'string',
           default: '.data',
@@ -512,6 +517,7 @@ yargs(hideBin(process.argv))
       }
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
+      const templatePathArg = argv.template as string | undefined;
       const dataDir = argv.data as string;
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
@@ -522,11 +528,23 @@ yargs(hideBin(process.argv))
       const existingCIPath = findExistingCIFile(platform);
       const shouldInjectIntoExistingCI =
         !!existingCIPath && path.resolve(existingCIPath) === outPath;
+      const templatePath = templatePathArg
+        ? path.resolve(templatePathArg)
+        : shouldInjectIntoExistingCI
+          ? path.resolve(existingCIPath as string)
+          : null;
 
       let existingCIConfig: any = null;
 
-      if (shouldInjectIntoExistingCI && existingCIPath) {
-        const raw = fs.readFileSync(existingCIPath, 'utf-8');
+      if (templatePath) {
+        if (!fs.existsSync(templatePath)) {
+          console.error(
+            chalk.red(`Error: template file does not exist: ${templatePath}`),
+          );
+          process.exit(EXIT_FAILURE);
+        }
+
+        const raw = fs.readFileSync(templatePath, 'utf-8');
         existingCIConfig = YAML.parse(raw);
       }
 

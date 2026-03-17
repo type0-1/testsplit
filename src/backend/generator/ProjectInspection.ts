@@ -33,11 +33,16 @@ export function inspectProjectTestCommandFormat(
     };
   }
 
-  if (hasFile(projectRoot, 'build.gradle') || hasFile(projectRoot, 'build.gradle.kts')) {
+  if (
+    hasFile(projectRoot, 'build.gradle') ||
+    hasFile(projectRoot, 'build.gradle.kts')
+  ) {
     return {
       tool: 'gradle',
       buildCommand: (assignedClasses: string[]) => {
-        const classSelectors = assignedClasses.map((c) => `--tests ${c}`).join(' ');
+        const classSelectors = assignedClasses
+          .map((c) => `--tests ${c}`)
+          .join(' ');
         return classSelectors.length > 0
           ? `${gradleBin} test ${classSelectors}`
           : `${gradleBin} test`;
