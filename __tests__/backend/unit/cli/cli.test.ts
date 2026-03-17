@@ -7,6 +7,9 @@ jest.mock('yargs', () => { // Mock yargs to obtain command handlers (this is for
   return jest.fn(() => chain);
 });
 jest.mock('yargs/helpers', () => ({ hideBin: (a: string[]) => a.slice(2) }));
+jest.mock('child_process', () => ({
+  spawn: jest.fn(),
+}));
 
 jest.mock('fs', () => ({
   ...jest.requireActual('fs'),
@@ -39,6 +42,7 @@ jest.mock('chalk', () => ({
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { spawn } from 'child_process';
 import yargs from 'yargs';
 import { TestSplitEngine } from '../../../../src/backend/core/TestSplitEngine';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
@@ -63,6 +67,7 @@ import {
 } from '../../../../src/backend/cli/cli';
 
 const mockFs = fs as jest.Mocked<typeof fs>;
+const mockSpawn = spawn as jest.MockedFunction<typeof spawn>;
 const MockTestSplitEngine = TestSplitEngine as jest.MockedClass<typeof TestSplitEngine>;
 const MockFileStore = FileStore as jest.MockedClass<typeof FileStore>;
 const mockRunAllJobs = runAllJobs as jest.MockedFunction<typeof runAllJobs>;
@@ -81,6 +86,7 @@ let validateHandler: (argv: any) => void;
 let compareHandler: (argv: any) => void;
 let benchmarkHandler: (argv: any) => void;
 let runHandler: (argv: any) => Promise<void>;
+let dashboardHandler: (argv: any) => void;
 
 beforeAll(() => {
   const yargsInstance = (yargs as jest.MockedFunction<typeof yargs>).mock.results[0]?.value;
@@ -91,6 +97,7 @@ beforeAll(() => {
   compareHandler = calls.find(c => c[0] === 'compare')?.[3];
   benchmarkHandler = calls.find(c => c[0] === 'benchmark')?.[3];
   runHandler = calls.find(c => c[0] === 'run')?.[3];
+  dashboardHandler = calls.find(c => c[0] === 'dashboard')?.[3];
 });
 
 const mockEngineResult = {
@@ -741,6 +748,51 @@ describe('run command handler', () => {
         affinity: false,
       }),
     ).rejects.toThrow('exit(1)');
+  });
+});
+
+describe('dashboard command handler', () => {
+  function createProcessMock() {
+    const handlers: Record<string, Function[]> = {};
+    return {
+      on: jest.fn((event: string, handler: Function) => {
+        handlers[event] = handlers[event] ?? [];
+        handlers[event].push(handler);
+      }),
+      unref: jest.fn(),
+      emit: (event: string, ...args: unknown[]) => {
+        for (const handler of handlers[event] ?? []) {
+          handler(...args);
+        }
+      },
+    } as any;
+  }
+
+  beforeEach(() => {
+    jest.spyOn(process, 'exit').mockImplementation((code) => { throw new Error(`exit(${code})`); });
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    mockSpawn.mockReset();
+  });
+
+  afterEach(() => jest.restoreAllMocks());
+
+  it('prints one URL, opens browser, and starts dashboard process', () => {
+    const browserProcess = createProcessMock();
+    const dashboardProcess = createProcessMock();
+    mockSpawn
+      .mockReturnValueOnce(browserProcess)
+      .mockReturnValueOnce(dashboardProcess);
+
+    dashboardHandler({ url: 'http://localhost:5173' });
+
+    expect(console.log).toHaveBeenCalledWith('Dashboard: http://localhost:5173');
+    expect(mockSpawn).toHaveBeenNthCalledWith(
+      2,
+      expect.stringMatching(/npm(\.cmd)?$/),
+      ['run', 'dashboard'],
+      expect.objectContaining({ stdio: 'inherit' }),
+    );
   });
 });
 
