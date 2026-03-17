@@ -10,6 +10,7 @@ import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
 import { runAllJobs, runAllJobsDynamic, runAllJobsWorkStealing } from '../runner/ParallelRunner';
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
+import { inspectProjectTestCommandFormat } from '../generator/ProjectInspection';
 import { Task } from '../algorithm/model/Task';
 import { JobDistribution } from '../algorithm/model/JobDistribution';
 import { renderBar } from '../utils/Terminal';
@@ -130,7 +131,7 @@ export function extractTestCommands(
 export function buildGitHubSplitJobs(
   baseJob: any,
   jobs: { id: number; tests: string[]; needs?: number[] }[],
-  testCommand: string,
+  buildJobCommand: (tests: string[]) => string,
 ): Record<string, any> {
   const splitJobs: Record<string, any> = {};
 
@@ -144,7 +145,7 @@ export function buildGitHubSplitJobs(
       ) {
         return {
           ...step,
-          run: `${testCommand} ${job.tests.join(' ')}`.trim(),
+          run: buildJobCommand(job.tests),
         };
       }
       return step;
@@ -164,7 +165,7 @@ export function buildGitHubSplitJobs(
 export function buildGitLabSplitJobs(
   baseJob: any,
   jobs: { id: number; tests: string[]; needs?: number[] }[],
-  testCommand: string,
+  buildJobCommand: (tests: string[]) => string,
 ): Record<string, any> {
   const splitJobs: Record<string, any> = {};
 
@@ -177,7 +178,7 @@ export function buildGitLabSplitJobs(
 
     clonedJob.script = scriptLines.map((line: string) => {
       if (line.toLowerCase().includes('test')) {
-        return `${testCommand} ${job.tests.join(' ')}`.trim();
+        return buildJobCommand(job.tests);
       }
       return line;
     });
@@ -514,6 +515,10 @@ yargs(hideBin(process.argv))
       const dataDir = argv.data as string;
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
+      const detectedFormat = inspectProjectTestCommandFormat({
+        projectRoot: process.cwd(),
+        mavenBin,
+      });
       const existingCIPath = findExistingCIFile(platform);
       const shouldInjectIntoExistingCI =
         !!existingCIPath && path.resolve(existingCIPath) === outPath;
@@ -615,7 +620,10 @@ yargs(hideBin(process.argv))
           }
 
           const commands = extractTestCommands(existingCIConfig, platform, testJobs);
-          const testCommand = commands[0] ?? `${mavenBin} test -Dtest=`;
+          const buildJobCommand =
+            commands.length > 0
+              ? (tests: string[]) => `${commands[0]} ${tests.join(' ')}`.trim()
+              : detectedFormat.buildCommand;
 
           if (platform === 'github') {
             const baseJobName = testJobs[0];
@@ -624,7 +632,7 @@ yargs(hideBin(process.argv))
               throw new Error('Unable to locate base GitHub test job');
             }
 
-            const splitJobs = buildGitHubSplitJobs(baseJob, jobs, testCommand);
+            const splitJobs = buildGitHubSplitJobs(baseJob, jobs, buildJobCommand);
             for (const jobName of testJobs) {
               delete existingCIConfig.jobs?.[jobName];
             }
@@ -640,7 +648,7 @@ yargs(hideBin(process.argv))
               throw new Error('Unable to locate base GitLab test job');
             }
 
-            const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand);
+            const splitJobs = buildGitLabSplitJobs(baseJob, jobs, buildJobCommand);
             for (const jobName of testJobs) {
               delete existingCIConfig[jobName];
             }
@@ -649,18 +657,22 @@ yargs(hideBin(process.argv))
           }
         } else if (platform === 'github') {
           if (resourceConstraints) {
-            ciConfig = generateGitHubActionsConfig(jobs, mavenBin, resourceConstraints);
-          } else if (mavenBin !== 'mvn') {
-            ciConfig = generateGitHubActionsConfig(jobs, mavenBin);
+            ciConfig = generateGitHubActionsConfig(
+              jobs,
+              detectedFormat.buildCommand,
+              resourceConstraints,
+            );
           } else {
-            ciConfig = generateGitHubActionsConfig(jobs);
+            ciConfig = generateGitHubActionsConfig(jobs, detectedFormat.buildCommand);
           }
         } else if (resourceConstraints) {
-          ciConfig = generateGitLabCIConfig(jobs, mavenBin, resourceConstraints);
-        } else if (mavenBin !== 'mvn') {
-          ciConfig = generateGitLabCIConfig(jobs, mavenBin);
+          ciConfig = generateGitLabCIConfig(
+            jobs,
+            detectedFormat.buildCommand,
+            resourceConstraints,
+          );
         } else {
-          ciConfig = generateGitLabCIConfig(jobs);
+          ciConfig = generateGitLabCIConfig(jobs, detectedFormat.buildCommand);
         }
 
         if (dryRun) {

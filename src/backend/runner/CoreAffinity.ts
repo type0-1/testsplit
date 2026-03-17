@@ -8,9 +8,17 @@ type SystemInformationLike = {
   currentLoad: () => Promise<CurrentLoadResult>;
 };
 
-function loadSystemInformation(): SystemInformationLike | null {
+async function loadSystemInformation(): Promise<SystemInformationLike | null> {
   try {
-    return require('systeminformation') as SystemInformationLike;
+    const imported = (await import('systeminformation')) as unknown as
+      | { default?: SystemInformationLike }
+      | SystemInformationLike;
+
+    if ('currentLoad' in imported && typeof imported.currentLoad === 'function') {
+      return imported;
+    }
+
+    return imported.default ?? null;
   } catch {
     return null;
   }
@@ -34,7 +42,7 @@ export interface CoreLoad {
 
 export async function getLeastLoadedCores(count: number): Promise<number[]> {
   try {
-    const si = loadSystemInformation();
+    const si = await loadSystemInformation();
     if (!si) {
       return Array.from({ length: count }, (_, i) => i);
     }

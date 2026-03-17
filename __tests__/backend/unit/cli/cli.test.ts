@@ -21,6 +21,7 @@ jest.mock('../../../../src/backend/core/TestSplitEngine');
 jest.mock('../../../../src/backend/storage/FileStore');
 jest.mock('../../../../src/backend/generator/GitHubActionsGenerator');
 jest.mock('../../../../src/backend/generator/GitLabCIGenerator');
+jest.mock('../../../../src/backend/generator/ProjectInspection');
 jest.mock('yaml', () => ({ parse: jest.fn(), stringify: jest.fn(() => 'generated-yaml') }));
 jest.mock('chalk', () => ({
   __esModule: true,
@@ -38,6 +39,7 @@ import { TestSplitEngine } from '../../../../src/backend/core/TestSplitEngine';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
 import { generateGitHubActionsConfig } from '../../../../src/backend/generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../../../../src/backend/generator/GitLabCIGenerator';
+import { inspectProjectTestCommandFormat } from '../../../../src/backend/generator/ProjectInspection';
 import YAML from 'yaml';
 
 import {
@@ -53,6 +55,7 @@ const MockTestSplitEngine = TestSplitEngine as jest.MockedClass<typeof TestSplit
 const MockFileStore = FileStore as jest.MockedClass<typeof FileStore>;
 const mockGenerateGitHubActionsConfig = generateGitHubActionsConfig as jest.MockedFunction<typeof generateGitHubActionsConfig>;
 const mockGenerateGitLabCIConfig = generateGitLabCIConfig as jest.MockedFunction<typeof generateGitLabCIConfig>;
+const mockInspectProjectTestCommandFormat = inspectProjectTestCommandFormat as jest.MockedFunction<typeof inspectProjectTestCommandFormat>;
 const mockYAML = YAML as unknown as { parse: jest.Mock; stringify: jest.Mock };
 
 let profileHandler: (argv: any) => void;
@@ -163,7 +166,11 @@ describe('extractTestCommands', () => {
 describe('buildGitHubSplitJobs', () => {
   it('creates split jobs replacing only the test step', () => {
     const baseJob = { steps: [{ uses: 'actions/checkout@v4' }, { run: 'npm test' }] };
-    const result = buildGitHubSplitJobs(baseJob, [{ id: 1, tests: ['A', 'B'] }, { id: 2, tests: ['C'] }], 'npm test');
+    const result = buildGitHubSplitJobs(
+      baseJob,
+      [{ id: 1, tests: ['A', 'B'] }, { id: 2, tests: ['C'] }],
+      (tests) => `npm test ${tests.join(' ')}`,
+    );
 
     expect(result['job-1'].steps[1].run).toBe('npm test A B');
     expect(result['job-2'].steps[1].run).toBe('npm test C');
@@ -175,7 +182,7 @@ describe('buildGitHubSplitJobs', () => {
     const result = buildGitHubSplitJobs(
       baseJob,
       [{ id: 1, tests: ['A'] }, { id: 2, tests: ['B'], needs: [1] }],
-      'npm test',
+      (tests) => `npm test ${tests.join(' ')}`,
     );
 
     expect(result['job-1'].needs).toBeUndefined();
@@ -188,7 +195,7 @@ describe('buildGitLabSplitJobs', () => {
     const result = buildGitLabSplitJobs(
       { script: ['npm install', 'npm test'] },
       [{ id: 1, tests: ['A'] }],
-      'npm test',
+      (tests) => `npm test ${tests.join(' ')}`,
     );
     expect(result['job-1'].script).toEqual(['npm install', 'npm test A']);
   });
@@ -197,7 +204,7 @@ describe('buildGitLabSplitJobs', () => {
     const result = buildGitLabSplitJobs(
       { script: 'npm test' },
       [{ id: 1, tests: ['A'] }],
-      'npm test',
+      (tests) => `npm test ${tests.join(' ')}`,
     );
     expect(result['job-1'].script).toEqual(['npm test A']);
   });
@@ -310,6 +317,10 @@ describe('generate-config command handler', () => {
     };
     MockTestSplitEngine.mockImplementation(() => mockEngine as any);
     MockFileStore.mockImplementation(() => mockStore as any);
+    mockInspectProjectTestCommandFormat.mockReturnValue({
+      tool: 'maven',
+      buildCommand: (tests: string[]) => `mvn test -Dtest=${tests.join(',')}`,
+    });
     mockGenerateGitHubActionsConfig.mockReturnValue('github-yaml');
     mockGenerateGitLabCIConfig.mockReturnValue('gitlab-yaml');
   });
@@ -329,10 +340,13 @@ describe('generate-config command handler', () => {
     setupExistsMocks();
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });
 
-    expect(mockGenerateGitHubActionsConfig).toHaveBeenCalledWith([
-      { id: 1, tests: ['TestB'] },
-      { id: 2, tests: ['TestA'] },
-    ]);
+    expect(mockGenerateGitHubActionsConfig).toHaveBeenCalledWith(
+      [
+        { id: 1, tests: ['TestB'] },
+        { id: 2, tests: ['TestA'] },
+      ],
+      expect.any(Function),
+    );
     expect(mockFs.writeFileSync).toHaveBeenCalledWith('/tmp/ci.yml', 'github-yaml', 'utf-8');
   });
 
@@ -348,10 +362,13 @@ describe('generate-config command handler', () => {
 
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });
 
-    expect(mockGenerateGitHubActionsConfig).toHaveBeenCalledWith([
-      { id: 1, tests: ['TestB'], needs: [2] },
-      { id: 2, tests: ['TestA'] },
-    ]);
+    expect(mockGenerateGitHubActionsConfig).toHaveBeenCalledWith(
+      [
+        { id: 1, tests: ['TestB'], needs: [2] },
+        { id: 2, tests: ['TestA'] },
+      ],
+      expect.any(Function),
+    );
   });
 
   it('writes gitlab config to stdout in dry-run mode', () => {

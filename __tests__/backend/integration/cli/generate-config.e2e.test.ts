@@ -7,7 +7,7 @@ import YAML from 'yaml';
 const CLI_PATH = path.resolve(__dirname, '../../../../src/backend/cli/cli.ts');
 
 describe('generate-config CLI integration', () => {
-  test('generates CI YAML with expected job count and Maven -Dtest commands', () => {
+  test('generates CI YAML with expected job count and detected test commands', () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'testsplit-generate-'));
     const outPath = path.join(tempDir, 'testsplit.yml');
     const dataDir = path.join(tempDir, '.data');
@@ -55,8 +55,8 @@ describe('generate-config CLI integration', () => {
 
       for (const jobName of jobNames) {
         const runCommand = parsed.jobs[jobName].steps[1].run as string;
-        expect(runCommand).toMatch(/^mvn test -Dtest=.+$/);
-        expect(runCommand).not.toContain('npm test');
+        expect(runCommand).toMatch(/^npm test -- .+$/);
+        expect(runCommand).not.toContain('mvn test -Dtest=');
       }
     } finally {
       fs.rmSync(tempDir, { recursive: true, force: true });
