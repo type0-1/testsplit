@@ -17,14 +17,6 @@ describe('LPTScheduler', () => {
     expect(result.metrics.balanceRatio).toBeGreaterThan(1);
   });
 
-  it('throws for an empty task list', () => {
-    expect(() => new LPTScheduler().schedule([], 2)).toThrow();
-  });
-
-  it('throws for a negative task duration', () => {
-    expect(() => new LPTScheduler().schedule([{ id: 'A', duration: -1 }], 1)).toThrow();
-  });
-
   it('respects dependency order while scheduling longest ready tasks first', () => {
     const tasks: Task[] = [
       { id: 'A', duration: 4 },

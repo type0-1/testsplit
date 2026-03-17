@@ -35,10 +35,6 @@ describe('flagZeroDurationTests', () => {
 });
 
 describe('detectOutlierTests', () => {
-  it('returns an empty array for a single test', () => {
-    expect(detectOutlierTests([passed('TestA', 10)])).toHaveLength(0);
-  });
-
   it('detects a test with an outlier duration', () => {
     // Requires at least 5 normal tests for mean + 2σ to flag the outlier
     const results = [

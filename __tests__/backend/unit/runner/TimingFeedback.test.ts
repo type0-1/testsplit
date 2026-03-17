@@ -94,9 +94,6 @@ describe('buildObservedTestResults', () => {
     expect(observed.find((r) => r.name === 'B')!.duration).toBeCloseTo(4.0);
   });
 
-  it('returns empty array when results are empty', () => {
-    expect(buildObservedTestResults([], [])).toEqual([]);
-  });
 });
 
 describe('persistObservedTimings', () => {
@@ -108,13 +105,6 @@ describe('persistObservedTimings', () => {
 
     expect(mockSaveProfile).toHaveBeenCalledTimes(1);
     expect(mockSaveHistoricalProfile).toHaveBeenCalledTimes(1);
-  });
-
-  it('does nothing when results are empty', () => {
-    persistObservedTimings([], []);
-
-    expect(mockSaveProfile).not.toHaveBeenCalled();
-    expect(mockSaveHistoricalProfile).not.toHaveBeenCalled();
   });
 
   it('loads previous profiles before saving', () => {

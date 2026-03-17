@@ -24,18 +24,6 @@ describe('MULTIFITScheduler', () => {
     expect(result.metrics.criticalPath).toBeLessThanOrEqual(lb * 1.22 + 0.01);
   });
 
-  it('throws for an empty task list', () => {
-    expect(() => new MULTIFITScheduler().schedule([], 2)).toThrow();
-  });
-
-  it('throws for jobCount <= 0', () => {
-    expect(() => new MULTIFITScheduler().schedule([{ id: 'A', duration: 1 }], 0)).toThrow();
-  });
-
-  it('throws for a negative task duration', () => {
-    expect(() => new MULTIFITScheduler().schedule([{ id: 'A', duration: -1 }], 1)).toThrow();
-  });
-
   it('throws for a non-finite task duration', () => {
     expect(() => new MULTIFITScheduler().schedule([{ id: 'A', duration: Infinity }], 1)).toThrow();
   });

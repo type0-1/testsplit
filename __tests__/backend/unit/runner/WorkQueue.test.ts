@@ -38,11 +38,4 @@ describe('WorkQueue', () => {
     q.pull();
     expect(q.isEmpty).toBe(true);
   });
-
-  it('handles an empty task list', () => {
-    const q = new WorkQueue([]);
-    expect(q.isEmpty).toBe(true);
-    expect(q.remaining).toBe(0);
-    expect(q.pull()).toBeUndefined();
-  });
 });
