@@ -19,6 +19,7 @@ jest.mock('fs', () => ({
 
 jest.mock('../../../../src/backend/core/TestSplitEngine');
 jest.mock('../../../../src/backend/storage/FileStore');
+jest.mock('../../../../src/backend/runner/ParallelRunner');
 jest.mock('../../../../src/backend/generator/GitHubActionsGenerator');
 jest.mock('../../../../src/backend/generator/GitLabCIGenerator');
 jest.mock('../../../../src/backend/generator/ProjectInspection');
@@ -31,6 +32,8 @@ jest.mock('chalk', () => ({
     red: (s: string) => s,
     yellow: (s: string) => s,
     green: (s: string) => s,
+    bold: (s: string) => s,
+    dim: (s: string) => s,
   },
 }));
 
@@ -39,6 +42,11 @@ import * as path from 'path';
 import yargs from 'yargs';
 import { TestSplitEngine } from '../../../../src/backend/core/TestSplitEngine';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
+import {
+  runAllJobs,
+  runAllJobsDynamic,
+  runAllJobsWorkStealing,
+} from '../../../../src/backend/runner/ParallelRunner';
 import { generateGitHubActionsConfig } from '../../../../src/backend/generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../../../../src/backend/generator/GitLabCIGenerator';
 import { inspectProjectTestCommandFormat } from '../../../../src/backend/generator/ProjectInspection';
@@ -57,6 +65,9 @@ import {
 const mockFs = fs as jest.Mocked<typeof fs>;
 const MockTestSplitEngine = TestSplitEngine as jest.MockedClass<typeof TestSplitEngine>;
 const MockFileStore = FileStore as jest.MockedClass<typeof FileStore>;
+const mockRunAllJobs = runAllJobs as jest.MockedFunction<typeof runAllJobs>;
+const mockRunAllJobsDynamic = runAllJobsDynamic as jest.MockedFunction<typeof runAllJobsDynamic>;
+const mockRunAllJobsWorkStealing = runAllJobsWorkStealing as jest.MockedFunction<typeof runAllJobsWorkStealing>;
 const mockGenerateGitHubActionsConfig = generateGitHubActionsConfig as jest.MockedFunction<typeof generateGitHubActionsConfig>;
 const mockGenerateGitLabCIConfig = generateGitLabCIConfig as jest.MockedFunction<typeof generateGitLabCIConfig>;
 const mockInspectProjectTestCommandFormat = inspectProjectTestCommandFormat as jest.MockedFunction<typeof inspectProjectTestCommandFormat>;
@@ -69,6 +80,7 @@ let generateConfigHandler: (argv: any) => void;
 let validateHandler: (argv: any) => void;
 let compareHandler: (argv: any) => void;
 let benchmarkHandler: (argv: any) => void;
+let runHandler: (argv: any) => Promise<void>;
 
 beforeAll(() => {
   const yargsInstance = (yargs as jest.MockedFunction<typeof yargs>).mock.results[0]?.value;
@@ -78,6 +90,7 @@ beforeAll(() => {
   validateHandler = calls.find(c => c[0] === 'validate')?.[3];
   compareHandler = calls.find(c => c[0] === 'compare')?.[3];
   benchmarkHandler = calls.find(c => c[0] === 'benchmark')?.[3];
+  runHandler = calls.find(c => c[0] === 'run')?.[3];
 });
 
 const mockEngineResult = {
@@ -649,6 +662,85 @@ describe('benchmark command handler', () => {
     benchmarkHandler({ junit: '/test.xml', jobs: 2 });
     const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
     expect(allCalls).toMatch(/Analysis time:\s+\d+(\.\d+)?ms/);
+  });
+});
+
+describe('run command handler', () => {
+  let mockEngine: { run: jest.Mock };
+
+  beforeEach(() => {
+    jest.spyOn(process, 'exit').mockImplementation((code) => { throw new Error(`exit(${code})`); });
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+    mockEngine = { run: jest.fn().mockReturnValue(mockEngineResult) };
+    MockTestSplitEngine.mockImplementation(() => mockEngine as any);
+
+    mockRunAllJobs.mockResolvedValue([
+      {
+        jobId: 1,
+        testNames: ['TestA'],
+        wallClockMs: 100,
+        exitCode: 0,
+        stdout: '',
+        stderr: '',
+      },
+    ] as any);
+    mockRunAllJobsDynamic.mockResolvedValue([] as any);
+    mockRunAllJobsWorkStealing.mockResolvedValue([] as any);
+
+    mockFs.existsSync.mockReset();
+    mockFs.existsSync.mockReturnValue(true);
+  });
+
+  afterEach(() => jest.restoreAllMocks());
+
+  it('profiles with persistence and executes jobs in one command', async () => {
+    await runHandler({
+      junit: '/test.xml',
+      jobs: 2,
+      data: '.data',
+      cmd: 'npm test',
+      'filter-flag': '--testNamePattern',
+      'filter-join': '|',
+      algorithm: 'lpt',
+      'risk-factor': 1.0,
+      dynamic: false,
+      steal: false,
+      affinity: false,
+    });
+
+    expect(MockTestSplitEngine).toHaveBeenCalledWith('.data');
+    expect(mockEngine.run).toHaveBeenCalledWith(
+      path.resolve('/test.xml'),
+      2,
+      true,
+      'lpt',
+      1.0,
+    );
+    expect(mockRunAllJobs).toHaveBeenCalled();
+  });
+
+  it('exits when junit path does not exist', async () => {
+    mockFs.existsSync.mockReset();
+    mockFs.existsSync.mockReturnValue(false);
+
+    await expect(
+      runHandler({
+        junit: '/missing.xml',
+        jobs: 2,
+        data: '.data',
+        cmd: 'npm test',
+        'filter-flag': '--testNamePattern',
+        'filter-join': '|',
+        algorithm: 'lpt',
+        'risk-factor': 1.0,
+        dynamic: false,
+        steal: false,
+        affinity: false,
+      }),
+    ).rejects.toThrow('exit(1)');
   });
 });
 

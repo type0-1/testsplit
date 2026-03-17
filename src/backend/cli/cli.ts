@@ -1081,6 +1081,11 @@ yargs(hideBin(process.argv))
           demandOption: true,
           describe: 'Number of parallel jobs to spawn',
         })
+        .option('data', {
+          type: 'string',
+          default: '.data',
+          describe: 'Path to data directory for profiling artifacts',
+        })
         .option('cmd', {
           type: 'string',
           demandOption: true,
@@ -1125,6 +1130,7 @@ yargs(hideBin(process.argv))
     async (argv) => {
       const junitPath = path.resolve(argv.junit as string);
       const jobCount = argv.jobs as number;
+      const dataDir = argv.data as string;
       const cmd = argv.cmd as string;
       const filterFlag = argv['filter-flag'] as string;
       const filterJoin = argv['filter-join'] as string;
@@ -1143,8 +1149,8 @@ yargs(hideBin(process.argv))
         process.exit(EXIT_FAILURE);
       }
 
-      const engine = new TestSplitEngine();
-      const { distribution } = engine.run(junitPath, jobCount, false, algorithm, riskFactor);
+      const engine = new TestSplitEngine(dataDir);
+      const { distribution } = engine.run(junitPath, jobCount, true, algorithm, riskFactor);
 
       console.log(chalk.bold(`\nSpawning ${distribution.jobs.length} job(s) using ${algorithm.toUpperCase()}...\n`));
 
