@@ -5,9 +5,8 @@ import { computeMetrics } from '../metrics/SchedulingMetrics';
 import { validateInputs, validateOutput } from '../validation/SchedulerValidator';
 
 /**
- * References: 
- *  - res/references/Bounds_On_Multiprocessing_Timing_Anomalies.pdf
- *  - res/references/lpt4_3.pdf
+ * References: res/references/Bounds_On_Multiprocessing_Timing_Anomalies.pdf
+ *             res/references/lpt4_3.pdf
  */
 
 export class LPTScheduler {
@@ -21,9 +20,13 @@ export class LPTScheduler {
     for (let i = 0; i < jobCount; i++) {
       jobs.push(new Job(i));
     }
-
+    
     for (const task of sorted) {
-      const lightestJob = jobs.reduce((min, job) => job.totalTime < min.totalTime ? job : min); // Greedily choose job w/ lightest load and assign to task.
+      const lightestJob = jobs.reduce((min, job) => {
+        if (job.totalTime < min.totalTime) return job;
+        if (job.totalTime === min.totalTime && job.tasks.length < min.tasks.length) return job; // tie-break by task count to spread zero-duration tests evenly
+        return min;
+      });
       lightestJob.addTask(task);
     }
 
