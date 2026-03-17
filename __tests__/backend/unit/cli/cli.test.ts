@@ -74,7 +74,7 @@ beforeAll(() => {
   const yargsInstance = (yargs as jest.MockedFunction<typeof yargs>).mock.results[0]?.value;
   const calls: any[][] = yargsInstance.command.mock.calls;
   profileHandler = calls.find(c => c[0] === 'profile')?.[3];
-  generateConfigHandler = calls.find(c => c[0] === 'generate-config')?.[3];
+  generateConfigHandler = calls.find(c => String(c[0]).startsWith('generate'))?.[3];
   validateHandler = calls.find(c => c[0] === 'validate')?.[3];
   compareHandler = calls.find(c => c[0] === 'compare')?.[3];
   benchmarkHandler = calls.find(c => c[0] === 'benchmark')?.[3];

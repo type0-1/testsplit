@@ -476,7 +476,7 @@ yargs(hideBin(process.argv))
     },
   )
   .command(
-    'generate-config',
+    'generate|generate-config',
     'Generate CI configuration from test profile',
     (y) =>
       y
