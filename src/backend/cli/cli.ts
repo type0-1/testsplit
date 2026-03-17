@@ -11,6 +11,8 @@ import { runAllJobs, runAllJobsDynamic, runAllJobsWorkStealing } from '../runner
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { inspectProjectTestCommandFormat } from '../generator/ProjectInspection';
+import { getSchemaValidator } from '../generator/getSchemaValidator';
+import { validateYamlSyntax } from '../generator/YAMLSyntaxValidator';
 import { Task } from '../algorithm/model/Task';
 import { JobDistribution } from '../algorithm/model/JobDistribution';
 import { renderBar } from '../utils/Terminal';
@@ -239,6 +241,21 @@ function prependSchedulingHeader(
   ].join('\n');
 
   return `${header}${yaml}`;
+}
+
+function validateFinalCIConfig(yaml: string, platform: Platform): void {
+  try {
+    validateYamlSyntax(yaml);
+
+    const schemaValidator = getSchemaValidator(platform);
+    schemaValidator?.validate(yaml);
+  } catch (err: unknown) {
+    const details = err instanceof Error ? err.message : String(err);
+    throw new Error(
+      `Final ${platform} CI config validation failed: ${details}`,
+      { cause: err },
+    );
+  }
 }
 
 function isJobDistribution(value: unknown): value is JobDistribution {
@@ -713,6 +730,8 @@ yargs(hideBin(process.argv))
           algorithm,
           riskFactor,
         );
+
+        validateFinalCIConfig(outputConfig, platform);
 
         if (dryRun) {
           process.stdout.write(outputConfig);

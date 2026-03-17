@@ -22,6 +22,8 @@ jest.mock('../../../../src/backend/storage/FileStore');
 jest.mock('../../../../src/backend/generator/GitHubActionsGenerator');
 jest.mock('../../../../src/backend/generator/GitLabCIGenerator');
 jest.mock('../../../../src/backend/generator/ProjectInspection');
+jest.mock('../../../../src/backend/generator/getSchemaValidator');
+jest.mock('../../../../src/backend/generator/YAMLSyntaxValidator');
 jest.mock('yaml', () => ({ parse: jest.fn(), stringify: jest.fn(() => 'generated-yaml') }));
 jest.mock('chalk', () => ({
   __esModule: true,
@@ -40,6 +42,8 @@ import { FileStore } from '../../../../src/backend/storage/FileStore';
 import { generateGitHubActionsConfig } from '../../../../src/backend/generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../../../../src/backend/generator/GitLabCIGenerator';
 import { inspectProjectTestCommandFormat } from '../../../../src/backend/generator/ProjectInspection';
+import { getSchemaValidator } from '../../../../src/backend/generator/getSchemaValidator';
+import { validateYamlSyntax } from '../../../../src/backend/generator/YAMLSyntaxValidator';
 import YAML from 'yaml';
 
 import {
@@ -56,6 +60,8 @@ const MockFileStore = FileStore as jest.MockedClass<typeof FileStore>;
 const mockGenerateGitHubActionsConfig = generateGitHubActionsConfig as jest.MockedFunction<typeof generateGitHubActionsConfig>;
 const mockGenerateGitLabCIConfig = generateGitLabCIConfig as jest.MockedFunction<typeof generateGitLabCIConfig>;
 const mockInspectProjectTestCommandFormat = inspectProjectTestCommandFormat as jest.MockedFunction<typeof inspectProjectTestCommandFormat>;
+const mockGetSchemaValidator = getSchemaValidator as jest.MockedFunction<typeof getSchemaValidator>;
+const mockValidateYamlSyntax = validateYamlSyntax as jest.MockedFunction<typeof validateYamlSyntax>;
 const mockYAML = YAML as unknown as { parse: jest.Mock; stringify: jest.Mock };
 
 let profileHandler: (argv: any) => void;
@@ -317,6 +323,8 @@ describe('generate-config command handler', () => {
     };
     MockTestSplitEngine.mockImplementation(() => mockEngine as any);
     MockFileStore.mockImplementation(() => mockStore as any);
+    mockValidateYamlSyntax.mockImplementation(() => {});
+    mockGetSchemaValidator.mockReturnValue({ validate: jest.fn() });
     mockInspectProjectTestCommandFormat.mockReturnValue({
       tool: 'maven',
       buildCommand: (tests: string[]) => `mvn test -Dtest=${tests.join(',')}`,
@@ -470,6 +478,27 @@ describe('generate-config command handler', () => {
       generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/bad/ci.yml', 'dry-run': false }),
     ).toThrow('exit(1)');
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('output directory'));
+  });
+
+  it('reports final schema validation issues before writing output', () => {
+    setupExistsMocks();
+    mockGetSchemaValidator.mockReturnValue({
+      validate: () => {
+        throw new Error('GitHub Actions schema violation: missing top-level "on"');
+      },
+    });
+
+    expect(() =>
+      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false }),
+    ).toThrow('exit(1)');
+
+    expect(mockFs.writeFileSync).not.toHaveBeenCalled();
+    expect(console.error).toHaveBeenCalledWith(
+      expect.stringContaining('Final github CI config validation failed'),
+    );
+    expect(console.error).toHaveBeenCalledWith(
+      expect.stringContaining('schema violation'),
+    );
   });
 
   it('exits on inner error (e.g. no test jobs in existing CI config)', () => {
