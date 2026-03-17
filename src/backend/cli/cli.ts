@@ -11,9 +11,11 @@ import { runAllJobs, runAllJobsDynamic, runAllJobsWorkStealing } from '../runner
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
 import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
+import { JobDistribution } from '../algorithm/model/JobDistribution';
 import { renderBar } from '../utils/Terminal';
 import { FileStore } from '../storage/FileStore';
 import { HistoricalProfiler } from '../profiler/core/HistoricalProfiler';
+import { ProfileMetadata } from '../profiler/model/Profile';
 import YAML from 'yaml';
 import chalk from 'chalk';
 
@@ -221,6 +223,15 @@ function buildJobsWithDependencies(distributionJobs: { tasks: Task[] }[]): { id:
 
 function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
+}
+
+function isJobDistribution(value: unknown): value is JobDistribution {
+  if (!value || typeof value !== 'object') {
+    return false;
+  }
+
+  const candidate = value as Partial<JobDistribution>;
+  return Array.isArray(candidate.jobs);
 }
 
 yargs(hideBin(process.argv))
@@ -455,6 +466,11 @@ yargs(hideBin(process.argv))
           type: 'string',
           default: 'testsplit.yml',
         })
+        .option('data', {
+          type: 'string',
+          default: '.data',
+          describe: 'Path to persisted profiling data directory',
+        })
         .option('maven-bin', {
           type: 'string',
           default: 'mvn',
@@ -495,6 +511,7 @@ yargs(hideBin(process.argv))
       }
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
+      const dataDir = argv.data as string;
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
       const existingCIPath = findExistingCIFile(platform);
@@ -537,27 +554,57 @@ yargs(hideBin(process.argv))
 
       // Main logic with error handling
       try {
-        const engine = new TestSplitEngine();
-        const result = engine.run(
-          junitPath,
-          jobCount,
-          false,
-          algorithm,
-          riskFactor,
-        );
+        const store = new FileStore(dataDir);
+        let distribution: JobDistribution | null = null;
+        let profileMetadata: ProfileMetadata | undefined;
 
-        const jobs = buildJobsWithDependencies(result.distribution.jobs);
+        const persistedDistribution = store.loadLatestDistribution();
 
-        const metadata = result.profile.metadata;
-        const hasCpuCores = typeof metadata?.cpuCores === 'number';
-        const hasMemoryLimit = metadata?.memoryLimitMb !== undefined;
-        const resourceConstraints =
-          hasCpuCores || hasMemoryLimit
-            ? {
-                cpuCores: metadata?.cpuCores ?? 0,
-                memoryLimitMb: metadata?.memoryLimitMb ?? null,
-              }
-            : undefined;
+        if (isJobDistribution(persistedDistribution)) {
+          distribution = persistedDistribution;
+
+          const profiles = store.loadProfiles();
+          const latestProfile = profiles[profiles.length - 1];
+          profileMetadata = latestProfile?.metadata;
+        } else {
+          console.log(
+            chalk.yellow(
+              `No saved distribution found in ${path.resolve(dataDir)}. Running profile as a prerequisite...`,
+            ),
+          );
+
+          const engine = new TestSplitEngine(dataDir);
+          const result = engine.run(
+            junitPath,
+            jobCount,
+            true,
+            algorithm,
+            riskFactor,
+          );
+
+          distribution = result.distribution;
+          profileMetadata = result.profile.metadata;
+
+          console.log(
+            chalk.green(
+              `Saved prerequisite distribution to ${path.resolve(dataDir, 'distributions')}`,
+            ),
+          );
+        }
+
+        if (!distribution) {
+          throw new Error('No distribution available for CI generation');
+        }
+
+        const jobs = buildJobsWithDependencies(distribution.jobs);
+
+        const metadata = profileMetadata;
+        const resourceConstraints = metadata
+          ? {
+              cpuCores: metadata.cpuCores,
+              memoryLimitMb: metadata.memoryLimitMb ?? null,
+            }
+          : undefined;
 
         let ciConfig: string;
 

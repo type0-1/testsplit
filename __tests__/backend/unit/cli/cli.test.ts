@@ -291,6 +291,10 @@ describe('profile command handler', () => {
 
 describe('generate-config command handler', () => {
   let mockEngine: { run: jest.Mock };
+  let mockStore: {
+    loadLatestDistribution: jest.Mock;
+    loadProfiles: jest.Mock;
+  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -300,7 +304,12 @@ describe('generate-config command handler', () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
 
     mockEngine = { run: jest.fn().mockReturnValue(mockEngineResult) };
+    mockStore = {
+      loadLatestDistribution: jest.fn().mockReturnValue(mockEngineResult.distribution),
+      loadProfiles: jest.fn().mockReturnValue([]),
+    };
     MockTestSplitEngine.mockImplementation(() => mockEngine as any);
+    MockFileStore.mockImplementation(() => mockStore as any);
     mockGenerateGitHubActionsConfig.mockReturnValue('github-yaml');
     mockGenerateGitLabCIConfig.mockReturnValue('gitlab-yaml');
   });
@@ -329,15 +338,12 @@ describe('generate-config command handler', () => {
 
   it('passes needs when scheduled jobs have cross-job test dependencies', () => {
     setupExistsMocks();
-    mockEngine.run.mockReturnValue({
-      ...mockEngineResult,
-      distribution: {
-        ...mockEngineResult.distribution,
-        jobs: [
-          { totalTime: 2.0, tasks: [{ id: 'TestB', duration: 2.0, dependencies: ['TestA'] }] },
-          { totalTime: 1.0, tasks: [{ id: 'TestA', duration: 1.0 }] },
-        ],
-      },
+    mockStore.loadLatestDistribution.mockReturnValue({
+      ...mockEngineResult.distribution,
+      jobs: [
+        { totalTime: 2.0, tasks: [{ id: 'TestB', duration: 2.0, dependencies: ['TestA'] }] },
+        { totalTime: 1.0, tasks: [{ id: 'TestA', duration: 1.0 }] },
+      ],
     });
 
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });

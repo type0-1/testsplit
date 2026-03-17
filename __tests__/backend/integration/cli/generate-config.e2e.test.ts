@@ -10,6 +10,7 @@ describe('generate-config CLI integration', () => {
   test('generates CI YAML with expected job count and Maven -Dtest commands', () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'testsplit-generate-'));
     const outPath = path.join(tempDir, 'testsplit.yml');
+    const dataDir = path.join(tempDir, '.data');
 
     try {
       const result = spawnSync(
@@ -26,12 +27,17 @@ describe('generate-config CLI integration', () => {
           'github',
           '--out',
           outPath,
+          '--data',
+          dataDir,
         ],
         { encoding: 'utf-8' },
       );
 
       expect(result.status).toBe(0);
       expect(fs.existsSync(outPath)).toBe(true);
+      const persistedDistributionDir = path.join(dataDir, 'distributions');
+      expect(fs.existsSync(persistedDistributionDir)).toBe(true);
+      expect(fs.readdirSync(persistedDistributionDir).some((f) => f.endsWith('.json'))).toBe(true);
 
       const yamlOutput = fs.readFileSync(outPath, 'utf-8');
       const parsed = YAML.parse(yamlOutput);

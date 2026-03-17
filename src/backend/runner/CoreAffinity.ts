@@ -1,5 +1,20 @@
-import si from 'systeminformation';
 import { platform } from 'os';
+
+type CurrentLoadResult = {
+  cpus: Array<{ load: number }>;
+};
+
+type SystemInformationLike = {
+  currentLoad: () => Promise<CurrentLoadResult>;
+};
+
+function loadSystemInformation(): SystemInformationLike | null {
+  try {
+    return require('systeminformation') as SystemInformationLike;
+  } catch {
+    return null;
+  }
+}
 
 /**
  * References:
@@ -19,8 +34,15 @@ export interface CoreLoad {
 
 export async function getLeastLoadedCores(count: number): Promise<number[]> {
   try {
+    const si = loadSystemInformation();
+    if (!si) {
+      return Array.from({ length: count }, (_, i) => i);
+    }
+
     const load = await si.currentLoad();
-    const sorted: CoreLoad[] = load.cpus.map((cpu, index) => ({ index, load: cpu.load })).sort((a, b) => a.load - b.load);
+    const sorted: CoreLoad[] = load.cpus
+      .map((cpu: { load: number }, index: number) => ({ index, load: cpu.load }))
+      .sort((a: CoreLoad, b: CoreLoad) => a.load - b.load);
     return sorted.slice(0, count).map((c) => c.index);
   } catch {
     return Array.from({ length: count }, (_, i) => i);
