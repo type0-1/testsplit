@@ -999,6 +999,11 @@ yargs(hideBin(process.argv))
           type: 'boolean',
           default: false,
           describe: 'Enable work stealing: idle workers steal the largest task from the busiest peer',
+        })
+        .option('affinity', {
+          type: 'boolean',
+          default: false,
+          describe: 'Pin each worker to a distinct least-loaded CPU core (Linux: taskset, other platforms: no-op)',
         }),
     async (argv) => {
       const junitPath = path.resolve(argv.junit as string);
@@ -1010,6 +1015,7 @@ yargs(hideBin(process.argv))
       const riskFactor = argv['risk-factor'] as number;
       const dynamic = argv.dynamic as boolean;
       const steal = argv.steal as boolean;
+      const affinity = argv.affinity as boolean;
 
       if (!fs.existsSync(junitPath)) {
         console.error(chalk.red(`Error: --junit path does not exist: ${junitPath}`));
@@ -1025,11 +1031,17 @@ yargs(hideBin(process.argv))
 
       console.log(chalk.bold(`\nSpawning ${distribution.jobs.length} job(s) using ${algorithm.toUpperCase()}...\n`));
 
+      const activeCount = distribution.jobs.filter((j) => j.tasks.length > 0).length;
+      const coreIds = affinity ? await (await import('../runner/CoreAffinity')).getLeastLoadedCores(activeCount) : undefined;
+      if (affinity && coreIds) {
+        console.log(chalk.dim(`Core affinity: pinning workers to cores [${coreIds.join(', ')}]`));
+      }
+
       const results = await (steal
         ? runAllJobsWorkStealing(distribution.jobs, cmd, filterFlag)
         : dynamic
           ? runAllJobsDynamic(distribution.jobs, cmd, filterFlag)
-          : runAllJobs(distribution.jobs, cmd, filterFlag, filterJoin));
+          : runAllJobs(distribution.jobs, cmd, filterFlag, filterJoin, coreIds));
 
       let allPassed = true;
       for (const r of results) {

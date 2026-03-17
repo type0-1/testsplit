@@ -5,6 +5,7 @@ import { join } from 'path';
 import { Job } from '../algorithm/model/Job';
 import { Task } from '../algorithm/model/Task';
 import { WorkQueue, WorkerQueue } from './WorkQueue';
+import { wrapWithAffinity } from './CoreAffinity';
 
 const MAX_INLINE_ARG = 50_000;
 
@@ -28,7 +29,7 @@ function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: string): Promise<JobResult> {
+export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: string, coreId?: number): Promise<JobResult> {
   return new Promise((resolve) => {
     const testNames = job.tasks.map((t) => t.id);
     const filter = testNames.map(escapeRegex).join(filterJoin);
@@ -42,6 +43,10 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
       fullCmd = `${cmd} ${filterFlag} @${tempFile}`;
     } else {
       fullCmd = `${cmd} ${filterFlag} ${JSON.stringify(filter)}`;
+    }
+
+    if (coreId !== undefined) {
+      fullCmd = wrapWithAffinity(fullCmd, coreId);
     }
 
     const stdoutChunks: Buffer[] = [];
@@ -66,9 +71,9 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
   });
 }
 
-export function runAllJobs(jobs: Job[], cmd: string, filterFlag: string, filterJoin: string): Promise<JobResult[]> {
+export function runAllJobs(jobs: Job[], cmd: string, filterFlag: string, filterJoin: string, coreIds?: number[]): Promise<JobResult[]> {
   const activeJobs = jobs.filter((j) => j.tasks.length > 0);
-  return Promise.all(activeJobs.map((j) => runJob(j, cmd, filterFlag, filterJoin)));
+  return Promise.all(activeJobs.map((j, i) => runJob(j, cmd, filterFlag, filterJoin, coreIds?.[i])));
 }
 
 function runSingleTest(task: Task, cmd: string, filterFlag: string): Promise<{ exitCode: number; stdout: string; stderr: string }> {
