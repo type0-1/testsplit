@@ -1053,6 +1053,14 @@ yargs(hideBin(process.argv))
       const maxWall = Math.max(...results.map((r) => r.wallClockMs));
       console.log(chalk.bold(`\nCritical path (slowest job): ${maxWall.toFixed(0)}ms`));
 
+      try {
+        const { persistObservedTimings } = await import('../runner/TimingFeedback');
+        persistObservedTimings(results, distribution.jobs);
+        console.log(chalk.dim('Observed timings fed back into profiler for future runs.'));
+      } catch {
+        console.warn(chalk.yellow('Warning: failed to persist observed timings'));
+      }
+
       if (!allPassed) process.exit(EXIT_FAILURE);
     },
   )
