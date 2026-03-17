@@ -7,6 +7,10 @@ import { spawn } from 'child_process';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
+const packageJson = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../../..', 'package.json'), 'utf-8'),
+) as { version: string };
+
 import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
 import { runAllJobs, runAllJobsDynamic, runAllJobsWorkStealing } from '../runner/ParallelRunner';
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
@@ -1244,6 +1248,7 @@ yargs(hideBin(process.argv))
       if (!allPassed) process.exit(EXIT_FAILURE);
     },
   )
+  .version(packageJson.version)
   .demandCommand()
   .help()
   .parse();

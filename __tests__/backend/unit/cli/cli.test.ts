@@ -3,6 +3,7 @@ jest.mock('yargs', () => { // Mock yargs to obtain command handlers (this is for
   chain.command = jest.fn().mockReturnValue(chain);
   chain.demandCommand = jest.fn().mockReturnValue(chain);
   chain.help = jest.fn().mockReturnValue(chain);
+  chain.version = jest.fn().mockReturnValue(chain);
   chain.parse = jest.fn();
   return jest.fn(() => chain);
 });
@@ -15,7 +16,13 @@ jest.mock('fs', () => ({
   ...jest.requireActual('fs'),
   existsSync: jest.fn(),
   readdirSync: jest.fn(),
-  readFileSync: jest.fn(),
+  readFileSync: jest.fn((filePath: string, encoding?: string) => {
+    // Allow reading package.json through to get the version
+    if (filePath.includes('package.json')) {
+      return jest.requireActual('fs').readFileSync(filePath, encoding);
+    }
+    return jest.fn()();
+  }),
   writeFileSync: jest.fn(),
   statSync: jest.fn(),
 }));
