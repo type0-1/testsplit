@@ -92,7 +92,13 @@ beforeAll(() => {
   const yargsInstance = (yargs as jest.MockedFunction<typeof yargs>).mock.results[0]?.value;
   const calls: any[][] = yargsInstance.command.mock.calls;
   profileHandler = calls.find(c => c[0] === 'profile')?.[3];
-  generateConfigHandler = calls.find(c => String(c[0]).startsWith('generate'))?.[3];
+  generateConfigHandler = calls.find((c) => {
+    const commandName = c[0];
+    if (Array.isArray(commandName)) {
+      return commandName.includes('generate') || commandName.includes('generate-config');
+    }
+    return String(commandName).startsWith('generate');
+  })?.[3];
   validateHandler = calls.find(c => c[0] === 'validate')?.[3];
   compareHandler = calls.find(c => c[0] === 'compare')?.[3];
   benchmarkHandler = calls.find(c => c[0] === 'benchmark')?.[3];
@@ -641,6 +647,11 @@ describe('benchmark command handler', () => {
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('does not exist'));
   });
 
+  it('exits when --jobs is not a positive integer', () => {
+    expect(() => benchmarkHandler({ junit: '/test.xml', jobs: 0 })).toThrow('exit(1)');
+    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('--jobs'));
+  });
+
   it('exits when no test cases were parsed', () => {
     mockEngine.run.mockReturnValue({
       ...mockEngineResult,
@@ -753,6 +764,28 @@ describe('run command handler', () => {
         affinity: false,
       }),
     ).rejects.toThrow('exit(1)');
+  });
+
+  it('exits when --risk-factor is invalid', async () => {
+    await expect(
+      runHandler({
+        junit: '/test.xml',
+        jobs: 2,
+        data: '.data',
+        cmd: 'npm test',
+        'filter-flag': '--testNamePattern',
+        'filter-join': '|',
+        algorithm: 'lpt',
+        'risk-factor': -1,
+        dynamic: false,
+        steal: false,
+        affinity: false,
+      }),
+    ).rejects.toThrow('exit(1)');
+
+    expect(console.error).toHaveBeenCalledWith(
+      expect.stringContaining('--risk-factor'),
+    );
   });
 });
 

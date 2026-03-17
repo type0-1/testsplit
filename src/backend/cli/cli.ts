@@ -229,6 +229,46 @@ function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
 
+function normalizeJobs(input: unknown): number {
+  let jobCount = Number(input);
+
+  if (!Number.isInteger(jobCount) || jobCount <= 0) {
+    console.error(chalk.red('Error: --jobs must be a positive integer'));
+    process.exit(EXIT_FAILURE);
+  }
+
+  const availableCores = os.cpus().length;
+  if (jobCount > availableCores) {
+    console.warn(
+      chalk.yellow(
+        `Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`,
+      ),
+    );
+    jobCount = availableCores;
+  }
+
+  return jobCount;
+}
+
+function normalizeRiskFactor(input: unknown): number {
+  const riskFactor = Number(input);
+  if (!Number.isFinite(riskFactor) || riskFactor < 0) {
+    console.error(
+      chalk.red('Error: --risk-factor must be a non-negative number'),
+    );
+    process.exit(EXIT_FAILURE);
+  }
+
+  return riskFactor;
+}
+
+function assertJUnitPathExists(junitPath: string): void {
+  if (!fs.existsSync(junitPath)) {
+    console.error(chalk.red(`Error: JUnit path does not exist: ${junitPath}`));
+    process.exit(EXIT_FAILURE);
+  }
+}
+
 function prependSchedulingHeader(
   yaml: string,
   algorithm: Algorithm,
@@ -331,33 +371,16 @@ yargs(hideBin(process.argv))
         }),
     (argv) => {
       const junitPath = path.resolve(argv.junit as string);
-      let jobCount = argv.jobs as number;
+      const jobCount = normalizeJobs(argv.jobs);
       const dataDir = argv.data as string;
       const explain = argv.explain as boolean;
       const algorithm = argv.algorithm as Algorithm;
-      const riskFactor = argv['risk-factor'] as number;
+      const riskFactor = normalizeRiskFactor(
+        (argv['risk-factor'] as number | undefined) ?? 1.0,
+      );
       const availableCores = os.cpus().length;
 
-      if (!Number.isInteger(jobCount) || jobCount <= 0) {
-        console.error(chalk.red('Error: --jobs must be a positive integer'));
-        process.exit(EXIT_FAILURE);
-      }
-
-      if (jobCount > availableCores) {
-        console.warn(
-          chalk.yellow(
-            `Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`,
-          ),
-        );
-        jobCount = availableCores;
-      }
-
-      if (!fs.existsSync(junitPath)) {
-        console.error(
-          chalk.red(`Error: JUnit path does not exist: ${junitPath}`),
-        );
-        process.exit(EXIT_FAILURE);
-      }
+      assertJUnitPathExists(junitPath);
 
       const engine = new TestSplitEngine(dataDir);
       const profileStart = performance.now();
@@ -500,7 +523,7 @@ yargs(hideBin(process.argv))
     },
   )
   .command(
-    'generate|generate-config',
+    ['generate', 'generate-config'],
     'Generate CI configuration from test profile',
     (y) =>
       y
@@ -557,20 +580,12 @@ yargs(hideBin(process.argv))
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
-      let jobCount = argv.jobs as number;
+      const jobCount = normalizeJobs(argv.jobs);
       const platform = argv.platform as Platform;
       const algorithm = (argv.algorithm as Algorithm | undefined) ?? 'lpt';
-      const riskFactor = (argv['risk-factor'] as number | undefined) ?? 1.0;
-      const availableCores = os.cpus().length;
-
-      if (jobCount > availableCores) {
-        console.warn(
-          chalk.yellow(
-            `Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`,
-          ),
-        );
-        jobCount = availableCores;
-      }
+      const riskFactor = normalizeRiskFactor(
+        (argv['risk-factor'] as number | undefined) ?? 1.0,
+      );
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
       const templatePathArg = argv.template as string | undefined;
@@ -619,17 +634,7 @@ yargs(hideBin(process.argv))
       }
 
       // Argument validation
-      if (!fs.existsSync(junitPath)) {
-        console.error(
-          chalk.red(`Error: JUnit path does not exist: ${junitPath}`),
-        );
-        process.exit(EXIT_FAILURE);
-      }
-
-      if (!Number.isInteger(jobCount) || jobCount <= 0) {
-        console.error(chalk.red('Error: --jobs must be a positive integer'));
-        process.exit(EXIT_FAILURE);
-      }
+      assertJUnitPathExists(junitPath);
 
       // Main logic with error handling
       try {
@@ -963,14 +968,9 @@ yargs(hideBin(process.argv))
         }),
     (argv) => {
       const junitPath = path.resolve(argv.junit as string);
-      const jobCount = argv.jobs as number;
+      const jobCount = normalizeJobs(argv.jobs);
 
-      if (!fs.existsSync(junitPath)) {
-        console.error(
-          chalk.red(`Error: JUnit path does not exist: ${junitPath}`),
-        );
-        process.exit(EXIT_FAILURE);
-      }
+      assertJUnitPathExists(junitPath);
 
       const benchEngine = new TestSplitEngine();
       const benchStart = performance.now();
@@ -1037,7 +1037,7 @@ yargs(hideBin(process.argv))
           type: 'string',
           choices: ['github', 'gitlab'],
           default: 'github',
-          describe: 'CI platform the config was generated for',
+          describe: 'Target CI platform',
         }),
     (argv) => {
       const filePath = path.resolve(argv.file as string);
@@ -1193,25 +1193,18 @@ yargs(hideBin(process.argv))
         }),
     async (argv) => {
       const junitPath = path.resolve(argv.junit as string);
-      const jobCount = argv.jobs as number;
+      const jobCount = normalizeJobs(argv.jobs);
       const dataDir = argv.data as string;
       const cmd = argv.cmd as string;
       const filterFlag = argv['filter-flag'] as string;
       const filterJoin = argv['filter-join'] as string;
       const algorithm = argv.algorithm as Algorithm;
-      const riskFactor = argv['risk-factor'] as number;
+      const riskFactor = normalizeRiskFactor(argv['risk-factor']);
       const dynamic = argv.dynamic as boolean;
       const steal = argv.steal as boolean;
       const affinity = argv.affinity as boolean;
 
-      if (!fs.existsSync(junitPath)) {
-        console.error(chalk.red(`Error: --junit path does not exist: ${junitPath}`));
-        process.exit(EXIT_FAILURE);
-      }
-      if (!Number.isInteger(jobCount) || jobCount < 1) {
-        console.error(chalk.red('Error: --jobs must be a positive integer'));
-        process.exit(EXIT_FAILURE);
-      }
+      assertJUnitPathExists(junitPath);
 
       const engine = new TestSplitEngine(dataDir);
       const { distribution } = engine.run(junitPath, jobCount, true, algorithm, riskFactor);
