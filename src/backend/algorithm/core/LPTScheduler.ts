@@ -5,9 +5,8 @@ import { computeMetrics } from '../metrics/SchedulingMetrics';
 import { validateInputs, validateOutput } from '../validation/SchedulerValidator';
 
 /**
- * References:
- *  - res/references/Bounds_On_Multiprocessing_Timing_Anomalies.pdf
- *  - res/references/lpt4_3.pdf
+ * References: res/references/Bounds_On_Multiprocessing_Timing_Anomalies.pdf
+ *             res/references/lpt4_3.pdf
  */
 
 export class LPTScheduler {
@@ -21,22 +20,18 @@ export class LPTScheduler {
     for (let i = 0; i < jobCount; i++) {
       jobs.push(new Job(i));
     }
-
-    // Separate zero-duration tasks; they are unmeasured (e.g. parameterised tests whose
-    // runtime was not captured) and have no scheduling weight. Distribute them round-robin
-    // so that job test counts stay balanced rather than piling into a single job.
-    const timedTasks = sorted.filter((t) => t.duration > 0);
-    const zeroTasks  = sorted.filter((t) => t.duration === 0);
-
-    for (const task of timedTasks) {
-      const lightestJob = jobs.reduce((min, job) => job.totalTime < min.totalTime ? job : min); // Greedily choose job w/ lightest load and assign to task.
+    
+    for (const task of sorted) {
+      const lightestJob = jobs.reduce((min, job) => {
+        if (job.totalTime < min.totalTime) return job;
+        if (job.totalTime === min.totalTime && job.tasks.length < min.tasks.length) return job; // tie-break by task count to spread zero-duration tests evenly
+        return min;
+      });
       lightestJob.addTask(task);
     }
 
-    zeroTasks.forEach((task, i) => jobs[i % jobCount].addTask(task));
-
     validateOutput(tasks, jobs);
-
+    
     const totalDuration = tasks.reduce((sum, t) => sum + t.duration, 0);
 
     return {
