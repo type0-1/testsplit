@@ -2,6 +2,10 @@ import { validateJobGroups } from '../../../../src/backend/generator/JobGroupVal
 import { JobGroup } from '../../../../src/backend/generator/JobGroup';
 
 describe('validateJobGroups', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('does not throw when jobs are valid', () => {
     const jobs: JobGroup[] = [
       { id: 1, tests: ['testA', 'testB'] },
@@ -27,14 +31,31 @@ describe('validateJobGroups', () => {
     );
   });
 
-  it('throws when a job depends on an unknown job id', () => {
+  it('warns when GitHub job count exceeds platform limit', () => {
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const jobs: JobGroup[] = Array.from({ length: 257 }, (_, index) => ({
+      id: index + 1,
+      tests: [`test-${index + 1}`],
+    }));
+
+    expect(() => validateJobGroups(jobs, 'GitHub Actions')).not.toThrow();
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('exceeds recommended limit (256)'),
+    );
+  });
+
+  it('warns when tests per job exceed platform limit', () => {
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     const jobs: JobGroup[] = [
-      { id: 1, tests: ['testA'] },
-      { id: 2, tests: ['testB'], needs: [3] },
+      {
+        id: 1,
+        tests: Array.from({ length: 1001 }, (_, index) => `test-${index + 1}`),
+      },
     ];
 
-    expect(() => validateJobGroups(jobs, 'GitHub Actions')).toThrow(
-      'Job 2 depends on unknown job 3',
+    expect(() => validateJobGroups(jobs, 'GitLab CI')).not.toThrow();
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('exceeds recommended per-job limit (1000)'),
     );
   });
 });

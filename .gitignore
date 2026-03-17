@@ -1,4 +1,8 @@
 node_modules/
 dist/
 .data/
+.coverage/
 coverage/
+.data-e2e/
+test-results/
+coverage/playwright-report/

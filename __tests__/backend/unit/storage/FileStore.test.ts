@@ -41,7 +41,13 @@ describe('FileStore', () => {
       testCount: 2,
       totalDuration: 3.4,
       testResults: [
-        { name: 'A', duration: 1.2, status: 'passed' },
+        {
+          name: 'A',
+          duration: 1.2,
+          status: 'passed',
+          suiteStartupDuration: 0.04,
+          suiteTeardownDuration: 0.01,
+        },
         { name: 'B', duration: 2.2, status: 'passed' },
       ],
     };
@@ -53,6 +59,46 @@ describe('FileStore', () => {
 
     const written = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     expect(written).toEqual(profile);
+  });
+
+  it('keeps suite startup/teardown metadata when loading profiles', () => {
+    const runId = 'run-profile-load';
+    const profile = {
+      testCount: 1,
+      totalDuration: 1.2,
+      averageDuration: 1.2,
+      testResults: [
+        {
+          name: 'A',
+          duration: 1.2,
+          status: 'passed',
+          suiteStartupDuration: 0.03,
+          suiteTeardownDuration: 0.02,
+        },
+      ],
+      metadata: {
+        commit: null,
+        generatedAt: null,
+        cpuModel: 'unknown',
+        cpuCores: 1,
+        osVersion: 'unknown',
+        platform: 'unknown',
+        nodeVersion: 'unknown',
+        containerVersion: 'unknown',
+        memoryLimitMb: 1024,
+      },
+    };
+
+    store.saveProfile(runId, profile);
+
+    const loaded = store.loadProfiles();
+    const loadedProfile = loaded.find((p) => p.testCount === 1);
+
+    expect(loadedProfile?.testResults[0]).toMatchObject({
+      name: 'A',
+      suiteStartupDuration: 0.03,
+      suiteTeardownDuration: 0.02,
+    });
   });
 
   it('writes a job distribution JSON file correctly', () => {

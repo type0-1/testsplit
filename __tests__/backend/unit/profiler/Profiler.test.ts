@@ -34,4 +34,55 @@ describe('Profiler', () => {
   it('throws an error when no test results are provided', () => {
     expect(() => profiler.generateProfile([])).toThrow();
   });
+
+  it('builds metadata groupings for package, class, and file path', () => {
+    const results: TestResult[] = [
+      {
+        name: 'pkg.ClassA.test1',
+        duration: 2,
+        status: 'passed',
+        packageName: 'pkg',
+        className: 'pkg.ClassA',
+        filePath: 'pkg/ClassA.java',
+      },
+      {
+        name: 'pkg.ClassA.test2',
+        duration: 3,
+        status: 'passed',
+        packageName: 'pkg',
+        className: 'pkg.ClassA',
+        filePath: 'pkg/ClassA.java',
+      },
+      {
+        name: 'pkg.sub.ClassB.test1',
+        duration: 5,
+        status: 'passed',
+        packageName: 'pkg.sub',
+        className: 'pkg.sub.ClassB',
+        filePath: 'pkg/sub/ClassB.java',
+      },
+    ];
+
+    const profile = profiler.generateProfile(results);
+    const groupings = profile.metadata.groupings;
+
+    expect(groupings).toBeDefined();
+
+    expect(groupings!.byPackage.pkg).toEqual({
+      testCount: 2,
+      totalDuration: 5,
+    });
+    expect(groupings!.byClassName['pkg.ClassA']).toEqual({
+      testCount: 2,
+      totalDuration: 5,
+    });
+    expect(groupings!.byFilePath['pkg/ClassA.java']).toEqual({
+      testCount: 2,
+      totalDuration: 5,
+    });
+    expect(groupings!.byPackage['pkg.sub']).toEqual({
+      testCount: 1,
+      totalDuration: 5,
+    });
+  });
 });

@@ -5,9 +5,21 @@ import { HistoricalTestStats } from '../models/HistoricalTestStats';
 
 export async function buildApp() {
   const app = Fastify();
-  const store = new FileStore();
+  const store = new FileStore(process.env.DATA_DIR ?? '.data');
+  const defaultCorsOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'http://localhost:4173',
+    'http://127.0.0.1:4173',
+  ];
 
-  await app.register(cors, { origin: 'http://localhost:5173' });
+  const corsOrigin = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim()).filter(Boolean)
+    : defaultCorsOrigins;
+
+  await app.register(cors, { origin: corsOrigin });
+
+  app.get('/api/health', async () => ({ status: 'ok' }));
 
   // Endpoint to get summary stats
   app.get('/api/summary', async (_req, reply) => {

@@ -239,6 +239,11 @@ yargs(hideBin(process.argv))
           default: os.cpus().length,
           describe: 'Number of parallel jobs',
         })
+        .option('data', {
+          type: 'string',
+          default: '.data',
+          describe: 'Path to data directory',
+        })
         .option('explain', {
           type: 'boolean',
           default: false,
@@ -253,11 +258,13 @@ yargs(hideBin(process.argv))
         .option('risk-factor', {
           type: 'number',
           default: 1.0,
-          describe: 'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
+          describe:
+            'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
         }),
     (argv) => {
       const junitPath = path.resolve(argv.junit as string);
       let jobCount = argv.jobs as number;
+      const dataDir = argv.data as string;
       const explain = argv.explain as boolean;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
@@ -269,7 +276,11 @@ yargs(hideBin(process.argv))
       }
 
       if (jobCount > availableCores) {
-        console.warn(chalk.yellow(`Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`));
+        console.warn(
+          chalk.yellow(
+            `Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`,
+          ),
+        );
         jobCount = availableCores;
       }
 
@@ -280,9 +291,15 @@ yargs(hideBin(process.argv))
         process.exit(EXIT_FAILURE);
       }
 
-      const engine = new TestSplitEngine();
+      const engine = new TestSplitEngine(dataDir);
       const profileStart = performance.now();
-      const { profile, distribution } = engine.run(junitPath, jobCount, true, algorithm, riskFactor);
+      const { profile, distribution } = engine.run(
+        junitPath,
+        jobCount,
+        true,
+        algorithm,
+        riskFactor,
+      );
       const analysisMs = (performance.now() - profileStart).toFixed(1);
 
       try {
@@ -391,7 +408,9 @@ yargs(hideBin(process.argv))
         const diff = job.totalTime - idealTime;
         const sign = diff >= 0 ? '+' : '';
         const diffStr = `${sign}${diff.toFixed(2)}s vs ideal`;
-        console.log(`Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests, ${diffStr})`);
+        console.log(
+          `Job ${i + 1}: ${job.totalTime.toFixed(2)}s ${bar} (${job.tasks.length} tests, ${diffStr})`,
+        );
       });
       console.log();
 
@@ -436,6 +455,11 @@ yargs(hideBin(process.argv))
           type: 'string',
           default: 'testsplit.yml',
         })
+        .option('maven-bin', {
+          type: 'string',
+          default: 'mvn',
+          describe: 'Maven executable to run tests (e.g., mvn or ./mvnw)',
+        })
         .option('dry-run', {
           type: 'boolean',
           default: false,
@@ -450,7 +474,8 @@ yargs(hideBin(process.argv))
         .option('risk-factor', {
           type: 'number',
           default: 1.0,
-          describe: 'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
+          describe:
+            'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
@@ -461,17 +486,24 @@ yargs(hideBin(process.argv))
       const availableCores = os.cpus().length;
 
       if (jobCount > availableCores) {
-        console.warn(chalk.yellow(`Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`));
+        console.warn(
+          chalk.yellow(
+            `Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`,
+          ),
+        );
         jobCount = availableCores;
       }
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
+      const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
       const existingCIPath = findExistingCIFile(platform);
+      const shouldInjectIntoExistingCI =
+        !!existingCIPath && path.resolve(existingCIPath) === outPath;
 
       let existingCIConfig: any = null;
 
-      if (existingCIPath) {
+      if (shouldInjectIntoExistingCI && existingCIPath) {
         const raw = fs.readFileSync(existingCIPath, 'utf-8');
         existingCIConfig = YAML.parse(raw);
       }
@@ -506,73 +538,82 @@ yargs(hideBin(process.argv))
       // Main logic with error handling
       try {
         const engine = new TestSplitEngine();
-        const result = engine.run(junitPath, jobCount, false, algorithm, riskFactor);
+        const result = engine.run(
+          junitPath,
+          jobCount,
+          false,
+          algorithm,
+          riskFactor,
+        );
 
         const jobs = buildJobsWithDependencies(result.distribution.jobs);
 
+        const metadata = result.profile.metadata;
+        const hasCpuCores = typeof metadata?.cpuCores === 'number';
+        const hasMemoryLimit = metadata?.memoryLimitMb !== undefined;
+        const resourceConstraints =
+          hasCpuCores || hasMemoryLimit
+            ? {
+                cpuCores: metadata?.cpuCores ?? 0,
+                memoryLimitMb: metadata?.memoryLimitMb ?? null,
+              }
+            : undefined;
+
         let ciConfig: string;
 
-        if (platform === 'github' && existingCIConfig) {
+        if (existingCIConfig) {
           const testJobs = findTestJobs(existingCIConfig, platform);
           if (testJobs.length === 0) {
-            throw new Error(
-              'No test job found in existing GitHub Actions workflow',
-            );
+            throw new Error('No test jobs found in existing CI config');
           }
 
-          const testCommands = extractTestCommands(
-            existingCIConfig,
-            platform,
-            testJobs,
-          );
+          const commands = extractTestCommands(existingCIConfig, platform, testJobs);
+          const testCommand = commands[0] ?? `${mavenBin} test -Dtest=`;
 
-          const baseJobName = testJobs[0];
-          const baseJob = existingCIConfig.jobs[baseJobName];
-          const testCommand = testCommands[0];
+          if (platform === 'github') {
+            const baseJobName = testJobs[0];
+            const baseJob = existingCIConfig.jobs?.[baseJobName];
+            if (!baseJob) {
+              throw new Error('Unable to locate base GitHub test job');
+            }
 
-          const splitJobs = buildGitHubSplitJobs(baseJob, jobs, testCommand);
+            const splitJobs = buildGitHubSplitJobs(baseJob, jobs, testCommand);
+            for (const jobName of testJobs) {
+              delete existingCIConfig.jobs?.[jobName];
+            }
+            existingCIConfig.jobs = {
+              ...(existingCIConfig.jobs ?? {}),
+              ...splitJobs,
+            };
+            ciConfig = YAML.stringify(existingCIConfig);
+          } else {
+            const baseJobName = testJobs[0];
+            const baseJob = existingCIConfig[baseJobName];
+            if (!baseJob) {
+              throw new Error('Unable to locate base GitLab test job');
+            }
 
-          // Remove original test job
-          delete existingCIConfig.jobs[baseJobName];
-
-          // Inject split jobs
-          existingCIConfig.jobs = {
-            ...existingCIConfig.jobs,
-            ...splitJobs,
-          };
-
-          ciConfig = YAML.stringify(existingCIConfig);
-        } else if (platform === 'gitlab' && existingCIConfig) {
-          const testJobs = findTestJobs(existingCIConfig, platform);
-          if (testJobs.length === 0) {
-            throw new Error('No test job found in existing GitLab CI config');
+            const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand);
+            for (const jobName of testJobs) {
+              delete existingCIConfig[jobName];
+            }
+            Object.assign(existingCIConfig, splitJobs);
+            ciConfig = YAML.stringify(existingCIConfig);
           }
-
-          const testCommands = extractTestCommands(
-            existingCIConfig,
-            platform,
-            testJobs,
-          );
-
-          const baseJobName = testJobs[0];
-          const baseJob = existingCIConfig[baseJobName];
-          const testCommand = testCommands[0];
-
-          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand);
-
-          // Remove original test job
-          delete existingCIConfig[baseJobName];
-
-          // Inject split jobs
-          Object.assign(existingCIConfig, splitJobs);
-
-          ciConfig = YAML.stringify(existingCIConfig);
+        } else if (platform === 'github') {
+          if (resourceConstraints) {
+            ciConfig = generateGitHubActionsConfig(jobs, mavenBin, resourceConstraints);
+          } else if (mavenBin !== 'mvn') {
+            ciConfig = generateGitHubActionsConfig(jobs, mavenBin);
+          } else {
+            ciConfig = generateGitHubActionsConfig(jobs);
+          }
+        } else if (resourceConstraints) {
+          ciConfig = generateGitLabCIConfig(jobs, mavenBin, resourceConstraints);
+        } else if (mavenBin !== 'mvn') {
+          ciConfig = generateGitLabCIConfig(jobs, mavenBin);
         } else {
-          // Fallback: no existing CI file
-          ciConfig =
-            platform === 'github'
-              ? generateGitHubActionsConfig(jobs)
-              : generateGitLabCIConfig(jobs);
+          ciConfig = generateGitLabCIConfig(jobs);
         }
 
         if (dryRun) {
@@ -582,9 +623,7 @@ yargs(hideBin(process.argv))
           console.log(`CI configuration written to ${outPath}`);
         }
       } catch (err: unknown) {
-        console.error(
-          chalk.red('Error: failed to generate CI configuration'),
-        );
+        console.error(chalk.red('Error: failed to generate CI configuration'));
 
         if (err instanceof Error) {
           console.error(chalk.red(err.message));
@@ -625,12 +664,18 @@ yargs(hideBin(process.argv))
       const deltas = store.loadHistoricalDeltas(runCount);
 
       if (deltas.length === 0) {
-        console.error(chalk.red('No historical runs found. Run `profile` at least once first.'));
+        console.error(
+          chalk.red(
+            'No historical runs found. Run `profile` at least once first.',
+          ),
+        );
         process.exit(EXIT_FAILURE);
       }
 
       if (deltas.length < 2) {
-        console.error(chalk.yellow('Only one run found - need at least 2 runs to compare.'));
+        console.error(
+          chalk.yellow('Only one run found - need at least 2 runs to compare.'),
+        );
         process.exit(EXIT_FAILURE);
       }
 
@@ -641,7 +686,12 @@ yargs(hideBin(process.argv))
       const aTime = sorted[0].createdAt;
       const bTime = sorted[sorted.length - 1].createdAt;
 
-      function deltaStr(prev: number, curr: number, unit: string, lowerIsBetter: boolean): string {
+      function deltaStr(
+        prev: number,
+        curr: number,
+        unit: string,
+        lowerIsBetter: boolean,
+      ): string {
         const diff = curr - prev;
         const sign = diff >= 0 ? '+' : '';
         const str = `${sign}${diff.toFixed(2)}${unit}`;
@@ -650,38 +700,84 @@ yargs(hideBin(process.argv))
         return improved ? chalk.green(str) : chalk.red(str);
       }
 
-      function row(label: string, valA: string, valB: string, delta: string): void {
+      function row(
+        label: string,
+        valA: string,
+        valB: string,
+        delta: string,
+      ): void {
         console.log(
           label.padEnd(COL_LABEL) +
-          valA.padStart(COL_VALUE) +
-          valB.padStart(COL_VALUE) +
-          delta.padStart(COL_DELTA)
+            valA.padStart(COL_VALUE) +
+            valB.padStart(COL_VALUE) +
+            delta.padStart(COL_DELTA),
         );
       }
 
       console.log(`\nCompare - ${sorted.length} runs`);
       console.log(SEP);
-      console.log('Metric'.padEnd(COL_LABEL) + 'Run A'.padStart(COL_VALUE) + 'Run B'.padStart(COL_VALUE) + 'Delta'.padStart(COL_DELTA));
+      console.log(
+        'Metric'.padEnd(COL_LABEL) +
+          'Run A'.padStart(COL_VALUE) +
+          'Run B'.padStart(COL_VALUE) +
+          'Delta'.padStart(COL_DELTA),
+      );
       console.log(SEP);
 
-      console.log('Run at'.padEnd(COL_LABEL) + aTime.slice(0, 19).padStart(COL_VALUE) + bTime.slice(0, 19).padStart(COL_VALUE));
+      console.log(
+        'Run at'.padEnd(COL_LABEL) +
+          aTime.slice(0, 19).padStart(COL_VALUE) +
+          bTime.slice(0, 19).padStart(COL_VALUE),
+      );
 
       const aCommit = a.commit ? a.commit.slice(0, 7) : '-';
       const bCommit = b.commit ? b.commit.slice(0, 7) : '-';
-      console.log('Commit'.padEnd(COL_LABEL) + aCommit.padStart(COL_VALUE) + bCommit.padStart(COL_VALUE));
+      console.log(
+        'Commit'.padEnd(COL_LABEL) +
+          aCommit.padStart(COL_VALUE) +
+          bCommit.padStart(COL_VALUE),
+      );
 
       console.log(SEP);
 
-      row('Tests', String(a.testCount), String(b.testCount), deltaStr(a.testCount, b.testCount, '', false) );
-      row('Total duration', `${a.totalDuration.toFixed(2)}s`, `${b.totalDuration.toFixed(2)}s`, deltaStr(a.totalDuration, b.totalDuration, 's', true));
-      row('Avg duration', `${a.averageDuration.toFixed(2)}s`, `${b.averageDuration.toFixed(2)}s`, deltaStr(a.averageDuration, b.averageDuration, 's', true));
-      row('Critical path', `${a.criticalPath.toFixed(2)}s`, `${b.criticalPath.toFixed(2)}s`, deltaStr(a.criticalPath, b.criticalPath, 's', true));
-      row('Balance ratio', a.balanceRatio.toFixed(3), b.balanceRatio.toFixed(3), deltaStr(a.balanceRatio, b.balanceRatio, '', true));
+      row(
+        'Tests',
+        String(a.testCount),
+        String(b.testCount),
+        deltaStr(a.testCount, b.testCount, '', false),
+      );
+      row(
+        'Total duration',
+        `${a.totalDuration.toFixed(2)}s`,
+        `${b.totalDuration.toFixed(2)}s`,
+        deltaStr(a.totalDuration, b.totalDuration, 's', true),
+      );
+      row(
+        'Avg duration',
+        `${a.averageDuration.toFixed(2)}s`,
+        `${b.averageDuration.toFixed(2)}s`,
+        deltaStr(a.averageDuration, b.averageDuration, 's', true),
+      );
+      row(
+        'Critical path',
+        `${a.criticalPath.toFixed(2)}s`,
+        `${b.criticalPath.toFixed(2)}s`,
+        deltaStr(a.criticalPath, b.criticalPath, 's', true),
+      );
+      row(
+        'Balance ratio',
+        a.balanceRatio.toFixed(3),
+        b.balanceRatio.toFixed(3),
+        deltaStr(a.balanceRatio, b.balanceRatio, '', true),
+      );
 
       console.log(SEP);
 
       const threshold = thresholdPct / 100;
-      const regressions = HistoricalProfiler.detectRegressions(deltas, threshold);
+      const regressions = HistoricalProfiler.detectRegressions(
+        deltas,
+        threshold,
+      );
 
       console.log(`\nRegression check (threshold: ${thresholdPct}%)`);
       console.log('─'.repeat(SECTION_WIDTH));
@@ -690,11 +786,20 @@ yargs(hideBin(process.argv))
         console.log(chalk.green('No regressions detected.'));
       } else {
         for (const flag of regressions) {
-          const label = flag.metric === 'criticalPath' ? 'Critical path' : 'Balance ratio';
+          const label =
+            flag.metric === 'criticalPath' ? 'Critical path' : 'Balance ratio';
           const pct = (flag.changePercent * 100).toFixed(1);
-          const avg = flag.metric === 'criticalPath' ? `${flag.rollingAverage.toFixed(2)}s` : flag.rollingAverage.toFixed(3);
-          const curr = flag.metric === 'criticalPath' ? `${flag.current.toFixed(2)}s` : flag.current.toFixed(3);
-          console.log(chalk.red(`REGRESSION ${label}: ${avg} --> ${curr} (+${pct}%)`));
+          const avg =
+            flag.metric === 'criticalPath'
+              ? `${flag.rollingAverage.toFixed(2)}s`
+              : flag.rollingAverage.toFixed(3);
+          const curr =
+            flag.metric === 'criticalPath'
+              ? `${flag.current.toFixed(2)}s`
+              : flag.current.toFixed(3);
+          console.log(
+            chalk.red(`REGRESSION ${label}: ${avg} --> ${curr} (+${pct}%)`),
+          );
         }
       }
       console.log();
@@ -720,17 +825,25 @@ yargs(hideBin(process.argv))
       const jobCount = argv.jobs as number;
 
       if (!fs.existsSync(junitPath)) {
-        console.error(chalk.red(`Error: JUnit path does not exist: ${junitPath}`));
+        console.error(
+          chalk.red(`Error: JUnit path does not exist: ${junitPath}`),
+        );
         process.exit(EXIT_FAILURE);
       }
 
       const benchEngine = new TestSplitEngine();
       const benchStart = performance.now();
-      const { profile, distribution } = benchEngine.run(junitPath, jobCount, false);
+      const { profile, distribution } = benchEngine.run(
+        junitPath,
+        jobCount,
+        false,
+      );
       const benchMs = (performance.now() - benchStart).toFixed(1);
 
       if (profile.testCount === 0) {
-        console.error(chalk.red('Error: no test cases were parsed from the JUnit input'));
+        console.error(
+          chalk.red('Error: no test cases were parsed from the JUnit input'),
+        );
         process.exit(EXIT_FAILURE);
       }
 
@@ -738,7 +851,8 @@ yargs(hideBin(process.argv))
       const parallel = distribution.metrics.criticalPath;
       const speedup = parallel === 0 ? 1 : sequential / parallel;
       const timeSaved = sequential - parallel;
-      const timeSavedPct = sequential === 0 ? 0 : (timeSaved / sequential) * 100;
+      const timeSavedPct =
+        sequential === 0 ? 0 : (timeSaved / sequential) * 100;
 
       const BENCH_SEP = '-'.repeat(SECTION_WIDTH);
 
@@ -749,71 +863,88 @@ yargs(hideBin(process.argv))
       console.log(BENCH_SEP);
       console.log(`Sequential: ${sequential.toFixed(2)}s`);
       console.log(`Parallel: ${parallel.toFixed(2)}s  (predicted)`);
-      console.log(`Time saved: ${timeSaved.toFixed(2)}s  (${timeSavedPct.toFixed(1)}%)`);
+      console.log(
+        `Time saved: ${timeSaved.toFixed(2)}s  (${timeSavedPct.toFixed(1)}%)`,
+      );
       console.log(`Speedup: ${speedup.toFixed(2)}×`);
-      console.log(`Balance ratio: ${distribution.metrics.balanceRatio.toFixed(3)}`);
+      console.log(
+        `Balance ratio: ${distribution.metrics.balanceRatio.toFixed(3)}`,
+      );
       console.log(BENCH_SEP);
       console.log(`Analysis time: ${benchMs}ms`);
       console.log();
     },
   )
-  .command('validate','Validate a generated CI configuration file', (y) => y
-        .option('file', { type: 'string', demandOption: true, describe: 'Path to the CI configuration file to validate',})
+  .command(
+    'validate',
+    'Validate a generated CI configuration file',
+    (y) =>
+      y
+        .option('file', {
+          type: 'string',
+          demandOption: true,
+          describe: 'Path to the CI configuration file to validate',
+        })
         .option('platform', {
           type: 'string',
           choices: ['github', 'gitlab'],
           default: 'github',
           describe: 'CI platform the config was generated for',
-        }), (argv) => {
-          const filePath = path.resolve(argv.file as string);
-          const platform = argv.platform as Platform;
+        }),
+    (argv) => {
+      const filePath = path.resolve(argv.file as string);
+      const platform = argv.platform as Platform;
 
-          if (!fs.existsSync(filePath)) {
-            console.error(chalk.red(`Error: file does not exist: ${filePath}`));
-            process.exit(EXIT_FAILURE);
-          }
+      if (!fs.existsSync(filePath)) {
+        console.error(chalk.red(`Error: file does not exist: ${filePath}`));
+        process.exit(EXIT_FAILURE);
+      }
 
-          const raw = fs.readFileSync(filePath, 'utf-8');
-          let parsed: any;
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      let parsed: any;
 
-          try {
-            parsed = YAML.parse(raw);
-          } catch (err) {
-            console.error(chalk.red('Invalid YAML syntax'));
-            if (err instanceof Error) console.error(chalk.red(err.message));
-            process.exit(EXIT_FAILURE);
-          }
+      try {
+        parsed = YAML.parse(raw);
+      } catch (err) {
+        console.error(chalk.red('Invalid YAML syntax'));
+        if (err instanceof Error) console.error(chalk.red(err.message));
+        process.exit(EXIT_FAILURE);
+      }
 
-          const issues: string[] = [];
+      const issues: string[] = [];
 
-          if (platform === 'github') {
-            if (!parsed.on) issues.push('Missing required field: on (trigger)');
-            if (!parsed.jobs || Object.keys(parsed.jobs).length === 0)
-              issues.push('Missing required field: jobs');
-            for (const [name, job] of Object.entries<any>(parsed.jobs ?? {})) {
-              if (!job.steps || job.steps.length === 0)
-                issues.push(`Job "${name}": missing steps`);
-            }
-          }
+      if (platform === 'github') {
+        if (!parsed.on) issues.push('Missing required field: on (trigger)');
+        if (!parsed.jobs || Object.keys(parsed.jobs).length === 0)
+          issues.push('Missing required field: jobs');
+        for (const [name, job] of Object.entries<any>(parsed.jobs ?? {})) {
+          if (!job.steps || job.steps.length === 0)
+            issues.push(`Job "${name}": missing steps`);
+        }
+      }
 
-          if (platform === 'gitlab') {
-            if (!parsed.stages || parsed.stages.length === 0)
-              issues.push('Missing required field: stages');
-            const jobEntries = Object.entries<any>(parsed).filter(
-              ([k]) => k !== 'stages',
-            );
-            if (jobEntries.length === 0) issues.push('No jobs defined');
-            for (const [name, job] of jobEntries) {
-              if (!job.script || job.script.length === 0)
-                issues.push(`Job "${name}": missing script`);
-            }
-          }
+      if (platform === 'gitlab') {
+        if (!parsed.stages || parsed.stages.length === 0)
+          issues.push('Missing required field: stages');
+        const jobEntries = Object.entries<any>(parsed).filter(
+          ([k]) => k !== 'stages',
+        );
+        if (jobEntries.length === 0) issues.push('No jobs defined');
+        for (const [name, job] of jobEntries) {
+          if (!job.script || job.script.length === 0)
+            issues.push(`Job "${name}": missing script`);
+        }
+      }
 
-          if (issues.length > 0) {
-            console.error(chalk.red(`Validation failed (${issues.length} issue${issues.length > 1 ? 's' : ''})`));
-            issues.forEach((issue) => console.error(chalk.red(`  - ${issue}`)));
-            process.exit(EXIT_FAILURE);
-          }
+      if (issues.length > 0) {
+        console.error(
+          chalk.red(
+            `Validation failed (${issues.length} issue${issues.length > 1 ? 's' : ''})`,
+          ),
+        );
+        issues.forEach((issue) => console.error(chalk.red(`  - ${issue}`)));
+        process.exit(EXIT_FAILURE);
+      }
 
           console.log(chalk.green(`${filePath} is a valid ${platform === 'github' ? 'GitHub Actions' : 'GitLab CI'} configuration.`));
         },

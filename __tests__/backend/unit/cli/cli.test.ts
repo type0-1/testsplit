@@ -32,6 +32,7 @@ jest.mock('chalk', () => ({
 }));
 
 import * as fs from 'fs';
+import * as path from 'path';
 import yargs from 'yargs';
 import { TestSplitEngine } from '../../../../src/backend/core/TestSplitEngine';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
@@ -371,7 +372,13 @@ describe('generate-config command handler', () => {
     mockFs.readFileSync.mockReturnValue('raw-yaml');
     mockYAML.parse.mockReturnValue(existingConfig);
 
-    generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });
+    generateConfigHandler({
+      junit: '/test.xml',
+      jobs: 2,
+      platform: 'github',
+      out: path.resolve('.github/workflows/ci.yml'),
+      'dry-run': false,
+    });
 
     expect(mockYAML.stringify).toHaveBeenCalled();
     expect(existingConfig.jobs).not.toHaveProperty('test');
@@ -400,7 +407,7 @@ describe('generate-config command handler', () => {
     mockYAML.parse.mockReturnValue({ on: ['push'], jobs: { build: { steps: [{ run: 'npm build' }] } } });
 
     expect(() =>
-      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false }),
+      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: path.resolve('.github/workflows/ci.yml'), 'dry-run': false }),
     ).toThrow('exit(1)');
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('failed to generate'));
   });

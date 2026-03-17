@@ -5,6 +5,8 @@ import {
   Tooltip as RechartsTooltip, ResponsiveContainer,
 } from 'recharts'
 import { useApi } from '@/hooks/useApi'
+import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
+import { PageErrorState } from '@/components/PageErrorState'
 import type { SummaryResponse, TestsResponse, JobsResponse, TrendsResponse, TestStat, TrendPoint } from '@/types/api'
 
 function useCountUp(target: number, active: boolean, delay = 0): number {
@@ -258,19 +260,34 @@ function formatRunLabel(runAt: string, index: number): string {
 
 export default function Overview() {
   const [calibrated, setCalibrated] = useState(false)
-  const { data: summary } = useApi<SummaryResponse>('/api/summary')
-  const { data: testsData } = useApi<TestsResponse>('/api/tests?sort=cv&limit=100')
-  const { data: jobsData } = useApi<JobsResponse>('/api/jobs')
-  const { data: trendsData } = useApi<TrendsResponse>('/api/trends?limit=20')
+  const { data: summary, loading: summaryLoading, error: summaryError } = useApi<SummaryResponse>('/api/summary')
+  const { data: testsData, loading: testsLoading, error: testsError } = useApi<TestsResponse>('/api/tests?sort=cv&limit=100')
+  const { data: jobsData, loading: jobsLoading, error: jobsError } = useApi<JobsResponse>('/api/jobs')
+  const { data: trendsData, loading: trendsLoading, error: trendsError } = useApi<TrendsResponse>('/api/trends?limit=20')
 
   useEffect(() => {
     const t = setTimeout(() => setCalibrated(true), 420)
     return () => clearTimeout(t)
   }, [])
 
-  const s = summary ?? { totalTests: 0, runCount: 0, avgDuration: 0, unstableCount: 0, outlierCount: 0, makespan: 0, speedupFactor: 1, balanceRatio: 1, sequentialDuration: 0 }
-  const tests = testsData?.tests ?? []
-  const jobs = jobsData?.jobs ?? []
+  const isLoading = summaryLoading || testsLoading || jobsLoading || trendsLoading
+  const errorMessage = summaryError ?? testsError ?? jobsError ?? trendsError
+
+  if (isLoading) {
+    return <PageLoadingSkeleton title="Overview" accentColor="var(--orange)" />
+  }
+
+  if (errorMessage) {
+    return <PageErrorState title="Overview" error={errorMessage} />
+  }
+
+  if (!summary) return <PageErrorState title="Overview" error={summaryError ?? 'No profiling data found. Run: testsplit profile --junit <path>'} />
+  if (!testsData) return <PageErrorState title="Overview" error={testsError ?? 'No profiling data found. Run: testsplit profile --junit <path>'} />
+  if (!jobsData) return <PageErrorState title="Overview" error={jobsError ?? 'No distribution data found. Run: testsplit profile --junit <path>'} />
+
+  const s = summary
+  const tests = testsData.tests
+  const jobs = jobsData.jobs
   const rawTrends = trendsData?.trends ?? []
   const chartData = rawTrends.map((t: TrendPoint, i: number) => ({
     run: formatRunLabel(t.runAt, i),
