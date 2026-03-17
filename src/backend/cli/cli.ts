@@ -226,6 +226,21 @@ function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
 
+function prependSchedulingHeader(
+  yaml: string,
+  algorithm: Algorithm,
+  riskFactor: number,
+): string {
+  const header = [
+    '# Scheduling settings used for this distribution',
+    `# algorithm: ${algorithm}`,
+    `# risk_factor: ${riskFactor}`,
+    '',
+  ].join('\n');
+
+  return `${header}${yaml}`;
+}
+
 function isJobDistribution(value: unknown): value is JobDistribution {
   if (!value || typeof value !== 'object') {
     return false;
@@ -503,8 +518,8 @@ yargs(hideBin(process.argv))
       const junitPath = resolveJUnitPath(argv.junit);
       let jobCount = argv.jobs as number;
       const platform = argv.platform as Platform;
-      const algorithm = argv.algorithm as Algorithm;
-      const riskFactor = argv['risk-factor'] as number;
+      const algorithm = (argv.algorithm as Algorithm | undefined) ?? 'lpt';
+      const riskFactor = (argv['risk-factor'] as number | undefined) ?? 1.0;
       const availableCores = os.cpus().length;
 
       if (jobCount > availableCores) {
@@ -693,10 +708,16 @@ yargs(hideBin(process.argv))
           ciConfig = generateGitLabCIConfig(jobs, detectedFormat.buildCommand);
         }
 
+        const outputConfig = prependSchedulingHeader(
+          ciConfig,
+          algorithm,
+          riskFactor,
+        );
+
         if (dryRun) {
-          process.stdout.write(ciConfig);
+          process.stdout.write(outputConfig);
         } else {
-          fs.writeFileSync(outPath, ciConfig, 'utf-8');
+          fs.writeFileSync(outPath, outputConfig, 'utf-8');
           console.log(`CI configuration written to ${outPath}`);
         }
       } catch (err: unknown) {

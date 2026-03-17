@@ -347,7 +347,21 @@ describe('generate-config command handler', () => {
       ],
       expect.any(Function),
     );
-    expect(mockFs.writeFileSync).toHaveBeenCalledWith('/tmp/ci.yml', 'github-yaml', 'utf-8');
+    expect(mockFs.writeFileSync).toHaveBeenCalledWith(
+      '/tmp/ci.yml',
+      expect.stringContaining('# Scheduling settings used for this distribution'),
+      'utf-8',
+    );
+    expect(mockFs.writeFileSync).toHaveBeenCalledWith(
+      '/tmp/ci.yml',
+      expect.stringContaining('# algorithm: lpt'),
+      'utf-8',
+    );
+    expect(mockFs.writeFileSync).toHaveBeenCalledWith(
+      '/tmp/ci.yml',
+      expect.stringContaining('# risk_factor: 1'),
+      'utf-8',
+    );
   });
 
   it('passes needs when scheduled jobs have cross-job test dependencies', () => {
@@ -376,7 +390,15 @@ describe('generate-config command handler', () => {
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'gitlab', out: '/tmp/ci.yml', 'dry-run': true });
 
     expect(mockGenerateGitLabCIConfig).toHaveBeenCalled();
-    expect(process.stdout.write).toHaveBeenCalledWith('gitlab-yaml');
+    expect(process.stdout.write).toHaveBeenCalledWith(
+      expect.stringContaining('# Scheduling settings used for this distribution'),
+    );
+    expect(process.stdout.write).toHaveBeenCalledWith(
+      expect.stringContaining('# algorithm: lpt'),
+    );
+    expect(process.stdout.write).toHaveBeenCalledWith(
+      expect.stringContaining('# risk_factor: 1'),
+    );
     expect(mockFs.writeFileSync).not.toHaveBeenCalled();
   });
 
