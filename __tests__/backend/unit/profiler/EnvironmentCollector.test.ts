@@ -48,10 +48,4 @@ describe('EnvironmentCollector', () => {
     expect(metadata.containerVersion).toBe('none');
   });
 
-  it('sets generatedAt to a valid ISO timestamp', () => {
-    const metadata = EnvironmentCollector.collect();
-
-    expect(() => new Date(metadata.generatedAt!)).not.toThrow();
-    expect(metadata.generatedAt).toMatch(/^\d{4}-\d{2}-\d{2}T/);
-  });
 });

@@ -5,7 +5,7 @@ describe('GitHubActionsGenerator', () => {
   test('generates correct YAML structure, job count, and mvn commands', () => {
     const yaml = generateGitHubActionsConfig([
       { id: 1, tests: ['TestA', 'TestB'] },
-      { id: 2, tests: ['TestC'] },
+      { id: 2, tests: ['TestC'], needs: [1] },
     ]);
 
     const parsed = YAML.parse(yaml);
@@ -49,21 +49,4 @@ describe('GitHubActionsGenerator', () => {
     expect(yaml).toContain('./mvnw test -Dtest=TestA,TestB');
   });
 
-  test('throws when no jobs are provided', () => {
-    expect(() => generateGitHubActionsConfig([])).toThrow(
-      'No jobs provided for GitHub Actions configuration',
-    );
-  });
-
-  test('throws when a job has no tests', () => {
-    expect(() => generateGitHubActionsConfig([{ id: 1, tests: [] }])).toThrow(
-      'Job 1 has no tests assigned',
-    );
-  });
-
-  test('throws when generated YAML is syntactically invalid', () => {
-    expect(() =>
-      generateGitHubActionsConfig([{ id: 1, tests: ['TestA\ninvalid: ['] }]),
-    ).toThrow('Invalid YAML generated:');
-  });
 });

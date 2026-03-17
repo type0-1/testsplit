@@ -22,6 +22,14 @@ jest.mock('../../../../src/backend/storage/FileStore');
 jest.mock('../../../../src/backend/generator/GitHubActionsGenerator');
 jest.mock('../../../../src/backend/generator/GitLabCIGenerator');
 jest.mock('yaml', () => ({ parse: jest.fn(), stringify: jest.fn(() => 'generated-yaml') }));
+jest.mock('chalk', () => ({
+  __esModule: true,
+  default: {
+    red: (s: string) => s,
+    yellow: (s: string) => s,
+    green: (s: string) => s,
+  },
+}));
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -160,6 +168,18 @@ describe('buildGitHubSplitJobs', () => {
     expect(result['job-1'].steps[1].run).toBe('npm test A B');
     expect(result['job-2'].steps[1].run).toBe('npm test C');
     expect(result['job-1'].steps[0]).toEqual({ uses: 'actions/checkout@v4' });
+  });
+
+  it('adds needs to dependent split jobs', () => {
+    const baseJob = { steps: [{ run: 'npm test' }] };
+    const result = buildGitHubSplitJobs(
+      baseJob,
+      [{ id: 1, tests: ['A'] }, { id: 2, tests: ['B'], needs: [1] }],
+      'npm test',
+    );
+
+    expect(result['job-1'].needs).toBeUndefined();
+    expect(result['job-2'].needs).toEqual(['job-1']);
   });
 });
 
@@ -305,6 +325,27 @@ describe('generate-config command handler', () => {
       { id: 2, tests: ['TestA'] },
     ]);
     expect(mockFs.writeFileSync).toHaveBeenCalledWith('/tmp/ci.yml', 'github-yaml', 'utf-8');
+  });
+
+  it('passes needs when scheduled jobs have cross-job test dependencies', () => {
+    setupExistsMocks();
+    mockEngine.run.mockReturnValue({
+      ...mockEngineResult,
+      distribution: {
+        ...mockEngineResult.distribution,
+        jobs: [
+          { totalTime: 2.0, tasks: [{ id: 'TestB', duration: 2.0, dependencies: ['TestA'] }] },
+          { totalTime: 1.0, tasks: [{ id: 'TestA', duration: 1.0 }] },
+        ],
+      },
+    });
+
+    generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });
+
+    expect(mockGenerateGitHubActionsConfig).toHaveBeenCalledWith([
+      { id: 1, tests: ['TestB'], needs: [2] },
+      { id: 2, tests: ['TestA'] },
+    ]);
   });
 
   it('writes gitlab config to stdout in dry-run mode', () => {

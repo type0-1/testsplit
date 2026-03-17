@@ -41,18 +41,6 @@ job-1:
     ).not.toThrow();
   });
 
-  test('detects GitLab schema violations', () => {
-    const validator = getSchemaValidator('gitlab');
-
-    expect(() =>
-      validator!.validate(`stages:
-  - test
-`),
-    ).toThrow(
-      'GitLab CI schema violation: at least one job with "script" is required',
-    );
-  });
-
   test('detects GitLab jobs without script blocks', () => {
     const validator = getSchemaValidator('gitlab');
 

@@ -9,9 +9,14 @@ export interface CIResourceConstraints {
 }
 
 function renderGitHubJob(job: JobGroup, mavenBin: string): string {
+  const needsLine =
+    job.needs && job.needs.length > 0
+      ? `\n    needs: [${job.needs.map((id) => `job-${id}`).join(', ')}]`
+      : '';
+
   return `
   job-${job.id}:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest${needsLine}
     steps:
       - uses: actions/checkout@v4
       - run: ${mavenBin} test -Dtest=${job.tests.join(',')}`;

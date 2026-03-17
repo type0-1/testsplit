@@ -11,12 +11,31 @@ export function validateInputs(tasks: Task[], jobCount: number): void {
     throw new Error('No tasks provided for scheduling');
   }
 
+  const taskIds = new Set(tasks.map((task) => task.id));
+
   for (const task of tasks) {
     if (task.duration < 0) {
       throw new Error(`Negative duration for task ${task.id}`);
     }
     if (!Number.isFinite(task.duration)) {
       throw new Error(`Invalid duration for task ${task.id}`);
+    }
+
+    const dependencies = task.dependencies ?? [];
+    if (!Array.isArray(dependencies)) {
+      throw new Error(`Dependencies for task ${task.id} must be an array`);
+    }
+
+    for (const dependency of dependencies) {
+      if (typeof dependency !== 'string' || dependency.length === 0) {
+        throw new Error(`Invalid dependency id for task ${task.id}`);
+      }
+      if (dependency === task.id) {
+        throw new Error(`Task ${task.id} cannot depend on itself`);
+      }
+      if (!taskIds.has(dependency)) {
+        throw new Error(`Task ${task.id} depends on unknown task ${dependency}`);
+      }
     }
   }
 }

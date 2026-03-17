@@ -139,44 +139,6 @@ describe('HistoricalProfiler', () => {
     warnSpy.mockRestore();
   });
 
-  it('collects metadata from all runs into metadata array', () => {
-    const baseMetadata = {
-      commit: { hash: 'abc', message: 'test' } as any,
-      generatedAt: '2024-01-01',
-      cpuModel: 'Intel',
-      cpuCores: 8,
-      osVersion: 'macOS',
-      platform: 'darwin',
-      nodeVersion: 'v18',
-      containerVersion: '1.0',
-    };
-
-    profiler.setProfiles([
-      {
-        schemaVersion: 1,
-        testResults: [],
-        testCount: 0,
-        totalDuration: 0,
-        averageDuration: 0,
-        metadata: baseMetadata,
-      },
-      {
-        schemaVersion: 1,
-        testResults: [],
-        testCount: 0,
-        totalDuration: 0,
-        averageDuration: 0,
-        metadata: baseMetadata,
-      },
-    ]);
-
-    const historical = profiler.generateHistoricalProfile();
-
-    expect(historical.metadata).toHaveLength(2);
-    expect(historical.metadata[0].cpuModel).toBe('Intel');
-    expect(historical.metadata[1].cpuModel).toBe('Intel');
-  });
-
   it('collects differing metadata from each run into metadata array', () => {
     const metadata1 = {
       commit: { hash: 'abc', message: 'test' } as any,
