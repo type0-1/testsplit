@@ -630,6 +630,10 @@ describe('benchmark command handler', () => {
 
   afterEach(() => jest.restoreAllMocks());
 
+  it('is registered as a top-level command', () => {
+    expect(typeof benchmarkHandler).toBe('function');
+  });
+
   it('exits when junit path does not exist', () => {
     mockFs.existsSync.mockReset();
     mockFs.existsSync.mockReturnValue(false);
@@ -651,16 +655,17 @@ describe('benchmark command handler', () => {
     expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Benchmark Report'));
   });
 
-  it('prints sequential and parallel (predicted) durations', () => {
+  it('prints sequential and parallel stages', () => {
     benchmarkHandler({ junit: '/test.xml', jobs: 2 });
     const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
-    expect(allCalls).toContain('Sequential');
-    expect(allCalls).toContain('Parallel');
+    expect(allCalls).toContain('Sequential stage');
+    expect(allCalls).toContain('Parallel stage');
   });
 
-  it('prints speedup and time saved', () => {
+  it('prints delta report with speedup and time saved', () => {
     benchmarkHandler({ junit: '/test.xml', jobs: 2 });
     const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
+    expect(allCalls).toContain('Delta report');
     expect(allCalls).toMatch(/Speedup:\s+\d+\.\d+×/);
     expect(allCalls).toContain('Time saved');
   });

@@ -948,7 +948,7 @@ yargs(hideBin(process.argv))
   )
   .command(
     'benchmark',
-    'Compare sequential vs predicted parallel performance',
+    'Run benchmark report (sequential -> parallel -> delta)',
     (y) =>
       y
         .option('junit', {
@@ -996,16 +996,23 @@ yargs(hideBin(process.argv))
         sequential === 0 ? 0 : (timeSaved / sequential) * 100;
 
       const BENCH_SEP = '-'.repeat(SECTION_WIDTH);
+      const DELTA_ARROW = '->';
 
       console.log('\nBenchmark Report');
       console.log(BENCH_SEP);
       console.log(`Tests: ${profile.testCount}`);
       console.log(`Jobs: ${jobCount}`);
       console.log(BENCH_SEP);
-      console.log(`Sequential: ${sequential.toFixed(2)}s`);
-      console.log(`Parallel: ${parallel.toFixed(2)}s  (predicted)`);
+
+      console.log('Sequential stage');
+      console.log(`  ${sequential.toFixed(2)}s`);
+
+      console.log(`Parallel stage (${DELTA_ARROW} predicted)`);
+      console.log(`  ${parallel.toFixed(2)}s`);
+
+      console.log('Delta report');
       console.log(
-        `Time saved: ${timeSaved.toFixed(2)}s  (${timeSavedPct.toFixed(1)}%)`,
+        `  Time saved: ${timeSaved.toFixed(2)}s  (${timeSavedPct.toFixed(1)}%)`,
       );
       console.log(`Speedup: ${speedup.toFixed(2)}×`);
       console.log(
