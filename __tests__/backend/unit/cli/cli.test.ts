@@ -4,6 +4,7 @@ jest.mock('yargs', () => { // Mock yargs to obtain command handlers (this is for
   chain.demandCommand = jest.fn().mockReturnValue(chain);
   chain.help = jest.fn().mockReturnValue(chain);
   chain.version = jest.fn().mockReturnValue(chain);
+  chain.alias = jest.fn().mockReturnValue(chain);
   chain.parse = jest.fn();
   return jest.fn(() => chain);
 });

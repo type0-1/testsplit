@@ -11,6 +11,61 @@ const packageJson = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../../..', 'package.json'), 'utf-8'),
 ) as { version: string };
 
+function getCustomHelp(): string {
+  const title = chalk.bold('testsplit');
+  const version = `v${packageJson.version}`;
+  const desc =
+    'Test distribution and scheduling engine for parallel CI/CD pipelines';
+
+  const commands = [
+    {
+      name: 'profile',
+      desc: 'Profile tests and display scheduling metrics',
+    },
+    {
+      name: 'generate|generate-config',
+      desc: 'Generate CI configuration from test profile',
+    },
+    {
+      name: 'run',
+      desc: 'Schedule and execute test subsets in parallel',
+    },
+    {
+      name: 'benchmark',
+      desc: 'Run benchmark report (sequential → parallel → delta)',
+    },
+    {
+      name: 'compare',
+      desc: 'Compare recent profiling runs and detect regressions',
+    },
+    {
+      name: 'validate',
+      desc: 'Validate a generated CI configuration file',
+    },
+    {
+      name: 'dashboard',
+      desc: 'Start API + frontend dashboard and open in browser',
+    },
+  ];
+
+  let output = `\n${title} ${chalk.dim(version)}\n${desc}\n\n`;
+  output += chalk.bold('Usage:\n');
+  output += `  testsplit <command> [options]\n\n`;
+
+  output += chalk.bold('Commands:\n');
+  const maxLen = Math.max(...commands.map((c) => c.name.length));
+  commands.forEach((cmd) => {
+    output += `  ${cmd.name.padEnd(maxLen)}  ${cmd.desc}\n`;
+  });
+
+  output += `\n${chalk.bold('Global Options:')}\n`;
+  output += `  --help        Show this help message\n`;
+  output += `  --version     Show version number\n\n`;
+  output += chalk.dim(`Run 'testsplit <command> --help' for command-specific options\n`);
+
+  return output;
+}
+
 import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
 import { runAllJobs, runAllJobsDynamic, runAllJobsWorkStealing } from '../runner/ParallelRunner';
 import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
@@ -335,7 +390,17 @@ function isJobDistribution(value: unknown): value is JobDistribution {
   return Array.isArray(candidate.jobs);
 }
 
-yargs(hideBin(process.argv))
+// Intercept --help early to show custom help
+const args = hideBin(process.argv);
+if (args.includes('--help') || args.includes('-h')) {
+  if (args.length === 1 || (args.length === 2 && (args[0] === '--help' || args[0] === '-h'))) {
+    // Top-level help, not command-specific
+    console.log(getCustomHelp());
+    process.exit(0);
+  }
+}
+
+yargs(args)
   .command(
     'profile',
     'Profile tests and display scheduling metrics',
@@ -1249,6 +1314,7 @@ yargs(hideBin(process.argv))
     },
   )
   .version(packageJson.version)
+  .alias('h', 'help')
   .demandCommand()
   .help()
   .parse();
