@@ -1,5 +1,8 @@
+import path from 'path';
+import fs from 'fs';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
+import staticPlugin from '@fastify/static';
 import { FileStore } from '../storage/FileStore';
 import { HistoricalTestStats } from '../models/HistoricalTestStats';
 
@@ -18,6 +21,14 @@ export async function buildApp() {
     : defaultCorsOrigins;
 
   await app.register(cors, { origin: corsOrigin });
+
+  const frontendDist = path.resolve(__dirname, '../../../src/frontend/dist');
+  if (fs.existsSync(frontendDist)) {
+    await app.register(staticPlugin, { root: frontendDist, prefix: '/' });
+    app.setNotFoundHandler((_req, reply) => {
+      reply.sendFile('index.html');
+    });
+  }
 
   app.get('/api/health', async () => ({ status: 'ok' }));
 

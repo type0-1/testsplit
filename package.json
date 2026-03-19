@@ -8,7 +8,8 @@
     "test:e2e:ui": "playwright test --ui",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
-    "build": "tsc",
+    "build": "tsc && npm run build:frontend",
+    "build:frontend": "cd src/frontend && npm ci && npm run build",
     "docker:build": "docker compose build",
     "docker:test": "docker compose run --rm testsplit npm run test:all",
     "docker:shell": "docker compose run --rm testsplit bash",
@@ -32,6 +33,7 @@
   },
   "dependencies": {
     "@fastify/cors": "^11.2.0",
+    "@fastify/static": "^9.0.0",
     "@xmldom/xmldom": "0.9.5",
     "chalk": "^4.1.2",
     "fast-xml-parser": "^5.3.4",
