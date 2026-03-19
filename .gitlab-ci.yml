@@ -2,24 +2,32 @@ stages:
   - build
   - unit tests
   - integration tests
- 
+  - e2e tests
+
 lint:
   stage: build
   image: node:20.19.0-bullseye-slim
   cache:
-    key: ${CI_COMMIT_REF_SLUG}
+    key:
+      files:
+        - package-lock.json
+      prefix: node
     paths:
       - node_modules/
   before_script:
     - npm ci
   script:
     - npm run lint
+    - npm audit --audit-level=high
 
 typecheck_and_build: # may switch to swc or esbuild if build times become an issue
   stage: build
   image: node:20.19.0-bullseye-slim
   cache:
-    key: ${CI_COMMIT_REF_SLUG}
+    key:
+      files:
+        - package-lock.json
+      prefix: node
     paths:
       - node_modules/
   before_script:
@@ -32,7 +40,10 @@ unit_tests:
   stage: unit tests
   image: node:20.19.0-bullseye-slim
   cache:
-    key: ${CI_COMMIT_REF_SLUG}
+    key:
+      files:
+        - package-lock.json
+      prefix: node
     paths:
       - node_modules/
   before_script:
@@ -44,16 +55,52 @@ unit_tests:
     when: always
     paths:
       - coverage/
+    reports:
+      junit: coverage/junit.xml
     expire_in: 30 days
 
 integration_tests:
   stage: integration tests
   image: node:20.19.0-bullseye-slim
   cache:
-    key: ${CI_COMMIT_REF_SLUG}
+    key:
+      files:
+        - package-lock.json
+      prefix: node
     paths:
       - node_modules/
   before_script:
     - npm ci
   script:
     - npm run test:integration
+  artifacts:
+    when: always
+    reports:
+      junit: coverage/junit.xml
+    expire_in: 30 days
+
+e2e_tests:
+  stage: e2e tests
+  image: mcr.microsoft.com/playwright:v1.58.2-jammy
+  cache:
+    key:
+      files:
+        - package-lock.json
+        - src/frontend/package-lock.json
+      prefix: node-e2e
+    paths:
+      - node_modules/
+      - src/frontend/node_modules/
+  before_script:
+    - npm ci
+    - cd src/frontend && npm ci && cd ../..
+  script:
+    - CI=true npx playwright test
+  artifacts:
+    when: always
+    paths:
+      - coverage/playwright-report/
+    expire_in: 30 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
