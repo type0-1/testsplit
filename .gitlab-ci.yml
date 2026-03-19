@@ -8,7 +8,10 @@ lint:
   stage: build
   image: node:20.19.0-bullseye-slim
   cache:
-    key: node-${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}
+    key:
+      files:
+        - package-lock.json
+      prefix: node
     paths:
       - node_modules/
   before_script:
@@ -21,7 +24,10 @@ typecheck_and_build: # may switch to swc or esbuild if build times become an iss
   stage: build
   image: node:20.19.0-bullseye-slim
   cache:
-    key: node-${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}
+    key:
+      files:
+        - package-lock.json
+      prefix: node
     paths:
       - node_modules/
   before_script:
@@ -34,7 +40,10 @@ unit_tests:
   stage: unit tests
   image: node:20.19.0-bullseye-slim
   cache:
-    key: node-${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}
+    key:
+      files:
+        - package-lock.json
+      prefix: node
     paths:
       - node_modules/
   before_script:
@@ -54,7 +63,10 @@ integration_tests:
   stage: integration tests
   image: node:20.19.0-bullseye-slim
   cache:
-    key: node-${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}
+    key:
+      files:
+        - package-lock.json
+      prefix: node
     paths:
       - node_modules/
   before_script:
@@ -71,7 +83,11 @@ e2e_tests:
   stage: e2e tests
   image: mcr.microsoft.com/playwright:v1.58.2-jammy
   cache:
-    key: node-e2e-${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}
+    key:
+      files:
+        - package-lock.json
+        - src/frontend/package-lock.json
+      prefix: node-e2e
     paths:
       - node_modules/
       - src/frontend/node_modules/
