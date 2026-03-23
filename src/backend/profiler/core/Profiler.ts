@@ -25,7 +25,7 @@ export class Profiler {
     if (zeroDuration.length > 0) {
       const preview = zeroDuration.slice(0, WARN_INLINE_LIMIT).map((t) => t.name).join(', ');
       const suffix = zeroDuration.length > WARN_INLINE_LIMIT
-        ? ` (and ${zeroDuration.length - WARN_INLINE_LIMIT} more — see .data/reports/zero-duration.txt)`
+        ? ` (and ${zeroDuration.length - WARN_INLINE_LIMIT} more - see .data/reports/zero-duration.txt)`
         : '';
       console.warn(`Warning: ${zeroDuration.length} test(s) reported zero duration: ${preview}${suffix}`);
 
@@ -40,7 +40,7 @@ export class Profiler {
     if (outliers.length > 0) {
       const preview = outliers.slice(0, WARN_INLINE_LIMIT).join(', ');
       const suffix = outliers.length > WARN_INLINE_LIMIT
-        ? ` (and ${outliers.length - WARN_INLINE_LIMIT} more — see .data/reports/outliers.txt)`
+        ? ` (and ${outliers.length - WARN_INLINE_LIMIT} more - see .data/reports/outliers.txt)`
         : '';
       console.warn(`Warning: ${outliers.length} test(s) have outlier durations within this run: ${preview}${suffix}`);
 

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="org.apache.commons.lang3.function.FailableTest" time="0.051" tests="177" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/sam/Downloads/commons-lang/target/test-classes:/Users/sam/Downloads/commons-lang/target/classes:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter/5.14.2/junit-jupiter-5.14.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.2/junit-jupiter-api-5.14.2.jar:/Users/sam/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-commons/1.14.2/junit-platform-commons-1.14.2.jar:/Users/sam/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.2/junit-jupiter-params-5.14.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.2/junit-jupiter-engine-5.14.2.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-engine/1.14.2/junit-platform-engine-1.14.2.jar:/Users/sam/.m2/repository/org/junit-pioneer/junit-pioneer/1.9.1/junit-pioneer-1.9.1.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-launcher/1.14.2/junit-platform-launcher-1.14.2.jar:/Users/sam/.m2/repository/org/easymock/easymock/5.6.0/easymock-5.6.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.17.5/byte-buddy-1.17.5.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.4/objenesis-3.4.jar:/Users/sam/.m2/repository/org/mockito/mockito-inline/4.11.0/mockito-inline-4.11.0.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/apache/commons/commons-text/1.15.0/commons-text-1.15.0.jar:/Users/sam/.m2/repository/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar:/Users/sam/.m2/repository/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/sam/.m2/repository/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/sam/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/sam/.m2/repository/org/openjdk/jmh/jmh-generator-annprocess/1.37/jmh-generator-annprocess-1.37.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="user.timezone" value="Europe/Dublin"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IE"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/sam/Downloads/commons-lang/target/surefire/surefirebooter-20260323123429171_3.jar /Users/sam/Downloads/commons-lang/target/surefire 2026-03-23T12-34-29_140-jvmRun1 surefire-20260323123429171_1tmp surefire_0-20260323123429171_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/sam/Downloads/commons-lang/target/test-classes:/Users/sam/Downloads/commons-lang/target/classes:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter/5.14.2/junit-jupiter-5.14.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.2/junit-jupiter-api-5.14.2.jar:/Users/sam/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-commons/1.14.2/junit-platform-commons-1.14.2.jar:/Users/sam/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.2/junit-jupiter-params-5.14.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.2/junit-jupiter-engine-5.14.2.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-engine/1.14.2/junit-platform-engine-1.14.2.jar:/Users/sam/.m2/repository/org/junit-pioneer/junit-pioneer/1.9.1/junit-pioneer-1.9.1.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-launcher/1.14.2/junit-platform-launcher-1.14.2.jar:/Users/sam/.m2/repository/org/easymock/easymock/5.6.0/easymock-5.6.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.17.5/byte-buddy-1.17.5.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.4/objenesis-3.4.jar:/Users/sam/.m2/repository/org/mockito/mockito-inline/4.11.0/mockito-inline-4.11.0.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/apache/commons/commons-text/1.15.0/commons-text-1.15.0.jar:/Users/sam/.m2/repository/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar:/Users/sam/.m2/repository/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/sam/.m2/repository/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/sam/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/sam/.m2/repository/org/openjdk/jmh/jmh-generator-annprocess/1.37/jmh-generator-annprocess-1.37.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/sam"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/sam/Downloads/commons-lang"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/sam/Downloads/commons-lang/target/surefire/surefirebooter-20260323123429171_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.2"/>
+    <property name="user.name" value="sam"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.3.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/sam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/kd/3_n5y3zx17q_1bhv8vddsghh0000gn/T/"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/Users/sam/Downloads/commons-lang"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/sam/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="25.0.2"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="testThrows_FailableIntToDoubleFunction_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testFunctionFunction" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableDoubleToIntFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testFailableToIntFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToIntBiFunction_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableDoubleFunction_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableRunnable_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testLongUnaryOperatorAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableConsumer_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableDoubleToIntFunction_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAcceptDoubleConsumer" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testGetAsIntSupplier" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testDoubleUnaryOperatorIdentity" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableToIntFunction_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testIntUnaryOperatorCompose" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableIntToLongFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableDoubleToIntFunction_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongConsumer_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testConsumerAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testGetAsShortSupplier" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableDoubleBinaryOperator_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableBiFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testDoublePredicateNegate" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAsSupplier" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntBinaryOperator_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableConsumerNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testLongPredicateAnd" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableSupplier_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testFunctionCompose" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableDoubleToLongFunction_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testTryWithResources" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailablePredicate_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testBiPredicateOr" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableObjDoubleConsumer_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testIntPredicateAnd" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongToDoubleFunction_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testLongUnaryOperatorIdentity" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableByteConsumer_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableCallable_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableBiPredicate_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testApplyNonNull" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableToDoubleFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableSupplier_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableShortSupplier_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableConsumer_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableBooleanSupplier_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testBiPredicateAnd" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testDoublePredicateOr" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableLongFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableObjLongConsumer_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableDoubleSupplier_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongToIntFunction_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableBiConsumer_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableRunnable_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testApplyFunction" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntConsumer_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testApplyNonNull2" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testApplyNonNull3" classname="org.apache.commons.lang3.function.FailableTest" time="0.002"/>
+  <testcase name="testThrows_FailableToBooleanFunction_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testLongPredicate" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongToIntFunction_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableLongToIntFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testBiPredicateNegate" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntSupplier_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testPredicate" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntToFloatFunction_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongFunction_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableObjDoubleConsumer_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testApplyDoubleBinaryOperator" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableFunction_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testAcceptObjIntConsumer" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToDoubleBiFunction_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAsConsumer" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongFunction_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableBiFunction_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableObjDoubleConsumerNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testBiFunctionAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testFailableObjIntConsumerNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongConsumer_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntFunction_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testApplyBiFunction" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableDoubleFunction_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAcceptBiConsumer" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntFunction_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testPredicateAnd" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testGetSupplier" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testLongUnaryOperatorCompose" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableToBooleanFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToDoubleBiFunction_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableByteConsumer_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAsCallable" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testDoublePredicateAnd" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableDoubleConsumer_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testLongPredicateNegate" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableObjLongConsumerNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableToIntBiFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToDoubleFunction_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableIntSupplier_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testIntUnaryOperatorIdentity" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testBiConsumer" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableDoubleToLongFunction_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testDoubleConsumerAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testIntPredicateNegate" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailablePredicate_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testDoubleUnaryOperatorAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToLongFunction_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableToIntBiFunction_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testIntPredicateOr" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableObjIntConsumer_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongBinaryOperator_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableBiFunction_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testFailableLongToDoubleFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testCallable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToIntFunction_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongSupplier_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongSupplier_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testLongPredicateOr" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testIntUnaryOperatorAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFunctionIdentity" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testPredicateNegate" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableFunction_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableToLongBiFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testByteConsumerAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAcceptConsumer" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableByteSupplier_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testBiPredicate" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableCallable_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAcceptLongConsumer" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableDoubleSupplier_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testGetAsDoubleSupplier" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableBiPredicate_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAsRunnable" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableIntToFloatFunction_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableDoubleConsumer_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testIntPredicate" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testGetAsLongSupplier" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testPredicateOr" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFunctionAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableByteSupplier_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableDoubleFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAcceptObjDoubleConsumer" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableLongBinaryOperator_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testBiConsumerAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testGetAsBooleanSupplier" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testFailableDoubleToLongFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAcceptObjLongConsumer" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableBooleanSupplier_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToLongBiFunction_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntConsumer_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testFailableToLongFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testDoublePredicate" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableIntToFloatFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableShortSupplier_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToLongFunction_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableDoubleBinaryOperator_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableLongToDoubleFunction_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntToLongFunction_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToBooleanFunction_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testRunnable" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToLongBiFunction_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testGetFromSupplier" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntToDoubleFunction_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testLongConsumerAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableToDoubleFunction_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testFailableIntFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntBinaryOperator_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableBiConsumer_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testAcceptIntConsumer" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testFailableToDoubleBiFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testThrows_FailableObjLongConsumer_String_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableIntToLongFunction_IOException" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testThrows_FailableObjIntConsumer_Object_Throwable" classname="org.apache.commons.lang3.function.FailableTest" time="0.002"/>
+  <testcase name="testFailableIntToDoubleFunctionNop" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+  <testcase name="testFunction" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testIntConsumerAndThen" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testDoubleUnaryOperatorCompose" classname="org.apache.commons.lang3.function.FailableTest" time="0.0"/>
+  <testcase name="testBiFunction" classname="org.apache.commons.lang3.function.FailableTest" time="0.001"/>
+</testsuite>
