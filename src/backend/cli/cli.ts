@@ -35,7 +35,17 @@ export function findExistingCIFile(platform: Platform): string | null {
       .readdirSync(workflowsDir)
       .filter((f) => f.endsWith('.yml') || f.endsWith('.yaml'));
 
-    return files.length > 0 ? path.join(workflowsDir, files[0]) : null;
+    const fileWithTestJob = files.find((f) => {
+      try {
+        const raw = fs.readFileSync(path.join(workflowsDir, f), 'utf-8');
+        const parsed = YAML.parse(raw);
+        return findTestJobs(parsed, 'github').length > 0;
+      } catch {
+        return false;
+      }
+    });
+
+    return fileWithTestJob ? path.join(workflowsDir, fileWithTestJob) : null;
   }
 
   if (platform === 'gitlab') {
