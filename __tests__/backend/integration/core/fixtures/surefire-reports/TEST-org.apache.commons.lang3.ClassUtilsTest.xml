@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="org.apache.commons.lang3.ClassUtilsTest" time="0.291" tests="384" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/sam/Downloads/commons-lang/target/test-classes:/Users/sam/Downloads/commons-lang/target/classes:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter/5.14.2/junit-jupiter-5.14.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.2/junit-jupiter-api-5.14.2.jar:/Users/sam/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-commons/1.14.2/junit-platform-commons-1.14.2.jar:/Users/sam/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.2/junit-jupiter-params-5.14.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.2/junit-jupiter-engine-5.14.2.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-engine/1.14.2/junit-platform-engine-1.14.2.jar:/Users/sam/.m2/repository/org/junit-pioneer/junit-pioneer/1.9.1/junit-pioneer-1.9.1.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-launcher/1.14.2/junit-platform-launcher-1.14.2.jar:/Users/sam/.m2/repository/org/easymock/easymock/5.6.0/easymock-5.6.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.17.5/byte-buddy-1.17.5.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.4/objenesis-3.4.jar:/Users/sam/.m2/repository/org/mockito/mockito-inline/4.11.0/mockito-inline-4.11.0.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/apache/commons/commons-text/1.15.0/commons-text-1.15.0.jar:/Users/sam/.m2/repository/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar:/Users/sam/.m2/repository/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/sam/.m2/repository/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/sam/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/sam/.m2/repository/org/openjdk/jmh/jmh-generator-annprocess/1.37/jmh-generator-annprocess-1.37.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="user.timezone" value="Europe/Dublin"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IE"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/sam/Downloads/commons-lang/target/surefire/surefirebooter-20260323123429171_3.jar /Users/sam/Downloads/commons-lang/target/surefire 2026-03-23T12-34-29_140-jvmRun1 surefire-20260323123429171_1tmp surefire_0-20260323123429171_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/sam/Downloads/commons-lang/target/test-classes:/Users/sam/Downloads/commons-lang/target/classes:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter/5.14.2/junit-jupiter-5.14.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.2/junit-jupiter-api-5.14.2.jar:/Users/sam/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-commons/1.14.2/junit-platform-commons-1.14.2.jar:/Users/sam/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.2/junit-jupiter-params-5.14.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.2/junit-jupiter-engine-5.14.2.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-engine/1.14.2/junit-platform-engine-1.14.2.jar:/Users/sam/.m2/repository/org/junit-pioneer/junit-pioneer/1.9.1/junit-pioneer-1.9.1.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-launcher/1.14.2/junit-platform-launcher-1.14.2.jar:/Users/sam/.m2/repository/org/easymock/easymock/5.6.0/easymock-5.6.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.17.5/byte-buddy-1.17.5.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.4/objenesis-3.4.jar:/Users/sam/.m2/repository/org/mockito/mockito-inline/4.11.0/mockito-inline-4.11.0.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/apache/commons/commons-text/1.15.0/commons-text-1.15.0.jar:/Users/sam/.m2/repository/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar:/Users/sam/.m2/repository/org/openjdk/jmh/jmh-core/1.37/jmh-core-1.37.jar:/Users/sam/.m2/repository/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/Users/sam/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/sam/.m2/repository/org/openjdk/jmh/jmh-generator-annprocess/1.37/jmh-generator-annprocess-1.37.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/sam"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/sam/Downloads/commons-lang"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/sam/Downloads/commons-lang/target/surefire/surefirebooter-20260323123429171_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.2"/>
+    <property name="user.name" value="sam"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.3.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/sam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/kd/3_n5y3zx17q_1bhv8vddsghh0000gn/T/"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/Users/sam/Downloads/commons-lang"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/sam/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="25.0.2"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="test_getShortClassName_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="test_isAssignable" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testShowJavaBug" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testToClass_object" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassByNormalNameArrays" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="test_getName_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getAllSuperclasses_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testPrimitiveToWrapper" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getPackageCanonicalName_Object" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testComparable" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_isAssignable_Widening" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getPackageCanonicalName_String" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassWithArrayClasses" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getAbbreviatedName_Class_NegativeLen" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getPackageCanonicalName_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassLengthIllegal(int)[1]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.005"/>
+  <testcase name="testGetClassLengthIllegal(int)[2]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[3]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[4]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[5]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[6]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[7]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[8]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassLengthIllegal(int)[9]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassLengthIllegal(int)[10]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[11]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[12]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[13]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[14]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[15]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="testGetClassLengthIllegal(int)[16]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassLengthIllegal(int)[17]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassLengthIllegal(int)[18]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassLengthIllegal(int)[19]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="test_getShortClassName_Object" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.002"/>
+  <testcase name="test_getSimpleName_Object_String" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getShortClassName_String" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testIsPrimitiveOrWrapper" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.046"/>
+  <testcase name="test_isAssignable_NoAutoboxing" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testWrapperToPrimitive" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testWrappersToPrimitives" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testHierarchyIncludingInterfaces" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_isAssignable_ClassArray_ClassArray_Autoboxing" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetComponentType" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getAbbreviatedName_String" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassWithArrayClasses2D" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getPackageName_Object" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassLongestCheck" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.034"/>
+  <testcase name="test_getAbbreviatedName_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getPackageName_String" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_isAssignable_ClassArray_ClassArray_NoAutoboxing" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testWrapperToPrimitiveNull" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassByNormalNameArrays2D" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testIsPrimitiveWrapper" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getCanonicalName_Class_String" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testWithInterleavingWhitespace" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getPackageName_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="test_getShortCanonicalName_Object" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getShortCanonicalName_String" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="test_getShortCanonicalName_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[1]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArrayIllegal(int)[2]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[3]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[4]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[5]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[6]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[7]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[8]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[9]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[10]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[11]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[12]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[13]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[14]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[15]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[16]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[17]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[18]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[19]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[20]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[21]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[22]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[23]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[24]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[25]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[26]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[27]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[28]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[29]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArrayIllegal(int)[30]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[31]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[32]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[33]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[34]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArrayIllegal(int)[35]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[36]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[37]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[38]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[39]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[40]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[41]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArrayIllegal(int)[42]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[43]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArrayIllegal(int)[44]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getClass" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_isAssignable_DefaultUnboxing_Widening" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassRawPrimitives" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getCanonicalName_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassInvalidArguments" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getName_Object" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testPrimitivesToWrappers" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassClassNotFound" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="test_getSimpleName_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testWrappersToPrimitivesNull" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_isInnerClass_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[1]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[2]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[3]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[4]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[5]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[6]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[7]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[8]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[9]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[10]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[11]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[12]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[13]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[14]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[15]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[16]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[17]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[18]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[19]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[20]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[21]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[22]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[23]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[24]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[25]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[26]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[27]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[28]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[29]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[30]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[31]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[32]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[33]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[34]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[35]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[36]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[37]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[38]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[39]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[40]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[41]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[42]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[43]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[44]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[45]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[46]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[47]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[48]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[49]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[50]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[51]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[52]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[53]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[54]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[55]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[56]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[57]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[58]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[59]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[60]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[61]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[62]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[63]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[64]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[65]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[66]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[67]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[68]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[69]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[70]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[71]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[72]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[73]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[74]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[75]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[76]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[77]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[78]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[79]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[80]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[81]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[82]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[83]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[84]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[85]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[86]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[87]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[88]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[89]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[90]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[91]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[92]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[93]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[94]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[95]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[96]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[97]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[98]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[99]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[100]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[101]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[102]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[103]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[104]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[105]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[106]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[107]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[108]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[109]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[110]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[111]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[112]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[113]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[114]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[115]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[116]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[117]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[118]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[119]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[120]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[121]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[122]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[123]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[124]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[125]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[126]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[127]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[128]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[129]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[130]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[131]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[132]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[133]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[134]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[135]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[136]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[137]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[138]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[139]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[140]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[141]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[142]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[143]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[144]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[145]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[146]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[147]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[148]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[149]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[150]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[151]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[152]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[153]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[154]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[155]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[156]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[157]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[158]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[159]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[160]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[161]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[162]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[163]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[164]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[165]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[166]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[167]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[168]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[169]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[170]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[171]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[172]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[173]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[174]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[175]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[176]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[177]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[178]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[179]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[180]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[181]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[182]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[183]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[184]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[185]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[186]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[187]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[188]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[189]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[190]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[191]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[192]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[193]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[194]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[195]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[196]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[197]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[198]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[199]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[200]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[201]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[202]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[203]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[204]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[205]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[206]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[207]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[208]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[209]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[210]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[211]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[212]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[213]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[214]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[215]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[216]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[217]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[218]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[219]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[220]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[221]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[222]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[223]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[224]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[225]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[226]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[227]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[228]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[229]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[230]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[231]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[232]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[233]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[234]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[235]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[236]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[237]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[238]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[239]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[240]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[241]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[242]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[243]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[244]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[245]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[246]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="testGetClassArray(int)[247]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[248]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[249]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[250]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[251]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[252]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[253]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassArray(int)[254]" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetClassInner" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_isAssignable_ClassArray_ClassArray" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getSimpleName_Object" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testHierarchyExcludingInterfaces" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_isAssignable_Unboxing_Widening" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getAbbreviatedName_Class_ZeroLen" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testWrappersToPrimitivesEmpty" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testWrapperToPrimitiveNoWrapper" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_convertClassNamesToClasses_List" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.001"/>
+  <testcase name="test_isAssignable_Autoboxing" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_convertClassesToClassNames_List" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testGetPublicMethod" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getAbbreviatedName_TooLongHint" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="test_getAllInterfaces_Class" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+  <testcase name="testConstructor" classname="org.apache.commons.lang3.ClassUtilsTest" time="0.0"/>
+</testsuite>

@@ -6,7 +6,7 @@ const rootDir = path.resolve(__dirname, '..');
 const frontendDir = path.join(rootDir, 'src', 'frontend');
 const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const apiPort = Number.parseInt(process.env.API_PORT ?? '3001', 10);
-const apiBaseUrl = `http://localhost:${apiPort}`;
+const apiBaseUrl = `http://127.0.0.1:${apiPort}`;
 
 function waitForApiHealth(maxAttempts = 60, delayMs = 500) {
   return new Promise((resolve, reject) => {
