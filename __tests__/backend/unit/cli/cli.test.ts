@@ -104,6 +104,8 @@ describe('findExistingCIFile', () => {
   it('returns path when workflows dir contains a yml file', () => {
     mockFs.existsSync.mockReturnValue(true);
     mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
+    mockFs.readFileSync.mockReturnValue('ci-content');
+    mockYAML.parse.mockReturnValue({ jobs: { test: { steps: [{ run: 'npm test' }] } } });
     expect(findExistingCIFile('github')).toContain('ci.yml');
   });
 
@@ -307,28 +309,38 @@ describe('generate-config command handler', () => {
 
   afterEach(() => jest.restoreAllMocks());
 
-  // existsSync call order: findExistingCIFile (1 call), outDir, outPath, junitPath.
-  function setupExistsMocks() {
+  // existsSync call order: findExistingCIFile (1 call), existsSync(existingCIPath), outDir, outPath, junitPath.
+  function setupExistsMocksWithCI(existingConfig: any) {
     mockFs.existsSync
-      .mockReturnValueOnce(false) // findExistingCIFile: no existing CI file
-      .mockReturnValueOnce(true) // outDir exists
+      .mockReturnValueOnce(true)  // findExistingCIFile: workflows dir exists
+      .mockReturnValueOnce(true)  // existsSync(existingCIPath)
+      .mockReturnValueOnce(true)  // outDir exists
       .mockReturnValueOnce(false) // outPath not a directory
       .mockReturnValueOnce(true); // junitPath exists
+    mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
+    mockFs.readFileSync.mockReturnValue('raw-yaml');
+    mockYAML.parse.mockReturnValue(existingConfig);
   }
 
-  it('generates github config and writes to file', () => {
-    setupExistsMocks();
+  it('generates split CI YAML from existing github config and writes to file', () => {
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ uses: 'actions/checkout@v4' }, { run: 'npm test' }] } },
+    };
+    setupExistsMocksWithCI(existingConfig);
+
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });
 
-    expect(mockGenerateGitHubActionsConfig).toHaveBeenCalledWith([
-      { id: 1, tests: ['TestB'] },
-      { id: 2, tests: ['TestA'] },
-    ]);
-    expect(mockFs.writeFileSync).toHaveBeenCalledWith('/tmp/ci.yml', 'github-yaml', 'utf-8');
+    expect(mockYAML.stringify).toHaveBeenCalled();
+    expect(mockFs.writeFileSync).toHaveBeenCalledWith('/tmp/ci.yml', 'generated-yaml', 'utf-8');
   });
 
   it('passes needs when scheduled jobs have cross-job test dependencies', () => {
-    setupExistsMocks();
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ run: 'npm test' }] } },
+    };
+    setupExistsMocksWithCI(existingConfig);
     mockEngine.run.mockReturnValue({
       ...mockEngineResult,
       distribution: {
@@ -342,18 +354,28 @@ describe('generate-config command handler', () => {
 
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });
 
-    expect(mockGenerateGitHubActionsConfig).toHaveBeenCalledWith([
-      { id: 1, tests: ['TestB'], needs: [2] },
-      { id: 2, tests: ['TestA'] },
-    ]);
+    expect(mockYAML.stringify).toHaveBeenCalled();
+    const config = (mockYAML.stringify as jest.Mock).mock.calls[0][0];
+    expect(config.jobs['job-1'].needs).toEqual(['job-2']);
   });
 
   it('writes gitlab config to stdout in dry-run mode', () => {
-    setupExistsMocks();
+    const existingGitLabConfig = {
+      stages: ['test'],
+      test: { script: ['npm test'] },
+    };
+    mockFs.existsSync
+      .mockReturnValueOnce(true)  // findExistingCIFile: .gitlab-ci.yml exists
+      .mockReturnValueOnce(true)  // existsSync(existingCIPath)
+      .mockReturnValueOnce(true)  // outDir exists
+      .mockReturnValueOnce(false) // outPath not a directory
+      .mockReturnValueOnce(true); // junitPath exists
+    mockFs.readFileSync.mockReturnValue('raw-yaml');
+    mockYAML.parse.mockReturnValue(existingGitLabConfig);
+
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'gitlab', out: '/tmp/ci.yml', 'dry-run': true });
 
-    expect(mockGenerateGitLabCIConfig).toHaveBeenCalled();
-    expect(process.stdout.write).toHaveBeenCalledWith('gitlab-yaml');
+    expect(process.stdout.write).toHaveBeenCalledWith('generated-yaml');
     expect(mockFs.writeFileSync).not.toHaveBeenCalled();
   });
 
@@ -364,8 +386,9 @@ describe('generate-config command handler', () => {
     };
 
     mockFs.existsSync
-      .mockReturnValueOnce(true) // workflows dir exists
-      .mockReturnValueOnce(true) // outDir exists
+      .mockReturnValueOnce(true)  // workflows dir exists
+      .mockReturnValueOnce(true)  // existsSync(existingCIPath)
+      .mockReturnValueOnce(true)  // outDir exists
       .mockReturnValueOnce(false) // outPath not a dir
       .mockReturnValueOnce(true); // junitPath exists
     mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
@@ -387,27 +410,26 @@ describe('generate-config command handler', () => {
 
   it('exits when output directory does not exist', () => {
     mockFs.existsSync
-      .mockReturnValueOnce(false) // no existing CI
+      .mockReturnValueOnce(true)  // existsSync(fromPath)
       .mockReturnValueOnce(false); // outDir missing
 
     expect(() =>
-      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/bad/ci.yml', 'dry-run': false }),
+      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/bad/ci.yml', 'dry-run': false, from: '/tmp/ci.yml' }),
     ).toThrow('exit(1)');
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('output directory'));
   });
 
   it('exits on inner error (e.g. no test jobs in existing CI config)', () => {
     mockFs.existsSync
-      .mockReturnValueOnce(true) // workflows dir exists
-      .mockReturnValueOnce(true) // outDir exists
+      .mockReturnValueOnce(true)  // existsSync(fromPath)
+      .mockReturnValueOnce(true)  // outDir exists
       .mockReturnValueOnce(false) // outPath not a dir
       .mockReturnValueOnce(true); // junitPath exists
-    mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
     mockFs.readFileSync.mockReturnValue('raw-yaml');
     mockYAML.parse.mockReturnValue({ on: ['push'], jobs: { build: { steps: [{ run: 'npm build' }] } } });
 
     expect(() =>
-      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: path.resolve('.github/workflows/ci.yml'), 'dry-run': false }),
+      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: path.resolve('.github/workflows/ci.yml'), 'dry-run': false, from: '/tmp/ci.yml' }),
     ).toThrow('exit(1)');
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('failed to generate'));
   });
