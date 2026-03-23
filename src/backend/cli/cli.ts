@@ -8,8 +8,6 @@ import { hideBin } from 'yargs/helpers';
 
 import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
 import { runAllJobs, runAllJobsDynamic, runAllJobsWorkStealing } from '../runner/ParallelRunner';
-import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
-import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
 import { renderBar } from '../utils/Terminal';
 import { FileStore } from '../storage/FileStore';
@@ -460,6 +458,10 @@ yargs(hideBin(process.argv))
           default: 'mvn',
           describe: 'Maven executable to run tests (e.g., mvn or ./mvnw)',
         })
+        .option('from', {
+          type: 'string',
+          describe: 'Path to existing CI config file to use as base (overrides auto-detection)',
+        })
         .option('dry-run', {
           type: 'boolean',
           default: false,
@@ -497,16 +499,21 @@ yargs(hideBin(process.argv))
       const outDir = path.dirname(outPath);
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
-      const existingCIPath = findExistingCIFile(platform);
-      const shouldInjectIntoExistingCI =
-        !!existingCIPath && path.resolve(existingCIPath) === outPath;
 
-      let existingCIConfig: any = null;
+      const fromFlag = argv['from'] as string | undefined;
+      const existingCIPath = fromFlag ? path.resolve(fromFlag) : findExistingCIFile(platform);
 
-      if (shouldInjectIntoExistingCI && existingCIPath) {
-        const raw = fs.readFileSync(existingCIPath, 'utf-8');
-        existingCIConfig = YAML.parse(raw);
+      if (!existingCIPath) {
+        console.error(chalk.red('No CI config found. Use --from <path> to specify one.'));
+        process.exit(EXIT_FAILURE);
       }
+
+      if (!fs.existsSync(existingCIPath)) {
+        console.error(chalk.red(`Error: CI config file does not exist: ${existingCIPath}`));
+        process.exit(EXIT_FAILURE);
+      }
+
+      const existingCIConfig = YAML.parse(fs.readFileSync(existingCIPath, 'utf-8'));
 
       if (!fs.existsSync(outDir)) {
         console.error(
@@ -548,72 +555,45 @@ yargs(hideBin(process.argv))
 
         const jobs = buildJobsWithDependencies(result.distribution.jobs);
 
-        const metadata = result.profile.metadata;
-        const hasCpuCores = typeof metadata?.cpuCores === 'number';
-        const hasMemoryLimit = metadata?.memoryLimitMb !== undefined;
-        const resourceConstraints =
-          hasCpuCores || hasMemoryLimit
-            ? {
-                cpuCores: metadata?.cpuCores ?? 0,
-                memoryLimitMb: metadata?.memoryLimitMb ?? null,
-              }
-            : undefined;
+        const testJobs = findTestJobs(existingCIConfig, platform);
+        if (testJobs.length === 0) {
+          throw new Error('No test jobs found in existing CI config');
+        }
+
+        const commands = extractTestCommands(existingCIConfig, platform, testJobs);
+        const testCommand = commands[0] ?? `${mavenBin} test -Dtest=`;
 
         let ciConfig: string;
 
-        if (existingCIConfig) {
-          const testJobs = findTestJobs(existingCIConfig, platform);
-          if (testJobs.length === 0) {
-            throw new Error('No test jobs found in existing CI config');
+        if (platform === 'github') {
+          const baseJobName = testJobs[0];
+          const baseJob = existingCIConfig.jobs?.[baseJobName];
+          if (!baseJob) {
+            throw new Error('Unable to locate base GitHub test job');
           }
 
-          const commands = extractTestCommands(existingCIConfig, platform, testJobs);
-          const testCommand = commands[0] ?? `${mavenBin} test -Dtest=`;
-
-          if (platform === 'github') {
-            const baseJobName = testJobs[0];
-            const baseJob = existingCIConfig.jobs?.[baseJobName];
-            if (!baseJob) {
-              throw new Error('Unable to locate base GitHub test job');
-            }
-
-            const splitJobs = buildGitHubSplitJobs(baseJob, jobs, testCommand);
-            for (const jobName of testJobs) {
-              delete existingCIConfig.jobs?.[jobName];
-            }
-            existingCIConfig.jobs = {
-              ...(existingCIConfig.jobs ?? {}),
-              ...splitJobs,
-            };
-            ciConfig = YAML.stringify(existingCIConfig);
-          } else {
-            const baseJobName = testJobs[0];
-            const baseJob = existingCIConfig[baseJobName];
-            if (!baseJob) {
-              throw new Error('Unable to locate base GitLab test job');
-            }
-
-            const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand);
-            for (const jobName of testJobs) {
-              delete existingCIConfig[jobName];
-            }
-            Object.assign(existingCIConfig, splitJobs);
-            ciConfig = YAML.stringify(existingCIConfig);
+          const splitJobs = buildGitHubSplitJobs(baseJob, jobs, testCommand);
+          for (const jobName of testJobs) {
+            delete existingCIConfig.jobs?.[jobName];
           }
-        } else if (platform === 'github') {
-          if (resourceConstraints) {
-            ciConfig = generateGitHubActionsConfig(jobs, mavenBin, resourceConstraints);
-          } else if (mavenBin !== 'mvn') {
-            ciConfig = generateGitHubActionsConfig(jobs, mavenBin);
-          } else {
-            ciConfig = generateGitHubActionsConfig(jobs);
-          }
-        } else if (resourceConstraints) {
-          ciConfig = generateGitLabCIConfig(jobs, mavenBin, resourceConstraints);
-        } else if (mavenBin !== 'mvn') {
-          ciConfig = generateGitLabCIConfig(jobs, mavenBin);
+          existingCIConfig.jobs = {
+            ...(existingCIConfig.jobs ?? {}),
+            ...splitJobs,
+          };
+          ciConfig = YAML.stringify(existingCIConfig);
         } else {
-          ciConfig = generateGitLabCIConfig(jobs);
+          const baseJobName = testJobs[0];
+          const baseJob = existingCIConfig[baseJobName];
+          if (!baseJob) {
+            throw new Error('Unable to locate base GitLab test job');
+          }
+
+          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand);
+          for (const jobName of testJobs) {
+            delete existingCIConfig[jobName];
+          }
+          Object.assign(existingCIConfig, splitJobs);
+          ciConfig = YAML.stringify(existingCIConfig);
         }
 
         if (dryRun) {
