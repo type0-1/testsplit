@@ -1101,7 +1101,7 @@ yargs(hideBin(process.argv))
         process.exit(0);
       });
 
-      // Start the API server in-process — we're already in ts-node
+      // Start the API server in-process, already in ts-node
       const { buildApp } = await import('../api/server');
       const app = await buildApp();
       try {
