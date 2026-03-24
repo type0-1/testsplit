@@ -133,40 +133,6 @@ export function extractTestCommands(
   return commands;
 }
 
-export function buildGitHubSplitJobs(
-  baseJob: any,
-  jobs: { id: number; tests: string[]; needs?: number[] }[],
-  testCommand: string,
-): Record<string, any> {
-  const splitJobs: Record<string, any> = {};
-
-  for (const job of jobs) {
-    const clonedJob = JSON.parse(JSON.stringify(baseJob));
-
-    clonedJob.steps = clonedJob.steps.map((step: any) => {
-      if (
-        typeof step.run === 'string' &&
-        step.run.toLowerCase().includes('test')
-      ) {
-        return {
-          ...step,
-          run: `${testCommand} ${job.tests.join(' ')}`.trim(),
-        };
-      }
-      return step;
-    });
-
-    delete clonedJob.needs;
-    if (job.needs && job.needs.length > 0) {
-      clonedJob.needs = job.needs.map((id) => `job-${id}`);
-    }
-
-    splitJobs[`job-${job.id}`] = clonedJob;
-  }
-
-  return splitJobs;
-}
-
 export function buildGitLabSplitJobs(
   baseJob: any,
   jobs: { id: number; tests: string[]; needs?: number[] }[],
@@ -192,6 +158,65 @@ export function buildGitLabSplitJobs(
   }
 
   return splitJobs;
+}
+
+export function toMavenClassName(testId: string): string {
+  // Strip parameterised suffixes: method(params)[index] → method
+  const stripped = testId.replace(/\(.*$/, '').replace(/\[.*$/, '');
+  // Split on '.' and drop the last segment if it starts with lowercase (the method name)
+  const parts = stripped.split('.');
+  const methodIdx = parts.reduce(
+    (last, p, i) => (/^[a-z]/.test(p) ? i : last),
+    -1,
+  );
+  return methodIdx > 0 ? parts.slice(0, methodIdx).join('.') : stripped;
+}
+
+export function buildGitHubPhasedJobs(
+  baseJob: any,
+  jobs: { id: number; tests: string[]; needs?: number[] }[],
+  mavenBin: string,
+  artifactName: string = 'build-artifacts',
+  artifactPath: string = 'target/',
+): Record<string, any> {
+  const result: Record<string, any> = {};
+
+  const isMavenStep = (step: any): boolean =>
+    typeof step.run === 'string' && /^(mvn|\.\/mvnw)\b/.test(step.run.trim());
+
+  // Build job: clone base, inject -DskipTests into the Maven step, append upload-artifact
+  const buildJob = JSON.parse(JSON.stringify(baseJob));
+  buildJob.steps = buildJob.steps.map((step: any) => {
+    if (isMavenStep(step) && !step.run.includes('-DskipTests')) {
+      return { ...step, run: `${step.run.trim()} -DskipTests` };
+    }
+    return step;
+  });
+  buildJob.steps.push({
+    uses: 'actions/upload-artifact@v4',
+    with: { name: artifactName, path: artifactPath },
+  });
+  result['build'] = buildJob;
+
+  // Setup steps: everything in base job except the Maven build step
+  const setupSteps = (baseJob.steps as any[]).filter((step: any) => !isMavenStep(step));
+
+  // Test jobs: setup steps + download-artifact + scoped test command
+  for (const job of jobs) {
+    const testJob: any = JSON.parse(JSON.stringify(baseJob));
+    testJob.steps = [
+      ...JSON.parse(JSON.stringify(setupSteps)),
+      { uses: 'actions/download-artifact@v4', with: { name: artifactName } },
+      {
+        name: 'Run tests',
+        run: `${mavenBin} test -Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')} -DfailIfNoTests=false`,
+      },
+    ];
+    testJob.needs = ['build'];
+    result[`test-job-${job.id}`] = testJob;
+  }
+
+  return result;
 }
 
 function buildJobsWithDependencies(distributionJobs: { tasks: Task[] }[]): { id: number; tests: string[]; needs?: number[] }[] {
@@ -488,6 +513,12 @@ yargs(hideBin(process.argv))
           default: 1.0,
           describe:
             'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
+        })
+        .option('artifact-path', {
+          type: 'string',
+          default: 'target/',
+          describe:
+            'Path to upload as build artifact when using --split-phases (default: target/ for standard Maven)',
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
@@ -495,6 +526,7 @@ yargs(hideBin(process.argv))
       const platform = argv.platform as Platform;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
+      const artifactPath = argv['artifact-path'] as string;
       const availableCores = os.cpus().length;
 
       if (jobCount > availableCores) {
@@ -582,13 +614,13 @@ yargs(hideBin(process.argv))
             throw new Error('Unable to locate base GitHub test job');
           }
 
-          const splitJobs = buildGitHubSplitJobs(baseJob, jobs, testCommand);
+          const generatedJobs = buildGitHubPhasedJobs(baseJob, jobs, mavenBin, 'build-artifacts', artifactPath);
           for (const jobName of testJobs) {
             delete existingCIConfig.jobs?.[jobName];
           }
           existingCIConfig.jobs = {
             ...(existingCIConfig.jobs ?? {}),
-            ...splitJobs,
+            ...generatedJobs,
           };
           ciConfig = YAML.stringify(existingCIConfig);
         } else {

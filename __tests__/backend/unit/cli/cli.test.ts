@@ -44,7 +44,6 @@ import {
   findExistingCIFile,
   findTestJobs,
   extractTestCommands,
-  buildGitHubSplitJobs,
   buildGitLabSplitJobs,
 } from '../../../../src/backend/cli/cli';
 
@@ -162,28 +161,6 @@ describe('extractTestCommands', () => {
   });
 });
 
-describe('buildGitHubSplitJobs', () => {
-  it('creates split jobs replacing only the test step', () => {
-    const baseJob = { steps: [{ uses: 'actions/checkout@v4' }, { run: 'npm test' }] };
-    const result = buildGitHubSplitJobs(baseJob, [{ id: 1, tests: ['A', 'B'] }, { id: 2, tests: ['C'] }], 'npm test');
-
-    expect(result['job-1'].steps[1].run).toBe('npm test A B');
-    expect(result['job-2'].steps[1].run).toBe('npm test C');
-    expect(result['job-1'].steps[0]).toEqual({ uses: 'actions/checkout@v4' });
-  });
-
-  it('adds needs to dependent split jobs', () => {
-    const baseJob = { steps: [{ run: 'npm test' }] };
-    const result = buildGitHubSplitJobs(
-      baseJob,
-      [{ id: 1, tests: ['A'] }, { id: 2, tests: ['B'], needs: [1] }],
-      'npm test',
-    );
-
-    expect(result['job-1'].needs).toBeUndefined();
-    expect(result['job-2'].needs).toEqual(['job-1']);
-  });
-});
 
 describe('buildGitLabSplitJobs', () => {
   it('creates split jobs replacing the test line (array script)', () => {
@@ -356,7 +333,7 @@ describe('generate-config command handler', () => {
 
     expect(mockYAML.stringify).toHaveBeenCalled();
     const config = (mockYAML.stringify as jest.Mock).mock.calls[0][0];
-    expect(config.jobs['job-1'].needs).toEqual(['job-2']);
+    expect(config.jobs['test-job-1'].needs).toEqual(['build']);
   });
 
   it('writes gitlab config to stdout in dry-run mode', () => {
@@ -365,9 +342,9 @@ describe('generate-config command handler', () => {
       test: { script: ['npm test'] },
     };
     mockFs.existsSync
-      .mockReturnValueOnce(true)  // findExistingCIFile: .gitlab-ci.yml exists
-      .mockReturnValueOnce(true)  // existsSync(existingCIPath)
-      .mockReturnValueOnce(true)  // outDir exists
+      .mockReturnValueOnce(true) // findExistingCIFile: .gitlab-ci.yml exists
+      .mockReturnValueOnce(true) // existsSync(existingCIPath)
+      .mockReturnValueOnce(true) // outDir exists
       .mockReturnValueOnce(false) // outPath not a directory
       .mockReturnValueOnce(true); // junitPath exists
     mockFs.readFileSync.mockReturnValue('raw-yaml');
@@ -386,9 +363,9 @@ describe('generate-config command handler', () => {
     };
 
     mockFs.existsSync
-      .mockReturnValueOnce(true)  // workflows dir exists
-      .mockReturnValueOnce(true)  // existsSync(existingCIPath)
-      .mockReturnValueOnce(true)  // outDir exists
+      .mockReturnValueOnce(true) // workflows dir exists
+      .mockReturnValueOnce(true) // existsSync(existingCIPath)
+      .mockReturnValueOnce(true) // outDir exists
       .mockReturnValueOnce(false) // outPath not a dir
       .mockReturnValueOnce(true); // junitPath exists
     mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
@@ -405,12 +382,12 @@ describe('generate-config command handler', () => {
 
     expect(mockYAML.stringify).toHaveBeenCalled();
     expect(existingConfig.jobs).not.toHaveProperty('test');
-    expect(Object.keys(existingConfig.jobs)).toEqual(expect.arrayContaining(['job-1', 'job-2']));
+    expect(Object.keys(existingConfig.jobs)).toEqual(expect.arrayContaining(['build', 'test-job-1', 'test-job-2']));
   });
 
   it('exits when output directory does not exist', () => {
     mockFs.existsSync
-      .mockReturnValueOnce(true)  // existsSync(fromPath)
+      .mockReturnValueOnce(true) // existsSync(fromPath)
       .mockReturnValueOnce(false); // outDir missing
 
     expect(() =>
@@ -421,8 +398,8 @@ describe('generate-config command handler', () => {
 
   it('exits on inner error (e.g. no test jobs in existing CI config)', () => {
     mockFs.existsSync
-      .mockReturnValueOnce(true)  // existsSync(fromPath)
-      .mockReturnValueOnce(true)  // outDir exists
+      .mockReturnValueOnce(true) // existsSync(fromPath)
+      .mockReturnValueOnce(true) // outDir exists
       .mockReturnValueOnce(false) // outPath not a dir
       .mockReturnValueOnce(true); // junitPath exists
     mockFs.readFileSync.mockReturnValue('raw-yaml');
