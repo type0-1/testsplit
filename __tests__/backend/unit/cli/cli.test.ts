@@ -28,6 +28,7 @@ jest.mock('chalk', () => ({
     red: (s: string) => s,
     yellow: (s: string) => s,
     green: (s: string) => s,
+    dim: (s: string) => s,
   },
 }));
 
@@ -281,6 +282,31 @@ describe('buildGitHubPhasedJobs', () => {
     const job = result['job-1'];
     expect(job.before_script).toBeUndefined();
     expect(job.script[0]).not.toContain('forkCount');
+  });
+
+  it('injects container field into GitHub build and test jobs when containerImage provided', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn', 'build-artifacts', 'target/', 1, 'eclipse-temurin:17-jdk');
+    expect(result['build'].container).toBe('eclipse-temurin:17-jdk');
+    expect(result['test-job-1'].container).toBe('eclipse-temurin:17-jdk');
+    expect(result['test-job-2'].container).toBe('eclipse-temurin:17-jdk');
+  });
+
+  it('omits container field from GitHub jobs when containerImage is not provided', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn');
+    expect(result['build'].container).toBeUndefined();
+    expect(result['test-job-1'].container).toBeUndefined();
+  });
+
+  it('injects image field into GitLab jobs when containerImage provided', () => {
+    const glBase = { script: ['mvn test'] };
+    const result = buildGitLabSplitJobs(glBase, [{ id: 1, tests: ['A'] }], 'mvn test', 1, 'eclipse-temurin:21-jdk');
+    expect(result['job-1'].image).toBe('eclipse-temurin:21-jdk');
+  });
+
+  it('omits image field from GitLab jobs when containerImage is not provided', () => {
+    const glBase = { script: ['mvn test'] };
+    const result = buildGitLabSplitJobs(glBase, [{ id: 1, tests: ['A'] }], 'mvn test', 1);
+    expect(result['job-1'].image).toBeUndefined();
   });
 });
 

@@ -143,6 +143,7 @@ export function buildGitLabSplitJobs(
   jobs: { id: number; tests: string[]; needs?: number[] }[],
   testCommand: string,
   runnerCores: number = 1,
+  containerImage?: string,
 ): Record<string, any> {
   const splitJobs: Record<string, any> = {};
 
@@ -159,6 +160,10 @@ export function buildGitLabSplitJobs(
 
   for (const job of jobs) {
     const clonedJob = JSON.parse(JSON.stringify(baseJob));
+
+    if (containerImage) {
+      clonedJob.image = containerImage;
+    }
 
     if (coreDetectLines.length > 0) {
       const existing = Array.isArray(clonedJob.before_script) ? clonedJob.before_script : [];
@@ -201,6 +206,7 @@ export function buildGitHubPhasedJobs(
   artifactName: string = 'build-artifacts',
   artifactPath: string = 'target/',
   runnerCores: number = 1,
+  containerImage?: string,
 ): Record<string, any> {
   const result: Record<string, any> = {};
 
@@ -209,6 +215,7 @@ export function buildGitHubPhasedJobs(
 
   // Build job: clone base, inject -DskipTests into the Maven step, append upload-artifact
   const buildJob = JSON.parse(JSON.stringify(baseJob));
+  if (containerImage) buildJob.container = containerImage;
   buildJob.steps = buildJob.steps.map((step: any) => {
     if (isMavenStep(step) && !step.run.includes('-DskipTests')) {
       return { ...step, run: `${step.run.trim()} -DskipTests` };
@@ -244,6 +251,7 @@ export function buildGitHubPhasedJobs(
   // Test jobs: setup steps + download-artifact + [core detection] + scoped test command
   for (const job of jobs) {
     const testJob: any = JSON.parse(JSON.stringify(baseJob));
+    if (containerImage) testJob.container = containerImage;
     const testSteps: any[] = [
       ...JSON.parse(JSON.stringify(setupSteps)),
       { uses: 'actions/download-artifact@v4', with: { name: artifactName } },
@@ -526,7 +534,7 @@ yargs(hideBin(process.argv))
       if (explain && interpretation) {
         console.log('Interpretation');
         console.log('--------------');
-        console.log(`  ${interpretation}\n`);
+        console.log(`${interpretation}\n`);
       }
 
       console.log(chalk.green('Profile completed successfully.'));
@@ -647,6 +655,15 @@ yargs(hideBin(process.argv))
         process.exit(EXIT_FAILURE);
       }
 
+      // Auto-detect Docker container image if a Dockerfile exists in the project root
+      let containerImage: string | undefined;
+      if (fs.existsSync(path.resolve('Dockerfile'))) {
+        const pomPath = path.resolve('pom.xml');
+        const javaVersion = fs.existsSync(pomPath) ? parsePom(pomPath).javaVersion : null;
+        containerImage = `eclipse-temurin:${javaVersion ?? '21'}-jdk`;
+        console.log(chalk.dim(`Dockerfile detected, using container: ${containerImage}`));
+      }
+
       // Main logic with error handling
       try {
         const engine = new TestSplitEngine();
@@ -655,17 +672,8 @@ yargs(hideBin(process.argv))
           jobCount runners (NxM -> N).
         */
         const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
-        const result = engine.run(
-          junitPath,
-          totalSlots,
-          false,
-          algorithm,
-          riskFactor,
-        );
-
-        const jobs = runnerCores > 1
-          ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores)
-          : buildJobsWithDependencies(result.distribution.jobs);
+        const result = engine.run(junitPath, totalSlots, false, algorithm, riskFactor);
+        const jobs = runnerCores > 1 ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores) : buildJobsWithDependencies(result.distribution.jobs);
 
         const testJobs = findTestJobs(existingCIConfig, platform);
         if (testJobs.length === 0) {
@@ -684,7 +692,7 @@ yargs(hideBin(process.argv))
             throw new Error('Unable to locate base GitHub test job');
           }
 
-          const generatedJobs = buildGitHubPhasedJobs(baseJob, jobs, mavenBin, 'build-artifacts', artifactPath, runnerCores);
+          const generatedJobs = buildGitHubPhasedJobs(baseJob, jobs, mavenBin, 'build-artifacts', artifactPath, runnerCores, containerImage);
           for (const jobName of testJobs) {
             delete existingCIConfig.jobs?.[jobName];
           }
@@ -700,7 +708,7 @@ yargs(hideBin(process.argv))
             throw new Error('Unable to locate base GitLab test job');
           }
 
-          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand, runnerCores);
+          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand, runnerCores, containerImage);
           for (const jobName of testJobs) {
             delete existingCIConfig[jobName];
           }
@@ -1176,7 +1184,7 @@ yargs(hideBin(process.argv))
       const outPath = path.resolve(argv.out as string);
 
       let javaVersion: string | undefined;
-      let hasMavenWrapper = fs.existsSync(path.resolve('mvnw'));
+      const hasMavenWrapper = fs.existsSync(path.resolve('mvnw'));
 
       if (fs.existsSync(pomPath)) {
         const pomInfo = parsePom(pomPath);
