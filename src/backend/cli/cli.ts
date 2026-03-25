@@ -17,6 +17,12 @@ import chalk from 'chalk';
 
 type Platform = 'github' | 'gitlab';
 const EXIT_FAILURE = 1;
+
+// True for any Maven invocation that runs tests (i.e. not a compile/install-only step)
+function isMavenTestLine(line: string): boolean {
+  const trimmed = line.trim();
+  return /^(mvn|\.\/mvnw)\b/.test(trimmed) && !trimmed.includes('-DskipTests');
+}
 const TABLE_WIDTH = 66;
 const SECTION_WIDTH = 40;
 const COL_LABEL = 18;
@@ -65,10 +71,7 @@ export function findTestJobs(config: any, platform: Platform): string[] {
     for (const [jobName, job] of Object.entries<any>(jobs)) {
       const steps = job.steps ?? [];
       for (const step of steps) {
-        if (
-          typeof step.run === 'string' &&
-          step.run.toLowerCase().includes('test')
-        ) {
+        if (typeof step.run === 'string' && (/^(mvn|\.\/mvnw)\b/.test(step.run.trim()) ? isMavenTestLine(step.run) : step.run.toLowerCase().includes('test'))) {
           testJobs.push(jobName);
           break;
         }
@@ -82,7 +85,7 @@ export function findTestJobs(config: any, platform: Platform): string[] {
       if (!script) continue;
 
       const lines = Array.isArray(script) ? script : [script];
-      if (lines.some((l) => l.toLowerCase().includes('test'))) {
+      if (lines.some((l) => /^(mvn|\.\/mvnw)\b/.test(l.trim()) ? isMavenTestLine(l) : l.toLowerCase().includes('test'))) {
         testJobs.push(jobName);
       }
     }
@@ -107,7 +110,7 @@ export function extractTestCommands(
       for (const step of steps) {
         if (
           typeof step.run === 'string' &&
-          step.run.toLowerCase().includes('test')
+          (/^(mvn|\.\/mvnw)\b/.test(step.run.trim()) ? isMavenTestLine(step.run) : step.run.toLowerCase().includes('test'))
         ) {
           commands.push(step.run.trim());
         }
@@ -123,7 +126,7 @@ export function extractTestCommands(
 
       const lines = Array.isArray(script) ? script : [script];
       for (const line of lines) {
-        if (line.toLowerCase().includes('test')) {
+        if (/^(mvn|\.\/mvnw)\b/.test(line.trim()) ? isMavenTestLine(line) : line.toLowerCase().includes('test')) {
           commands.push(line.trim());
         }
       }
@@ -148,7 +151,7 @@ export function buildGitLabSplitJobs(
       : [clonedJob.script];
 
     clonedJob.script = scriptLines.map((line: string) => {
-      if (line.toLowerCase().includes('test')) {
+      if (/^(mvn|\.\/mvnw)\b/.test(line.trim()) ? isMavenTestLine(line) : line.toLowerCase().includes('test')) {
         return `${testCommand} ${job.tests.join(' ')}`.trim();
       }
       return line;
@@ -476,8 +479,12 @@ yargs(hideBin(process.argv))
         })
         .option('jobs', {
           type: 'number',
-          default: os.cpus().length,
-          describe: 'Number of parallel jobs',
+          describe: 'Number of parallel jobs (defaults to --runner-cores)',
+        })
+        .option('runner-cores', {
+          type: 'number',
+          default: 2,
+          describe: 'Number of CPU cores per CI runner (default: 2 for GitHub Actions / GitLab)',
         })
         .option('platform', {
           type: 'string',
@@ -522,21 +529,12 @@ yargs(hideBin(process.argv))
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
-      let jobCount = argv.jobs as number;
+      const runnerCores = argv['runner-cores'] as number;
+      let jobCount = (argv.jobs as number | undefined) ?? runnerCores;
       const platform = argv.platform as Platform;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
       const artifactPath = argv['artifact-path'] as string;
-      const availableCores = os.cpus().length;
-
-      if (jobCount > availableCores) {
-        console.warn(
-          chalk.yellow(
-            `Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`,
-          ),
-        );
-        jobCount = availableCores;
-      }
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';

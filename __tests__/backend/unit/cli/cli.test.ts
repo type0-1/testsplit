@@ -136,12 +136,43 @@ describe('findTestJobs', () => {
     expect(findTestJobs(config, 'github')).toEqual(['test']);
   });
 
+  it('finds github jobs with Maven step that has no "test" keyword', () => {
+    const config = {
+      jobs: {
+        build: { steps: [{ run: 'mvn --errors --show-version --batch-mode --no-transfer-progress' }] },
+        lint:  { steps: [{ run: 'npm run lint' }] },
+      },
+    };
+    expect(findTestJobs(config, 'github')).toEqual(['build']);
+  });
+
+  it('does not detect Maven compile-only step with -DskipTests for github', () => {
+    const config = {
+      jobs: {
+        compile: { steps: [{ run: 'mvn install -DskipTests' }] },
+      },
+    };
+    expect(findTestJobs(config, 'github')).toEqual([]);
+  });
+
   it('finds gitlab jobs that have a test script line', () => {
     const config = {
       test: { script: ['mvn test'] },
       lint: { script: ['npm run lint'] },
     };
     expect(findTestJobs(config, 'gitlab')).toEqual(['test']);
+  });
+
+  it('finds gitlab jobs with Maven step that has no "test" keyword', () => {
+    const config = {
+      build: { script: ['mvn --batch-mode --no-transfer-progress'] },
+      lint:  { script: ['npm run lint'] },
+    };
+    expect(findTestJobs(config, 'gitlab')).toEqual(['build']);
+  });
+
+  it('does not detect Maven compile-only step with -DskipTests for gitlab', () => {
+    expect(findTestJobs({ compile: { script: ['mvn package -DskipTests'] } }, 'gitlab')).toEqual([]);
   });
 
   it('handles gitlab jobs where script is a plain string', () => {
@@ -409,6 +440,19 @@ describe('generate-config command handler', () => {
       generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: path.resolve('.github/workflows/ci.yml'), 'dry-run': false, from: '/tmp/ci.yml' }),
     ).toThrow('exit(1)');
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('failed to generate'));
+  });
+
+  it('defaults --jobs to --runner-cores when --jobs is not specified', () => {
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ uses: 'actions/checkout@v4' }, { run: 'npm test' }] } },
+    };
+    setupExistsMocksWithCI(existingConfig);
+
+    // Pass runner-cores: 3 but no jobs, handler should use 3 as jobCount
+    generateConfigHandler({ junit: '/test.xml', jobs: undefined, 'runner-cores': 3, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false, algorithm: 'lpt', 'risk-factor': 1.0 });
+
+    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 3, false, expect.any(String), expect.any(Number));
   });
 });
 
