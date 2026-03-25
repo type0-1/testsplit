@@ -8,17 +8,23 @@ import { hideBin } from 'yargs/helpers';
 
 import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
 import { runAllJobs, runAllJobsDynamic, runAllJobsWorkStealing } from '../runner/ParallelRunner';
-import { generateGitHubActionsConfig } from '../generator/GitHubActionsGenerator';
-import { generateGitLabCIConfig } from '../generator/GitLabCIGenerator';
 import { Task } from '../algorithm/model/Task';
 import { renderBar } from '../utils/Terminal';
 import { FileStore } from '../storage/FileStore';
 import { HistoricalProfiler } from '../profiler/core/HistoricalProfiler';
+import { parsePom } from '../detector/PomParser';
+import { generateDockerfile } from '../generator/DockerfileGenerator';
 import YAML from 'yaml';
 import chalk from 'chalk';
 
 type Platform = 'github' | 'gitlab';
 const EXIT_FAILURE = 1;
+
+// True for any Maven invocation that runs tests (i.e. not a compile/install-only step)
+function isMavenTestLine(line: string): boolean {
+  const trimmed = line.trim();
+  return /^(mvn|\.\/mvnw)\b/.test(trimmed) && !trimmed.includes('-DskipTests');
+}
 const TABLE_WIDTH = 66;
 const SECTION_WIDTH = 40;
 const COL_LABEL = 18;
@@ -37,7 +43,17 @@ export function findExistingCIFile(platform: Platform): string | null {
       .readdirSync(workflowsDir)
       .filter((f) => f.endsWith('.yml') || f.endsWith('.yaml'));
 
-    return files.length > 0 ? path.join(workflowsDir, files[0]) : null;
+    const fileWithTestJob = files.find((f) => {
+      try {
+        const raw = fs.readFileSync(path.join(workflowsDir, f), 'utf-8');
+        const parsed = YAML.parse(raw);
+        return findTestJobs(parsed, 'github').length > 0;
+      } catch {
+        return false;
+      }
+    });
+
+    return fileWithTestJob ? path.join(workflowsDir, fileWithTestJob) : null;
   }
 
   if (platform === 'gitlab') {
@@ -57,10 +73,7 @@ export function findTestJobs(config: any, platform: Platform): string[] {
     for (const [jobName, job] of Object.entries<any>(jobs)) {
       const steps = job.steps ?? [];
       for (const step of steps) {
-        if (
-          typeof step.run === 'string' &&
-          step.run.toLowerCase().includes('test')
-        ) {
+        if (typeof step.run === 'string' && (/^(mvn|\.\/mvnw)\b/.test(step.run.trim()) ? isMavenTestLine(step.run) : step.run.toLowerCase().includes('test'))) {
           testJobs.push(jobName);
           break;
         }
@@ -74,7 +87,7 @@ export function findTestJobs(config: any, platform: Platform): string[] {
       if (!script) continue;
 
       const lines = Array.isArray(script) ? script : [script];
-      if (lines.some((l) => l.toLowerCase().includes('test'))) {
+      if (lines.some((l) => /^(mvn|\.\/mvnw)\b/.test(l.trim()) ? isMavenTestLine(l) : l.toLowerCase().includes('test'))) {
         testJobs.push(jobName);
       }
     }
@@ -99,7 +112,7 @@ export function extractTestCommands(
       for (const step of steps) {
         if (
           typeof step.run === 'string' &&
-          step.run.toLowerCase().includes('test')
+          (/^(mvn|\.\/mvnw)\b/.test(step.run.trim()) ? isMavenTestLine(step.run) : step.run.toLowerCase().includes('test'))
         ) {
           commands.push(step.run.trim());
         }
@@ -115,7 +128,7 @@ export function extractTestCommands(
 
       const lines = Array.isArray(script) ? script : [script];
       for (const line of lines) {
-        if (line.toLowerCase().includes('test')) {
+        if (/^(mvn|\.\/mvnw)\b/.test(line.trim()) ? isMavenTestLine(line) : line.toLowerCase().includes('test')) {
           commands.push(line.trim());
         }
       }
@@ -125,57 +138,45 @@ export function extractTestCommands(
   return commands;
 }
 
-export function buildGitHubSplitJobs(
-  baseJob: any,
-  jobs: { id: number; tests: string[]; needs?: number[] }[],
-  testCommand: string,
-): Record<string, any> {
-  const splitJobs: Record<string, any> = {};
-
-  for (const job of jobs) {
-    const clonedJob = JSON.parse(JSON.stringify(baseJob));
-
-    clonedJob.steps = clonedJob.steps.map((step: any) => {
-      if (
-        typeof step.run === 'string' &&
-        step.run.toLowerCase().includes('test')
-      ) {
-        return {
-          ...step,
-          run: `${testCommand} ${job.tests.join(' ')}`.trim(),
-        };
-      }
-      return step;
-    });
-
-    delete clonedJob.needs;
-    if (job.needs && job.needs.length > 0) {
-      clonedJob.needs = job.needs.map((id) => `job-${id}`);
-    }
-
-    splitJobs[`job-${job.id}`] = clonedJob;
-  }
-
-  return splitJobs;
-}
-
 export function buildGitLabSplitJobs(
   baseJob: any,
   jobs: { id: number; tests: string[]; needs?: number[] }[],
   testCommand: string,
+  runnerCores: number = 1,
+  containerImage?: string,
 ): Record<string, any> {
   const splitJobs: Record<string, any> = {};
 
+  // before_script lines that detect idle cores at runtime (GitLab equivalent of GitHub output step)
+  const coreDetectLines = runnerCores > 1 ? [
+    'export TOTAL=$(nproc)',
+    "export LOAD=$(awk '{print int($1+0.5)}' /proc/loadavg)",
+    'export IDLE=$(( TOTAL - LOAD > 1 ? TOTAL - LOAD : 1 ))',
+  ] : [];
+
+  const forkSuffix = runnerCores > 1
+    ? ' -Dsurefire.forkCount=$IDLE -Dsurefire.reuseForks=true'
+    : '';
+
   for (const job of jobs) {
     const clonedJob = JSON.parse(JSON.stringify(baseJob));
+
+    if (containerImage) {
+      clonedJob.image = containerImage;
+    }
+
+    if (coreDetectLines.length > 0) {
+      const existing = Array.isArray(clonedJob.before_script) ? clonedJob.before_script : [];
+      clonedJob.before_script = [...coreDetectLines, ...existing];
+    }
 
     const scriptLines = Array.isArray(clonedJob.script)
       ? clonedJob.script
       : [clonedJob.script];
 
     clonedJob.script = scriptLines.map((line: string) => {
-      if (line.toLowerCase().includes('test')) {
-        return `${testCommand} ${job.tests.join(' ')}`.trim();
+      if (/^(mvn|\.\/mvnw)\b/.test(line.trim()) ? isMavenTestLine(line) : line.toLowerCase().includes('test')) {
+        return `${testCommand} ${job.tests.join(' ')}${forkSuffix}`.trim();
       }
       return line;
     });
@@ -184,6 +185,93 @@ export function buildGitLabSplitJobs(
   }
 
   return splitJobs;
+}
+
+export function toMavenClassName(testId: string): string {
+  // Strip parameterised suffixes: method(params)[index] → method
+  const stripped = testId.replace(/\(.*$/, '').replace(/\[.*$/, '');
+  // Split on '.' and drop the last segment if it starts with lowercase (the method name)
+  const parts = stripped.split('.');
+  const methodIdx = parts.reduce(
+    (last, p, i) => (/^[a-z]/.test(p) ? i : last),
+    -1,
+  );
+  return methodIdx > 0 ? parts.slice(0, methodIdx).join('.') : stripped;
+}
+
+export function buildGitHubPhasedJobs(
+  baseJob: any,
+  jobs: { id: number; tests: string[]; needs?: number[] }[],
+  mavenBin: string,
+  artifactName: string = 'build-artifacts',
+  artifactPath: string = 'target/',
+  runnerCores: number = 1,
+  containerImage?: string,
+): Record<string, any> {
+  const result: Record<string, any> = {};
+
+  const isMavenStep = (step: any): boolean =>
+    typeof step.run === 'string' && /^(mvn|\.\/mvnw)\b/.test(step.run.trim());
+
+  // Build job: clone base, inject -DskipTests into the Maven step, append upload-artifact
+  const buildJob = JSON.parse(JSON.stringify(baseJob));
+  if (containerImage) buildJob.container = containerImage;
+  buildJob.steps = buildJob.steps.map((step: any) => {
+    if (isMavenStep(step) && !step.run.includes('-DskipTests')) {
+      return { ...step, run: `${step.run.trim()} -DskipTests` };
+    }
+    return step;
+  });
+  buildJob.steps.push({
+    uses: 'actions/upload-artifact@v4',
+    with: { name: artifactName, path: artifactPath },
+  });
+  result['build'] = buildJob;
+
+  // Setup steps: everything in base job except the Maven build step
+  const setupSteps = (baseJob.steps as any[]).filter((step: any) => !isMavenStep(step));
+
+  // Idle core detection step, only injected when runnerCores > 1
+  const coreDetectStep = runnerCores > 1 ? {
+    name: 'Detect available cores',
+    id: 'cores',
+    run: [
+      'TOTAL=$(nproc)',
+      "LOAD=$(awk '{print int($1+0.5)}' /proc/loadavg)",
+      'IDLE=$(( TOTAL - LOAD > 1 ? TOTAL - LOAD : 1 ))',
+      'echo "count=$IDLE" >> $GITHUB_OUTPUT',
+    ].join('\n'),
+  } : null;
+
+  // forkCount flags reference the runtime-detected count, not a hardcoded value
+  const forkFlags = runnerCores > 1
+    ? ['-Dsurefire.forkCount=${{ steps.cores.outputs.count }}', '-Dsurefire.reuseForks=true']
+    : [];
+
+  // Test jobs: setup steps + download-artifact + [core detection] + scoped test command
+  for (const job of jobs) {
+    const testJob: any = JSON.parse(JSON.stringify(baseJob));
+    if (containerImage) testJob.container = containerImage;
+    const testSteps: any[] = [
+      ...JSON.parse(JSON.stringify(setupSteps)),
+      { uses: 'actions/download-artifact@v4', with: { name: artifactName } },
+    ];
+    if (coreDetectStep) testSteps.push(coreDetectStep);
+    testSteps.push({
+      name: 'Run tests',
+      run: [
+        `${mavenBin} test`,
+        `-Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')}`,
+        `-DfailIfNoTests=false`,
+        ...forkFlags,
+      ].join(' '),
+    });
+    testJob.steps = testSteps;
+    testJob.needs = ['build'];
+    result[`test-job-${job.id}`] = testJob;
+  }
+
+  return result;
 }
 
 function buildJobsWithDependencies(distributionJobs: { tasks: Task[] }[]): { id: number; tests: string[]; needs?: number[] }[] {
@@ -217,6 +305,27 @@ function buildJobsWithDependencies(distributionJobs: { tasks: Task[] }[]): { id:
       ...(sortedNeeds.length > 0 ? { needs: sortedNeeds } : {}),
     };
   });
+}
+
+/**
+ * Groups N×M LPT virtual slots into N runner jobs.
+ * LPT is run with jobCount*runnerCores slots; this merges every `runnerCores`
+ * consecutive slots into one runner, whose -Dtest= list is the union of all
+ * test IDs across those slots. Within a runner the tests run in parallel via
+ * surefire.forkCount, so intra-runner ordering is handled by Maven itself.
+ */
+export function groupSlotsIntoRunners(
+  slots: { tasks: Task[] }[],
+  runnerCores: number,
+): { id: number; tests: string[] }[] {
+  const n = Math.max(1, runnerCores);
+  const runners: { id: number; tests: string[] }[] = [];
+  for (let i = 0; i < slots.length; i += n) {
+    const group = slots.slice(i, i + n);
+    const tests = group.flatMap((slot) => slot.tasks.map((t) => t.id));
+    runners.push({ id: runners.length + 1, tests });
+  }
+  return runners;
 }
 
 function resolveJUnitPath(input: unknown): string {
@@ -425,7 +534,7 @@ yargs(hideBin(process.argv))
       if (explain && interpretation) {
         console.log('Interpretation');
         console.log('--------------');
-        console.log(`  ${interpretation}\n`);
+        console.log(`${interpretation}\n`);
       }
 
       console.log(chalk.green('Profile completed successfully.'));
@@ -443,8 +552,12 @@ yargs(hideBin(process.argv))
         })
         .option('jobs', {
           type: 'number',
-          default: os.cpus().length,
-          describe: 'Number of parallel jobs',
+          describe: 'Number of parallel jobs (defaults to --runner-cores)',
+        })
+        .option('runner-cores', {
+          type: 'number',
+          default: 2,
+          describe: 'Number of CPU cores per CI runner (default: 2 for GitHub Actions / GitLab)',
         })
         .option('platform', {
           type: 'string',
@@ -459,6 +572,10 @@ yargs(hideBin(process.argv))
           type: 'string',
           default: 'mvn',
           describe: 'Maven executable to run tests (e.g., mvn or ./mvnw)',
+        })
+        .option('from', {
+          type: 'string',
+          describe: 'Path to existing CI config file to use as base (overrides auto-detection)',
         })
         .option('dry-run', {
           type: 'boolean',
@@ -476,37 +593,40 @@ yargs(hideBin(process.argv))
           default: 1.0,
           describe:
             'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
+        })
+        .option('artifact-path', {
+          type: 'string',
+          default: 'target/',
+          describe:
+            'Path to upload as build artifact when using --split-phases (default: target/ for standard Maven)',
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
-      let jobCount = argv.jobs as number;
+      const runnerCores = argv['runner-cores'] as number;
+      const jobCount = (argv.jobs as number | undefined) ?? runnerCores;
       const platform = argv.platform as Platform;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
-      const availableCores = os.cpus().length;
-
-      if (jobCount > availableCores) {
-        console.warn(
-          chalk.yellow(
-            `Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`,
-          ),
-        );
-        jobCount = availableCores;
-      }
+      const artifactPath = argv['artifact-path'] as string;
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
-      const existingCIPath = findExistingCIFile(platform);
-      const shouldInjectIntoExistingCI =
-        !!existingCIPath && path.resolve(existingCIPath) === outPath;
 
-      let existingCIConfig: any = null;
+      const fromFlag = argv['from'] as string | undefined;
+      const existingCIPath = fromFlag ? path.resolve(fromFlag) : findExistingCIFile(platform);
 
-      if (shouldInjectIntoExistingCI && existingCIPath) {
-        const raw = fs.readFileSync(existingCIPath, 'utf-8');
-        existingCIConfig = YAML.parse(raw);
+      if (!existingCIPath) {
+        console.error(chalk.red('No CI config found. Use --from <path> to specify one.'));
+        process.exit(EXIT_FAILURE);
       }
+
+      if (!fs.existsSync(existingCIPath)) {
+        console.error(chalk.red(`Error: CI config file does not exist: ${existingCIPath}`));
+        process.exit(EXIT_FAILURE);
+      }
+
+      const existingCIConfig = YAML.parse(fs.readFileSync(existingCIPath, 'utf-8'));
 
       if (!fs.existsSync(outDir)) {
         console.error(
@@ -535,85 +655,65 @@ yargs(hideBin(process.argv))
         process.exit(EXIT_FAILURE);
       }
 
+      // Auto-detect Docker container image if a Dockerfile exists in the project root
+      let containerImage: string | undefined;
+      if (fs.existsSync(path.resolve('Dockerfile'))) {
+        const pomPath = path.resolve('pom.xml');
+        const javaVersion = fs.existsSync(pomPath) ? parsePom(pomPath).javaVersion : null;
+        containerImage = `eclipse-temurin:${javaVersion ?? '21'}-jdk`;
+        console.log(chalk.dim(`Dockerfile detected, using container: ${containerImage}`));
+      }
+
       // Main logic with error handling
       try {
         const engine = new TestSplitEngine();
-        const result = engine.run(
-          junitPath,
-          jobCount,
-          false,
-          algorithm,
-          riskFactor,
-        );
+        /*
+          When runnerCores > 1 we schedule jobCount*runnerCores virtual slots so LPT can balance at sub-runner granularity, then group them back into
+          jobCount runners (NxM -> N).
+        */
+        const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
+        const result = engine.run(junitPath, totalSlots, false, algorithm, riskFactor);
+        const jobs = runnerCores > 1 ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores) : buildJobsWithDependencies(result.distribution.jobs);
 
-        const jobs = buildJobsWithDependencies(result.distribution.jobs);
+        const testJobs = findTestJobs(existingCIConfig, platform);
+        if (testJobs.length === 0) {
+          throw new Error('No test jobs found in existing CI config');
+        }
 
-        const metadata = result.profile.metadata;
-        const hasCpuCores = typeof metadata?.cpuCores === 'number';
-        const hasMemoryLimit = metadata?.memoryLimitMb !== undefined;
-        const resourceConstraints =
-          hasCpuCores || hasMemoryLimit
-            ? {
-                cpuCores: metadata?.cpuCores ?? 0,
-                memoryLimitMb: metadata?.memoryLimitMb ?? null,
-              }
-            : undefined;
+        const commands = extractTestCommands(existingCIConfig, platform, testJobs);
+        const testCommand = commands[0] ?? `${mavenBin} test -Dtest=`;
 
         let ciConfig: string;
 
-        if (existingCIConfig) {
-          const testJobs = findTestJobs(existingCIConfig, platform);
-          if (testJobs.length === 0) {
-            throw new Error('No test jobs found in existing CI config');
+        if (platform === 'github') {
+          const baseJobName = testJobs[0];
+          const baseJob = existingCIConfig.jobs?.[baseJobName];
+          if (!baseJob) {
+            throw new Error('Unable to locate base GitHub test job');
           }
 
-          const commands = extractTestCommands(existingCIConfig, platform, testJobs);
-          const testCommand = commands[0] ?? `${mavenBin} test -Dtest=`;
-
-          if (platform === 'github') {
-            const baseJobName = testJobs[0];
-            const baseJob = existingCIConfig.jobs?.[baseJobName];
-            if (!baseJob) {
-              throw new Error('Unable to locate base GitHub test job');
-            }
-
-            const splitJobs = buildGitHubSplitJobs(baseJob, jobs, testCommand);
-            for (const jobName of testJobs) {
-              delete existingCIConfig.jobs?.[jobName];
-            }
-            existingCIConfig.jobs = {
-              ...(existingCIConfig.jobs ?? {}),
-              ...splitJobs,
-            };
-            ciConfig = YAML.stringify(existingCIConfig);
-          } else {
-            const baseJobName = testJobs[0];
-            const baseJob = existingCIConfig[baseJobName];
-            if (!baseJob) {
-              throw new Error('Unable to locate base GitLab test job');
-            }
-
-            const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand);
-            for (const jobName of testJobs) {
-              delete existingCIConfig[jobName];
-            }
-            Object.assign(existingCIConfig, splitJobs);
-            ciConfig = YAML.stringify(existingCIConfig);
+          const generatedJobs = buildGitHubPhasedJobs(baseJob, jobs, mavenBin, 'build-artifacts', artifactPath, runnerCores, containerImage);
+          for (const jobName of testJobs) {
+            delete existingCIConfig.jobs?.[jobName];
           }
-        } else if (platform === 'github') {
-          if (resourceConstraints) {
-            ciConfig = generateGitHubActionsConfig(jobs, mavenBin, resourceConstraints);
-          } else if (mavenBin !== 'mvn') {
-            ciConfig = generateGitHubActionsConfig(jobs, mavenBin);
-          } else {
-            ciConfig = generateGitHubActionsConfig(jobs);
-          }
-        } else if (resourceConstraints) {
-          ciConfig = generateGitLabCIConfig(jobs, mavenBin, resourceConstraints);
-        } else if (mavenBin !== 'mvn') {
-          ciConfig = generateGitLabCIConfig(jobs, mavenBin);
+          existingCIConfig.jobs = {
+            ...(existingCIConfig.jobs ?? {}),
+            ...generatedJobs,
+          };
+          ciConfig = YAML.stringify(existingCIConfig);
         } else {
-          ciConfig = generateGitLabCIConfig(jobs);
+          const baseJobName = testJobs[0];
+          const baseJob = existingCIConfig[baseJobName];
+          if (!baseJob) {
+            throw new Error('Unable to locate base GitLab test job');
+          }
+
+          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand, runnerCores, containerImage);
+          for (const jobName of testJobs) {
+            delete existingCIConfig[jobName];
+          }
+          Object.assign(existingCIConfig, splitJobs);
+          ciConfig = YAML.stringify(existingCIConfig);
         }
 
         if (dryRun) {
@@ -1062,6 +1162,44 @@ yargs(hideBin(process.argv))
       }
 
       if (!allPassed) process.exit(EXIT_FAILURE);
+    },
+  )
+  .command(
+    'generate-dockerfile',
+    'Generate a Dockerfile for a Maven/Java project',
+    (y) =>
+      y
+        .option('pom', {
+          type: 'string',
+          default: 'pom.xml',
+          describe: 'Path to pom.xml (used to detect Java version and Maven wrapper)',
+        })
+        .option('out', {
+          type: 'string',
+          default: 'Dockerfile',
+          describe: 'Output path for the generated Dockerfile',
+        }),
+    (argv) => {
+      const pomPath = path.resolve(argv.pom as string);
+      const outPath = path.resolve(argv.out as string);
+
+      let javaVersion: string | undefined;
+      const hasMavenWrapper = fs.existsSync(path.resolve('mvnw'));
+
+      if (fs.existsSync(pomPath)) {
+        const pomInfo = parsePom(pomPath);
+        if (pomInfo.javaVersion) javaVersion = pomInfo.javaVersion;
+      }
+
+      const content = generateDockerfile({ javaVersion, hasMavenWrapper });
+      fs.writeFileSync(outPath, content, 'utf-8');
+      console.log(chalk.green(`Dockerfile written to ${outPath}`));
+      if (javaVersion) {
+        console.log(chalk.dim(`  Java version: ${javaVersion}`));
+      }
+      if (hasMavenWrapper) {
+        console.log(chalk.dim('  Using ./mvnw'));
+      }
     },
   )
   .command(

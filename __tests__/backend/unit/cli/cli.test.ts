@@ -28,6 +28,7 @@ jest.mock('chalk', () => ({
     red: (s: string) => s,
     yellow: (s: string) => s,
     green: (s: string) => s,
+    dim: (s: string) => s,
   },
 }));
 
@@ -44,8 +45,9 @@ import {
   findExistingCIFile,
   findTestJobs,
   extractTestCommands,
-  buildGitHubSplitJobs,
   buildGitLabSplitJobs,
+  buildGitHubPhasedJobs,
+  groupSlotsIntoRunners,
 } from '../../../../src/backend/cli/cli';
 
 const mockFs = fs as jest.Mocked<typeof fs>;
@@ -104,6 +106,8 @@ describe('findExistingCIFile', () => {
   it('returns path when workflows dir contains a yml file', () => {
     mockFs.existsSync.mockReturnValue(true);
     mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
+    mockFs.readFileSync.mockReturnValue('ci-content');
+    mockYAML.parse.mockReturnValue({ jobs: { test: { steps: [{ run: 'npm test' }] } } });
     expect(findExistingCIFile('github')).toContain('ci.yml');
   });
 
@@ -135,12 +139,43 @@ describe('findTestJobs', () => {
     expect(findTestJobs(config, 'github')).toEqual(['test']);
   });
 
+  it('finds github jobs with Maven step that has no "test" keyword', () => {
+    const config = {
+      jobs: {
+        build: { steps: [{ run: 'mvn --errors --show-version --batch-mode --no-transfer-progress' }] },
+        lint:  { steps: [{ run: 'npm run lint' }] },
+      },
+    };
+    expect(findTestJobs(config, 'github')).toEqual(['build']);
+  });
+
+  it('does not detect Maven compile-only step with -DskipTests for github', () => {
+    const config = {
+      jobs: {
+        compile: { steps: [{ run: 'mvn install -DskipTests' }] },
+      },
+    };
+    expect(findTestJobs(config, 'github')).toEqual([]);
+  });
+
   it('finds gitlab jobs that have a test script line', () => {
     const config = {
       test: { script: ['mvn test'] },
       lint: { script: ['npm run lint'] },
     };
     expect(findTestJobs(config, 'gitlab')).toEqual(['test']);
+  });
+
+  it('finds gitlab jobs with Maven step that has no "test" keyword', () => {
+    const config = {
+      build: { script: ['mvn --batch-mode --no-transfer-progress'] },
+      lint:  { script: ['npm run lint'] },
+    };
+    expect(findTestJobs(config, 'gitlab')).toEqual(['build']);
+  });
+
+  it('does not detect Maven compile-only step with -DskipTests for gitlab', () => {
+    expect(findTestJobs({ compile: { script: ['mvn package -DskipTests'] } }, 'gitlab')).toEqual([]);
   });
 
   it('handles gitlab jobs where script is a plain string', () => {
@@ -160,28 +195,6 @@ describe('extractTestCommands', () => {
   });
 });
 
-describe('buildGitHubSplitJobs', () => {
-  it('creates split jobs replacing only the test step', () => {
-    const baseJob = { steps: [{ uses: 'actions/checkout@v4' }, { run: 'npm test' }] };
-    const result = buildGitHubSplitJobs(baseJob, [{ id: 1, tests: ['A', 'B'] }, { id: 2, tests: ['C'] }], 'npm test');
-
-    expect(result['job-1'].steps[1].run).toBe('npm test A B');
-    expect(result['job-2'].steps[1].run).toBe('npm test C');
-    expect(result['job-1'].steps[0]).toEqual({ uses: 'actions/checkout@v4' });
-  });
-
-  it('adds needs to dependent split jobs', () => {
-    const baseJob = { steps: [{ run: 'npm test' }] };
-    const result = buildGitHubSplitJobs(
-      baseJob,
-      [{ id: 1, tests: ['A'] }, { id: 2, tests: ['B'], needs: [1] }],
-      'npm test',
-    );
-
-    expect(result['job-1'].needs).toBeUndefined();
-    expect(result['job-2'].needs).toEqual(['job-1']);
-  });
-});
 
 describe('buildGitLabSplitJobs', () => {
   it('creates split jobs replacing the test line (array script)', () => {
@@ -200,6 +213,228 @@ describe('buildGitLabSplitJobs', () => {
       'npm test',
     );
     expect(result['job-1'].script).toEqual(['npm test A']);
+  });
+});
+
+describe('buildGitHubPhasedJobs', () => {
+  const baseJob = {
+    'runs-on': 'ubuntu-latest',
+    steps: [
+      { uses: 'actions/checkout@v4' },
+      { uses: 'actions/setup-java@v4', with: { 'java-version': '21' } },
+      { name: 'Run tests', run: 'mvn test --batch-mode' },
+    ],
+  };
+  const jobs = [
+    { id: 1, tests: ['com.example.ATest', 'com.example.BTest'] },
+    { id: 2, tests: ['com.example.CTest'] },
+  ];
+
+  it('omits forkCount flags and core detection step when runnerCores is 1 (default)', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn');
+    const steps = result['test-job-1'].steps;
+    expect(steps.find((s: any) => s.id === 'cores')).toBeUndefined();
+    const testStep = steps.find((s: any) => s.name === 'Run tests');
+    expect(testStep.run).not.toContain('forkCount');
+    expect(testStep.run).not.toContain('reuseForks');
+  });
+
+  it('injects core detection step before Run tests when runnerCores > 1', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn', 'build-artifacts', 'target/', 2);
+    for (const jobName of ['test-job-1', 'test-job-2']) {
+      const steps = result[jobName].steps;
+      const detectStep = steps.find((s: any) => s.id === 'cores');
+      expect(detectStep).toBeDefined();
+      expect(detectStep.name).toBe('Detect available cores');
+      expect(detectStep.run).toContain('nproc');
+      expect(detectStep.run).toContain('/proc/loadavg');
+      expect(detectStep.run).toContain('GITHUB_OUTPUT');
+      // Detection step must appear before Run tests
+      const detectIdx = steps.indexOf(detectStep);
+      const testIdx = steps.findIndex((s: any) => s.name === 'Run tests');
+      expect(detectIdx).toBeLessThan(testIdx);
+    }
+  });
+
+  it('uses ${{ steps.cores.outputs.count }} in forkCount (not hardcoded value)', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn', 'build-artifacts', 'target/', 2);
+    for (const jobName of ['test-job-1', 'test-job-2']) {
+      const testStep = result[jobName].steps.find((s: any) => s.name === 'Run tests');
+      expect(testStep.run).toContain('-Dsurefire.forkCount=${{ steps.cores.outputs.count }}');
+      expect(testStep.run).toContain('-Dsurefire.reuseForks=true');
+    }
+  });
+
+  it('injects nproc before_script and $IDLE forkCount into GitLab jobs when runnerCores > 1', () => {
+    const glBase = { script: ['mvn test --batch-mode'] };
+    const result = buildGitLabSplitJobs(glBase, [{ id: 1, tests: ['A'] }], 'mvn test', 2);
+    const job = result['job-1'];
+    expect(job.before_script).toBeDefined();
+    expect(job.before_script.some((l: string) => l.includes('nproc'))).toBe(true);
+    expect(job.before_script.some((l: string) => l.includes('/proc/loadavg'))).toBe(true);
+    expect(job.script[0]).toContain('-Dsurefire.forkCount=$IDLE');
+    expect(job.script[0]).toContain('-Dsurefire.reuseForks=true');
+  });
+
+  it('omits before_script and forkCount in GitLab jobs when runnerCores is 1', () => {
+    const glBase = { script: ['mvn test --batch-mode'] };
+    const result = buildGitLabSplitJobs(glBase, [{ id: 1, tests: ['A'] }], 'mvn test', 1);
+    const job = result['job-1'];
+    expect(job.before_script).toBeUndefined();
+    expect(job.script[0]).not.toContain('forkCount');
+  });
+
+  it('injects container field into GitHub build and test jobs when containerImage provided', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn', 'build-artifacts', 'target/', 1, 'eclipse-temurin:17-jdk');
+    expect(result['build'].container).toBe('eclipse-temurin:17-jdk');
+    expect(result['test-job-1'].container).toBe('eclipse-temurin:17-jdk');
+    expect(result['test-job-2'].container).toBe('eclipse-temurin:17-jdk');
+  });
+
+  it('omits container field from GitHub jobs when containerImage is not provided', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn');
+    expect(result['build'].container).toBeUndefined();
+    expect(result['test-job-1'].container).toBeUndefined();
+  });
+
+  it('injects image field into GitLab jobs when containerImage provided', () => {
+    const glBase = { script: ['mvn test'] };
+    const result = buildGitLabSplitJobs(glBase, [{ id: 1, tests: ['A'] }], 'mvn test', 1, 'eclipse-temurin:21-jdk');
+    expect(result['job-1'].image).toBe('eclipse-temurin:21-jdk');
+  });
+
+  it('omits image field from GitLab jobs when containerImage is not provided', () => {
+    const glBase = { script: ['mvn test'] };
+    const result = buildGitLabSplitJobs(glBase, [{ id: 1, tests: ['A'] }], 'mvn test', 1);
+    expect(result['job-1'].image).toBeUndefined();
+  });
+});
+
+describe('groupSlotsIntoRunners', () => {
+  const makeSlots = (counts: number[]) =>
+    counts.map((n) => ({ tasks: Array.from({ length: n }, (_, i) => ({ id: `T${i}`, duration: 1 })) }));
+
+  it('groups runnerCores consecutive slots into each runner', () => {
+    // 4 slots of 1 task each, runnerCores=2 → 2 runners of 2 tasks
+    const slots = makeSlots([1, 1, 1, 1]);
+    const runners = groupSlotsIntoRunners(slots, 2);
+    expect(runners).toHaveLength(2);
+    expect(runners[0].tests).toHaveLength(2);
+    expect(runners[1].tests).toHaveLength(2);
+  });
+
+  it('assigns sequential ids starting at 1', () => {
+    const slots = makeSlots([1, 1, 1, 1, 1, 1]);
+    const runners = groupSlotsIntoRunners(slots, 3);
+    expect(runners.map((r) => r.id)).toEqual([1, 2]);
+  });
+
+  it('unions all task ids from grouped slots', () => {
+    const slots = [
+      { tasks: [{ id: 'A', duration: 1 }, { id: 'B', duration: 1 }] },
+      { tasks: [{ id: 'C', duration: 1 }] },
+    ];
+    const runners = groupSlotsIntoRunners(slots, 2);
+    expect(runners).toHaveLength(1);
+    expect(runners[0].tests).toEqual(['A', 'B', 'C']);
+  });
+
+  it('handles remainder slots (last runner gets fewer than runnerCores slots)', () => {
+    // 5 slots, runnerCores=2 → runners of sizes [2, 2, 1]
+    const slots = makeSlots([1, 1, 1, 1, 1]);
+    const runners = groupSlotsIntoRunners(slots, 2);
+    expect(runners).toHaveLength(3);
+  });
+
+  it('treats runnerCores=1 as identity (each slot becomes its own runner)', () => {
+    const slots = makeSlots([2, 3]);
+    const runners = groupSlotsIntoRunners(slots, 1);
+    expect(runners).toHaveLength(2);
+    expect(runners[0].tests).toHaveLength(2);
+    expect(runners[1].tests).toHaveLength(3);
+  });
+});
+
+describe('generate-config N×M scheduling', () => {
+  let mockEngine: { run: jest.Mock };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.spyOn(process, 'exit').mockImplementation((code) => { throw new Error(`exit(${code})`); });
+    jest.spyOn(process.stdout, 'write').mockImplementation(() => true);
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    mockEngine = { run: jest.fn().mockReturnValue({
+      profile: { testCount: 4 },
+      distribution: {
+        jobCount: 4,
+        jobs: [
+          { totalTime: 1, tasks: [{ id: 'A', duration: 1 }] },
+          { totalTime: 1, tasks: [{ id: 'B', duration: 1 }] },
+          { totalTime: 1, tasks: [{ id: 'C', duration: 1 }] },
+          { totalTime: 1, tasks: [{ id: 'D', duration: 1 }] },
+        ],
+        metrics: { criticalPath: 1, balanceRatio: 1 },
+      },
+    }) };
+    MockTestSplitEngine.mockImplementation(() => mockEngine as any);
+  });
+
+  afterEach(() => jest.restoreAllMocks());
+
+  it('calls engine with jobCount * runnerCores virtual slots when runnerCores > 1', () => {
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ run: 'npm test' }] } },
+    };
+    mockFs.existsSync
+      .mockReturnValueOnce(true)  // workflows dir
+      .mockReturnValueOnce(true)  // existingCIPath
+      .mockReturnValueOnce(true)  // outDir
+      .mockReturnValueOnce(false) // outPath not a dir
+      .mockReturnValueOnce(true); // junitPath
+    mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
+    mockFs.readFileSync.mockReturnValue('raw-yaml');
+    mockYAML.parse.mockReturnValue(existingConfig);
+
+    generateConfigHandler({
+      junit: '/test.xml', jobs: 2, 'runner-cores': 2,
+      platform: 'github', out: '/tmp/ci.yml', 'dry-run': false,
+      algorithm: 'lpt', 'risk-factor': 1.0,
+    });
+
+    // jobs=2, runnerCores=2 → engine called with 4 virtual slots
+    expect(mockEngine.run).toHaveBeenCalledWith(
+      expect.any(String), 4, false, expect.any(String), expect.any(Number),
+    );
+  });
+
+  it('groups 4 slots into 2 runners (N×M → N) in generated config', () => {
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ run: 'npm test' }] } },
+    };
+    mockFs.existsSync
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true);
+    mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
+    mockFs.readFileSync.mockReturnValue('raw-yaml');
+    mockYAML.parse.mockReturnValue(existingConfig);
+
+    generateConfigHandler({
+      junit: '/test.xml', jobs: 2, 'runner-cores': 2,
+      platform: 'github', out: '/tmp/ci.yml', 'dry-run': false,
+      algorithm: 'lpt', 'risk-factor': 1.0,
+    });
+
+    const config = (mockYAML.stringify as jest.Mock).mock.calls[0][0];
+    // build + 2 test runners (not 4)
+    expect(Object.keys(config.jobs)).toEqual(expect.arrayContaining(['build', 'test-job-1', 'test-job-2']));
+    expect(Object.keys(config.jobs)).toHaveLength(3);
   });
 });
 
@@ -307,28 +542,38 @@ describe('generate-config command handler', () => {
 
   afterEach(() => jest.restoreAllMocks());
 
-  // existsSync call order: findExistingCIFile (1 call), outDir, outPath, junitPath.
-  function setupExistsMocks() {
+  // existsSync call order: findExistingCIFile (1 call), existsSync(existingCIPath), outDir, outPath, junitPath.
+  function setupExistsMocksWithCI(existingConfig: any) {
     mockFs.existsSync
-      .mockReturnValueOnce(false) // findExistingCIFile: no existing CI file
-      .mockReturnValueOnce(true) // outDir exists
+      .mockReturnValueOnce(true)  // findExistingCIFile: workflows dir exists
+      .mockReturnValueOnce(true)  // existsSync(existingCIPath)
+      .mockReturnValueOnce(true)  // outDir exists
       .mockReturnValueOnce(false) // outPath not a directory
       .mockReturnValueOnce(true); // junitPath exists
+    mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
+    mockFs.readFileSync.mockReturnValue('raw-yaml');
+    mockYAML.parse.mockReturnValue(existingConfig);
   }
 
-  it('generates github config and writes to file', () => {
-    setupExistsMocks();
+  it('generates split CI YAML from existing github config and writes to file', () => {
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ uses: 'actions/checkout@v4' }, { run: 'npm test' }] } },
+    };
+    setupExistsMocksWithCI(existingConfig);
+
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });
 
-    expect(mockGenerateGitHubActionsConfig).toHaveBeenCalledWith([
-      { id: 1, tests: ['TestB'] },
-      { id: 2, tests: ['TestA'] },
-    ]);
-    expect(mockFs.writeFileSync).toHaveBeenCalledWith('/tmp/ci.yml', 'github-yaml', 'utf-8');
+    expect(mockYAML.stringify).toHaveBeenCalled();
+    expect(mockFs.writeFileSync).toHaveBeenCalledWith('/tmp/ci.yml', 'generated-yaml', 'utf-8');
   });
 
   it('passes needs when scheduled jobs have cross-job test dependencies', () => {
-    setupExistsMocks();
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ run: 'npm test' }] } },
+    };
+    setupExistsMocksWithCI(existingConfig);
     mockEngine.run.mockReturnValue({
       ...mockEngineResult,
       distribution: {
@@ -342,18 +587,28 @@ describe('generate-config command handler', () => {
 
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });
 
-    expect(mockGenerateGitHubActionsConfig).toHaveBeenCalledWith([
-      { id: 1, tests: ['TestB'], needs: [2] },
-      { id: 2, tests: ['TestA'] },
-    ]);
+    expect(mockYAML.stringify).toHaveBeenCalled();
+    const config = (mockYAML.stringify as jest.Mock).mock.calls[0][0];
+    expect(config.jobs['test-job-1'].needs).toEqual(['build']);
   });
 
   it('writes gitlab config to stdout in dry-run mode', () => {
-    setupExistsMocks();
+    const existingGitLabConfig = {
+      stages: ['test'],
+      test: { script: ['npm test'] },
+    };
+    mockFs.existsSync
+      .mockReturnValueOnce(true) // findExistingCIFile: .gitlab-ci.yml exists
+      .mockReturnValueOnce(true) // existsSync(existingCIPath)
+      .mockReturnValueOnce(true) // outDir exists
+      .mockReturnValueOnce(false) // outPath not a directory
+      .mockReturnValueOnce(true); // junitPath exists
+    mockFs.readFileSync.mockReturnValue('raw-yaml');
+    mockYAML.parse.mockReturnValue(existingGitLabConfig);
+
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'gitlab', out: '/tmp/ci.yml', 'dry-run': true });
 
-    expect(mockGenerateGitLabCIConfig).toHaveBeenCalled();
-    expect(process.stdout.write).toHaveBeenCalledWith('gitlab-yaml');
+    expect(process.stdout.write).toHaveBeenCalledWith('generated-yaml');
     expect(mockFs.writeFileSync).not.toHaveBeenCalled();
   });
 
@@ -365,6 +620,7 @@ describe('generate-config command handler', () => {
 
     mockFs.existsSync
       .mockReturnValueOnce(true) // workflows dir exists
+      .mockReturnValueOnce(true) // existsSync(existingCIPath)
       .mockReturnValueOnce(true) // outDir exists
       .mockReturnValueOnce(false) // outPath not a dir
       .mockReturnValueOnce(true); // junitPath exists
@@ -382,34 +638,46 @@ describe('generate-config command handler', () => {
 
     expect(mockYAML.stringify).toHaveBeenCalled();
     expect(existingConfig.jobs).not.toHaveProperty('test');
-    expect(Object.keys(existingConfig.jobs)).toEqual(expect.arrayContaining(['job-1', 'job-2']));
+    expect(Object.keys(existingConfig.jobs)).toEqual(expect.arrayContaining(['build', 'test-job-1', 'test-job-2']));
   });
 
   it('exits when output directory does not exist', () => {
     mockFs.existsSync
-      .mockReturnValueOnce(false) // no existing CI
+      .mockReturnValueOnce(true) // existsSync(fromPath)
       .mockReturnValueOnce(false); // outDir missing
 
     expect(() =>
-      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/bad/ci.yml', 'dry-run': false }),
+      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/bad/ci.yml', 'dry-run': false, from: '/tmp/ci.yml' }),
     ).toThrow('exit(1)');
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('output directory'));
   });
 
   it('exits on inner error (e.g. no test jobs in existing CI config)', () => {
     mockFs.existsSync
-      .mockReturnValueOnce(true) // workflows dir exists
+      .mockReturnValueOnce(true) // existsSync(fromPath)
       .mockReturnValueOnce(true) // outDir exists
       .mockReturnValueOnce(false) // outPath not a dir
       .mockReturnValueOnce(true); // junitPath exists
-    mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
     mockFs.readFileSync.mockReturnValue('raw-yaml');
     mockYAML.parse.mockReturnValue({ on: ['push'], jobs: { build: { steps: [{ run: 'npm build' }] } } });
 
     expect(() =>
-      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: path.resolve('.github/workflows/ci.yml'), 'dry-run': false }),
+      generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: path.resolve('.github/workflows/ci.yml'), 'dry-run': false, from: '/tmp/ci.yml' }),
     ).toThrow('exit(1)');
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('failed to generate'));
+  });
+
+  it('defaults --jobs to --runner-cores when --jobs is not specified', () => {
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ uses: 'actions/checkout@v4' }, { run: 'npm test' }] } },
+    };
+    setupExistsMocksWithCI(existingConfig);
+
+    // jobs=undefined → jobCount=3 (runner-cores), runnerCores=3 → totalSlots=3*3=9
+    generateConfigHandler({ junit: '/test.xml', jobs: undefined, 'runner-cores': 3, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false, algorithm: 'lpt', 'risk-factor': 1.0 });
+
+    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 9, false, expect.any(String), expect.any(Number));
   });
 });
 
