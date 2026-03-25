@@ -297,6 +297,27 @@ function buildJobsWithDependencies(distributionJobs: { tasks: Task[] }[]): { id:
   });
 }
 
+/**
+ * Groups N×M LPT virtual slots into N runner jobs.
+ * LPT is run with jobCount*runnerCores slots; this merges every `runnerCores`
+ * consecutive slots into one runner, whose -Dtest= list is the union of all
+ * test IDs across those slots. Within a runner the tests run in parallel via
+ * surefire.forkCount, so intra-runner ordering is handled by Maven itself.
+ */
+export function groupSlotsIntoRunners(
+  slots: { tasks: Task[] }[],
+  runnerCores: number,
+): { id: number; tests: string[] }[] {
+  const n = Math.max(1, runnerCores);
+  const runners: { id: number; tests: string[] }[] = [];
+  for (let i = 0; i < slots.length; i += n) {
+    const group = slots.slice(i, i + n);
+    const tests = group.flatMap((slot) => slot.tasks.map((t) => t.id));
+    runners.push({ id: runners.length + 1, tests });
+  }
+  return runners;
+}
+
 function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
@@ -627,15 +648,22 @@ yargs(hideBin(process.argv))
       // Main logic with error handling
       try {
         const engine = new TestSplitEngine();
+        /*
+          When runnerCores > 1 we schedule jobCount*runnerCores virtual slots so LPT can balance at sub-runner granularity, then group them back into
+          jobCount runners (NxM -> N).
+        */
+        const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
         const result = engine.run(
           junitPath,
-          jobCount,
+          totalSlots,
           false,
           algorithm,
           riskFactor,
         );
 
-        const jobs = buildJobsWithDependencies(result.distribution.jobs);
+        const jobs = runnerCores > 1
+          ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores)
+          : buildJobsWithDependencies(result.distribution.jobs);
 
         const testJobs = findTestJobs(existingCIConfig, platform);
         if (testJobs.length === 0) {

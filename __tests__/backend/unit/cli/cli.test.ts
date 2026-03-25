@@ -46,6 +46,7 @@ import {
   extractTestCommands,
   buildGitLabSplitJobs,
   buildGitHubPhasedJobs,
+  groupSlotsIntoRunners,
 } from '../../../../src/backend/cli/cli';
 
 const mockFs = fs as jest.Mocked<typeof fs>;
@@ -280,6 +281,134 @@ describe('buildGitHubPhasedJobs', () => {
     const job = result['job-1'];
     expect(job.before_script).toBeUndefined();
     expect(job.script[0]).not.toContain('forkCount');
+  });
+});
+
+describe('groupSlotsIntoRunners', () => {
+  const makeSlots = (counts: number[]) =>
+    counts.map((n) => ({ tasks: Array.from({ length: n }, (_, i) => ({ id: `T${i}`, duration: 1 })) }));
+
+  it('groups runnerCores consecutive slots into each runner', () => {
+    // 4 slots of 1 task each, runnerCores=2 → 2 runners of 2 tasks
+    const slots = makeSlots([1, 1, 1, 1]);
+    const runners = groupSlotsIntoRunners(slots, 2);
+    expect(runners).toHaveLength(2);
+    expect(runners[0].tests).toHaveLength(2);
+    expect(runners[1].tests).toHaveLength(2);
+  });
+
+  it('assigns sequential ids starting at 1', () => {
+    const slots = makeSlots([1, 1, 1, 1, 1, 1]);
+    const runners = groupSlotsIntoRunners(slots, 3);
+    expect(runners.map((r) => r.id)).toEqual([1, 2]);
+  });
+
+  it('unions all task ids from grouped slots', () => {
+    const slots = [
+      { tasks: [{ id: 'A', duration: 1 }, { id: 'B', duration: 1 }] },
+      { tasks: [{ id: 'C', duration: 1 }] },
+    ];
+    const runners = groupSlotsIntoRunners(slots, 2);
+    expect(runners).toHaveLength(1);
+    expect(runners[0].tests).toEqual(['A', 'B', 'C']);
+  });
+
+  it('handles remainder slots (last runner gets fewer than runnerCores slots)', () => {
+    // 5 slots, runnerCores=2 → runners of sizes [2, 2, 1]
+    const slots = makeSlots([1, 1, 1, 1, 1]);
+    const runners = groupSlotsIntoRunners(slots, 2);
+    expect(runners).toHaveLength(3);
+  });
+
+  it('treats runnerCores=1 as identity (each slot becomes its own runner)', () => {
+    const slots = makeSlots([2, 3]);
+    const runners = groupSlotsIntoRunners(slots, 1);
+    expect(runners).toHaveLength(2);
+    expect(runners[0].tests).toHaveLength(2);
+    expect(runners[1].tests).toHaveLength(3);
+  });
+});
+
+describe('generate-config N×M scheduling', () => {
+  let mockEngine: { run: jest.Mock };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.spyOn(process, 'exit').mockImplementation((code) => { throw new Error(`exit(${code})`); });
+    jest.spyOn(process.stdout, 'write').mockImplementation(() => true);
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    mockEngine = { run: jest.fn().mockReturnValue({
+      profile: { testCount: 4 },
+      distribution: {
+        jobCount: 4,
+        jobs: [
+          { totalTime: 1, tasks: [{ id: 'A', duration: 1 }] },
+          { totalTime: 1, tasks: [{ id: 'B', duration: 1 }] },
+          { totalTime: 1, tasks: [{ id: 'C', duration: 1 }] },
+          { totalTime: 1, tasks: [{ id: 'D', duration: 1 }] },
+        ],
+        metrics: { criticalPath: 1, balanceRatio: 1 },
+      },
+    }) };
+    MockTestSplitEngine.mockImplementation(() => mockEngine as any);
+  });
+
+  afterEach(() => jest.restoreAllMocks());
+
+  it('calls engine with jobCount * runnerCores virtual slots when runnerCores > 1', () => {
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ run: 'npm test' }] } },
+    };
+    mockFs.existsSync
+      .mockReturnValueOnce(true)  // workflows dir
+      .mockReturnValueOnce(true)  // existingCIPath
+      .mockReturnValueOnce(true)  // outDir
+      .mockReturnValueOnce(false) // outPath not a dir
+      .mockReturnValueOnce(true); // junitPath
+    mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
+    mockFs.readFileSync.mockReturnValue('raw-yaml');
+    mockYAML.parse.mockReturnValue(existingConfig);
+
+    generateConfigHandler({
+      junit: '/test.xml', jobs: 2, 'runner-cores': 2,
+      platform: 'github', out: '/tmp/ci.yml', 'dry-run': false,
+      algorithm: 'lpt', 'risk-factor': 1.0,
+    });
+
+    // jobs=2, runnerCores=2 → engine called with 4 virtual slots
+    expect(mockEngine.run).toHaveBeenCalledWith(
+      expect.any(String), 4, false, expect.any(String), expect.any(Number),
+    );
+  });
+
+  it('groups 4 slots into 2 runners (N×M → N) in generated config', () => {
+    const existingConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ run: 'npm test' }] } },
+    };
+    mockFs.existsSync
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true);
+    mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
+    mockFs.readFileSync.mockReturnValue('raw-yaml');
+    mockYAML.parse.mockReturnValue(existingConfig);
+
+    generateConfigHandler({
+      junit: '/test.xml', jobs: 2, 'runner-cores': 2,
+      platform: 'github', out: '/tmp/ci.yml', 'dry-run': false,
+      algorithm: 'lpt', 'risk-factor': 1.0,
+    });
+
+    const config = (mockYAML.stringify as jest.Mock).mock.calls[0][0];
+    // build + 2 test runners (not 4)
+    expect(Object.keys(config.jobs)).toEqual(expect.arrayContaining(['build', 'test-job-1', 'test-job-2']));
+    expect(Object.keys(config.jobs)).toHaveLength(3);
   });
 });
 
@@ -519,10 +648,10 @@ describe('generate-config command handler', () => {
     };
     setupExistsMocksWithCI(existingConfig);
 
-    // Pass runner-cores: 3 but no jobs, handler should use 3 as jobCount
+    // jobs=undefined → jobCount=3 (runner-cores), runnerCores=3 → totalSlots=3*3=9
     generateConfigHandler({ junit: '/test.xml', jobs: undefined, 'runner-cores': 3, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false, algorithm: 'lpt', 'risk-factor': 1.0 });
 
-    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 3, false, expect.any(String), expect.any(Number));
+    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 9, false, expect.any(String), expect.any(Number));
   });
 });
 
