@@ -228,26 +228,58 @@ describe('buildGitHubPhasedJobs', () => {
     { id: 2, tests: ['com.example.CTest'] },
   ];
 
-  it('omits forkCount flags when runnerCores is 1 (default)', () => {
+  it('omits forkCount flags and core detection step when runnerCores is 1 (default)', () => {
     const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn');
-    const testStep = result['test-job-1'].steps.find((s: any) => s.name === 'Run tests');
+    const steps = result['test-job-1'].steps;
+    expect(steps.find((s: any) => s.id === 'cores')).toBeUndefined();
+    const testStep = steps.find((s: any) => s.name === 'Run tests');
     expect(testStep.run).not.toContain('forkCount');
     expect(testStep.run).not.toContain('reuseForks');
   });
 
-  it('appends -Dsurefire.forkCount and -Dsurefire.reuseForks when runnerCores > 1', () => {
+  it('injects core detection step before Run tests when runnerCores > 1', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn', 'build-artifacts', 'target/', 2);
+    for (const jobName of ['test-job-1', 'test-job-2']) {
+      const steps = result[jobName].steps;
+      const detectStep = steps.find((s: any) => s.id === 'cores');
+      expect(detectStep).toBeDefined();
+      expect(detectStep.name).toBe('Detect available cores');
+      expect(detectStep.run).toContain('nproc');
+      expect(detectStep.run).toContain('/proc/loadavg');
+      expect(detectStep.run).toContain('GITHUB_OUTPUT');
+      // Detection step must appear before Run tests
+      const detectIdx = steps.indexOf(detectStep);
+      const testIdx = steps.findIndex((s: any) => s.name === 'Run tests');
+      expect(detectIdx).toBeLessThan(testIdx);
+    }
+  });
+
+  it('uses ${{ steps.cores.outputs.count }} in forkCount (not hardcoded value)', () => {
     const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn', 'build-artifacts', 'target/', 2);
     for (const jobName of ['test-job-1', 'test-job-2']) {
       const testStep = result[jobName].steps.find((s: any) => s.name === 'Run tests');
-      expect(testStep.run).toContain('-Dsurefire.forkCount=2');
+      expect(testStep.run).toContain('-Dsurefire.forkCount=${{ steps.cores.outputs.count }}');
       expect(testStep.run).toContain('-Dsurefire.reuseForks=true');
     }
   });
 
-  it('uses the runnerCores value in the forkCount flag', () => {
-    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn', 'build-artifacts', 'target/', 4);
-    const testStep = result['test-job-1'].steps.find((s: any) => s.name === 'Run tests');
-    expect(testStep.run).toContain('-Dsurefire.forkCount=4');
+  it('injects nproc before_script and $IDLE forkCount into GitLab jobs when runnerCores > 1', () => {
+    const glBase = { script: ['mvn test --batch-mode'] };
+    const result = buildGitLabSplitJobs(glBase, [{ id: 1, tests: ['A'] }], 'mvn test', 2);
+    const job = result['job-1'];
+    expect(job.before_script).toBeDefined();
+    expect(job.before_script.some((l: string) => l.includes('nproc'))).toBe(true);
+    expect(job.before_script.some((l: string) => l.includes('/proc/loadavg'))).toBe(true);
+    expect(job.script[0]).toContain('-Dsurefire.forkCount=$IDLE');
+    expect(job.script[0]).toContain('-Dsurefire.reuseForks=true');
+  });
+
+  it('omits before_script and forkCount in GitLab jobs when runnerCores is 1', () => {
+    const glBase = { script: ['mvn test --batch-mode'] };
+    const result = buildGitLabSplitJobs(glBase, [{ id: 1, tests: ['A'] }], 'mvn test', 1);
+    const job = result['job-1'];
+    expect(job.before_script).toBeUndefined();
+    expect(job.script[0]).not.toContain('forkCount');
   });
 });
 

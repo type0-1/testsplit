@@ -140,11 +140,28 @@ export function buildGitLabSplitJobs(
   baseJob: any,
   jobs: { id: number; tests: string[]; needs?: number[] }[],
   testCommand: string,
+  runnerCores: number = 1,
 ): Record<string, any> {
   const splitJobs: Record<string, any> = {};
 
+  // before_script lines that detect idle cores at runtime (GitLab equivalent of GitHub output step)
+  const coreDetectLines = runnerCores > 1 ? [
+    'export TOTAL=$(nproc)',
+    "export LOAD=$(awk '{print int($1+0.5)}' /proc/loadavg)",
+    'export IDLE=$(( TOTAL - LOAD > 1 ? TOTAL - LOAD : 1 ))',
+  ] : [];
+
+  const forkSuffix = runnerCores > 1
+    ? ' -Dsurefire.forkCount=$IDLE -Dsurefire.reuseForks=true'
+    : '';
+
   for (const job of jobs) {
     const clonedJob = JSON.parse(JSON.stringify(baseJob));
+
+    if (coreDetectLines.length > 0) {
+      const existing = Array.isArray(clonedJob.before_script) ? clonedJob.before_script : [];
+      clonedJob.before_script = [...coreDetectLines, ...existing];
+    }
 
     const scriptLines = Array.isArray(clonedJob.script)
       ? clonedJob.script
@@ -152,7 +169,7 @@ export function buildGitLabSplitJobs(
 
     clonedJob.script = scriptLines.map((line: string) => {
       if (/^(mvn|\.\/mvnw)\b/.test(line.trim()) ? isMavenTestLine(line) : line.toLowerCase().includes('test')) {
-        return `${testCommand} ${job.tests.join(' ')}`.trim();
+        return `${testCommand} ${job.tests.join(' ')}${forkSuffix}`.trim();
       }
       return line;
     });
@@ -205,22 +222,41 @@ export function buildGitHubPhasedJobs(
   // Setup steps: everything in base job except the Maven build step
   const setupSteps = (baseJob.steps as any[]).filter((step: any) => !isMavenStep(step));
 
-  // Test jobs: setup steps + download-artifact + scoped test command
+  // Idle core detection step, only injected when runnerCores > 1
+  const coreDetectStep = runnerCores > 1 ? {
+    name: 'Detect available cores',
+    id: 'cores',
+    run: [
+      'TOTAL=$(nproc)',
+      "LOAD=$(awk '{print int($1+0.5)}' /proc/loadavg)",
+      'IDLE=$(( TOTAL - LOAD > 1 ? TOTAL - LOAD : 1 ))',
+      'echo "count=$IDLE" >> $GITHUB_OUTPUT',
+    ].join('\n'),
+  } : null;
+
+  // forkCount flags reference the runtime-detected count, not a hardcoded value
+  const forkFlags = runnerCores > 1
+    ? ['-Dsurefire.forkCount=${{ steps.cores.outputs.count }}', '-Dsurefire.reuseForks=true']
+    : [];
+
+  // Test jobs: setup steps + download-artifact + [core detection] + scoped test command
   for (const job of jobs) {
     const testJob: any = JSON.parse(JSON.stringify(baseJob));
-    testJob.steps = [
+    const testSteps: any[] = [
       ...JSON.parse(JSON.stringify(setupSteps)),
       { uses: 'actions/download-artifact@v4', with: { name: artifactName } },
-      {
-        name: 'Run tests',
-        run: [
-          `${mavenBin} test`,
-          `-Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')}`,
-          `-DfailIfNoTests=false`,
-          ...(runnerCores > 1 ? [`-Dsurefire.forkCount=${runnerCores}`, `-Dsurefire.reuseForks=true`] : []),
-        ].join(' '),
-      },
     ];
+    if (coreDetectStep) testSteps.push(coreDetectStep);
+    testSteps.push({
+      name: 'Run tests',
+      run: [
+        `${mavenBin} test`,
+        `-Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')}`,
+        `-DfailIfNoTests=false`,
+        ...forkFlags,
+      ].join(' '),
+    });
+    testJob.steps = testSteps;
     testJob.needs = ['build'];
     result[`test-job-${job.id}`] = testJob;
   }
@@ -634,7 +670,7 @@ yargs(hideBin(process.argv))
             throw new Error('Unable to locate base GitLab test job');
           }
 
-          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand);
+          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand, runnerCores);
           for (const jobName of testJobs) {
             delete existingCIConfig[jobName];
           }
