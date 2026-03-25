@@ -181,6 +181,7 @@ export function buildGitHubPhasedJobs(
   mavenBin: string,
   artifactName: string = 'build-artifacts',
   artifactPath: string = 'target/',
+  runnerCores: number = 1,
 ): Record<string, any> {
   const result: Record<string, any> = {};
 
@@ -212,7 +213,12 @@ export function buildGitHubPhasedJobs(
       { uses: 'actions/download-artifact@v4', with: { name: artifactName } },
       {
         name: 'Run tests',
-        run: `${mavenBin} test -Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')} -DfailIfNoTests=false`,
+        run: [
+          `${mavenBin} test`,
+          `-Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')}`,
+          `-DfailIfNoTests=false`,
+          ...(runnerCores > 1 ? [`-Dsurefire.forkCount=${runnerCores}`, `-Dsurefire.reuseForks=true`] : []),
+        ].join(' '),
       },
     ];
     testJob.needs = ['build'];
@@ -530,7 +536,7 @@ yargs(hideBin(process.argv))
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
       const runnerCores = argv['runner-cores'] as number;
-      let jobCount = (argv.jobs as number | undefined) ?? runnerCores;
+      const jobCount = (argv.jobs as number | undefined) ?? runnerCores;
       const platform = argv.platform as Platform;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
@@ -612,7 +618,7 @@ yargs(hideBin(process.argv))
             throw new Error('Unable to locate base GitHub test job');
           }
 
-          const generatedJobs = buildGitHubPhasedJobs(baseJob, jobs, mavenBin, 'build-artifacts', artifactPath);
+          const generatedJobs = buildGitHubPhasedJobs(baseJob, jobs, mavenBin, 'build-artifacts', artifactPath, runnerCores);
           for (const jobName of testJobs) {
             delete existingCIConfig.jobs?.[jobName];
           }

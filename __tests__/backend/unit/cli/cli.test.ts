@@ -45,6 +45,7 @@ import {
   findTestJobs,
   extractTestCommands,
   buildGitLabSplitJobs,
+  buildGitHubPhasedJobs,
 } from '../../../../src/backend/cli/cli';
 
 const mockFs = fs as jest.Mocked<typeof fs>;
@@ -210,6 +211,43 @@ describe('buildGitLabSplitJobs', () => {
       'npm test',
     );
     expect(result['job-1'].script).toEqual(['npm test A']);
+  });
+});
+
+describe('buildGitHubPhasedJobs', () => {
+  const baseJob = {
+    'runs-on': 'ubuntu-latest',
+    steps: [
+      { uses: 'actions/checkout@v4' },
+      { uses: 'actions/setup-java@v4', with: { 'java-version': '21' } },
+      { name: 'Run tests', run: 'mvn test --batch-mode' },
+    ],
+  };
+  const jobs = [
+    { id: 1, tests: ['com.example.ATest', 'com.example.BTest'] },
+    { id: 2, tests: ['com.example.CTest'] },
+  ];
+
+  it('omits forkCount flags when runnerCores is 1 (default)', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn');
+    const testStep = result['test-job-1'].steps.find((s: any) => s.name === 'Run tests');
+    expect(testStep.run).not.toContain('forkCount');
+    expect(testStep.run).not.toContain('reuseForks');
+  });
+
+  it('appends -Dsurefire.forkCount and -Dsurefire.reuseForks when runnerCores > 1', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn', 'build-artifacts', 'target/', 2);
+    for (const jobName of ['test-job-1', 'test-job-2']) {
+      const testStep = result[jobName].steps.find((s: any) => s.name === 'Run tests');
+      expect(testStep.run).toContain('-Dsurefire.forkCount=2');
+      expect(testStep.run).toContain('-Dsurefire.reuseForks=true');
+    }
+  });
+
+  it('uses the runnerCores value in the forkCount flag', () => {
+    const result = buildGitHubPhasedJobs(baseJob, jobs, 'mvn', 'build-artifacts', 'target/', 4);
+    const testStep = result['test-job-1'].steps.find((s: any) => s.name === 'Run tests');
+    expect(testStep.run).toContain('-Dsurefire.forkCount=4');
   });
 });
 
