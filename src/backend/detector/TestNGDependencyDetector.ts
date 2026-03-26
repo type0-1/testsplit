@@ -117,8 +117,11 @@ function resolveClassName(source: string, filePath: string): string | null {
 function extractTestNGMethods(source: string, className: string): TestNGMethod[] {
   const methods: TestNGMethod[] = [];
 
-  // Match @Test(...) annotations followed by a method declaration.
-  // Capture the full annotation body to parse attributes from.
+  /**
+   * Match @Test(...) annotations followed by a method declaration 
+   * then capture the full anotation body to parse attributes.
+   */
+  
   const annotationPattern = /@Test\s*(\([^)]*\))?\s*(?:public|protected|private)\s+\S+\s+(\w+)\s*\(/gm;
   let match: RegExpExecArray | null;
 
