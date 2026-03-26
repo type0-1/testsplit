@@ -14,6 +14,9 @@ import { FileStore } from '../storage/FileStore';
 import { HistoricalProfiler } from '../profiler/core/HistoricalProfiler';
 import { parsePom } from '../detector/PomParser';
 import { generateDockerfile } from '../generator/DockerfileGenerator';
+import { detectJUnit5Dependencies, detectJUnit4Dependencies } from '../detector/JUnitDependencyDetector';
+import { detectTestNGDependencies } from '../detector/TestNGDependencyDetector';
+import { parseSuiteXML, buildSuiteTaskDependencies } from '../detector/SuiteXMLParser';
 import YAML from 'yaml';
 import chalk from 'chalk';
 
@@ -599,6 +602,11 @@ yargs(hideBin(process.argv))
           default: 'target/',
           describe:
             'Path to upload as build artifact when using --split-phases (default: target/ for standard Maven)',
+        })
+        .option('src', {
+          type: 'string',
+          default: 'src/test/java',
+          describe: 'Path to Java test sources for dependency detection (default: src/test/java)',
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
@@ -664,6 +672,35 @@ yargs(hideBin(process.argv))
         console.log(chalk.dim(`Dockerfile detected, using container: ${containerImage}`));
       }
 
+      // Auto-detect test dependencies from Java source and TestNG suite XML
+      let dependencyMap: Map<string, string[]> | undefined;
+      const srcDir = path.resolve((argv.src as string | undefined) ?? 'src/test/java');
+      const suiteXMLPath = path.resolve('testng-suite.xml');
+      const hasSrc = fs.existsSync(srcDir);
+      const hasSuiteXML = fs.existsSync(suiteXMLPath);
+
+      if (hasSrc || hasSuiteXML) {
+        console.log(chalk.dim(`Scanning for test dependencies...`));
+        let tasks: { id: string; duration: number; dependencies?: string[] }[] = [];
+
+        if (hasSrc) {
+          tasks = detectJUnit5Dependencies(srcDir, tasks);
+          tasks = detectJUnit4Dependencies(srcDir, tasks);
+          tasks = detectTestNGDependencies(srcDir, tasks);
+        }
+
+        if (hasSuiteXML) {
+          const suites = parseSuiteXML(suiteXMLPath);
+          tasks = buildSuiteTaskDependencies(suites, tasks);
+        }
+
+        const withDeps = tasks.filter((t) => t.dependencies && t.dependencies.length > 0);
+        if (withDeps.length > 0) {
+          dependencyMap = new Map(withDeps.map((t) => [t.id, t.dependencies!]));
+          console.log(chalk.dim(`  Found ${dependencyMap.size} test(s) with declared dependencies`));
+        }
+      }
+
       // Main logic with error handling
       try {
         const engine = new TestSplitEngine();
@@ -672,7 +709,7 @@ yargs(hideBin(process.argv))
           jobCount runners (NxM -> N).
         */
         const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
-        const result = engine.run(junitPath, totalSlots, false, algorithm, riskFactor);
+        const result = engine.run(junitPath, totalSlots, false, algorithm, riskFactor, dependencyMap);
         const jobs = runnerCores > 1 ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores) : buildJobsWithDependencies(result.distribution.jobs);
 
         const testJobs = findTestJobs(existingCIConfig, platform);
@@ -723,12 +760,14 @@ yargs(hideBin(process.argv))
           console.log(`CI configuration written to ${outPath}`);
         }
       } catch (err: unknown) {
-        console.error(chalk.red('Error: failed to generate CI configuration'));
-
-        if (err instanceof Error) {
-          console.error(chalk.red(err.message));
+        const msg = err instanceof Error ? err.message : String(err);
+        if (msg.includes('Dependency cycle')) {
+          console.error(chalk.red('Error: dependency cycle detected in test ordering.'));
+          console.error(chalk.yellow('Check @Order, @DependsOnMethods, or testng-suite.xml for circular dependencies.'));
+          console.error(chalk.yellow(`Use --src to point to a different source root, or remove the circular dependency.`));
         } else {
-          console.error(chalk.red(String(err)));
+          console.error(chalk.red('Error: failed to generate CI configuration'));
+          console.error(chalk.red(msg));
         }
 
         process.exit(EXIT_FAILURE);

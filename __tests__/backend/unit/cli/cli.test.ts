@@ -393,7 +393,10 @@ describe('generate-config N×M scheduling', () => {
       .mockReturnValueOnce(true)  // existingCIPath
       .mockReturnValueOnce(true)  // outDir
       .mockReturnValueOnce(false) // outPath not a dir
-      .mockReturnValueOnce(true); // junitPath
+      .mockReturnValueOnce(true)  // junitPath
+      .mockReturnValueOnce(false) // Dockerfile
+      .mockReturnValueOnce(false) // srcDir
+      .mockReturnValueOnce(false); // suiteXMLPath
     mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
     mockFs.readFileSync.mockReturnValue('raw-yaml');
     mockYAML.parse.mockReturnValue(existingConfig);
@@ -406,7 +409,7 @@ describe('generate-config N×M scheduling', () => {
 
     // jobs=2, runnerCores=2 → engine called with 4 virtual slots
     expect(mockEngine.run).toHaveBeenCalledWith(
-      expect.any(String), 4, false, expect.any(String), expect.any(Number),
+      expect.any(String), 4, false, expect.any(String), expect.any(Number), undefined,
     );
   });
 
@@ -420,7 +423,10 @@ describe('generate-config N×M scheduling', () => {
       .mockReturnValueOnce(true)
       .mockReturnValueOnce(true)
       .mockReturnValueOnce(false)
-      .mockReturnValueOnce(true);
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false) // Dockerfile
+      .mockReturnValueOnce(false) // srcDir
+      .mockReturnValueOnce(false); // suiteXMLPath
     mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
     mockFs.readFileSync.mockReturnValue('raw-yaml');
     mockYAML.parse.mockReturnValue(existingConfig);
@@ -542,14 +548,18 @@ describe('generate-config command handler', () => {
 
   afterEach(() => jest.restoreAllMocks());
 
-  // existsSync call order: findExistingCIFile (1 call), existsSync(existingCIPath), outDir, outPath, junitPath.
+  // existsSync call order: findExistingCIFile (1 call), existsSync(existingCIPath), outDir, outPath,
+  // junitPath, Dockerfile (auto-docker), srcDir (auto-deps), suiteXMLPath (auto-deps).
   function setupExistsMocksWithCI(existingConfig: any) {
     mockFs.existsSync
       .mockReturnValueOnce(true)  // findExistingCIFile: workflows dir exists
       .mockReturnValueOnce(true)  // existsSync(existingCIPath)
       .mockReturnValueOnce(true)  // outDir exists
       .mockReturnValueOnce(false) // outPath not a directory
-      .mockReturnValueOnce(true); // junitPath exists
+      .mockReturnValueOnce(true)  // junitPath exists
+      .mockReturnValueOnce(false) // Dockerfile (skip auto-docker)
+      .mockReturnValueOnce(false) // srcDir (skip auto-deps)
+      .mockReturnValueOnce(false); // suiteXMLPath (skip auto-deps)
     mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
     mockFs.readFileSync.mockReturnValue('raw-yaml');
     mockYAML.parse.mockReturnValue(existingConfig);
@@ -598,11 +608,14 @@ describe('generate-config command handler', () => {
       test: { script: ['npm test'] },
     };
     mockFs.existsSync
-      .mockReturnValueOnce(true) // findExistingCIFile: .gitlab-ci.yml exists
-      .mockReturnValueOnce(true) // existsSync(existingCIPath)
-      .mockReturnValueOnce(true) // outDir exists
+      .mockReturnValueOnce(true)  // findExistingCIFile: .gitlab-ci.yml exists
+      .mockReturnValueOnce(true)  // existsSync(existingCIPath)
+      .mockReturnValueOnce(true)  // outDir exists
       .mockReturnValueOnce(false) // outPath not a directory
-      .mockReturnValueOnce(true); // junitPath exists
+      .mockReturnValueOnce(true)  // junitPath exists
+      .mockReturnValueOnce(false) // Dockerfile
+      .mockReturnValueOnce(false) // srcDir
+      .mockReturnValueOnce(false); // suiteXMLPath
     mockFs.readFileSync.mockReturnValue('raw-yaml');
     mockYAML.parse.mockReturnValue(existingGitLabConfig);
 
@@ -619,11 +632,14 @@ describe('generate-config command handler', () => {
     };
 
     mockFs.existsSync
-      .mockReturnValueOnce(true) // workflows dir exists
-      .mockReturnValueOnce(true) // existsSync(existingCIPath)
-      .mockReturnValueOnce(true) // outDir exists
+      .mockReturnValueOnce(true)  // workflows dir exists
+      .mockReturnValueOnce(true)  // existsSync(existingCIPath)
+      .mockReturnValueOnce(true)  // outDir exists
       .mockReturnValueOnce(false) // outPath not a dir
-      .mockReturnValueOnce(true); // junitPath exists
+      .mockReturnValueOnce(true)  // junitPath exists
+      .mockReturnValueOnce(false) // Dockerfile
+      .mockReturnValueOnce(false) // srcDir
+      .mockReturnValueOnce(false); // suiteXMLPath
     mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
     mockFs.readFileSync.mockReturnValue('raw-yaml');
     mockYAML.parse.mockReturnValue(existingConfig);
@@ -654,10 +670,13 @@ describe('generate-config command handler', () => {
 
   it('exits on inner error (e.g. no test jobs in existing CI config)', () => {
     mockFs.existsSync
-      .mockReturnValueOnce(true) // existsSync(fromPath)
-      .mockReturnValueOnce(true) // outDir exists
+      .mockReturnValueOnce(true)  // existsSync(fromPath)
+      .mockReturnValueOnce(true)  // outDir exists
       .mockReturnValueOnce(false) // outPath not a dir
-      .mockReturnValueOnce(true); // junitPath exists
+      .mockReturnValueOnce(true)  // junitPath exists
+      .mockReturnValueOnce(false) // Dockerfile
+      .mockReturnValueOnce(false) // srcDir
+      .mockReturnValueOnce(false); // suiteXMLPath
     mockFs.readFileSync.mockReturnValue('raw-yaml');
     mockYAML.parse.mockReturnValue({ on: ['push'], jobs: { build: { steps: [{ run: 'npm build' }] } } });
 
@@ -677,7 +696,7 @@ describe('generate-config command handler', () => {
     // jobs=undefined → jobCount=3 (runner-cores), runnerCores=3 → totalSlots=3*3=9
     generateConfigHandler({ junit: '/test.xml', jobs: undefined, 'runner-cores': 3, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false, algorithm: 'lpt', 'risk-factor': 1.0 });
 
-    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 9, false, expect.any(String), expect.any(Number));
+    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 9, false, expect.any(String), expect.any(Number), undefined);
   });
 });
 
