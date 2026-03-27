@@ -17,6 +17,14 @@ import { generateDockerfile } from '../generator/DockerfileGenerator';
 import { detectJUnit5Dependencies, detectJUnit4Dependencies } from '../detector/JUnitDependencyDetector';
 import { detectTestNGDependencies } from '../detector/TestNGDependencyDetector';
 import { parseSuiteXML, buildSuiteTaskDependencies } from '../detector/SuiteXMLParser';
+import { detectLifecycle, ServiceRequirement } from '../detector/LifecycleDetector';
+import {
+  buildGitHubServices,
+  buildGitLabServices,
+  buildDockerComposeStartStep,
+  buildDockerComposeStopStep,
+  buildDockerComposeBeforeScript,
+} from '../generator/LifecycleStepGenerator';
 import YAML from 'yaml';
 import chalk from 'chalk';
 
@@ -147,8 +155,13 @@ export function buildGitLabSplitJobs(
   testCommand: string,
   runnerCores: number = 1,
   containerImage?: string,
+  services?: ServiceRequirement[],
+  hasDockerCompose?: boolean,
 ): Record<string, any> {
   const splitJobs: Record<string, any> = {};
+
+  const gitlabServices = services ? buildGitLabServices(services) : undefined;
+  const composeLines = hasDockerCompose ? buildDockerComposeBeforeScript() : [];
 
   // before_script lines that detect idle cores at runtime (GitLab equivalent of GitHub output step)
   const coreDetectLines = runnerCores > 1 ? [
@@ -164,14 +177,12 @@ export function buildGitLabSplitJobs(
   for (const job of jobs) {
     const clonedJob = JSON.parse(JSON.stringify(baseJob));
 
-    if (containerImage) {
-      clonedJob.image = containerImage;
-    }
+    if (containerImage) clonedJob.image = containerImage;
+    if (gitlabServices) clonedJob.services = gitlabServices;
 
-    if (coreDetectLines.length > 0) {
-      const existing = Array.isArray(clonedJob.before_script) ? clonedJob.before_script : [];
-      clonedJob.before_script = [...coreDetectLines, ...existing];
-    }
+    const existingBefore = Array.isArray(clonedJob.before_script) ? clonedJob.before_script : [];
+    const beforeScript = [...composeLines, ...coreDetectLines, ...existingBefore];
+    if (beforeScript.length > 0) clonedJob.before_script = beforeScript;
 
     const scriptLines = Array.isArray(clonedJob.script)
       ? clonedJob.script
@@ -210,15 +221,22 @@ export function buildGitHubPhasedJobs(
   artifactPath: string = 'target/',
   runnerCores: number = 1,
   containerImage?: string,
+  services?: ServiceRequirement[],
+  hasDockerCompose?: boolean,
 ): Record<string, any> {
   const result: Record<string, any> = {};
 
   const isMavenStep = (step: any): boolean =>
     typeof step.run === 'string' && /^(mvn|\.\/mvnw)\b/.test(step.run.trim());
 
+  const githubServices = services ? buildGitHubServices(services) : undefined;
+  const composeStartStep = hasDockerCompose ? buildDockerComposeStartStep() : null;
+  const composeStopStep = hasDockerCompose ? buildDockerComposeStopStep() : null;
+
   // Build job: clone base, inject -DskipTests into the Maven step, append upload-artifact
   const buildJob = JSON.parse(JSON.stringify(baseJob));
   if (containerImage) buildJob.container = containerImage;
+  if (githubServices) buildJob.services = githubServices;
   buildJob.steps = buildJob.steps.map((step: any) => {
     if (isMavenStep(step) && !step.run.includes('-DskipTests')) {
       return { ...step, run: `${step.run.trim()} -DskipTests` };
@@ -251,14 +269,14 @@ export function buildGitHubPhasedJobs(
     ? ['-Dsurefire.forkCount=${{ steps.cores.outputs.count }}', '-Dsurefire.reuseForks=true']
     : [];
 
-  // Test jobs: setup steps + download-artifact + [core detection] + scoped test command
+  // Test jobs: setup steps + [compose start] + download-artifact + [core detection] + scoped test command + [compose stop]
   for (const job of jobs) {
     const testJob: any = JSON.parse(JSON.stringify(baseJob));
     if (containerImage) testJob.container = containerImage;
-    const testSteps: any[] = [
-      ...JSON.parse(JSON.stringify(setupSteps)),
-      { uses: 'actions/download-artifact@v4', with: { name: artifactName } },
-    ];
+    if (githubServices) testJob.services = githubServices;
+    const testSteps: any[] = [...JSON.parse(JSON.stringify(setupSteps))];
+    if (composeStartStep) testSteps.push(composeStartStep);
+    testSteps.push({ uses: 'actions/download-artifact@v4', with: { name: artifactName } });
     if (coreDetectStep) testSteps.push(coreDetectStep);
     testSteps.push({
       name: 'Run tests',
@@ -269,6 +287,7 @@ export function buildGitHubPhasedJobs(
         ...forkFlags,
       ].join(' '),
     });
+    if (composeStopStep) testSteps.push(composeStopStep);
     testJob.steps = testSteps;
     testJob.needs = ['build'];
     result[`test-job-${job.id}`] = testJob;
@@ -701,6 +720,15 @@ yargs(hideBin(process.argv))
         }
       }
 
+      // Auto-detect lifecycle service requirements (Testcontainers, Spring annotations, docker-compose)
+      const lifecycle = detectLifecycle(path.resolve('.'), srcDir);
+      if (lifecycle.hasDockerCompose) {
+        console.log(chalk.dim('  docker-compose.yml detected — startup steps will be injected'));
+      } else if (lifecycle.requirements.length > 0) {
+        const types = lifecycle.requirements.map((r) => r.type).join(', ');
+        console.log(chalk.dim(`  Detected services: ${types}`));
+      }
+
       // Main logic with error handling
       try {
         const engine = new TestSplitEngine();
@@ -729,7 +757,7 @@ yargs(hideBin(process.argv))
             throw new Error('Unable to locate base GitHub test job');
           }
 
-          const generatedJobs = buildGitHubPhasedJobs(baseJob, jobs, mavenBin, 'build-artifacts', artifactPath, runnerCores, containerImage);
+          const generatedJobs = buildGitHubPhasedJobs(baseJob, jobs, mavenBin, 'build-artifacts', artifactPath, runnerCores, containerImage, lifecycle.requirements.length > 0 ? lifecycle.requirements : undefined, lifecycle.hasDockerCompose);
           for (const jobName of testJobs) {
             delete existingCIConfig.jobs?.[jobName];
           }
@@ -745,7 +773,7 @@ yargs(hideBin(process.argv))
             throw new Error('Unable to locate base GitLab test job');
           }
 
-          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand, runnerCores, containerImage);
+          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand, runnerCores, containerImage, lifecycle.requirements.length > 0 ? lifecycle.requirements : undefined, lifecycle.hasDockerCompose);
           for (const jobName of testJobs) {
             delete existingCIConfig[jobName];
           }
