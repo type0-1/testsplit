@@ -19,7 +19,14 @@ export class TestSplitEngine {
     this.parser = parser;
   }
 
-  run(xmlPath: string, jobCount: number, persist: boolean, algorithm: Algorithm = 'lpt', riskFactor = 1.0) {
+  run(
+    xmlPath: string,
+    jobCount: number,
+    persist: boolean,
+    algorithm: Algorithm = 'lpt',
+    riskFactor = 1.0,
+    dependencyMap?: Map<string, string[]>
+  ) {
     const previousProfiles = this.store.loadProfiles();
 
     for (const profile of previousProfiles) {
@@ -35,7 +42,8 @@ export class TestSplitEngine {
     const tasks: Task[] = profile.testResults.map(r => {
       const stats = perTestStats[r.name];
       const duration = stats ? stats.meanDuration + riskFactor * stats.stdDev : r.duration;
-      return { id: r.name, duration };
+      const dependencies = dependencyMap?.get(r.name);
+      return { id: r.name, duration, ...(dependencies ? { dependencies } : {}) };
     });
 
     const scheduler = algorithm === 'multifit' ? new MULTIFITScheduler() : new LPTScheduler();
