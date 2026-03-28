@@ -19,8 +19,14 @@ jest.mock('fs', () => ({
 
 jest.mock('../../../../src/backend/core/TestSplitEngine');
 jest.mock('../../../../src/backend/storage/FileStore');
-jest.mock('../../../../src/backend/generator/GitHubActionsGenerator');
-jest.mock('../../../../src/backend/generator/GitLabCIGenerator');
+jest.mock('../../../../src/backend/generator/GitHubActionsGenerator', () => ({
+  ...jest.requireActual('../../../../src/backend/generator/GitHubActionsGenerator'),
+  generateGitHubActionsConfig: jest.fn(),
+}));
+jest.mock('../../../../src/backend/generator/GitLabCIGenerator', () => ({
+  ...jest.requireActual('../../../../src/backend/generator/GitLabCIGenerator'),
+  generateGitLabCIConfig: jest.fn(),
+}));
 jest.mock('yaml', () => ({ parse: jest.fn(), stringify: jest.fn(() => 'generated-yaml') }));
 jest.mock('chalk', () => ({
   __esModule: true,
@@ -41,14 +47,11 @@ import { generateGitHubActionsConfig } from '../../../../src/backend/generator/G
 import { generateGitLabCIConfig } from '../../../../src/backend/generator/GitLabCIGenerator';
 import YAML from 'yaml';
 
-import {
-  findExistingCIFile,
-  findTestJobs,
-  extractTestCommands,
-  buildGitLabSplitJobs,
-  buildGitHubPhasedJobs,
-  groupSlotsIntoRunners,
-} from '../../../../src/backend/cli/cli';
+import '../../../../src/backend/cli/cli';
+import { findExistingCIFile, findTestJobs, extractTestCommands } from '../../../../src/backend/cli/CIConfigReader';
+import { buildGitLabSplitJobs } from '../../../../src/backend/generator/GitLabCIGenerator';
+import { buildGitHubPhasedJobs } from '../../../../src/backend/generator/GitHubActionsGenerator';
+import { groupSlotsIntoRunners } from '../../../../src/backend/generator/JobBuilder';
 
 const mockFs = fs as jest.Mocked<typeof fs>;
 const MockTestSplitEngine = TestSplitEngine as jest.MockedClass<typeof TestSplitEngine>;
