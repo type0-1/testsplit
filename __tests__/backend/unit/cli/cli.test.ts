@@ -454,7 +454,7 @@ describe('generate-config N×M scheduling', () => {
 
     // jobs=2, runnerCores=2 → engine called with 4 virtual slots
     expect(mockEngine.run).toHaveBeenCalledWith(
-      expect.any(String), 4, false, expect.any(String), expect.any(Number), undefined,
+      expect.any(String), 4, true, expect.any(String), expect.any(Number), undefined,
     );
   });
 
@@ -786,7 +786,7 @@ describe('generate-config command handler', () => {
     // jobs=undefined → jobCount=3 (runner-cores), runnerCores=3 → totalSlots=3*3=9
     generateConfigHandler({ junit: '/test.xml', jobs: undefined, 'runner-cores': 3, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false, algorithm: 'lpt', 'risk-factor': 1.0 });
 
-    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 9, false, expect.any(String), expect.any(Number), undefined);
+    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 9, true, expect.any(String), expect.any(Number), undefined);
   });
 });
 

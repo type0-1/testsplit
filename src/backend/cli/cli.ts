@@ -476,6 +476,10 @@ yargs(args)
       const artifactPath = argv['artifact-path'] as string;
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
+      const dataDirArg = (argv.data as string | undefined) ?? '.data';
+      const dataDir = path.isAbsolute(dataDirArg)
+        ? dataDirArg
+        : path.resolve(outDir, dataDirArg);
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
 
@@ -534,13 +538,13 @@ yargs(args)
 
       // Main logic with error handling
       try {
-        const engine = new TestSplitEngine();
+        const engine = new TestSplitEngine(dataDir);
         /*
           When runnerCores > 1 we schedule jobCount*runnerCores virtual slots so LPT can balance at sub-runner granularity, then group them back into
           jobCount runners (NxM -> N).
         */
         const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
-        const result = engine.run(junitPath, totalSlots, false, algorithm, riskFactor, dependencyMap);
+        const result = engine.run(junitPath, totalSlots, true, algorithm, riskFactor, dependencyMap);
         const jobs = runnerCores > 1 ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores) : buildJobsWithDependencies(result.distribution.jobs);
 
         const testJobs = findTestJobs(existingCIConfig, platform);
