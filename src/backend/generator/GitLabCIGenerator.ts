@@ -6,22 +6,35 @@ import { validateYamlSyntax } from './YAMLSyntaxValidator';
 import { ServiceRequirement } from '../detector/LifecycleDetector';
 import { buildGitLabServices, buildDockerComposeBeforeScript } from './LifecycleStepGenerator';
 
-function renderGitLabJob(job: JobGroup, mavenBin: string): string {
+type JobCommandBuilder = (tests: string[]) => string;
+
+function resolveJobCommandBuilder(
+  mavenBinOrBuilder: string | JobCommandBuilder,
+): JobCommandBuilder {
+  if (typeof mavenBinOrBuilder === 'function') {
+    return mavenBinOrBuilder;
+  }
+
+  return (tests: string[]) => `${mavenBinOrBuilder} test -Dtest=${tests.join(',')}`;
+}
+
+function renderGitLabJob(job: JobGroup, buildJobCommand: JobCommandBuilder): string {
   return `
 job-${job.id}:
   stage: test
   script:
-    - ${mavenBin} test -Dtest=${job.tests.join(',')}`;
+    - ${buildJobCommand(job.tests)}`;
 }
 
 export function generateGitLabCIConfig(
   jobs: JobGroup[],
-  mavenBin: string = 'mvn',
+  mavenBinOrBuilder: string | JobCommandBuilder = 'mvn',
   resourceConstraints?: CIResourceConstraints,
 ): string {
   validateJobGroups(jobs, 'GitLab CI');
 
-  const jobsYaml = jobs.map((job) => renderGitLabJob(job, mavenBin)).join('\n');
+  const buildJobCommand = resolveJobCommandBuilder(mavenBinOrBuilder);
+  const jobsYaml = jobs.map((job) => renderGitLabJob(job, buildJobCommand)).join('\n');
 
   const constraintsComment = resourceConstraints
     ? `# Resource constraints captured during profiling\n# Keep baseline and optimized runs on identical container config\n# cpu_limit: ${resourceConstraints.cpuCores}\n# memory_limit_mb: ${resourceConstraints.memoryLimitMb ?? 'unknown'}\n`

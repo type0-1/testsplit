@@ -1,4 +1,7 @@
 {
+  "name": "testsplit",
+  "version": "0.1.0",
+  "description": "Test distribution and scheduling engine for parallel CI/CD pipelines",
   "scripts": {
     "test:unit": "jest --config jest.unit.config.js",
     "test:integration": "jest --config jest.integration.config.js",

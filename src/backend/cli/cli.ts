@@ -3,8 +3,68 @@
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
+import { spawn } from 'child_process';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+
+const packageJson = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../../..', 'package.json'), 'utf-8'),
+) as { version: string };
+
+function getCustomHelp(): string {
+  const title = chalk.bold('testsplit');
+  const version = `v${packageJson.version}`;
+  const desc =
+    'Test distribution and scheduling engine for parallel CI/CD pipelines';
+
+  const commands = [
+    {
+      name: 'profile',
+      desc: 'Profile tests and display scheduling metrics',
+    },
+    {
+      name: 'generate|generate-config',
+      desc: 'Generate CI configuration from test profile',
+    },
+    {
+      name: 'run',
+      desc: 'Schedule and execute test subsets in parallel',
+    },
+    {
+      name: 'benchmark',
+      desc: 'Run benchmark report (sequential → parallel → delta)',
+    },
+    {
+      name: 'compare',
+      desc: 'Compare recent profiling runs and detect regressions',
+    },
+    {
+      name: 'validate',
+      desc: 'Validate a generated CI configuration file',
+    },
+    {
+      name: 'dashboard',
+      desc: 'Start API + frontend dashboard and open in browser',
+    },
+  ];
+
+  let output = `\n${title} ${chalk.dim(version)}\n${desc}\n\n`;
+  output += chalk.bold('Usage:\n');
+  output += `  testsplit <command> [options]\n\n`;
+
+  output += chalk.bold('Commands:\n');
+  const maxLen = Math.max(...commands.map((c) => c.name.length));
+  commands.forEach((cmd) => {
+    output += `  ${cmd.name.padEnd(maxLen)}  ${cmd.desc}\n`;
+  });
+
+  output += `\n${chalk.bold('Global Options:')}\n`;
+  output += `  --help        Show this help message\n`;
+  output += `  --version     Show version number\n\n`;
+  output += chalk.dim(`Run 'testsplit <command> --help' for command-specific options\n`);
+
+  return output;
+}
 
 import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
 import { runAllJobs, runAllJobsDynamic, runAllJobsWorkStealing } from '../runner/ParallelRunner';
@@ -18,6 +78,8 @@ import { findExistingCIFile, findTestJobs, extractTestCommands } from './CIConfi
 import { buildGitHubPhasedJobs } from '../generator/GitHubActionsGenerator';
 import { buildGitLabSplitJobs } from '../generator/GitLabCIGenerator';
 import { buildJobsWithDependencies, groupSlotsIntoRunners } from '../generator/JobBuilder';
+import { getSchemaValidator } from '../generator/getSchemaValidator';
+import { validateYamlSyntax } from '../generator/YAMLSyntaxValidator';
 import YAML from 'yaml';
 import chalk from 'chalk';
 
@@ -35,7 +97,110 @@ function resolveJUnitPath(input: unknown): string {
   return path.resolve(input as string);
 }
 
-yargs(hideBin(process.argv))
+function normalizeJobs(input: unknown): number {
+  let jobCount = Number(input);
+
+  if (!Number.isInteger(jobCount) || jobCount <= 0) {
+    console.error(chalk.red('Error: --jobs must be a positive integer'));
+    process.exit(EXIT_FAILURE);
+  }
+
+  const availableCores = os.cpus().length;
+  if (jobCount > availableCores) {
+    console.warn(
+      chalk.yellow(
+        `Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`,
+      ),
+    );
+    jobCount = availableCores;
+  }
+
+  return jobCount;
+}
+
+function normalizeRiskFactor(input: unknown): number {
+  const riskFactor = Number(input);
+  if (!Number.isFinite(riskFactor) || riskFactor < 0) {
+    console.error(
+      chalk.red('Error: --risk-factor must be a non-negative number'),
+    );
+    process.exit(EXIT_FAILURE);
+  }
+
+  return riskFactor;
+}
+
+function assertJUnitPathExists(junitPath: string): void {
+  if (!fs.existsSync(junitPath)) {
+    console.error(chalk.red(`Error: JUnit path does not exist: ${junitPath}`));
+    process.exit(EXIT_FAILURE);
+  }
+}
+
+function prependSchedulingHeader(
+  yaml: string,
+  algorithm: Algorithm,
+  riskFactor: number,
+): string {
+  const header = [
+    '# Scheduling settings used for this distribution',
+    `# algorithm: ${algorithm}`,
+    `# risk_factor: ${riskFactor}`,
+    '',
+  ].join('\n');
+
+  return `${header}${yaml}`;
+}
+
+function validateFinalCIConfig(yaml: string, platform: Platform): void {
+  try {
+    validateYamlSyntax(yaml);
+
+    const schemaValidator = getSchemaValidator(platform);
+    schemaValidator?.validate(yaml);
+  } catch (err: unknown) {
+    const details = err instanceof Error ? err.message : String(err);
+    throw new Error(
+      `Final ${platform} CI config validation failed: ${details}`,
+      { cause: err },
+    );
+  }
+}
+
+function openInBrowser(url: string): void {
+  const platform = process.platform;
+
+  try {
+    if (platform === 'darwin') {
+      spawn('open', [url], { detached: true, stdio: 'ignore' }).unref();
+      return;
+    }
+
+    if (platform === 'win32') {
+      spawn('cmd', ['/c', 'start', '', url], {
+        detached: true,
+        stdio: 'ignore',
+      }).unref();
+      return;
+    }
+
+    spawn('xdg-open', [url], { detached: true, stdio: 'ignore' }).unref();
+  } catch {
+    // Browser launch failure should not block dashboard startup.
+  }
+}
+
+// Intercept --help early to show custom help
+const args = hideBin(process.argv);
+if (args.includes('--help') || args.includes('-h')) {
+  if (args.length === 1 || (args.length === 2 && (args[0] === '--help' || args[0] === '-h'))) {
+    // Top-level help, not command-specific
+    console.log(getCustomHelp());
+    process.exit(0);
+  }
+}
+
+yargs(args)
   .command(
     'profile',
     'Profile tests and display scheduling metrics',
@@ -75,33 +240,16 @@ yargs(hideBin(process.argv))
         }),
     (argv) => {
       const junitPath = path.resolve(argv.junit as string);
-      let jobCount = argv.jobs as number;
+      const jobCount = normalizeJobs(argv.jobs);
       const dataDir = argv.data as string;
       const explain = argv.explain as boolean;
       const algorithm = argv.algorithm as Algorithm;
-      const riskFactor = argv['risk-factor'] as number;
+      const riskFactor = normalizeRiskFactor(
+        (argv['risk-factor'] as number | undefined) ?? 1.0,
+      );
       const availableCores = os.cpus().length;
 
-      if (!Number.isInteger(jobCount) || jobCount <= 0) {
-        console.error(chalk.red('Error: --jobs must be a positive integer'));
-        process.exit(EXIT_FAILURE);
-      }
-
-      if (jobCount > availableCores) {
-        console.warn(
-          chalk.yellow(
-            `Warning: --jobs ${jobCount} exceeds available cores (${availableCores}). Capping to ${availableCores}.`,
-          ),
-        );
-        jobCount = availableCores;
-      }
-
-      if (!fs.existsSync(junitPath)) {
-        console.error(
-          chalk.red(`Error: JUnit path does not exist: ${junitPath}`),
-        );
-        process.exit(EXIT_FAILURE);
-      }
+      assertJUnitPathExists(junitPath);
 
       const engine = new TestSplitEngine(dataDir);
       const profileStart = performance.now();
@@ -244,7 +392,7 @@ yargs(hideBin(process.argv))
     },
   )
   .command(
-    'generate-config',
+    ['generate', 'generate-config'],
     'Generate CI configuration from test profile',
     (y) =>
       y
@@ -270,6 +418,16 @@ yargs(hideBin(process.argv))
         .option('out', {
           type: 'string',
           default: 'testsplit.yml',
+        })
+        .option('template', {
+          type: 'string',
+          describe:
+            'Path to an existing CI YAML template to inject split jobs into',
+        })
+        .option('data', {
+          type: 'string',
+          default: '.data',
+          describe: 'Path to persisted profiling data directory',
         })
         .option('maven-bin', {
           type: 'string',
@@ -318,6 +476,8 @@ yargs(hideBin(process.argv))
       const artifactPath = argv['artifact-path'] as string;
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
+      const templatePathArg = argv.template as string | undefined;
+      const dataDir = argv.data as string;
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
 
@@ -351,17 +511,7 @@ yargs(hideBin(process.argv))
       }
 
       // Argument validation
-      if (!fs.existsSync(junitPath)) {
-        console.error(
-          chalk.red(`Error: JUnit path does not exist: ${junitPath}`),
-        );
-        process.exit(EXIT_FAILURE);
-      }
-
-      if (!Number.isInteger(jobCount) || jobCount <= 0) {
-        console.error(chalk.red('Error: --jobs must be a positive integer'));
-        process.exit(EXIT_FAILURE);
-      }
+      assertJUnitPathExists(junitPath);
 
       const srcDir = path.resolve((argv.src as string | undefined) ?? 'src/test/java');
       const { containerImage, dependencyMap, lifecycle } = runDetection(
@@ -436,10 +586,18 @@ yargs(hideBin(process.argv))
           ciConfig = YAML.stringify(existingCIConfig);
         }
 
+        const outputConfig = prependSchedulingHeader(
+          ciConfig,
+          algorithm,
+          riskFactor,
+        );
+
+        validateFinalCIConfig(outputConfig, platform);
+
         if (dryRun) {
-          process.stdout.write(ciConfig);
+          process.stdout.write(outputConfig);
         } else {
-          fs.writeFileSync(outPath, ciConfig, 'utf-8');
+          fs.writeFileSync(outPath, outputConfig, 'utf-8');
           console.log(`CI configuration written to ${outPath}`);
         }
       } catch (err: unknown) {
@@ -629,7 +787,7 @@ yargs(hideBin(process.argv))
   )
   .command(
     'benchmark',
-    'Compare sequential vs predicted parallel performance',
+    'Run benchmark report (sequential -> parallel -> delta)',
     (y) =>
       y
         .option('junit', {
@@ -644,14 +802,9 @@ yargs(hideBin(process.argv))
         }),
     (argv) => {
       const junitPath = path.resolve(argv.junit as string);
-      const jobCount = argv.jobs as number;
+      const jobCount = normalizeJobs(argv.jobs);
 
-      if (!fs.existsSync(junitPath)) {
-        console.error(
-          chalk.red(`Error: JUnit path does not exist: ${junitPath}`),
-        );
-        process.exit(EXIT_FAILURE);
-      }
+      assertJUnitPathExists(junitPath);
 
       const benchEngine = new TestSplitEngine();
       const benchStart = performance.now();
@@ -677,16 +830,23 @@ yargs(hideBin(process.argv))
         sequential === 0 ? 0 : (timeSaved / sequential) * 100;
 
       const BENCH_SEP = '-'.repeat(SECTION_WIDTH);
+      const DELTA_ARROW = '->';
 
       console.log('\nBenchmark Report');
       console.log(BENCH_SEP);
       console.log(`Tests: ${profile.testCount}`);
       console.log(`Jobs: ${jobCount}`);
       console.log(BENCH_SEP);
-      console.log(`Sequential: ${sequential.toFixed(2)}s`);
-      console.log(`Parallel: ${parallel.toFixed(2)}s  (predicted)`);
+
+      console.log('Sequential stage');
+      console.log(`  ${sequential.toFixed(2)}s`);
+
+      console.log(`Parallel stage (${DELTA_ARROW} predicted)`);
+      console.log(`  ${parallel.toFixed(2)}s`);
+
+      console.log('Delta report');
       console.log(
-        `Time saved: ${timeSaved.toFixed(2)}s  (${timeSavedPct.toFixed(1)}%)`,
+        `  Time saved: ${timeSaved.toFixed(2)}s  (${timeSavedPct.toFixed(1)}%)`,
       );
       console.log(`Speedup: ${speedup.toFixed(2)}×`);
       console.log(
@@ -711,7 +871,7 @@ yargs(hideBin(process.argv))
           type: 'string',
           choices: ['github', 'gitlab'],
           default: 'github',
-          describe: 'CI platform the config was generated for',
+          describe: 'Target CI platform',
         }),
     (argv) => {
       const filePath = path.resolve(argv.file as string);
@@ -772,6 +932,39 @@ yargs(hideBin(process.argv))
         },
       )
   .command(
+    'dashboard',
+    'Start API + frontend dashboard and open it in your browser',
+    (y) =>
+      y.option('url', {
+        type: 'string',
+        default: 'http://localhost:5173',
+        describe: 'Dashboard URL to open in browser',
+      }),
+    (argv) => {
+      const dashboardUrl = argv.url as string;
+      const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+
+      console.log(`Dashboard: ${dashboardUrl}`);
+
+      openInBrowser(dashboardUrl);
+
+      const dashboardProcess = spawn(npmCmd, ['run', 'dashboard'], {
+        cwd: process.cwd(),
+        stdio: 'inherit',
+        env: process.env,
+      });
+
+      dashboardProcess.on('error', (err) => {
+        console.error(chalk.red(`Failed to start dashboard: ${(err as Error).message}`));
+        process.exit(EXIT_FAILURE);
+      });
+
+      dashboardProcess.on('exit', (code) => {
+        process.exit(code ?? 0);
+      });
+    },
+  )
+  .command(
     'run',
     'Schedule and execute test subsets in parallel, recording real wall-clock time per job',
     (y) =>
@@ -785,6 +978,11 @@ yargs(hideBin(process.argv))
           type: 'number',
           demandOption: true,
           describe: 'Number of parallel jobs to spawn',
+        })
+        .option('data', {
+          type: 'string',
+          default: '.data',
+          describe: 'Path to data directory for profiling artifacts',
         })
         .option('cmd', {
           type: 'string',
@@ -829,27 +1027,21 @@ yargs(hideBin(process.argv))
         }),
     async (argv) => {
       const junitPath = path.resolve(argv.junit as string);
-      const jobCount = argv.jobs as number;
+      const jobCount = normalizeJobs(argv.jobs);
+      const dataDir = argv.data as string;
       const cmd = argv.cmd as string;
       const filterFlag = argv['filter-flag'] as string;
       const filterJoin = argv['filter-join'] as string;
       const algorithm = argv.algorithm as Algorithm;
-      const riskFactor = argv['risk-factor'] as number;
+      const riskFactor = normalizeRiskFactor(argv['risk-factor']);
       const dynamic = argv.dynamic as boolean;
       const steal = argv.steal as boolean;
       const affinity = argv.affinity as boolean;
 
-      if (!fs.existsSync(junitPath)) {
-        console.error(chalk.red(`Error: --junit path does not exist: ${junitPath}`));
-        process.exit(EXIT_FAILURE);
-      }
-      if (!Number.isInteger(jobCount) || jobCount < 1) {
-        console.error(chalk.red('Error: --jobs must be a positive integer'));
-        process.exit(EXIT_FAILURE);
-      }
+      assertJUnitPathExists(junitPath);
 
-      const engine = new TestSplitEngine();
-      const { distribution } = engine.run(junitPath, jobCount, false, algorithm, riskFactor);
+      const engine = new TestSplitEngine(dataDir);
+      const { distribution } = engine.run(junitPath, jobCount, true, algorithm, riskFactor);
 
       console.log(chalk.bold(`\nSpawning ${distribution.jobs.length} job(s) using ${algorithm.toUpperCase()}...\n`));
 
@@ -983,6 +1175,8 @@ yargs(hideBin(process.argv))
       }
     },
   )
+  .version(packageJson.version)
+  .alias('h', 'help')
   .demandCommand()
   .help()
   .parse();
