@@ -81,6 +81,43 @@ describe('CommitTracker', () => {
 
       expect(result).toBe(false);
     });
+
+    it('passes working directory to execSync when provided', () => {
+      mockExecSync.mockReturnValueOnce('true');
+
+      CommitTracker.isGitRepository('/custom/repo/path');
+
+      expect(mockExecSync).toHaveBeenCalledWith(
+        'git rev-parse --is-inside-work-tree',
+        expect.objectContaining({ cwd: '/custom/repo/path' }),
+      );
+    });
+
+    it('does not pass options when working directory is not provided', () => {
+      mockExecSync.mockReturnValueOnce('true');
+
+      CommitTracker.isGitRepository();
+
+      expect(mockExecSync).toHaveBeenCalledWith('git rev-parse --is-inside-work-tree', undefined);
+    });
+
+    it('returns false when execSync throws a generic error', () => {
+      mockExecSync.mockImplementation(() => {
+        throw new Error('unknown error');
+      });
+
+      const result = CommitTracker.isGitRepository();
+
+      expect(result).toBe(false);
+    });
+
+    it('returns true regardless of git command output content', () => {
+      mockExecSync.mockReturnValueOnce('true\n');
+
+      const result = CommitTracker.isGitRepository();
+
+      expect(result).toBe(true);
+    });
   });
 });
 
