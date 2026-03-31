@@ -2,6 +2,7 @@ import {
   flagZeroDurationTests,
   detectOutlierTests,
   validateCommitPresence,
+  validateResults,
 } from '../../../../src/backend/profiler/validation/ProfilerValidator';
 import { TestResult } from '../../../../src/backend/models/TestResult';
 import { ProfileMetadata } from '../../../../src/backend/profiler/model/Profile';
@@ -10,6 +11,73 @@ const passed = (name: string, duration: number): TestResult => ({
   name,
   duration,
   status: 'passed',
+});
+
+describe('validateResults', () => {
+  it('does not throw when all results have valid durations', () => {
+    const results = [passed('TestA', 1), passed('TestB', 2), passed('TestC', 0)];
+
+    expect(() => validateResults(results)).not.toThrow();
+  });
+
+  it('throws when a result has negative duration', () => {
+    const results = [passed('TestA', 1), passed('TestB', -5)];
+
+    expect(() => validateResults(results)).toThrow(
+      'Invalid duration for test TestB',
+    );
+  });
+
+  it('throws when a result has NaN duration', () => {
+    const results = [
+      passed('TestA', 1),
+      { name: 'TestB', duration: NaN, status: 'passed' } as TestResult,
+    ];
+
+    expect(() => validateResults(results)).toThrow(
+      'Invalid duration for test TestB',
+    );
+  });
+
+  it('throws when a result has Infinity duration', () => {
+    const results = [
+      passed('TestA', 1),
+      { name: 'TestB', duration: Infinity, status: 'passed' } as TestResult,
+    ];
+
+    expect(() => validateResults(results)).toThrow(
+      'Invalid duration for test TestB',
+    );
+  });
+
+  it('throws when a result has -Infinity duration', () => {
+    const results = [
+      passed('TestA', 1),
+      { name: 'TestC', duration: -Infinity, status: 'passed' } as TestResult,
+    ];
+
+    expect(() => validateResults(results)).toThrow(
+      'Invalid duration for test TestC',
+    );
+  });
+
+  it('throws when results array is empty', () => {
+    expect(() => validateResults([])).toThrow(
+      'No test results provided for profiling',
+    );
+  });
+
+  it('throws when results is not an array', () => {
+    expect(() => validateResults(null as any)).toThrow(
+      'No test results provided for profiling',
+    );
+  });
+
+  it('includes test name in error message', () => {
+    const results = [{ name: 'MySpecialTest', duration: -1, status: 'passed' } as TestResult];
+
+    expect(() => validateResults(results)).toThrow('MySpecialTest');
+  });
 });
 
 describe('flagZeroDurationTests', () => {
