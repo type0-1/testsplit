@@ -728,8 +728,7 @@ describe('generate-config command handler', () => {
 
   it('exits when output directory does not exist', () => {
     mockFs.existsSync
-      .mockReturnValueOnce(true)   // existsSync(existingCIPath) — fromFlag resolved
-      .mockReturnValueOnce(true)   // existsSync(existingCIPath) check
+      .mockReturnValueOnce(true)   // existsSync(existingCIPath)
       .mockReturnValueOnce(false); // outDir missing
 
     expect(() =>
