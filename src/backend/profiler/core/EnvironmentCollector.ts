@@ -19,7 +19,7 @@ export class EnvironmentCollector {
       commit: commit ?? CommitTracker.getCurrentCommit(),
       generatedAt: new Date().toISOString(),
       cpuModel: cpus[0]?.model ?? 'unknown',
-      cpuCores: cpus.length ?? 0,
+      cpuCores: cpus.length,
       osVersion: typeof os.version === 'function' ? os.version() : 'unknown',
       platform: os.platform() ?? 'unknown',
       nodeVersion: process.version ?? 'unknown',

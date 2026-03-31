@@ -44,6 +44,60 @@ describe('HistoricalProfiler', () => {
     expect(profile.averageDuration).toBe(3);
   });
 
+  it('addProfile stores a profile instance', () => {
+    const profile = profiler.generateProfile(run1);
+
+    profiler.addProfile(profile);
+
+    const historical = profiler.generateHistoricalProfile();
+    expect(historical.runCount).toBe(1);
+    expect(historical.totalTests).toBe(2);
+  });
+
+  it('addProfiles appends all provided profiles', () => {
+    const profileA = profiler.generateProfile(run1);
+    const profileB = profiler.generateProfile(run2);
+
+    profiler.addProfiles([profileA, profileB]);
+
+    const historical = profiler.generateHistoricalProfile();
+    expect(historical.runCount).toBe(2);
+    expect(historical.totalTests).toBe(4);
+  });
+
+  it('getProfiles returns a defensive copy of the profiles array', () => {
+    profiler.addRun(run1);
+
+    const snapshot = profiler.getProfiles();
+    snapshot.push(profiler.generateProfile(run2));
+
+    expect(profiler.getProfiles()).toHaveLength(1);
+  });
+
+  it('setProfiles copies input array instead of retaining external reference', () => {
+    const profile = profiler.generateProfile(run1);
+    const input = [profile];
+
+    profiler.setProfiles(input);
+    input.push(profiler.generateProfile(run2));
+
+    expect(profiler.getProfiles()).toHaveLength(1);
+  });
+
+  it('handles empty duration arrays in per-test stats fallback branches', () => {
+    const stats = (profiler as any).computePerTestStats({ EmptyTest: [] });
+
+    expect(stats.EmptyTest.runCount).toBe(0);
+    expect(stats.EmptyTest.meanDuration).toBe(0);
+    expect(stats.EmptyTest.variance).toBe(0);
+    expect(stats.EmptyTest.min).toBe(0);
+    expect(stats.EmptyTest.max).toBe(0);
+    expect(stats.EmptyTest.coefficientOfVariation).toBe(0);
+    expect(stats.EmptyTest.unstable).toBe(false);
+    expect(stats.EmptyTest.zeroDuration).toBe(false);
+    expect(stats.EmptyTest.isOutlier).toBe(false);
+  });
+
   it('throws an error when generating historical profile with no runs', () => {
     expect(() => profiler.generateHistoricalProfile()).toThrow(
       'No profiling runs available',
@@ -298,5 +352,35 @@ describe('HistoricalProfiler.detectRegressions', () => {
     // With 10% threshold: regression. With 15% threshold: clean.
     expect(HistoricalProfiler.detectRegressions([a, b], 0.10)).toHaveLength(1);
     expect(HistoricalProfiler.detectRegressions([a, b], 0.15)).toHaveLength(0);
+  });
+
+  it('sorts deltas by createdAt before selecting latest', () => {
+    const newest = makeDelta({ criticalPath: 70 }, '2026-01-03T00:00:00.000Z');
+    const oldest = makeDelta({ criticalPath: 50 }, '2026-01-01T00:00:00.000Z');
+    const middle = makeDelta({ criticalPath: 55 }, '2026-01-02T00:00:00.000Z');
+
+    const flags = HistoricalProfiler.detectRegressions([newest, oldest, middle]);
+
+    expect(flags).toHaveLength(1);
+    expect(flags[0].metric).toBe('criticalPath');
+    expect(flags[0].current).toBe(70);
+  });
+
+  it('does not flag criticalPath when rolling average is zero', () => {
+    const a = makeDelta({ criticalPath: 0, balanceRatio: 1.0 }, '2026-01-01T00:00:00.000Z');
+    const b = makeDelta({ criticalPath: 100, balanceRatio: 1.0 }, '2026-01-02T00:00:00.000Z');
+
+    const flags = HistoricalProfiler.detectRegressions([a, b]);
+
+    expect(flags.some((f) => f.metric === 'criticalPath')).toBe(false);
+  });
+
+  it('does not flag balanceRatio when rolling average is zero', () => {
+    const a = makeDelta({ criticalPath: 50, balanceRatio: 0 }, '2026-01-01T00:00:00.000Z');
+    const b = makeDelta({ criticalPath: 50, balanceRatio: 2.0 }, '2026-01-02T00:00:00.000Z');
+
+    const flags = HistoricalProfiler.detectRegressions([a, b]);
+
+    expect(flags.some((f) => f.metric === 'balanceRatio')).toBe(false);
   });
 });
