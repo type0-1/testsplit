@@ -476,8 +476,6 @@ yargs(args)
       const artifactPath = argv['artifact-path'] as string;
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
-      const templatePathArg = argv.template as string | undefined;
-      const dataDir = argv.data as string;
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
 
