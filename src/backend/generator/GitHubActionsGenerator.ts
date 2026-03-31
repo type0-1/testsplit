@@ -11,7 +11,19 @@ export interface CIResourceConstraints {
   memoryLimitMb: number | null;
 }
 
-function renderGitHubJob(job: JobGroup, mavenBin: string): string {
+type JobCommandBuilder = (tests: string[]) => string;
+
+function resolveJobCommandBuilder(
+  mavenBinOrBuilder: string | JobCommandBuilder,
+): JobCommandBuilder {
+  if (typeof mavenBinOrBuilder === 'function') {
+    return mavenBinOrBuilder;
+  }
+
+  return (tests: string[]) => `${mavenBinOrBuilder} test -Dtest=${tests.join(',')}`;
+}
+
+function renderGitHubJob(job: JobGroup, buildJobCommand: JobCommandBuilder): string {
   const needsLine =
     job.needs && job.needs.length > 0
       ? `\n    needs: [${job.needs.map((id) => `job-${id}`).join(', ')}]`
@@ -22,17 +34,18 @@ function renderGitHubJob(job: JobGroup, mavenBin: string): string {
     runs-on: ubuntu-latest${needsLine}
     steps:
       - uses: actions/checkout@v4
-      - run: ${mavenBin} test -Dtest=${job.tests.join(',')}`;
+      - run: ${buildJobCommand(job.tests)}`;
 }
 
 export function generateGitHubActionsConfig(
   jobs: JobGroup[],
-  mavenBin: string = 'mvn',
+  mavenBinOrBuilder: string | JobCommandBuilder = 'mvn',
   resourceConstraints?: CIResourceConstraints,
 ): string {
   validateJobGroups(jobs, 'GitHub Actions');
 
-  const jobsYaml = jobs.map((job) => renderGitHubJob(job, mavenBin)).join('\n');
+  const buildJobCommand = resolveJobCommandBuilder(mavenBinOrBuilder);
+  const jobsYaml = jobs.map((job) => renderGitHubJob(job, buildJobCommand)).join('\n');
 
   const constraintsComment = resourceConstraints
     ? `# Resource constraints captured during profiling\n# Keep baseline and optimized runs on identical container config\n# cpu_limit: ${resourceConstraints.cpuCores}\n# memory_limit_mb: ${resourceConstraints.memoryLimitMb ?? 'unknown'}\n\n`

@@ -20,6 +20,7 @@ describe('generate-config CLI integration', () => {
   test('generates split CI YAML preserving existing job structure with --from', () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'testsplit-generate-'));
     const outPath = path.join(tempDir, 'testsplit.yml');
+    const dataDir = path.join(tempDir, '.data');
 
     try {
       const result = spawnSync(
@@ -40,6 +41,9 @@ describe('generate-config CLI integration', () => {
       if (result.status !== 0) console.error('CLI stderr:', result.stderr);
       expect(result.status).toBe(0);
       expect(fs.existsSync(outPath)).toBe(true);
+      const persistedDistributionDir = path.join(dataDir, 'distributions');
+      expect(fs.existsSync(persistedDistributionDir)).toBe(true);
+      expect(fs.readdirSync(persistedDistributionDir).some((f) => f.endsWith('.json'))).toBe(true);
 
       const parsed = YAML.parse(fs.readFileSync(outPath, 'utf-8'));
       expect(parsed.jobs).toBeDefined();

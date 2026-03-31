@@ -1,5 +1,37 @@
-import si from 'systeminformation';
 import { platform } from 'os';
+
+type CurrentLoadResult = {
+  cpus: Array<{ load: number }>;
+};
+
+type SystemInformationLike = {
+  currentLoad: () => Promise<CurrentLoadResult>;
+};
+
+async function loadSystemInformation(): Promise<SystemInformationLike | null> {
+  try {
+    const moduleName = 'systeminformation';
+    const imported = await import(moduleName);
+    const candidate = imported as unknown as {
+      currentLoad?: unknown;
+      default?: { currentLoad?: unknown };
+    };
+
+    if (typeof candidate.currentLoad === 'function') {
+      return { currentLoad: candidate.currentLoad as SystemInformationLike['currentLoad'] };
+    }
+
+    if (typeof candidate.default?.currentLoad === 'function') {
+      return {
+        currentLoad: candidate.default.currentLoad as SystemInformationLike['currentLoad'],
+      };
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
 
 /**
  * References:
@@ -19,8 +51,15 @@ export interface CoreLoad {
 
 export async function getLeastLoadedCores(count: number): Promise<number[]> {
   try {
+    const si = await loadSystemInformation();
+    if (!si) {
+      return Array.from({ length: count }, (_, i) => i);
+    }
+
     const load = await si.currentLoad();
-    const sorted: CoreLoad[] = load.cpus.map((cpu, index) => ({ index, load: cpu.load })).sort((a, b) => a.load - b.load);
+    const sorted: CoreLoad[] = load.cpus
+      .map((cpu: { load: number }, index: number) => ({ index, load: cpu.load }))
+      .sort((a: CoreLoad, b: CoreLoad) => a.load - b.load);
     return sorted.slice(0, count).map((c) => c.index);
   } catch {
     return Array.from({ length: count }, (_, i) => i);

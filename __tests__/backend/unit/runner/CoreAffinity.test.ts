@@ -1,15 +1,19 @@
 jest.mock('systeminformation', () => ({
   __esModule: true,
   default: { currentLoad: jest.fn() },
-}));
+  currentLoad: jest.fn(),
+}), { virtual: true });
 
 const mockPlatform = jest.fn();
 jest.mock('os', () => ({ ...jest.requireActual('os'), platform: mockPlatform }));
 
-import si from 'systeminformation';
 import { getLeastLoadedCores, wrapWithAffinity } from '../../../../src/backend/runner/CoreAffinity';
 
-const mockCurrentLoad = si.currentLoad as jest.Mock;
+const siMock = require('systeminformation') as {
+  currentLoad?: jest.Mock;
+  default?: { currentLoad?: jest.Mock };
+};
+const mockCurrentLoad = (siMock.currentLoad ?? siMock.default?.currentLoad) as jest.Mock;
 
 beforeEach(() => jest.clearAllMocks());
 
