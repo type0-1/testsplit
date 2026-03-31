@@ -123,10 +123,6 @@
 
     body {
         @apply bg-background text-foreground;
-        background-image:
-            linear-gradient(oklch(0.22 0.008 258 / 0.4) 1px, transparent 1px),
-            linear-gradient(90deg, oklch(0.22 0.008 258 / 0.4) 1px, transparent 1px);
-        background-size: 32px 32px;
     }
 
     .label-stamp {
