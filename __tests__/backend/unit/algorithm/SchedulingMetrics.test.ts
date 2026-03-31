@@ -46,4 +46,14 @@ describe('SchedulingMetrics', () => {
 
     expect(metrics.minJobTime).toBe(3);
   });
+
+  it('sets balanceRatio to 1 when ideal job time is zero', () => {
+    const job1 = new Job(0);
+    const job2 = new Job(1);
+
+    const metrics = computeMetrics([job1, job2], 0);
+
+    expect(metrics.idealJobTime).toBe(0);
+    expect(metrics.balanceRatio).toBe(1);
+  });
 });
