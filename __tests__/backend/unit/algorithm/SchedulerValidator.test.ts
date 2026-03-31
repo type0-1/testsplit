@@ -23,6 +23,55 @@ describe('SchedulerValidator', () => {
       expect(() => validateInputs(tasks, 1)).toThrow();
     });
 
+    it('throws when dependencies is not an array', () => {
+      const tasks = [
+        { id: 'A', duration: 5, dependencies: 'B' as unknown as string[] },
+        { id: 'B', duration: 3 },
+      ] as Task[];
+
+      expect(() => validateInputs(tasks, 2)).toThrow(
+        'Dependencies for task A must be an array',
+      );
+    });
+
+    it('throws when dependency id is invalid', () => {
+      const tasks: Task[] = [
+        { id: 'A', duration: 5, dependencies: [''] },
+        { id: 'B', duration: 3 },
+      ];
+
+      expect(() => validateInputs(tasks, 2)).toThrow(
+        'Invalid dependency id for task A',
+      );
+    });
+
+    it('throws when a task depends on itself', () => {
+      const tasks: Task[] = [{ id: 'A', duration: 5, dependencies: ['A'] }];
+
+      expect(() => validateInputs(tasks, 1)).toThrow(
+        'Task A cannot depend on itself',
+      );
+    });
+
+    it('throws when a task depends on an unknown task', () => {
+      const tasks: Task[] = [
+        { id: 'A', duration: 5, dependencies: ['B'] },
+      ];
+
+      expect(() => validateInputs(tasks, 1)).toThrow(
+        'Task A depends on unknown task B',
+      );
+    });
+
+    it('accepts valid dependencies between known tasks', () => {
+      const tasks: Task[] = [
+        { id: 'A', duration: 5 },
+        { id: 'B', duration: 3, dependencies: ['A'] },
+      ];
+
+      expect(() => validateInputs(tasks, 2)).not.toThrow();
+    });
+
     it('accepts valid input', () => {
       const tasks: Task[] = [{ id: 'A', duration: 5 }, { id: 'B', duration: 3 }];
       expect(() => validateInputs(tasks, 2)).not.toThrow();

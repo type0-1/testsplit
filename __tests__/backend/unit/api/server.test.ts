@@ -1,5 +1,7 @@
 import { buildApp } from '../../../../src/backend/api/server';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
+import fs from 'fs';
+import path from 'path';
 
 jest.mock('../../../../src/backend/storage/FileStore');
 
@@ -53,9 +55,13 @@ const mockDelta = {
 
 describe('API server', () => {
   let mockStore: jest.Mocked<FileStore>;
+  const originalCorsOrigin = process.env.CORS_ORIGIN;
+  const frontendDist = path.resolve(__dirname, '../../../../src/frontend/dist');
 
   beforeEach(() => {
     jest.clearAllMocks();
+    process.env.CORS_ORIGIN = originalCorsOrigin;
+    fs.rmSync(frontendDist, { recursive: true, force: true });
     mockStore = {
       loadHistoricalProfile: jest.fn().mockReturnValue(mockHistorical),
       loadLatestDistribution: jest.fn().mockReturnValue(mockDistribution),
@@ -67,6 +73,60 @@ describe('API server', () => {
       loadProfiles: jest.fn().mockReturnValue([]),
     } as unknown as jest.Mocked<FileStore>;
     MockFileStore.mockImplementation(() => mockStore);
+  });
+
+  afterAll(() => {
+    process.env.CORS_ORIGIN = originalCorsOrigin;
+    fs.rmSync(frontendDist, { recursive: true, force: true });
+  });
+
+  describe('CORS config', () => {
+    it('uses trimmed CORS_ORIGIN list when environment variable is set', async () => {
+      process.env.CORS_ORIGIN = ' https://allowed.example.com , , http://localhost:9999 ';
+      const app = await buildApp();
+      const res = await app.inject({
+        method: 'OPTIONS',
+        url: '/api/health',
+        headers: {
+          origin: 'https://allowed.example.com',
+          'access-control-request-method': 'GET',
+        },
+      });
+
+      expect(res.headers['access-control-allow-origin']).toBe('https://allowed.example.com');
+    });
+
+    it('uses default localhost origins when CORS_ORIGIN is unset', async () => {
+      delete process.env.CORS_ORIGIN;
+      const app = await buildApp();
+      const res = await app.inject({
+        method: 'OPTIONS',
+        url: '/api/health',
+        headers: {
+          origin: 'http://localhost:5173',
+          'access-control-request-method': 'GET',
+        },
+      });
+
+      expect(res.headers['access-control-allow-origin']).toBe('http://localhost:5173');
+    });
+  });
+
+  describe('static frontend branch', () => {
+    it('serves frontend index.html via notFound handler when dist exists', async () => {
+      fs.mkdirSync(frontendDist, { recursive: true });
+      fs.writeFileSync(
+        path.join(frontendDist, 'index.html'),
+        '<!doctype html><html><body>frontend app</body></html>',
+        'utf-8',
+      );
+
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/client/route' });
+
+      expect(res.statusCode).toBe(200);
+      expect(res.body).toContain('frontend app');
+    });
   });
 
   describe('GET /api/health', () => {
@@ -112,6 +172,109 @@ describe('API server', () => {
       const res = await app.inject({ method: 'GET', url: '/api/summary' });
       const body = JSON.parse(res.body);
       expect(body.speedupFactor).toBe(1);
+    });
+
+    it('uses latest averageDuration when historical profile is missing', async () => {
+      mockStore.loadHistoricalProfile.mockReturnValue(null);
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/summary' });
+      const body = JSON.parse(res.body);
+
+      expect(body.runCount).toBe(0);
+      expect(body.avgDuration).toBe(mockDelta.deltas.averageDuration);
+      expect(body.sequentialDuration).toBe(mockDelta.deltas.totalDuration);
+    });
+
+    it('uses computed speedupFactor when latest and criticalPath are available', async () => {
+      mockStore.loadHistoricalProfile.mockReturnValue(null);
+      mockStore.loadLatestDistribution.mockReturnValue({
+        ...mockDistribution,
+        metrics: { criticalPath: 2, balanceRatio: 1.5 },
+      });
+      mockStore.loadHistoricalDeltas.mockReturnValue([
+        {
+          ...mockDelta,
+          deltas: {
+            ...mockDelta.deltas,
+            totalDuration: 8,
+          },
+        },
+      ]);
+
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/summary' });
+      const body = JSON.parse(res.body);
+
+      expect(body.speedupFactor).toBe(4);
+      expect(body.makespan).toBe(2);
+      expect(body.balanceRatio).toBe(1.5);
+    });
+
+    it('returns all summary fields with historical values taking precedence', async () => {
+      mockStore.loadHistoricalProfile.mockReturnValue({
+        ...mockHistorical,
+        runCount: 7,
+        averageTestDuration: 9.9,
+      } as any);
+      mockStore.loadHistoricalDeltas.mockReturnValue([
+        {
+          ...mockDelta,
+          deltas: {
+            ...mockDelta.deltas,
+            testCount: 999,
+            averageDuration: 123,
+            totalDuration: 20,
+          },
+        },
+      ]);
+      mockStore.loadLatestDistribution.mockReturnValue({
+        ...mockDistribution,
+        metrics: { criticalPath: 4, balanceRatio: 1.25 },
+      } as any);
+
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/summary' });
+      const body = JSON.parse(res.body);
+
+      expect(body).toEqual({
+        totalTests: 3,
+        runCount: 7,
+        avgDuration: 9.9,
+        unstableCount: 1,
+        outlierCount: 1,
+        makespan: 4,
+        speedupFactor: 5,
+        balanceRatio: 1.25,
+        sequentialDuration: 20,
+      });
+    });
+
+    it('uses default metric fallbacks when distribution is missing', async () => {
+      mockStore.loadLatestDistribution.mockReturnValue(null);
+
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/summary' });
+      const body = JSON.parse(res.body);
+
+      expect(body.makespan).toBe(0);
+      expect(body.speedupFactor).toBe(1);
+      expect(body.balanceRatio).toBe(1);
+    });
+
+    it('falls back to zero summary values when latest payload has no fields', async () => {
+      mockStore.loadHistoricalProfile.mockReturnValue(null);
+      mockStore.loadLatestDistribution.mockReturnValue(null);
+      mockStore.loadHistoricalDeltas.mockReturnValue([
+        { createdAt: '2026-01-01T00:00:00.000Z', deltas: {} as any } as any,
+      ]);
+
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/summary' });
+      const body = JSON.parse(res.body);
+
+      expect(body.totalTests).toBe(0);
+      expect(body.avgDuration).toBe(0);
+      expect(body.sequentialDuration).toBe(0);
     });
   });
 
@@ -187,6 +350,17 @@ describe('API server', () => {
       expect(body.jobs[1].jobId).toBe(2);
     });
 
+    it('maps totalTime and test ids from distribution jobs', async () => {
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/jobs' });
+      const body = JSON.parse(res.body);
+
+      expect(body.jobs[0].totalTime).toBe(3.0);
+      expect(body.jobs[0].tests).toEqual(['com.example.TestA']);
+      expect(body.jobs[1].totalTime).toBe(3.0);
+      expect(body.jobs[1].tests).toEqual(['com.example.TestB', 'com.example.TestC']);
+    });
+
     it('falls back to task name when id is absent', async () => {
       mockStore.loadLatestDistribution.mockReturnValue({
         ...mockDistribution,
@@ -198,12 +372,52 @@ describe('API server', () => {
       expect(body.jobs[0].tests[0]).toBe('TestByName');
     });
 
+    it('falls back to raw task value when id and name are absent', async () => {
+      mockStore.loadLatestDistribution.mockReturnValue({
+        ...mockDistribution,
+        jobs: [{ totalTime: 1.0, tasks: ['plain-task'] }],
+      });
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/jobs' });
+      const body = JSON.parse(res.body);
+
+      expect(body.jobs[0].tests[0]).toBe('plain-task');
+    });
+
     it('handles missing jobs array gracefully', async () => {
       mockStore.loadLatestDistribution.mockReturnValue({ metrics: { criticalPath: 1.0 } });
       const app = await buildApp();
       const res = await app.inject({ method: 'GET', url: '/api/jobs' });
       const body = JSON.parse(res.body);
       expect(body.jobs).toEqual([]);
+      expect(body.metrics).toEqual({ criticalPath: 1.0 });
+    });
+
+    it('uses empty tests array when a job has no tasks', async () => {
+      mockStore.loadLatestDistribution.mockReturnValue({
+        metrics: { criticalPath: 1.0 },
+        jobs: [{ totalTime: 1.0 }],
+      } as any);
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/jobs' });
+      const body = JSON.parse(res.body);
+
+      expect(body.jobs[0]).toEqual({
+        jobId: 1,
+        totalTime: 1.0,
+        tests: [],
+      });
+    });
+
+    it('defaults metrics to empty object when missing', async () => {
+      mockStore.loadLatestDistribution.mockReturnValue({
+        jobs: [{ totalTime: 2.5, tasks: [{ id: 'T1' }] }],
+      } as any);
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/jobs' });
+      const body = JSON.parse(res.body);
+
+      expect(body.metrics).toEqual({});
     });
   });
 
@@ -217,6 +431,20 @@ describe('API server', () => {
       const body = JSON.parse(res.body);
       expect(body.trends[0].runAt).toBe('2026-01-01T00:00:00.000Z');
       expect(body.trends[1].runAt).toBe('2026-01-02T00:00:00.000Z');
+    });
+
+    it('clamps limit to 100 when query limit is too high', async () => {
+      const app = await buildApp();
+      await app.inject({ method: 'GET', url: '/api/trends?limit=500' });
+
+      expect(mockStore.loadHistoricalDeltas).toHaveBeenCalledWith(100);
+    });
+
+    it('defaults limit to 20 when query limit is invalid', async () => {
+      const app = await buildApp();
+      await app.inject({ method: 'GET', url: '/api/trends?limit=abc' });
+
+      expect(mockStore.loadHistoricalDeltas).toHaveBeenCalledWith(20);
     });
   });
 });

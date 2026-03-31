@@ -1,4 +1,5 @@
 import { MULTIFITScheduler } from '../../../../src/backend/algorithm/core/MULTIFITScheduler';
+import { Job } from '../../../../src/backend/algorithm/model/Job';
 import { Task } from '../../../../src/backend/algorithm/model/Task';
 
 describe('MULTIFITScheduler', () => {
@@ -26,5 +27,39 @@ describe('MULTIFITScheduler', () => {
 
   it('throws for a non-finite task duration', () => {
     expect(() => new MULTIFITScheduler().schedule([{ id: 'A', duration: Infinity }], 1)).toThrow();
+  });
+
+  it('falls back to ffd(sorted, jobCount, hi) when no feasible mid was found', () => {
+    const tasks: Task[] = [
+      { id: 'A', duration: 4 },
+      { id: 'B', duration: 3 },
+    ];
+
+    const scheduler = new MULTIFITScheduler();
+    const first = new Job(0);
+    first.addTask(tasks[0]);
+    first.addTask(tasks[1]);
+    const second = new Job(1);
+    const fallbackAssignment = [first, second];
+
+    const ffdSpy = jest
+      .spyOn(scheduler as any, 'ffd')
+      .mockImplementationOnce(() => null)
+      .mockImplementationOnce(() => null)
+      .mockImplementationOnce(() => null)
+      .mockImplementationOnce(() => null)
+      .mockImplementationOnce(() => null)
+      .mockImplementationOnce(() => null)
+      .mockImplementationOnce(() => null)
+      .mockImplementationOnce(() => fallbackAssignment);
+
+    const result = scheduler.schedule(tasks, 2);
+
+    expect(result.jobs[0].totalTime).toBe(7);
+    expect(result.jobs[1].totalTime).toBe(0);
+    expect(ffdSpy).toHaveBeenCalledTimes(8);
+    expect(ffdSpy).toHaveBeenLastCalledWith(expect.any(Array), 2, 7);
+
+    ffdSpy.mockRestore();
   });
 });
