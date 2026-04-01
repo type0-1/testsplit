@@ -216,5 +216,55 @@ describe('TestSplitEngine', () => {
         3,
       );
     });
+
+    it('maps mixed stats and raw durations in the same run', () => {
+      mockProfilerInstance.generateHistoricalProfile.mockReturnValue({
+        ...mockHistoricalProfile,
+        perTestStats: {
+          TestA: {
+            testName: 'TestA',
+            runCount: 2,
+            meanDuration: 4.0,
+            stdDev: 0.5,
+            variance: 0.25,
+            min: 3.5,
+            max: 4.5,
+            coefficientOfVariation: 0.125,
+            unstable: false,
+            zeroDuration: false,
+            isOutlier: false,
+          },
+          // TestB intentionally missing to exercise raw duration fallback branch
+        },
+      });
+
+      const engine = new TestSplitEngine('/tmp/test');
+      engine.run('tests.xml', 2, false, 'lpt', 2.0);
+
+      // TestA uses mean+k*stdDev = 4.0 + 2*0.5 = 5.0
+      // TestB falls back to parsed duration = 2.0
+      expect(mockSchedulerInstance.schedule).toHaveBeenCalledWith(
+        [
+          { id: 'TestA', duration: 5.0 },
+          { id: 'TestB', duration: 2.0 },
+        ],
+        2,
+      );
+    });
+
+    it('includes dependencies only for tests present in dependencyMap', () => {
+      const dependencyMap = new Map<string, string[]>([['TestA', ['SetupTest']]]);
+
+      const engine = new TestSplitEngine('/tmp/test');
+      engine.run('tests.xml', 2, false, 'lpt', 1.0, dependencyMap);
+
+      expect(mockSchedulerInstance.schedule).toHaveBeenCalledWith(
+        [
+          { id: 'TestA', duration: 1.0, dependencies: ['SetupTest'] },
+          { id: 'TestB', duration: 2.0 },
+        ],
+        2,
+      );
+    });
   });
 });
