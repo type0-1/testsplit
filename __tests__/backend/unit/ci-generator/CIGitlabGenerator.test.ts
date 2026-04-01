@@ -1,4 +1,7 @@
-import { generateGitLabCIConfig } from '../../../../src/backend/generator/GitLabCIGenerator';
+import {
+  buildGitLabSplitJobs,
+  generateGitLabCIConfig,
+} from '../../../../src/backend/generator/GitLabCIGenerator';
 import YAML from 'yaml';
 
 describe('GitLabCIGenerator', () => {
@@ -43,6 +46,84 @@ describe('GitLabCIGenerator', () => {
     );
 
     expect(yaml).toContain('./mvnw test -Dtest=TestA,TestB');
+  });
+
+  test('supports a custom command builder function', () => {
+    const commandBuilder = jest.fn((tests: string[]) => `./mvnw verify -Dtest=${tests.join('|')}`);
+
+    const yaml = generateGitLabCIConfig(
+      [{ id: 1, tests: ['TestA', 'TestB'] }],
+      commandBuilder,
+    );
+
+    const parsed = YAML.parse(yaml);
+    expect(commandBuilder).toHaveBeenCalledWith(['TestA', 'TestB']);
+    expect(parsed['job-1'].script[0]).toBe('./mvnw verify -Dtest=TestA|TestB');
+  });
+
+  test('uses unknown memory comment when memory limit is unavailable', () => {
+    const yaml = generateGitLabCIConfig([{ id: 1, tests: ['TestA'] }], 'mvn', {
+      cpuCores: 2,
+      memoryLimitMb: null,
+    });
+
+    expect(yaml).toContain('# memory_limit_mb: unknown');
+  });
+
+  test('buildGitLabSplitJobs adds services/image/compose/core lines and rewrites test command', () => {
+    const baseJob = {
+      script: ['echo setup', 'mvn test --batch-mode'],
+      before_script: ['echo existing-before'],
+    };
+
+    const split = buildGitLabSplitJobs(
+      baseJob,
+      [{ id: 1, tests: ['A', 'B'] }],
+      'mvn test -Dtest=',
+      2,
+      'eclipse-temurin:21-jdk',
+      [
+        {
+          type: 'postgres',
+          image: 'postgres:15',
+          source: 'testcontainers',
+          ports: ['5432:5432'],
+          env: { POSTGRES_PASSWORD: 'test' },
+        },
+      ],
+      true,
+    );
+
+    const job = split['job-1'];
+    expect(job.image).toBe('eclipse-temurin:21-jdk');
+    expect(job.services).toEqual(['postgres:15']);
+    expect(job.before_script[0]).toBe('docker compose up -d');
+    expect(job.before_script[1]).toBe('sleep 5');
+    expect(job.before_script.some((line: string) => line.includes('nproc'))).toBe(true);
+    expect(job.before_script[job.before_script.length - 1]).toBe('echo existing-before');
+    expect(job.script[1]).toContain('mvn test -Dtest= A B');
+    expect(job.script[1]).toContain('-Dsurefire.forkCount=$IDLE');
+    expect(job.script[1]).toContain('-Dsurefire.reuseForks=true');
+  });
+
+  test('does not rewrite maven line already containing -DskipTests', () => {
+    const split = buildGitLabSplitJobs(
+      { script: ['mvn test -DskipTests'] },
+      [{ id: 1, tests: ['A'] }],
+      'mvn test -Dtest=',
+    );
+
+    expect(split['job-1'].script[0]).toBe('mvn test -DskipTests');
+  });
+
+  test('rewrites non-maven script lines that mention test', () => {
+    const split = buildGitLabSplitJobs(
+      { script: ['npm test'] },
+      [{ id: 1, tests: ['A'] }],
+      'npm run integration --tests',
+    );
+
+    expect(split['job-1'].script[0]).toBe('npm run integration --tests A');
   });
 
 });
