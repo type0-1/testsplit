@@ -152,6 +152,6 @@ function parseStringArray(annotationBody: string, attribute: string): string[] {
   const attrMatch = annotationBody.match(attrPattern);
   if (!attrMatch) return [];
 
-  const content = attrMatch[1] ?? attrMatch[2] ?? '';
+  const content = attrMatch[1] || attrMatch[2] || '';
   return content.split(',').map((s) => s.trim().replace(/^"|"$/g, '')).filter((s) => s.length > 0);
 }

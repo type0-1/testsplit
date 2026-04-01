@@ -1,4 +1,6 @@
 import * as path from 'path';
+import * as fs from 'fs';
+import * as os from 'os';
 import {
   detectTestNGDependencies,
   parseTestNGAnnotationsFromSource,
@@ -74,6 +76,60 @@ describe('parseTestNGAnnotationsFromSource', () => {
     const seed = result.find((m) => m.methodName === 'seed');
     expect(seed?.groups).toEqual(['setup', 'db']);
   });
+
+  it('returns empty dependency list for empty dependsOnMethods array', () => {
+    const source = `
+      package com.example;
+      public class MyTest {
+        @Test(dependsOnMethods = {}) public void run() {}
+      }
+    `;
+    const result = parseTestNGAnnotationsFromSource(source, 'MyTest.java');
+    const run = result.find((m) => m.methodName === 'run');
+    expect(run?.dependsOnMethods).toEqual([]);
+  });
+
+  it('resolves class name from src/test/java file path when package is absent', () => {
+    const source = `
+      public class PathDerivedTest {
+        @Test(dependsOnMethods = "setup") public void run() {}
+      }
+    `;
+    const result = parseTestNGAnnotationsFromSource(
+      source,
+      '/repo/src/test/java/com/example/PathDerivedTest.java',
+    );
+    expect(result[0].className).toBe('com.example.PathDerivedTest');
+  });
+
+  it('falls back to simple class name when package and path marker are absent', () => {
+    const source = `
+      class LocalOnlyTest {
+        @Test(dependsOnMethods = "setup") public void run() {}
+      }
+    `;
+    const result = parseTestNGAnnotationsFromSource(source, 'LocalOnlyTest.java');
+    expect(result[0].className).toBe('LocalOnlyTest');
+  });
+
+  it('returns empty when class declaration is missing despite TestNG attributes', () => {
+    const source = `
+      @Test(dependsOnMethods = "setup")
+      public void run() {}
+    `;
+    expect(parseTestNGAnnotationsFromSource(source, 'NoClass.java')).toEqual([]);
+  });
+
+  it('skips defensive keyword method names matched by regex', () => {
+    const source = `
+      class KeywordLikeTest {
+        @Test(dependsOnMethods = "setup") public void if() {}
+        @Test(dependsOnMethods = "setup") public void run() {}
+      }
+    `;
+    const result = parseTestNGAnnotationsFromSource(source, 'KeywordLikeTest.java');
+    expect(result.map((m) => m.methodName)).toEqual(['run']);
+  });
 });
 
 describe('detectTestNGDependencies', () => {
@@ -125,5 +181,87 @@ describe('detectTestNGDependencies', () => {
     const ids = result.map((t) => t.id);
     expect(ids).toContain('com.example.TestNGOrderedTest#verifyUser');
     expect(ids).toContain('com.example.TestNGOrderedTest#deleteUser');
+  });
+
+  it('does not add self dependency for qualified dependsOnMethods id', () => {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'testng-self-qualified-'));
+    const javaPath = path.join(tempRoot, 'SelfQualifiedTest.java');
+
+    try {
+      fs.writeFileSync(javaPath, `
+        package com.example;
+        public class SelfQualifiedTest {
+          @Test(dependsOnMethods = {"com.example.SelfQualifiedTest#run"}) public void run() {}
+        }
+      `, 'utf-8');
+
+      const result = detectTestNGDependencies(tempRoot, [{ id: 'com.example.SelfQualifiedTest#run', duration: 1 }]);
+      const run = result.find((t) => t.id === 'com.example.SelfQualifiedTest#run');
+      expect(run?.dependencies).toEqual([]);
+    } finally {
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('does not add self dependency when dependsOnGroups resolves to the same method only', () => {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'testng-self-group-'));
+    const javaPath = path.join(tempRoot, 'SelfGroupTest.java');
+
+    try {
+      fs.writeFileSync(javaPath, `
+        package com.example;
+        public class SelfGroupTest {
+          @Test(groups = {"solo"}, dependsOnGroups = {"solo"}) public void run() {}
+        }
+      `, 'utf-8');
+
+      const result = detectTestNGDependencies(tempRoot, [{ id: 'com.example.SelfGroupTest#run', duration: 1 }]);
+      const run = result.find((t) => t.id === 'com.example.SelfGroupTest#run');
+      expect(run?.dependencies).toEqual([]);
+    } finally {
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('handles unknown dependsOnGroups by resolving to no members', () => {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'testng-unknown-group-'));
+    const javaPath = path.join(tempRoot, 'UnknownGroupTest.java');
+
+    try {
+      fs.writeFileSync(javaPath, `
+        package com.example;
+        public class UnknownGroupTest {
+          @Test(dependsOnGroups = {"missingGroup"}) public void run() {}
+        }
+      `, 'utf-8');
+
+      const result = detectTestNGDependencies(tempRoot, [{ id: 'com.example.UnknownGroupTest#run', duration: 1 }]);
+      const run = result.find((t) => t.id === 'com.example.UnknownGroupTest#run');
+      expect(run?.dependencies).toEqual([]);
+    } finally {
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('recursively scans nested directories and only processes .java files', () => {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'testng-collect-java-'));
+    const nested = path.join(tempRoot, 'a', 'b');
+    fs.mkdirSync(nested, { recursive: true });
+
+    try {
+      fs.writeFileSync(path.join(tempRoot, 'README.md'), '# ignore', 'utf-8');
+      fs.writeFileSync(path.join(nested, 'NestedTest.java'), `
+        package com.temp;
+        public class NestedTest {
+          @Test(dependsOnMethods = "setup") public void run() {}
+        }
+      `, 'utf-8');
+      fs.writeFileSync(path.join(nested, 'NotJava.txt'), '@Test(dependsOnMethods = "setup")', 'utf-8');
+
+      const result = detectTestNGDependencies(tempRoot, []);
+      expect(result.map((t) => t.id)).toEqual(['com.temp.NestedTest#run']);
+    } finally {
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
   });
 });
