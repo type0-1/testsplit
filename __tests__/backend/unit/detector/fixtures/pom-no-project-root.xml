@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Malformed: root is settings, not project -->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+  <modelVersion>1.0.0</modelVersion>
+  <profiles>
+    <profile>
+      <id>default</id>
+    </profile>
+  </profiles>
+</settings>

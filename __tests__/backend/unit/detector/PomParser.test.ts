@@ -40,6 +40,11 @@ describe('parsePom', () => {
       expect(info.javaVersion).toBe('21');
     });
 
+    it('handles malformed XML with missing project root', () => {
+      const info = parsePom(path.join(FIXTURES, 'pom-no-project-root.xml'));
+      expect(info.javaVersion).toBeNull();
+    });
+
     it('returns null when no Java version is declared', () => {
       const info = parsePom(path.join(FIXTURES, 'pom-minimal.xml'));
       expect(info.javaVersion).toBeNull();
