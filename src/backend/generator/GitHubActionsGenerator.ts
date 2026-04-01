@@ -1,4 +1,5 @@
 import { JobGroup } from './JobGroup';
+import chalk from 'chalk';
 import { validateJobGroups } from './JobGroupValidator';
 import { getSchemaValidator } from './getSchemaValidator';
 import { validateYamlSyntax } from './YAMLSyntaxValidator';
@@ -48,7 +49,7 @@ export function generateGitHubActionsConfig(
   const jobsYaml = jobs.map((job) => renderGitHubJob(job, buildJobCommand)).join('\n');
 
   const constraintsComment = resourceConstraints
-    ? `# Resource constraints captured during profiling\n# Keep baseline and optimized runs on identical container config\n# cpu_limit: ${resourceConstraints.cpuCores}\n# memory_limit_mb: ${resourceConstraints.memoryLimitMb ?? 'unknown'}\n\n`
+    ? `# Resource constraints captured during profiling\n# Keep baseline and optimized runs on identical container config\n# cpu_limit: ${resourceConstraints.cpuCores}\n# memory_limit_mb: ${resourceConstraints.memoryLimitMb ?? chalk.yellow('unknown')}\n\n`
     : '';
 
   const yamlOutput = `${constraintsComment}name: TestSplit CI

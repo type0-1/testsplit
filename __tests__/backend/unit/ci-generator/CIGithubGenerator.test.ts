@@ -1,4 +1,8 @@
-import { generateGitHubActionsConfig } from '../../../../src/backend/generator/GitHubActionsGenerator';
+import {
+  buildGitHubPhasedJobs,
+  generateGitHubActionsConfig,
+} from '../../../../src/backend/generator/GitHubActionsGenerator';
+import chalk from 'chalk';
 import YAML from 'yaml';
 
 describe('GitHubActionsGenerator', () => {
@@ -40,6 +44,16 @@ describe('GitHubActionsGenerator', () => {
     expect(yaml).toContain('# memory_limit_mb: 2048');
   });
 
+  test('renders unknown memory limit in yellow when memory is unavailable', () => {
+    const yaml = generateGitHubActionsConfig(
+      [{ id: 1, tests: ['TestA'] }],
+      'mvn',
+      { cpuCores: 2, memoryLimitMb: null },
+    );
+
+    expect(yaml).toContain(`# memory_limit_mb: ${chalk.yellow('unknown')}`);
+  });
+
   test('uses custom maven binary when provided', () => {
     const yaml = generateGitHubActionsConfig(
       [{ id: 1, tests: ['TestA', 'TestB'] }],
@@ -47,6 +61,78 @@ describe('GitHubActionsGenerator', () => {
     );
 
     expect(yaml).toContain('./mvnw test -Dtest=TestA,TestB');
+  });
+
+  test('supports a custom command builder function', () => {
+    const commandBuilder = jest.fn((tests: string[]) => `./mvnw verify -Dtest=${tests.join('|')}`);
+
+    const yaml = generateGitHubActionsConfig(
+      [{ id: 1, tests: ['TestA', 'TestB'] }],
+      commandBuilder,
+    );
+
+    const parsed = YAML.parse(yaml);
+    expect(commandBuilder).toHaveBeenCalledWith(['TestA', 'TestB']);
+    expect(parsed.jobs['job-1'].steps[1].run).toBe('./mvnw verify -Dtest=TestA|TestB');
+  });
+
+  test('renders needs list as job-* identifiers when dependencies are present', () => {
+    const yaml = generateGitHubActionsConfig([
+      { id: 1, tests: ['TestA'] },
+      { id: 2, tests: ['TestB'], needs: [1] },
+    ]);
+
+    const parsed = YAML.parse(yaml);
+    expect(parsed.jobs['job-1'].needs).toBeUndefined();
+    expect(parsed.jobs['job-2'].needs).toEqual(['job-1']);
+  });
+
+  test('buildGitHubPhasedJobs wires services, compose steps, and normalized test classes', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      steps: [
+        { uses: 'actions/checkout@v4' },
+        { name: 'Run tests', run: 'mvn test --batch-mode' },
+      ],
+    };
+
+    const phased = buildGitHubPhasedJobs(
+      baseJob,
+      [{ id: 1, tests: ['com.example.ATest.testA', 'com.example.ATest.testB', 'com.example.BTest.testC[1]'] }],
+      'mvn',
+      'build-artifacts',
+      'target/',
+      1,
+      undefined,
+      [
+        {
+          type: 'postgres',
+          image: 'postgres:15',
+          source: 'testcontainers',
+          ports: ['5432:5432'],
+          env: { POSTGRES_PASSWORD: 'test' },
+        },
+      ],
+      true,
+    );
+
+    expect(phased['build'].services).toEqual({
+      postgres: {
+        image: 'postgres:15',
+        ports: ['5432:5432'],
+        env: { POSTGRES_PASSWORD: 'test' },
+      },
+    });
+    expect(phased['build'].steps[1].run).toContain('-DskipTests');
+
+    const testSteps = phased['test-job-1'].steps;
+    expect(testSteps.some((s: any) => s.name === 'Start services')).toBe(true);
+    expect(testSteps.some((s: any) => s.name === 'Stop services')).toBe(true);
+    expect(phased['test-job-1'].needs).toEqual(['build']);
+
+    const runStep = testSteps.find((s: any) => s.name === 'Run tests');
+    expect(runStep.run).toContain('-Dtest=com.example.ATest,com.example.BTest');
+    expect(runStep.run).toContain('-DfailIfNoTests=false');
   });
 
 });
