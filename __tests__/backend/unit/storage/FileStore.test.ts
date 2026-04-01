@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
+import * as zlib from 'zlib';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
 import { HistoricalDelta } from '../../../../src/backend/models/HistoricalDelta';
 
@@ -33,6 +34,23 @@ describe('FileStore', () => {
   it('creates storage directories on initialisation', () => {
     expect(fs.existsSync(path.join(tempDir, 'profiles'))).toBe(true);
     expect(fs.existsSync(path.join(tempDir, 'distributions'))).toBe(true);
+  });
+
+  it('uses default .data baseDir when constructor argument is omitted', () => {
+    const originalCwd = process.cwd();
+    const isolated = fs.mkdtempSync(path.join(os.tmpdir(), 'testsplit-default-basedir-'));
+
+    try {
+      process.chdir(isolated);
+      const defaultStore = new FileStore();
+      expect(defaultStore).toBeDefined();
+      expect(fs.existsSync(path.join(isolated, '.data', 'profiles'))).toBe(true);
+      expect(fs.existsSync(path.join(isolated, '.data', 'distributions'))).toBe(true);
+      expect(fs.existsSync(path.join(isolated, '.data', 'history', 'deltas'))).toBe(true);
+    } finally {
+      process.chdir(originalCwd);
+      fs.rmSync(isolated, { recursive: true, force: true });
+    }
   });
 
   it('writes a profile JSON file correctly', () => {
@@ -250,5 +268,84 @@ describe('FileStore', () => {
       .filter(f => f.endsWith('.json.gz'));
       
     expect(gzFiles.length).toBeLessThanOrEqual(500);
+  });
+
+  it('returns empty historical deltas when deltas directory is missing', () => {
+    fs.rmSync(path.join(tempDir, 'history', 'deltas'), { recursive: true, force: true });
+    expect(store.loadHistoricalDeltas()).toEqual([]);
+  });
+
+  it('loads gzip delta files and warns for invalid delta payloads', () => {
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const deltasDir = path.join(tempDir, 'history', 'deltas');
+
+    const validDeltaPayload = {
+      createdAt: new Date().toISOString(),
+      deltas: makeDelta(),
+    };
+    const gz = zlib.gzipSync(Buffer.from(JSON.stringify(validDeltaPayload), 'utf-8'));
+    fs.writeFileSync(path.join(deltasDir, 'delta-001.json.gz'), gz);
+    fs.writeFileSync(path.join(deltasDir, 'delta-002.json'), '{broken-json', 'utf-8');
+
+    const loaded = store.loadHistoricalDeltas(10);
+
+    expect(loaded).toHaveLength(1);
+    expect(loaded[0]).toHaveProperty('deltas');
+    expect(warnSpy).toHaveBeenCalled();
+    warnSpy.mockRestore();
+  });
+
+  it('returns null historical profile when file contains invalid JSON', () => {
+    const historicalPath = path.join(tempDir, 'profiles', 'historical.json');
+    fs.writeFileSync(historicalPath, '{invalid-json', 'utf-8');
+
+    expect(store.loadHistoricalProfile()).toBeNull();
+  });
+
+  it('returns null when distributions directory is missing', () => {
+    fs.rmSync(path.join(tempDir, 'distributions'), { recursive: true, force: true });
+    expect(store.loadLatestDistribution()).toBeNull();
+  });
+
+  it('returns null when latest distribution file contains invalid JSON', () => {
+    const distPath = path.join(tempDir, 'distributions', 'broken.json');
+    fs.writeFileSync(distPath, '{invalid-json', 'utf-8');
+
+    expect(store.loadLatestDistribution()).toBeNull();
+  });
+
+  it('returns parsed wrapper fallback when distribution key is missing', () => {
+    const rawDist = { jobCount: 3, jobs: [] };
+    fs.writeFileSync(
+      path.join(tempDir, 'distributions', 'run-raw.json'),
+      JSON.stringify(rawDist),
+      'utf-8',
+    );
+
+    expect(store.loadLatestDistribution()).toEqual(rawDist);
+  });
+
+  it('returns empty profiles when profiles directory is missing', () => {
+    fs.rmSync(path.join(tempDir, 'profiles'), { recursive: true, force: true });
+    expect(store.loadProfiles()).toEqual([]);
+  });
+
+  it('skips non-json files and malformed profile payloads', () => {
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const profilesPath = path.join(tempDir, 'profiles');
+
+    fs.writeFileSync(path.join(profilesPath, 'notes.txt'), 'ignore-me', 'utf-8');
+    fs.writeFileSync(path.join(profilesPath, 'invalid.json'), '{not-json', 'utf-8');
+    fs.writeFileSync(path.join(profilesPath, 'null-profile.json'), 'null', 'utf-8');
+    fs.writeFileSync(
+      path.join(profilesPath, 'wrapped-invalid-profile.json'),
+      JSON.stringify({ profile: { testResults: [], testCount: 'x', totalDuration: 5 } }),
+      'utf-8',
+    );
+
+    const loaded = store.loadProfiles();
+    expect(loaded).toEqual([]);
+    expect(warnSpy).toHaveBeenCalled();
+    warnSpy.mockRestore();
   });
 });
