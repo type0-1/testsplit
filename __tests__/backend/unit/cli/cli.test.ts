@@ -162,6 +162,16 @@ describe('findExistingCIFile', () => {
     expect(findExistingCIFile('github')).toBeNull();
   });
 
+  it('returns null when parsing a workflow file throws', () => {
+    mockFs.existsSync.mockReturnValue(true);
+    mockFs.readdirSync.mockReturnValue(['ci.yml'] as any);
+    mockFs.readFileSync.mockImplementation(() => {
+      throw new Error('read failure');
+    });
+
+    expect(findExistingCIFile('github')).toBeNull();
+  });
+
   it('returns path when .gitlab-ci.yml exists', () => {
     mockFs.existsSync.mockReturnValue(true);
     expect(findExistingCIFile('gitlab')).toContain('.gitlab-ci.yml');
@@ -171,9 +181,18 @@ describe('findExistingCIFile', () => {
     mockFs.existsSync.mockReturnValue(false);
     expect(findExistingCIFile('gitlab')).toBeNull();
   });
+
+  it('returns null for unsupported platform fallback branch', () => {
+    expect(findExistingCIFile('other' as any)).toBeNull();
+  });
 });
 
 describe('findTestJobs', () => {
+  it('returns empty list when config is null', () => {
+    expect(findTestJobs(null, 'github')).toEqual([]);
+    expect(findTestJobs(null, 'gitlab')).toEqual([]);
+  });
+
   it('finds github jobs that have a test step', () => {
     const config = {
       jobs: {
@@ -226,17 +245,64 @@ describe('findTestJobs', () => {
   it('handles gitlab jobs where script is a plain string', () => {
     expect(findTestJobs({ test: { script: 'npm test' } }, 'gitlab')).toEqual(['test']);
   });
+
+  it('handles missing github jobs/steps and missing gitlab script entries', () => {
+    expect(findTestJobs({ jobs: null }, 'github')).toEqual([]);
+    expect(findTestJobs({ jobs: { test: {} } }, 'github')).toEqual([]);
+    expect(findTestJobs({ test: {}, lint: { script: ['echo lint'] } }, 'gitlab')).toEqual([]);
+  });
 });
 
 describe('extractTestCommands', () => {
+  it('returns empty commands when config is null', () => {
+    expect(extractTestCommands(null, 'github', ['test'])).toEqual([]);
+    expect(extractTestCommands(null, 'gitlab', ['test'])).toEqual([]);
+  });
+
   it('extracts test step commands for github', () => {
     const config = { jobs: { test: { steps: [{ run: 'npm build' }, { run: 'npm test' }] } } };
     expect(extractTestCommands(config, 'github', ['test'])).toEqual(['npm test']);
   });
 
+  it('extracts only maven test-like commands for github and excludes -DskipTests', () => {
+    const config = {
+      jobs: {
+        test: {
+          steps: [
+            { run: 'mvn package -DskipTests' },
+            { run: './mvnw --batch-mode --no-transfer-progress' },
+          ],
+        },
+      },
+    };
+    expect(extractTestCommands(config, 'github', ['test'])).toEqual([
+      './mvnw --batch-mode --no-transfer-progress',
+    ]);
+  });
+
   it('extracts test script lines for gitlab', () => {
     const config = { test: { script: ['npm install', 'npm test'] } };
     expect(extractTestCommands(config, 'gitlab', ['test'])).toEqual(['npm test']);
+  });
+
+  it('handles missing gitlab script and maven script filtering', () => {
+    const config = {
+      test: { script: ['mvn install -DskipTests', 'mvn --batch-mode --no-transfer-progress'] },
+      lint: {},
+    };
+    expect(extractTestCommands(config, 'gitlab', ['lint', 'test'])).toEqual([
+      'mvn --batch-mode --no-transfer-progress',
+    ]);
+  });
+
+  it('handles gitlab jobs where script is a plain string', () => {
+    const config = { test: { script: 'npm test' } };
+    expect(extractTestCommands(config, 'gitlab', ['test'])).toEqual(['npm test']);
+  });
+
+  it('handles unknown github job names and missing steps', () => {
+    const config = { jobs: { test: {} } };
+    expect(extractTestCommands(config, 'github', ['missing', 'test'])).toEqual([]);
   });
 });
 
