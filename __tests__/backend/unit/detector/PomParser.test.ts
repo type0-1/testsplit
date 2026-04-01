@@ -15,9 +15,29 @@ describe('parsePom', () => {
       expect(info.javaVersion).toBe('21');
     });
 
+    it('falls back to maven.compiler.source when java.version absent', () => {
+      const info = parsePom(path.join(FIXTURES, 'pom-maven-compiler-source.xml'));
+      expect(info.javaVersion).toBe('11');
+    });
+
+    it('falls back to maven.compiler.release when java.version and source absent', () => {
+      const info = parsePom(path.join(FIXTURES, 'pom-maven-compiler-release.xml'));
+      expect(info.javaVersion).toBe('16');
+    });
+
     it('reads <release> from maven-compiler-plugin configuration', () => {
       const info = parsePom(path.join(FIXTURES, 'pom-compiler-plugin.xml'));
       expect(info.javaVersion).toBe('17');
+    });
+
+    it('falls back to <source> from maven-compiler-plugin when release absent', () => {
+      const info = parsePom(path.join(FIXTURES, 'pom-compiler-source-config.xml'));
+      expect(info.javaVersion).toBe('11');
+    });
+
+    it('handles single plugin in plugins list (not array)', () => {
+      const info = parsePom(path.join(FIXTURES, 'pom-single-plugin.xml'));
+      expect(info.javaVersion).toBe('21');
     });
 
     it('returns null when no Java version is declared', () => {
