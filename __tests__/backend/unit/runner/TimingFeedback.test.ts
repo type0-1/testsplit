@@ -9,6 +9,18 @@ jest.mock('../../../../src/backend/storage/FileStore', () => ({
   })),
 }));
 
+jest.mock('../../../../src/backend/profiler/core/HistoricalProfiler', () => ({
+  HistoricalProfiler: jest.fn().mockImplementation(() => ({
+    addProfile: jest.fn(),
+    generateProfile: jest.fn(() => ({ id: 'run-profile' })),
+    generateHistoricalProfile: jest.fn(() => ({ id: 'historical-profile' })),
+  })),
+}));
+
+jest.mock('../../../../src/backend/helpers/RunId', () => ({
+  generateRunId: jest.fn(() => 'test-run-id'),
+}));
+
 import { buildObservedTestResults, persistObservedTimings } from '../../../../src/backend/runner/TimingFeedback';
 import { Job } from '../../../../src/backend/algorithm/model/Job';
 import { JobResult } from '../../../../src/backend/runner/ParallelRunner';
@@ -94,6 +106,30 @@ describe('buildObservedTestResults', () => {
     expect(observed.find((r) => r.name === 'B')!.duration).toBeCloseTo(4.0);
   });
 
+  it('defaults to zero duration when test name not found in scheduled durations', () => {
+    // Job defines A with duration 3, but result includes both A and unknown test B
+    const jobs = [makeJob(1, [{ id: 'A', duration: 3 }])];
+    const results = [makeResult(1, ['A', 'B'], 6000)];
+
+    const observed = buildObservedTestResults(results, jobs);
+
+    // A has weight 3/3 = 1.0, B has weight 0/3 = 0.0
+    expect(observed).toHaveLength(2);
+    const a = observed.find((r) => r.name === 'A')!;
+    const b = observed.find((r) => r.name === 'B')!;
+    expect(a.duration).toBeCloseTo(6.0);
+    expect(b.duration).toBeCloseTo(0.0);
+  });
+
+  it('handles empty test names array', () => {
+    const jobs = [makeJob(1, [{ id: 'A', duration: 1 }])];
+    const results = [makeResult(1, [], 1000)];
+
+    const observed = buildObservedTestResults(results, jobs);
+
+    expect(observed).toHaveLength(0);
+  });
+
 });
 
 describe('persistObservedTimings', () => {
@@ -114,5 +150,47 @@ describe('persistObservedTimings', () => {
     persistObservedTimings(results, jobs);
 
     expect(mockLoadProfiles).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns early when observed results list is empty', () => {
+    // Job doesn't have any tasks, so buildObservedTestResults returns empty
+    const jobs = [new Job(1)];
+    const results = [makeResult(1, [], 1000)];
+
+    persistObservedTimings(results, jobs);
+
+    expect(mockSaveProfile).not.toHaveBeenCalled();
+    expect(mockSaveHistoricalProfile).not.toHaveBeenCalled();
+  });
+
+  it('passes baseDir to FileStore constructor', () => {
+    const jobs = [makeJob(1, [{ id: 'A', duration: 1 }])];
+    const results = [makeResult(1, ['A'], 1000)];
+    const customBaseDir = '/custom/path';
+    
+    // Mock loadProfiles to return an empty array
+    mockLoadProfiles.mockReturnValue([]);
+
+    persistObservedTimings(results, jobs, customBaseDir);
+
+    const FileStore = require('../../../../src/backend/storage/FileStore').FileStore;
+    expect(FileStore).toHaveBeenCalledWith(customBaseDir);
+  });
+
+  it('loads and merges multiple profiles before saving', () => {
+    const jobs = [makeJob(1, [{ id: 'A', duration: 1 }])];
+    const results = [makeResult(1, ['A'], 1000)];
+    
+    // Mock loadProfiles to return multiple profiles
+    const mockProfile1 = { id: 'profile-1', tests: {} };
+    const mockProfile2 = { id: 'profile-2', tests: {} };
+    mockLoadProfiles.mockReturnValue([mockProfile1, mockProfile2]);
+
+    persistObservedTimings(results, jobs);
+
+    // Verify loadProfiles was called
+    expect(mockLoadProfiles).toHaveBeenCalled();
+    expect(mockSaveProfile).toHaveBeenCalledTimes(1);
+    expect(mockSaveHistoricalProfile).toHaveBeenCalledTimes(1);
   });
 });
