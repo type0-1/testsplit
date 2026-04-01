@@ -1,8 +1,6 @@
 import * as path from 'path';
 import { parsePom } from '../../../../src/backend/detector/PomParser';
 
-import * as fs from 'fs';
-import * as os from 'os';
 const FIXTURES = path.resolve(__dirname, 'fixtures');
 
 describe('parsePom', () => {
@@ -35,6 +33,11 @@ describe('parsePom', () => {
     it('falls back to <source> from maven-compiler-plugin when release absent', () => {
       const info = parsePom(path.join(FIXTURES, 'pom-compiler-source-only.xml'));
       expect(info.javaVersion).toBe('9');
+    });
+
+    it('returns null when compiler config exists but has neither release nor source', () => {
+      const info = parsePom(path.join(FIXTURES, 'pom-compiler-empty-config.xml'));
+      expect(info.javaVersion).toBeNull();
     });
 
     it('handles single plugin in plugins list (not array)', () => {
@@ -70,28 +73,3 @@ describe('parsePom', () => {
     });
   });
 });
-
-    it('covers cfg.source branch with inline source-only configuration', () => {
-      const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'pom-source-'));
-      const pomPath = path.join(tempDir, 'pom.xml');
-      fs.writeFileSync(pomPath, `<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0">
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>14</source>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-</project>`, 'utf-8');
-
-      try {
-        const info = parsePom(pomPath);
-        expect(info.javaVersion).toBe('14');
-      } finally {
-        fs.rmSync(tempDir, { recursive: true, force: true });
-      }
-    });
