@@ -1,4 +1,6 @@
 import * as path from 'path';
+import * as fs from 'fs';
+import * as os from 'os';
 import {
   detectTestcontainersFromSource,
   detectSpringAnnotationsFromSource,
@@ -58,6 +60,11 @@ describe('detectTestcontainersFromSource', () => {
 });
 
 describe('detectSpringAnnotationsFromSource', () => {
+  it('returns empty array quickly when source has no @ symbols', () => {
+    const source = `public class RepoTest { void test() {} }`;
+    expect(detectSpringAnnotationsFromSource(source)).toHaveLength(0);
+  });
+
   it('returns empty array when no Spring annotations present', () => {
     const source = `@Test public void foo() {}`;
     expect(detectSpringAnnotationsFromSource(source)).toHaveLength(0);
@@ -107,5 +114,92 @@ describe('detectLifecycle', () => {
   it('returns empty requirements when srcRoot does not exist', () => {
     const result = detectLifecycle(path.resolve(__dirname, 'fixtures'), '/nonexistent/src');
     expect(result.requirements).toHaveLength(0);
+  });
+
+  it('adds requirements from Spring annotation detection when service type is not already present', () => {
+    const tempProject = fs.mkdtempSync(path.join(os.tmpdir(), 'lifecycle-spring-project-'));
+    const tempSrc = fs.mkdtempSync(path.join(os.tmpdir(), 'lifecycle-spring-src-'));
+
+    try {
+      fs.writeFileSync(
+        path.join(tempSrc, 'SpringOnlyTest.java'),
+        '@EmbeddedKafka class SpringOnlyTest {}',
+        'utf-8',
+      );
+
+      const result = detectLifecycle(tempProject, tempSrc);
+
+      expect(result.hasDockerCompose).toBe(false);
+      expect(result.requirements).toHaveLength(1);
+      expect(result.requirements[0].type).toBe('kafka');
+      expect(result.requirements[0].source).toBe('spring');
+    } finally {
+      fs.rmSync(tempProject, { recursive: true, force: true });
+      fs.rmSync(tempSrc, { recursive: true, force: true });
+    }
+  });
+
+  it('does not overwrite an existing service type when spring detection finds the same type', () => {
+    const tempProject = fs.mkdtempSync(path.join(os.tmpdir(), 'lifecycle-spring-dedupe-project-'));
+    const tempSrc = fs.mkdtempSync(path.join(os.tmpdir(), 'lifecycle-spring-dedupe-src-'));
+
+    try {
+      fs.writeFileSync(
+        path.join(tempSrc, 'MixedKafkaTest.java'),
+        'new KafkaContainer("confluentinc/cp-kafka:7.4.0"); @EmbeddedKafka class MixedKafkaTest {}',
+        'utf-8',
+      );
+
+      const result = detectLifecycle(tempProject, tempSrc);
+      const kafkaReqs = result.requirements.filter((r) => r.type === 'kafka');
+
+      expect(kafkaReqs).toHaveLength(1);
+      expect(kafkaReqs[0].source).toBe('testcontainers');
+    } finally {
+      fs.rmSync(tempProject, { recursive: true, force: true });
+      fs.rmSync(tempSrc, { recursive: true, force: true });
+    }
+  });
+
+  it('short-circuits scanning when docker-compose.yml exists at project root', () => {
+    const tempProject = fs.mkdtempSync(path.join(os.tmpdir(), 'lifecycle-compose-'));
+    const tempSrc = fs.mkdtempSync(path.join(os.tmpdir(), 'lifecycle-compose-src-'));
+
+    try {
+      fs.writeFileSync(path.join(tempProject, 'docker-compose.yml'), 'services:\n  db:\n    image: postgres:15\n', 'utf-8');
+      fs.writeFileSync(
+        path.join(tempSrc, 'ServiceTest.java'),
+        'new PostgreSQLContainer<>("postgres:15"); @EmbeddedKafka class T {}',
+        'utf-8',
+      );
+
+      const result = detectLifecycle(tempProject, tempSrc);
+      expect(result.hasDockerCompose).toBe(true);
+      expect(result.requirements).toEqual([]);
+    } finally {
+      fs.rmSync(tempProject, { recursive: true, force: true });
+      fs.rmSync(tempSrc, { recursive: true, force: true });
+    }
+  });
+
+  it('recursively collects only .java files from nested directories', () => {
+    const tempProject = fs.mkdtempSync(path.join(os.tmpdir(), 'lifecycle-project-'));
+    const tempSrc = fs.mkdtempSync(path.join(os.tmpdir(), 'lifecycle-src-'));
+    const nested = path.join(tempSrc, 'nested', 'deeper');
+
+    try {
+      fs.mkdirSync(nested, { recursive: true });
+      fs.writeFileSync(path.join(tempSrc, 'README.md'), '# not java', 'utf-8');
+      fs.writeFileSync(path.join(nested, 'AppTest.java'), 'new MySQLContainer();', 'utf-8');
+      fs.writeFileSync(path.join(nested, 'notes.txt'), 'ignore me', 'utf-8');
+
+      const result = detectLifecycle(tempProject, tempSrc);
+      const types = result.requirements.map((r) => r.type);
+      expect(types).toEqual(['mysql']);
+      expect(result.hasDockerCompose).toBe(false);
+    } finally {
+      fs.rmSync(tempProject, { recursive: true, force: true });
+      fs.rmSync(tempSrc, { recursive: true, force: true });
+    }
   });
 });
