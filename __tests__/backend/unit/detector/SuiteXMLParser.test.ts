@@ -1,4 +1,5 @@
 import * as path from 'path';
+import { XMLParser } from 'fast-xml-parser';
 import {
   parseSuiteXML,
   parseSuiteXMLFromSource,
@@ -10,8 +11,35 @@ import { Task } from '../../../../src/backend/algorithm/model/Task';
 const SUITE_FIXTURES = path.resolve(__dirname, 'fixtures/suite');
 
 describe('parseSuiteXMLFromSource', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('returns empty array for non-suite XML', () => {
     expect(parseSuiteXMLFromSource('<project></project>')).toHaveLength(0);
+  });
+
+  it('wraps object-valued suite.test and test.classes.class into arrays', () => {
+    jest
+      .spyOn(XMLParser.prototype, 'parse')
+      .mockReturnValue({
+        suite: {
+          test: {
+            '@_name': 'SingleObjectTest',
+            classes: {
+              class: { '@_name': 'com.example.ObjectClassNode' },
+            },
+          },
+        },
+      } as any);
+
+    const result = parseSuiteXMLFromSource('<suite/>');
+    expect(result).toEqual([
+      {
+        name: 'SingleObjectTest',
+        classes: ['com.example.ObjectClassNode'],
+      },
+    ]);
   });
 
   it('parses a single <test> block with ordered classes', () => {
@@ -53,6 +81,51 @@ describe('parseSuiteXMLFromSource', () => {
     expect(result).toHaveLength(1);
     expect(result[0].classes).toEqual(['com.example.AlphaTest', 'com.example.BetaTest']);
   });
+
+  it('uses default test name and filters out tests with no class entries', () => {
+    const xml = `
+      <suite name="My Suite">
+        <test>
+          <classes>
+            <class name="com.example.OnlyClass"/>
+          </classes>
+        </test>
+        <test name="NoClasses" />
+      </suite>
+    `;
+
+    const result = parseSuiteXMLFromSource(xml);
+    expect(result).toHaveLength(1);
+    expect(result[0].name).toBe('unnamed');
+    expect(result[0].classes).toEqual(['com.example.OnlyClass']);
+  });
+
+  it('returns empty when suite exists but has no test blocks', () => {
+    const xml = `<suite name="EmptySuite"></suite>`;
+    expect(parseSuiteXMLFromSource(xml)).toEqual([]);
+  });
+
+  it('accepts string class nodes and filters class entries without names', () => {
+    const xml = `
+      <suite name="MixedClasses">
+        <test name="StringClassNode">
+          <classes>
+            <class>com.example.StringNodeTest</class>
+          </classes>
+        </test>
+        <test name="InvalidClassEntry">
+          <classes>
+            <class />
+          </classes>
+        </test>
+      </suite>
+    `;
+
+    const result = parseSuiteXMLFromSource(xml);
+    expect(result).toHaveLength(1);
+    expect(result[0].name).toBe('StringClassNode');
+    expect(result[0].classes).toEqual(['com.example.StringNodeTest']);
+  });
 });
 
 describe('parseSelectClassesFromSource', () => {
@@ -88,6 +161,26 @@ describe('parseSelectClassesFromSource', () => {
     `;
     const result = parseSelectClassesFromSource(source, 'AllTests.java');
     expect(result[0].classes).toEqual(['com.example.FooTest', 'com.example.BarTest']);
+  });
+
+  it('falls back to bare names and filePath suite name when class declaration is absent', () => {
+    const source = `
+      @SelectClasses({ FooTest.class, BarTest.class })
+    `;
+
+    const result = parseSelectClassesFromSource(source, 'FallbackSuite.java');
+    expect(result).toHaveLength(1);
+    expect(result[0].name).toBe('FallbackSuite.java');
+    expect(result[0].classes).toEqual(['FooTest', 'BarTest']);
+  });
+
+  it('skips @SelectClasses blocks that contain no class references', () => {
+    const source = `
+      @SelectClasses({ })
+      public class EmptySuite {}
+    `;
+
+    expect(parseSelectClassesFromSource(source, 'EmptySuite.java')).toEqual([]);
   });
 });
 
@@ -132,5 +225,16 @@ describe('buildSuiteTaskDependencies', () => {
     const b = result.find((t) => t.id === 'com.example.B');
     expect(b?.dependencies).toContain('com.example.A');
     expect(b?.dependencies).toContain('com.example.External');
+  });
+
+  it('does not duplicate dependency if previous class is already present', () => {
+    const suites = [{ name: 'S', classes: ['com.example.A', 'com.example.B'] }];
+    const tasks: Task[] = [
+      { id: 'com.example.B', duration: 2, dependencies: ['com.example.A'] },
+    ];
+
+    const result = buildSuiteTaskDependencies(suites, tasks);
+    const b = result.find((t) => t.id === 'com.example.B');
+    expect(b?.dependencies).toEqual(['com.example.A']);
   });
 });
