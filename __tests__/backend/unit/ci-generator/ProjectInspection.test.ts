@@ -41,6 +41,19 @@ describe('ProjectInspection', () => {
     }
   });
 
+  it('detects Gradle from build.gradle.kts and supports empty assigned classes', () => {
+    const projectRoot = createTempProject(['build.gradle.kts']);
+
+    try {
+      const format = inspectProjectTestCommandFormat({ projectRoot, gradleBin: './gradlew' });
+
+      expect(format.tool).toBe('gradle');
+      expect(format.buildCommand([])).toBe('./gradlew test');
+    } finally {
+      fs.rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
   it('detects npm from package.json', () => {
     const projectRoot = createTempProject(['package.json']);
 
@@ -49,6 +62,19 @@ describe('ProjectInspection', () => {
 
       expect(format.tool).toBe('npm');
       expect(format.buildCommand(['A.test.ts', 'B.test.ts'])).toBe('npm test -- A.test.ts B.test.ts');
+    } finally {
+      fs.rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('builds npm command without selectors when assigned classes are empty', () => {
+    const projectRoot = createTempProject(['package.json']);
+
+    try {
+      const format = inspectProjectTestCommandFormat({ projectRoot });
+
+      expect(format.tool).toBe('npm');
+      expect(format.buildCommand([])).toBe('npm test');
     } finally {
       fs.rmSync(projectRoot, { recursive: true, force: true });
     }
@@ -63,6 +89,38 @@ describe('ProjectInspection', () => {
       expect(format.tool).toBe('maven');
       expect(format.buildCommand(['OnlyTest'])).toBe('mvn test -Dtest=OnlyTest');
     } finally {
+      fs.rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('uses default options, current working directory, and default maven binary', () => {
+    const projectRoot = createTempProject(['pom.xml']);
+    const originalCwd = process.cwd();
+
+    try {
+      process.chdir(projectRoot);
+      const format = inspectProjectTestCommandFormat();
+
+      expect(format.tool).toBe('maven');
+      expect(format.buildCommand(['SmokeTest'])).toBe('mvn test -Dtest=SmokeTest');
+    } finally {
+      process.chdir(originalCwd);
+      fs.rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('uses default gradle binary when gradle build file exists in current working directory', () => {
+    const projectRoot = createTempProject(['build.gradle']);
+    const originalCwd = process.cwd();
+
+    try {
+      process.chdir(projectRoot);
+      const format = inspectProjectTestCommandFormat();
+
+      expect(format.tool).toBe('gradle');
+      expect(format.buildCommand(['pkg.ClassA'])).toBe('gradle test --tests pkg.ClassA');
+    } finally {
+      process.chdir(originalCwd);
       fs.rmSync(projectRoot, { recursive: true, force: true });
     }
   });
