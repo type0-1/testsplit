@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
-import { inspectProjectTestCommandFormat } from '../../../../src/backend/generator/ProjectInspection';
+import { inspectProjectTestCommandFormat, inspectReportPath } from '../../../../src/backend/generator/ProjectInspection';
 
 describe('ProjectInspection', () => {
   function createTempProject(files: string[]): string {
@@ -121,6 +121,82 @@ describe('ProjectInspection', () => {
       expect(format.buildCommand(['pkg.ClassA'])).toBe('gradle test --tests pkg.ClassA');
     } finally {
       process.chdir(originalCwd);
+      fs.rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('inspectReportPath', () => {
+  function createTempProject(files: string[], dirs: string[] = []): string {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'testsplit-report-path-'));
+    for (const file of files) {
+      fs.writeFileSync(path.join(dir, file), '', 'utf-8');
+    }
+    for (const d of dirs) {
+      fs.mkdirSync(path.join(dir, d), { recursive: true });
+    }
+    return dir;
+  }
+
+  it('returns target/surefire-reports for Maven project', () => {
+    const projectRoot = createTempProject(['pom.xml']);
+    try {
+      const result = inspectReportPath({ projectRoot });
+      expect(result.tool).toBe('maven');
+      expect(result.reportDirs).toEqual([path.join(projectRoot, 'target', 'surefire-reports')]);
+    } finally {
+      fs.rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('returns build/test-results/test for single-module Gradle project when directory exists', () => {
+    const projectRoot = createTempProject(
+      ['build.gradle'],
+      ['build/test-results/test'],
+    );
+    try {
+      const result = inspectReportPath({ projectRoot });
+      expect(result.tool).toBe('gradle');
+      expect(result.reportDirs).toEqual([path.join(projectRoot, 'build', 'test-results', 'test')]);
+    } finally {
+      fs.rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('discovers submodule report dirs for multi-module Gradle project', () => {
+    const projectRoot = createTempProject(
+      ['build.gradle.kts'],
+      ['core/build/test-results/test', 'api/build/test-results/test'],
+    );
+    try {
+      const result = inspectReportPath({ projectRoot });
+      expect(result.tool).toBe('gradle');
+      expect(result.reportDirs).toHaveLength(2);
+      expect(result.reportDirs).toContain(path.join(projectRoot, 'core', 'build', 'test-results', 'test'));
+      expect(result.reportDirs).toContain(path.join(projectRoot, 'api', 'build', 'test-results', 'test'));
+    } finally {
+      fs.rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('returns test-results for npm project', () => {
+    const projectRoot = createTempProject(['package.json']);
+    try {
+      const result = inspectReportPath({ projectRoot });
+      expect(result.tool).toBe('npm');
+      expect(result.reportDirs).toEqual([path.join(projectRoot, 'test-results')]);
+    } finally {
+      fs.rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('falls back to Maven surefire-reports when no build file exists', () => {
+    const projectRoot = createTempProject([]);
+    try {
+      const result = inspectReportPath({ projectRoot });
+      expect(result.tool).toBe('maven');
+      expect(result.reportDirs).toEqual([path.join(projectRoot, 'target', 'surefire-reports')]);
+    } finally {
       fs.rmSync(projectRoot, { recursive: true, force: true });
     }
   });
