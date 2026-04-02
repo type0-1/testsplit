@@ -3,7 +3,6 @@
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import { spawn } from 'child_process';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
@@ -61,23 +60,36 @@ function getCustomHelp(): string {
   output += `\n${chalk.bold('Global Options:')}\n`;
   output += `  --help        Show this help message\n`;
   output += `  --version     Show version number\n\n`;
-  output += chalk.dim(`Run 'testsplit <command> --help' for command-specific options\n`);
+  output += chalk.dim(
+    `Run 'testsplit <command> --help' for command-specific options\n`,
+  );
 
   return output;
 }
 
 import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
-import { runAllJobs, runAllJobsDynamic, runAllJobsWorkStealing } from '../runner/ParallelRunner';
+import {
+  runAllJobs,
+  runAllJobsDynamic,
+  runAllJobsWorkStealing,
+} from '../runner/ParallelRunner';
 import { renderBar } from '../utils/Terminal';
 import { FileStore } from '../storage/FileStore';
 import { HistoricalProfiler } from '../profiler/core/HistoricalProfiler';
 import { generateDockerfile } from '../generator/DockerfileGenerator';
 import { parsePom } from '../detector/PomParser';
 import { runDetection } from '../core/DetectionOrchestrator';
-import { findExistingCIFile, findTestJobs, extractTestCommands } from './CIConfigReader';
+import {
+  findExistingCIFile,
+  findTestJobs,
+  extractTestCommands,
+} from './CIConfigReader';
 import { buildGitHubPhasedJobs } from '../generator/GitHubActionsGenerator';
 import { buildGitLabSplitJobs } from '../generator/GitLabCIGenerator';
-import { buildJobsWithDependencies, groupSlotsIntoRunners } from '../generator/JobBuilder';
+import {
+  buildJobsWithDependencies,
+  groupSlotsIntoRunners,
+} from '../generator/JobBuilder';
 import { getSchemaValidator } from '../generator/getSchemaValidator';
 import { validateYamlSyntax } from '../generator/YAMLSyntaxValidator';
 import YAML from 'yaml';
@@ -170,7 +182,10 @@ function validateFinalCIConfig(yaml: string, platform: Platform): void {
 // Intercept --help early to show custom help
 const args = hideBin(process.argv);
 if (args.includes('--help') || args.includes('-h')) {
-  if (args.length === 1 || (args.length === 2 && (args[0] === '--help' || args[0] === '-h'))) {
+  if (
+    args.length === 1 ||
+    (args.length === 2 && (args[0] === '--help' || args[0] === '-h'))
+  ) {
     // Top-level help, not command-specific
     console.log(getCustomHelp());
     process.exit(0);
@@ -385,7 +400,8 @@ yargs(args)
         .option('runner-cores', {
           type: 'number',
           default: 2,
-          describe: 'Number of CPU cores per CI runner (default: 2 for GitHub Actions / GitLab)',
+          describe:
+            'Number of CPU cores per CI runner (default: 2 for GitHub Actions / GitLab)',
         })
         .option('platform', {
           type: 'string',
@@ -413,7 +429,8 @@ yargs(args)
         })
         .option('from', {
           type: 'string',
-          describe: 'Path to existing CI config file to use as base (overrides auto-detection)',
+          describe:
+            'Path to existing CI config file to use as base (overrides auto-detection)',
         })
         .option('dry-run', {
           type: 'boolean',
@@ -441,7 +458,8 @@ yargs(args)
         .option('src', {
           type: 'string',
           default: 'src/test/java',
-          describe: 'Path to Java test sources for dependency detection (default: src/test/java)',
+          describe:
+            'Path to Java test sources for dependency detection (default: src/test/java)',
         }),
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
@@ -461,19 +479,27 @@ yargs(args)
       const dryRun = argv['dry-run'] as boolean;
 
       const fromFlag = argv['from'] as string | undefined;
-      const existingCIPath = fromFlag ? path.resolve(fromFlag) : findExistingCIFile(platform);
+      const existingCIPath = fromFlag
+        ? path.resolve(fromFlag)
+        : findExistingCIFile(platform);
 
       if (!existingCIPath) {
-        console.error(chalk.red('No CI config found. Use --from <path> to specify one.'));
+        console.error(
+          chalk.red('No CI config found. Use --from <path> to specify one.'),
+        );
         process.exit(EXIT_FAILURE);
       }
 
       if (!fs.existsSync(existingCIPath)) {
-        console.error(chalk.red(`Error: CI config file does not exist: ${existingCIPath}`));
+        console.error(
+          chalk.red(`Error: CI config file does not exist: ${existingCIPath}`),
+        );
         process.exit(EXIT_FAILURE);
       }
 
-      const existingCIConfig = YAML.parse(fs.readFileSync(existingCIPath, 'utf-8'));
+      const existingCIConfig = YAML.parse(
+        fs.readFileSync(existingCIPath, 'utf-8'),
+      );
 
       if (!fs.existsSync(outDir)) {
         console.error(
@@ -492,7 +518,9 @@ yargs(args)
       // Argument validation
       assertJUnitPathExists(junitPath);
 
-      const srcDir = path.resolve((argv.src as string | undefined) ?? 'src/test/java');
+      const srcDir = path.resolve(
+        (argv.src as string | undefined) ?? 'src/test/java',
+      );
       const { containerImage, dependencyMap, lifecycle } = runDetection(
         path.resolve('.'),
         srcDir,
@@ -501,13 +529,23 @@ yargs(args)
       );
 
       if (containerImage) {
-        console.log(chalk.dim(`Dockerfile detected, using container: ${containerImage}`));
+        console.log(
+          chalk.dim(`Dockerfile detected, using container: ${containerImage}`),
+        );
       }
       if (dependencyMap && dependencyMap.size > 0) {
-        console.log(chalk.dim(`  Found ${dependencyMap.size} test(s) with declared dependencies`));
+        console.log(
+          chalk.dim(
+            `  Found ${dependencyMap.size} test(s) with declared dependencies`,
+          ),
+        );
       }
       if (lifecycle.hasDockerCompose) {
-        console.log(chalk.dim('  docker-compose.yml detected — startup steps will be injected'));
+        console.log(
+          chalk.dim(
+            '  docker-compose.yml detected — startup steps will be injected',
+          ),
+        );
       } else if (lifecycle.requirements.length > 0) {
         const types = lifecycle.requirements.map((r) => r.type).join(', ');
         console.log(chalk.dim(`  Detected services: ${types}`));
@@ -521,15 +559,29 @@ yargs(args)
           jobCount runners (NxM -> N).
         */
         const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
-        const result = engine.run(junitPath, totalSlots, true, algorithm, riskFactor, dependencyMap);
-        const jobs = runnerCores > 1 ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores) : buildJobsWithDependencies(result.distribution.jobs);
+        const result = engine.run(
+          junitPath,
+          totalSlots,
+          true,
+          algorithm,
+          riskFactor,
+          dependencyMap,
+        );
+        const jobs =
+          runnerCores > 1
+            ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores)
+            : buildJobsWithDependencies(result.distribution.jobs);
 
         const testJobs = findTestJobs(existingCIConfig, platform);
         if (testJobs.length === 0) {
           throw new Error('No test jobs found in existing CI config');
         }
 
-        const commands = extractTestCommands(existingCIConfig, platform, testJobs);
+        const commands = extractTestCommands(
+          existingCIConfig,
+          platform,
+          testJobs,
+        );
         const testCommand = commands[0] ?? `${mavenBin} test -Dtest=`;
 
         let ciConfig: string;
@@ -541,7 +593,19 @@ yargs(args)
             throw new Error('Unable to locate base GitHub test job');
           }
 
-          const generatedJobs = buildGitHubPhasedJobs(baseJob, jobs, mavenBin, 'build-artifacts', artifactPath, runnerCores, containerImage, lifecycle.requirements.length > 0 ? lifecycle.requirements : undefined, lifecycle.hasDockerCompose);
+          const generatedJobs = buildGitHubPhasedJobs(
+            baseJob,
+            jobs,
+            mavenBin,
+            'build-artifacts',
+            artifactPath,
+            runnerCores,
+            containerImage,
+            lifecycle.requirements.length > 0
+              ? lifecycle.requirements
+              : undefined,
+            lifecycle.hasDockerCompose,
+          );
           for (const jobName of testJobs) {
             delete existingCIConfig.jobs?.[jobName];
           }
@@ -557,7 +621,17 @@ yargs(args)
             throw new Error('Unable to locate base GitLab test job');
           }
 
-          const splitJobs = buildGitLabSplitJobs(baseJob, jobs, testCommand, runnerCores, containerImage, lifecycle.requirements.length > 0 ? lifecycle.requirements : undefined, lifecycle.hasDockerCompose);
+          const splitJobs = buildGitLabSplitJobs(
+            baseJob,
+            jobs,
+            testCommand,
+            runnerCores,
+            containerImage,
+            lifecycle.requirements.length > 0
+              ? lifecycle.requirements
+              : undefined,
+            lifecycle.hasDockerCompose,
+          );
           for (const jobName of testJobs) {
             delete existingCIConfig[jobName];
           }
@@ -582,11 +656,23 @@ yargs(args)
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err);
         if (msg.includes('Dependency cycle')) {
-          console.error(chalk.red('Error: dependency cycle detected in test ordering.'));
-          console.error(chalk.yellow('Check @Order, @DependsOnMethods, or testng-suite.xml for circular dependencies.'));
-          console.error(chalk.yellow(`Use --src to point to a different source root, or remove the circular dependency.`));
+          console.error(
+            chalk.red('Error: dependency cycle detected in test ordering.'),
+          );
+          console.error(
+            chalk.yellow(
+              'Check @Order, @DependsOnMethods, or testng-suite.xml for circular dependencies.',
+            ),
+          );
+          console.error(
+            chalk.yellow(
+              `Use --src to point to a different source root, or remove the circular dependency.`,
+            ),
+          );
         } else {
-          console.error(chalk.red('Error: failed to generate CI configuration'));
+          console.error(
+            chalk.red('Error: failed to generate CI configuration'),
+          );
           console.error(chalk.red(msg));
         }
 
@@ -907,9 +993,13 @@ yargs(args)
         process.exit(EXIT_FAILURE);
       }
 
-          console.log(chalk.green(`${filePath} is a valid ${platform === 'github' ? 'GitHub Actions' : 'GitLab CI'} configuration.`));
-        },
-      )
+      console.log(
+        chalk.green(
+          `${filePath} is a valid ${platform === 'github' ? 'GitHub Actions' : 'GitLab CI'} configuration.`,
+        ),
+      );
+    },
+  )
   .command(
     'run',
     'Schedule and execute test subsets in parallel, recording real wall-clock time per job',
@@ -943,7 +1033,8 @@ yargs(args)
         .option('filter-join', {
           type: 'string',
           default: '|',
-          describe: 'Separator used to join multiple test names into one filter value',
+          describe:
+            'Separator used to join multiple test names into one filter value',
         })
         .option('algorithm', {
           type: 'string',
@@ -954,22 +1045,26 @@ yargs(args)
         .option('risk-factor', {
           type: 'number',
           default: 1.0,
-          describe: 'Variance weight k: schedules using meanDuration + k * stdDev',
+          describe:
+            'Variance weight k: schedules using meanDuration + k * stdDev',
         })
         .option('dynamic', {
           type: 'boolean',
           default: false,
-          describe: 'Enable dynamic work queue: workers pull the next test when idle instead of going idle',
+          describe:
+            'Enable dynamic work queue: workers pull the next test when idle instead of going idle',
         })
         .option('steal', {
           type: 'boolean',
           default: false,
-          describe: 'Enable work stealing: idle workers steal the largest task from the busiest peer',
+          describe:
+            'Enable work stealing: idle workers steal the largest task from the busiest peer',
         })
         .option('affinity', {
           type: 'boolean',
           default: false,
-          describe: 'Pin each worker to a distinct least-loaded CPU core (Linux: taskset, other platforms: no-op)',
+          describe:
+            'Pin each worker to a distinct least-loaded CPU core (Linux: taskset, other platforms: no-op)',
         }),
     async (argv) => {
       const junitPath = path.resolve(argv.junit as string);
@@ -987,38 +1082,74 @@ yargs(args)
       assertJUnitPathExists(junitPath);
 
       const engine = new TestSplitEngine(dataDir);
-      const { distribution } = engine.run(junitPath, jobCount, true, algorithm, riskFactor);
+      const { distribution } = engine.run(
+        junitPath,
+        jobCount,
+        true,
+        algorithm,
+        riskFactor,
+      );
 
-      console.log(chalk.bold(`\nSpawning ${distribution.jobs.length} job(s) using ${algorithm.toUpperCase()}...\n`));
+      console.log(
+        chalk.bold(
+          `\nSpawning ${distribution.jobs.length} job(s) using ${algorithm.toUpperCase()}...\n`,
+        ),
+      );
 
-      const activeCount = distribution.jobs.filter((j) => j.tasks.length > 0).length;
-      const coreIds = affinity ? await (await import('../runner/CoreAffinity')).getLeastLoadedCores(activeCount) : undefined;
+      const activeCount = distribution.jobs.filter(
+        (j) => j.tasks.length > 0,
+      ).length;
+      const coreIds = affinity
+        ? await (
+            await import('../runner/CoreAffinity')
+          ).getLeastLoadedCores(activeCount)
+        : undefined;
       if (affinity && coreIds) {
-        console.log(chalk.dim(`Core affinity: pinning workers to cores [${coreIds.join(', ')}]`));
+        console.log(
+          chalk.dim(
+            `Core affinity: pinning workers to cores [${coreIds.join(', ')}]`,
+          ),
+        );
       }
 
       const results = await (steal
         ? runAllJobsWorkStealing(distribution.jobs, cmd, filterFlag)
         : dynamic
           ? runAllJobsDynamic(distribution.jobs, cmd, filterFlag)
-          : runAllJobs(distribution.jobs, cmd, filterFlag, filterJoin, coreIds));
+          : runAllJobs(
+              distribution.jobs,
+              cmd,
+              filterFlag,
+              filterJoin,
+              coreIds,
+            ));
 
       let allPassed = true;
       for (const r of results) {
-        const status = r.exitCode === 0 ? chalk.green('PASS') : chalk.red('FAIL');
-        console.log(`Job ${r.jobId}  ${status}  ${r.wallClockMs.toFixed(0)}ms  (${r.testNames.length} tests)`);
+        const status =
+          r.exitCode === 0 ? chalk.green('PASS') : chalk.red('FAIL');
+        console.log(
+          `Job ${r.jobId}  ${status}  ${r.wallClockMs.toFixed(0)}ms  (${r.testNames.length} tests)`,
+        );
         if (r.exitCode !== 0) allPassed = false;
       }
 
       const maxWall = Math.max(...results.map((r) => r.wallClockMs));
-      console.log(chalk.bold(`\nCritical path (slowest job): ${maxWall.toFixed(0)}ms`));
+      console.log(
+        chalk.bold(`\nCritical path (slowest job): ${maxWall.toFixed(0)}ms`),
+      );
 
       try {
-        const { persistObservedTimings } = await import('../runner/TimingFeedback');
+        const { persistObservedTimings } =
+          await import('../runner/TimingFeedback');
         persistObservedTimings(results, distribution.jobs);
-        console.log(chalk.dim('Observed timings fed back into profiler for future runs.'));
+        console.log(
+          chalk.dim('Observed timings fed back into profiler for future runs.'),
+        );
       } catch {
-        console.warn(chalk.yellow('Warning: failed to persist observed timings'));
+        console.warn(
+          chalk.yellow('Warning: failed to persist observed timings'),
+        );
       }
 
       if (!allPassed) process.exit(EXIT_FAILURE);
@@ -1032,7 +1163,8 @@ yargs(args)
         .option('pom', {
           type: 'string',
           default: 'pom.xml',
-          describe: 'Path to pom.xml (used to detect Java version and Maven wrapper)',
+          describe:
+            'Path to pom.xml (used to detect Java version and Maven wrapper)',
         })
         .option('out', {
           type: 'string',
@@ -1106,7 +1238,11 @@ yargs(args)
         await app.listen({ port, host: '0.0.0.0' });
       } catch (err: any) {
         if (err.code === 'EADDRINUSE') {
-          console.error(chalk.red(`Port ${port} is already in use. Stop the existing server or run with --port <n>.`));
+          console.error(
+            chalk.red(
+              `Port ${port} is already in use. Stop the existing server or run with --port <n>.`,
+            ),
+          );
           process.exit(EXIT_FAILURE);
         }
         throw err;
@@ -1116,7 +1252,12 @@ yargs(args)
       console.log(chalk.green(`Dashboard running at ${url}`));
 
       if (!argv['no-open']) {
-        const opener = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
+        const opener =
+          process.platform === 'darwin'
+            ? 'open'
+            : process.platform === 'win32'
+              ? 'start'
+              : 'xdg-open';
         spawn(opener, [url], { detached: true, stdio: 'ignore' });
       }
     },
