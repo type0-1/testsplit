@@ -167,29 +167,6 @@ function validateFinalCIConfig(yaml: string, platform: Platform): void {
   }
 }
 
-function openInBrowser(url: string): void {
-  const platform = process.platform;
-
-  try {
-    if (platform === 'darwin') {
-      spawn('open', [url], { detached: true, stdio: 'ignore' }).unref();
-      return;
-    }
-
-    if (platform === 'win32') {
-      spawn('cmd', ['/c', 'start', '', url], {
-        detached: true,
-        stdio: 'ignore',
-      }).unref();
-      return;
-    }
-
-    spawn('xdg-open', [url], { detached: true, stdio: 'ignore' }).unref();
-  } catch {
-    // Browser launch failure should not block dashboard startup.
-  }
-}
-
 // Intercept --help early to show custom help
 const args = hideBin(process.argv);
 if (args.includes('--help') || args.includes('-h')) {
@@ -933,39 +910,6 @@ yargs(args)
           console.log(chalk.green(`${filePath} is a valid ${platform === 'github' ? 'GitHub Actions' : 'GitLab CI'} configuration.`));
         },
       )
-  .command(
-    'dashboard',
-    'Start API + frontend dashboard and open it in your browser',
-    (y) =>
-      y.option('url', {
-        type: 'string',
-        default: 'http://localhost:5173',
-        describe: 'Dashboard URL to open in browser',
-      }),
-    (argv) => {
-      const dashboardUrl = argv.url as string;
-      const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-
-      console.log(`Dashboard: ${dashboardUrl}`);
-
-      openInBrowser(dashboardUrl);
-
-      const dashboardProcess = spawn(npmCmd, ['run', 'dashboard'], {
-        cwd: process.cwd(),
-        stdio: 'inherit',
-        env: process.env,
-      });
-
-      dashboardProcess.on('error', (err) => {
-        console.error(chalk.red(`Failed to start dashboard: ${(err as Error).message}`));
-        process.exit(EXIT_FAILURE);
-      });
-
-      dashboardProcess.on('exit', (code) => {
-        process.exit(code ?? 0);
-      });
-    },
-  )
   .command(
     'run',
     'Schedule and execute test subsets in parallel, recording real wall-clock time per job',
