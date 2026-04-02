@@ -81,7 +81,7 @@ integration_tests:
 
 e2e_tests:
   stage: e2e tests
-  image: mcr.microsoft.com/playwright:v1.58.2-jammy
+  image: mcr.microsoft.com/playwright:v1.59.0-jammy
   cache:
     key:
       files:

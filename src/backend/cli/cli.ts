@@ -92,6 +92,7 @@ import {
 } from '../generator/JobBuilder';
 import { getSchemaValidator } from '../generator/getSchemaValidator';
 import { validateYamlSyntax } from '../generator/YAMLSyntaxValidator';
+import { inspectReportPath } from '../generator/ProjectInspection';
 import YAML from 'yaml';
 import chalk from 'chalk';
 
@@ -200,8 +201,8 @@ yargs(args)
       y
         .option('junit', {
           type: 'string',
-          demandOption: true,
-          describe: 'Path to JUnit XML file or directory',
+          demandOption: false,
+          describe: 'Path to JUnit XML file or directory (auto-detected if omitted)',
         })
         .option('jobs', {
           type: 'number',
@@ -231,7 +232,23 @@ yargs(args)
             'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
         }),
     (argv) => {
-      const junitPath = path.resolve(argv.junit as string);
+      const junitRaw = argv.junit as string | undefined;
+      const junitPath = junitRaw
+        ? path.resolve(junitRaw)
+        : (() => {
+            const detected = inspectReportPath();
+            const dirs = detected.reportDirs;
+            if (dirs.length === 0) {
+              console.error(chalk.red('Error: could not auto-detect report directory. Use --junit to specify one.'));
+              process.exit(EXIT_FAILURE);
+            }
+            if (dirs.length > 1) {
+              console.log(chalk.dim(`Auto-detected ${detected.tool} multi-module reports — merging ${dirs.length} directories`));
+            } else {
+              console.log(chalk.dim(`Auto-detected ${detected.tool} reports at: ${dirs[0]}`));
+            }
+            return dirs[0];
+          })();
       const jobCount = normalizeJobs(argv.jobs);
       const dataDir = argv.data as string;
       const explain = argv.explain as boolean;

@@ -9,6 +9,12 @@ function isMavenTestLine(line: string): boolean {
   return /^(mvn|\.\/mvnw)\b/.test(trimmed) && !trimmed.includes('-DskipTests');
 }
 
+function isGradleTestLine(line: string): boolean {
+  const trimmed = line.trim();
+  if (!/^(gradle|\.\/gradlew)\b/.test(trimmed)) return false;
+  return /\b(build|test|check)\b/.test(trimmed) && !trimmed.includes('-x test');
+}
+
 export function findExistingCIFile(platform: Platform): string | null {
   if (platform === 'github') {
     const workflowsDir = path.resolve('.github/workflows');
@@ -52,7 +58,9 @@ export function findTestJobs(config: any, platform: Platform): string[] {
           typeof step.run === 'string' &&
           (/^(mvn|\.\/mvnw)\b/.test(step.run.trim())
             ? isMavenTestLine(step.run)
-            : step.run.toLowerCase().includes('test'))
+            : /^(gradle|\.\/gradlew)\b/.test(step.run.trim())
+              ? isGradleTestLine(step.run)
+              : step.run.toLowerCase().includes('test'))
         ) {
           testJobs.push(jobName);
           break;
@@ -70,7 +78,9 @@ export function findTestJobs(config: any, platform: Platform): string[] {
         lines.some((l) =>
           /^(mvn|\.\/mvnw)\b/.test(l.trim())
             ? isMavenTestLine(l)
-            : l.toLowerCase().includes('test'),
+            : /^(gradle|\.\/gradlew)\b/.test(l.trim())
+              ? isGradleTestLine(l)
+              : l.toLowerCase().includes('test'),
         )
       ) {
         testJobs.push(jobName);
@@ -98,7 +108,9 @@ export function extractTestCommands(
           typeof step.run === 'string' &&
           (/^(mvn|\.\/mvnw)\b/.test(step.run.trim())
             ? isMavenTestLine(step.run)
-            : step.run.toLowerCase().includes('test'))
+            : /^(gradle|\.\/gradlew)\b/.test(step.run.trim())
+              ? isGradleTestLine(step.run)
+              : step.run.toLowerCase().includes('test'))
         ) {
           commands.push(step.run.trim());
         }
@@ -116,7 +128,9 @@ export function extractTestCommands(
         if (
           /^(mvn|\.\/mvnw)\b/.test(line.trim())
             ? isMavenTestLine(line)
-            : line.toLowerCase().includes('test')
+            : /^(gradle|\.\/gradlew)\b/.test(line.trim())
+              ? isGradleTestLine(line)
+              : line.toLowerCase().includes('test')
         ) {
           commands.push(line.trim());
         }
