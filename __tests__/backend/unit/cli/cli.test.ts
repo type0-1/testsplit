@@ -2201,7 +2201,7 @@ describe('command builder callbacks', () => {
     expect(returned).toBe(y);
     expect(y.option).toHaveBeenCalledWith(
       'junit',
-      expect.objectContaining({ type: 'string', demandOption: true }),
+      expect.objectContaining({ type: 'string', demandOption: false }),
     );
     expect(y.option).toHaveBeenCalledWith(
       'jobs',
