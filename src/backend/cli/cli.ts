@@ -26,7 +26,7 @@ function getCustomHelp(): string {
       desc: 'Generate CI configuration from test profile',
     },
     {
-      name: 'generate-dockerfile',
+      name: 'dockerfile|generate-dockerfile',
       desc: 'Generate a Dockerfile for a Maven/Java project',
     },
     {
@@ -1160,7 +1160,7 @@ yargs(args)
     },
   )
   .command(
-    'generate-dockerfile',
+    ['dockerfile', 'generate-dockerfile'],
     'Generate a Dockerfile for a Maven/Java project',
     (y) =>
       y

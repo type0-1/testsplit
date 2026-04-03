@@ -156,8 +156,20 @@ beforeAll(() => {
     return String(commandName).startsWith('generate');
   })?.[2];
   profileHandler = calls.find(c => c[0] === 'profile')?.[3];
-  generateDockerfileBuilder = calls.find(c => c[0] === 'generate-dockerfile')?.[2];
-  generateDockerfileHandler = calls.find(c => c[0] === 'generate-dockerfile')?.[3];
+  generateDockerfileBuilder = calls.find((c) => {
+    const commandName = c[0];
+    if (Array.isArray(commandName)) {
+      return commandName.includes('dockerfile') || commandName.includes('generate-dockerfile');
+    }
+    return String(commandName) === 'dockerfile' || String(commandName) === 'generate-dockerfile';
+  })?.[2];
+  generateDockerfileHandler = calls.find((c) => {
+    const commandName = c[0];
+    if (Array.isArray(commandName)) {
+      return commandName.includes('dockerfile') || commandName.includes('generate-dockerfile');
+    }
+    return String(commandName) === 'dockerfile' || String(commandName) === 'generate-dockerfile';
+  })?.[3];
   generateConfigHandler = calls.find((c) => {
     const commandName = c[0];
     if (Array.isArray(commandName)) {
