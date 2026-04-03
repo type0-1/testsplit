@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const { spawnSync } = require('child_process');
+
+const projectRoot = path.resolve(__dirname, '..');
+const compiledCli = path.join(projectRoot, 'dist', 'backend', 'cli', 'cli.js');
+const sourceCli = path.join(projectRoot, 'src', 'backend', 'cli', 'cli.ts');
+const tsNodeBin = path.join(projectRoot, 'node_modules', '.bin', 'ts-node');
+
+function run(command, args) {
+  const result = spawnSync(command, args, {
+    cwd: projectRoot,
+    stdio: 'inherit',
+  });
+
+  if (result.error) {
+    console.error(result.error.message);
+    process.exit(1);
+  }
+
+  process.exit(result.status === null ? 1 : result.status);
+}
+
+if (fs.existsSync(tsNodeBin)) {
+  run(tsNodeBin, [sourceCli, ...process.argv.slice(2)]);
+} else if (fs.existsSync(compiledCli)) {
+  run(process.execPath, [compiledCli, ...process.argv.slice(2)]);
+} else {
+  console.error('Cannot run testsplit: dist CLI not found and ts-node is unavailable.');
+  console.error('Run npm install, then try again.');
+  process.exit(1);
+}
