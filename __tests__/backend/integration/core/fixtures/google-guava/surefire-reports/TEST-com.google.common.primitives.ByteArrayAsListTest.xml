@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.google.common.primitives.ByteArrayAsListTest" time="0.024" tests="896" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/test-classes:/Users/sam/Downloads/guava/guava-tests/target/classes:/Users/sam/Downloads/guava/guava-testlib/target/guava-testlib-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/j2objc/j2objc-annotations/3.1/j2objc-annotations-3.1.jar:/Users/sam/Downloads/guava/guava/target/guava-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/Users/sam/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.47.0/error_prone_annotations-2.47.0.jar:/Users/sam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/sam/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.12.19/byte-buddy-1.12.19.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/sam/.m2/repository/com/google/truth/truth/1.4.5/truth-1.4.5.jar:/Users/sam/.m2/repository/com/google/auto/value/auto-value-annotations/1.11.0/auto-value-annotations-1.11.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/com/google/jimfs/jimfs/1.3.1/jimfs-1.3.1.jar:/Users/sam/.m2/repository/com/google/caliper/caliper/1.0-beta-3/caliper-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-core/1.0-beta-3/caliper-core-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-api/1.0-beta-3/caliper-api-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-util/1.0-beta-3/caliper-util-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.8.7/gson-2.8.7.jar:/Users/sam/.m2/repository/joda-time/joda-time/2.10.10/joda-time-2.10.10.jar:/Users/sam/.m2/repository/com/squareup/okhttp/okhttp/2.7.5/okhttp-2.7.5.jar:/Users/sam/.m2/repository/com/squareup/okio/okio/1.6.0/okio-1.6.0.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-runner/1.0-beta-3/caliper-runner-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/dagger/dagger-producers/2.22.1/dagger-producers-2.22.1.jar:/Users/sam/.m2/repository/org/checkerframework/checker-compat-qual/2.5.3/checker-compat-qual-2.5.3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker-jvm/1.0-beta-3/caliper-worker-jvm-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker/1.0-beta-3/caliper-worker-1.0-beta-3.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-client/1.19.4/jersey-client-1.19.4.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-core/1.19.4/jersey-core-1.19.4.jar:/Users/sam/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar:/Users/sam/.m2/repository/com/google/dagger/dagger/2.22.1/dagger-2.22.1.jar:/Users/sam/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/sam/.m2/repository/com/google/code/java-allocation-instrumenter/java-allocation-instrumenter/3.3.0/java-allocation-instrumenter-3.3.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-analysis/7.2/asm-analysis-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-commons/7.2/asm-commons-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-tree/7.2/asm-tree-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-util/7.2/asm-util-7.2.jar:/Users/sam/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="maven.javadoc.skip" value="true"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Europe/Dublin"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="user.country" value="IN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/Users/sam/.m2/jdks/jdk-25.0.2+10/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/sam/Downloads/guava/guava-tests/target/surefire/surefirebooter-20260403114515031_7.jar /Users/sam/Downloads/guava/guava-tests/target/surefire 2026-04-03T11-44-07_235-jvmRun1 surefire-20260403114515031_5tmp surefire_1-20260403114515031_6tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/test-classes:/Users/sam/Downloads/guava/guava-tests/target/classes:/Users/sam/Downloads/guava/guava-testlib/target/guava-testlib-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/j2objc/j2objc-annotations/3.1/j2objc-annotations-3.1.jar:/Users/sam/Downloads/guava/guava/target/guava-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/Users/sam/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.47.0/error_prone_annotations-2.47.0.jar:/Users/sam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/sam/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.12.19/byte-buddy-1.12.19.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/sam/.m2/repository/com/google/truth/truth/1.4.5/truth-1.4.5.jar:/Users/sam/.m2/repository/com/google/auto/value/auto-value-annotations/1.11.0/auto-value-annotations-1.11.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/com/google/jimfs/jimfs/1.3.1/jimfs-1.3.1.jar:/Users/sam/.m2/repository/com/google/caliper/caliper/1.0-beta-3/caliper-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-core/1.0-beta-3/caliper-core-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-api/1.0-beta-3/caliper-api-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-util/1.0-beta-3/caliper-util-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.8.7/gson-2.8.7.jar:/Users/sam/.m2/repository/joda-time/joda-time/2.10.10/joda-time-2.10.10.jar:/Users/sam/.m2/repository/com/squareup/okhttp/okhttp/2.7.5/okhttp-2.7.5.jar:/Users/sam/.m2/repository/com/squareup/okio/okio/1.6.0/okio-1.6.0.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-runner/1.0-beta-3/caliper-runner-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/dagger/dagger-producers/2.22.1/dagger-producers-2.22.1.jar:/Users/sam/.m2/repository/org/checkerframework/checker-compat-qual/2.5.3/checker-compat-qual-2.5.3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker-jvm/1.0-beta-3/caliper-worker-jvm-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker/1.0-beta-3/caliper-worker-1.0-beta-3.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-client/1.19.4/jersey-client-1.19.4.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-core/1.19.4/jersey-core-1.19.4.jar:/Users/sam/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar:/Users/sam/.m2/repository/com/google/dagger/dagger/2.22.1/dagger-2.22.1.jar:/Users/sam/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/sam/.m2/repository/com/google/code/java-allocation-instrumenter/java-allocation-instrumenter/3.3.0/java-allocation-instrumenter-3.3.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-analysis/7.2/asm-analysis-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-commons/7.2/asm-commons-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-tree/7.2/asm-tree-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-util/7.2/asm-util-7.2.jar:/Users/sam/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/sam"/>
+    <property name="user.language" value="hi"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/Users/sam/.m2/jdks/jdk-25.0.2+10/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/sam/Downloads/guava/guava-tests"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/surefire/surefirebooter-20260403114515031_7.jar"/>
+    <property name="java.protocol.handler.pkgs" value="com.google.common"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.2+10-LTS"/>
+    <property name="user.name" value="sam"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.3.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-25.0.2+10"/>
+    <property name="localRepository" value="/Users/sam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/kd/3_n5y3zx17q_1bhv8vddsghh0000gn/T/"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/Users/sam/Downloads/guava/guava-tests"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/sam/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="25.0.2+10-LTS"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="testAddAll_unsupportedSomePresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContains_yes[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testEquals_null[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.001"/>
+  <testcase name="testIterator[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.001"/>
+  <testcase name="testIterator[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.001"/>
+  <testcase name="testIterator[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_partialOverlapUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_subsetUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_partialOverlapUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_subsetUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.001"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.001"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_partialOverlapUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_subsetUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_partialOverlapUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_subsetUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testSize[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToString_size1[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_sizeSeveral[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_size1[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_sizeSeveral[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_size1[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_sizeSeveral[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_size1[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_sizeSeveral[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testHashCode[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testIndexOf_duplicate[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testIndexOf_duplicate[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testIndexOf_duplicate[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testIndexOf_duplicate[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testLastIndexOf_duplicate[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testLastIndexOf_duplicate[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testLastIndexOf_duplicate[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testLastIndexOf_duplicate[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testReplaceAll[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testSet[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubListLargeList[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginalLargeList[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_lastIndexOf[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_contains[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_indexOf[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListNonEmpty[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_get[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubListLargeList[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginalLargeList[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_lastIndexOf[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_contains[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_indexOf[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListNonEmpty[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_get[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubListLargeList[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginalLargeList[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_lastIndexOf[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_contains[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_indexOf[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListNonEmpty[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_get[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubListLargeList[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginalLargeList[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_lastIndexOf[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_contains[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_indexOf[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListNonEmpty[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_get[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Bytes.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Bytes.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Bytes.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Bytes.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testCreateWithDuplicates[Bytes.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListCreationTester" time="0.0"/>
+  <testcase name="testCreateWithDuplicates[Bytes.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListCreationTester" time="0.0"/>
+  <testcase name="testCreateWithDuplicates[Bytes.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListCreationTester" time="0.0"/>
+  <testcase name="testCreateWithDuplicates[Bytes.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListCreationTester" time="0.0"/>
+</testsuite>

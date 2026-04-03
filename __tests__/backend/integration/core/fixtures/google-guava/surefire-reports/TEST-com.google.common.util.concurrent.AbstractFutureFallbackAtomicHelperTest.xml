@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="15.911" tests="44" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/test-classes:/Users/sam/Downloads/guava/guava-tests/target/classes:/Users/sam/Downloads/guava/guava-testlib/target/guava-testlib-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/j2objc/j2objc-annotations/3.1/j2objc-annotations-3.1.jar:/Users/sam/Downloads/guava/guava/target/guava-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/Users/sam/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.47.0/error_prone_annotations-2.47.0.jar:/Users/sam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/sam/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.12.19/byte-buddy-1.12.19.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/sam/.m2/repository/com/google/truth/truth/1.4.5/truth-1.4.5.jar:/Users/sam/.m2/repository/com/google/auto/value/auto-value-annotations/1.11.0/auto-value-annotations-1.11.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/com/google/jimfs/jimfs/1.3.1/jimfs-1.3.1.jar:/Users/sam/.m2/repository/com/google/caliper/caliper/1.0-beta-3/caliper-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-core/1.0-beta-3/caliper-core-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-api/1.0-beta-3/caliper-api-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-util/1.0-beta-3/caliper-util-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.8.7/gson-2.8.7.jar:/Users/sam/.m2/repository/joda-time/joda-time/2.10.10/joda-time-2.10.10.jar:/Users/sam/.m2/repository/com/squareup/okhttp/okhttp/2.7.5/okhttp-2.7.5.jar:/Users/sam/.m2/repository/com/squareup/okio/okio/1.6.0/okio-1.6.0.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-runner/1.0-beta-3/caliper-runner-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/dagger/dagger-producers/2.22.1/dagger-producers-2.22.1.jar:/Users/sam/.m2/repository/org/checkerframework/checker-compat-qual/2.5.3/checker-compat-qual-2.5.3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker-jvm/1.0-beta-3/caliper-worker-jvm-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker/1.0-beta-3/caliper-worker-1.0-beta-3.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-client/1.19.4/jersey-client-1.19.4.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-core/1.19.4/jersey-core-1.19.4.jar:/Users/sam/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar:/Users/sam/.m2/repository/com/google/dagger/dagger/2.22.1/dagger-2.22.1.jar:/Users/sam/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/sam/.m2/repository/com/google/code/java-allocation-instrumenter/java-allocation-instrumenter/3.3.0/java-allocation-instrumenter-3.3.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-analysis/7.2/asm-analysis-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-commons/7.2/asm-commons-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-tree/7.2/asm-tree-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-util/7.2/asm-util-7.2.jar:/Users/sam/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="maven.javadoc.skip" value="true"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Europe/Dublin"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="user.country" value="IN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/Users/sam/.m2/jdks/jdk-25.0.2+10/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/sam/Downloads/guava/guava-tests/target/surefire/surefirebooter-20260403114515031_7.jar /Users/sam/Downloads/guava/guava-tests/target/surefire 2026-04-03T11-44-07_235-jvmRun1 surefire-20260403114515031_5tmp surefire_1-20260403114515031_6tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/test-classes:/Users/sam/Downloads/guava/guava-tests/target/classes:/Users/sam/Downloads/guava/guava-testlib/target/guava-testlib-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/j2objc/j2objc-annotations/3.1/j2objc-annotations-3.1.jar:/Users/sam/Downloads/guava/guava/target/guava-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/Users/sam/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.47.0/error_prone_annotations-2.47.0.jar:/Users/sam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/sam/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.12.19/byte-buddy-1.12.19.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/sam/.m2/repository/com/google/truth/truth/1.4.5/truth-1.4.5.jar:/Users/sam/.m2/repository/com/google/auto/value/auto-value-annotations/1.11.0/auto-value-annotations-1.11.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/com/google/jimfs/jimfs/1.3.1/jimfs-1.3.1.jar:/Users/sam/.m2/repository/com/google/caliper/caliper/1.0-beta-3/caliper-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-core/1.0-beta-3/caliper-core-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-api/1.0-beta-3/caliper-api-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-util/1.0-beta-3/caliper-util-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.8.7/gson-2.8.7.jar:/Users/sam/.m2/repository/joda-time/joda-time/2.10.10/joda-time-2.10.10.jar:/Users/sam/.m2/repository/com/squareup/okhttp/okhttp/2.7.5/okhttp-2.7.5.jar:/Users/sam/.m2/repository/com/squareup/okio/okio/1.6.0/okio-1.6.0.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-runner/1.0-beta-3/caliper-runner-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/dagger/dagger-producers/2.22.1/dagger-producers-2.22.1.jar:/Users/sam/.m2/repository/org/checkerframework/checker-compat-qual/2.5.3/checker-compat-qual-2.5.3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker-jvm/1.0-beta-3/caliper-worker-jvm-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker/1.0-beta-3/caliper-worker-1.0-beta-3.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-client/1.19.4/jersey-client-1.19.4.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-core/1.19.4/jersey-core-1.19.4.jar:/Users/sam/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar:/Users/sam/.m2/repository/com/google/dagger/dagger/2.22.1/dagger-2.22.1.jar:/Users/sam/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/sam/.m2/repository/com/google/code/java-allocation-instrumenter/java-allocation-instrumenter/3.3.0/java-allocation-instrumenter-3.3.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-analysis/7.2/asm-analysis-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-commons/7.2/asm-commons-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-tree/7.2/asm-tree-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-util/7.2/asm-util-7.2.jar:/Users/sam/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/sam"/>
+    <property name="user.language" value="hi"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/Users/sam/.m2/jdks/jdk-25.0.2+10/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/sam/Downloads/guava/guava-tests"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/surefire/surefirebooter-20260403114515031_7.jar"/>
+    <property name="java.protocol.handler.pkgs" value="com.google.common"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.2+10-LTS"/>
+    <property name="user.name" value="sam"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.3.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-25.0.2+10"/>
+    <property name="localRepository" value="/Users/sam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/kd/3_n5y3zx17q_1bhv8vddsghh0000gn/T/"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/Users/sam/Downloads/guava/guava-tests"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/sam/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="25.0.2+10-LTS"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="testToString_completesDuringToString" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.013">
+    <system-err><![CDATA[अप्रैल 03, 2026 11:47:02 AM com.google.common.util.concurrent.AbstractFutureState <clinit>
+SEVERE: UnsafeAtomicHelper is broken!
+java.lang.NoClassDefFoundError: sun/misc/Unsafe
+	at com.google.common.util.concurrent.AbstractFutureState$UnsafeAtomicHelper.<clinit>(AbstractFutureState.java:670)
+	at com.google.common.util.concurrent.AbstractFutureState.<clinit>(AbstractFutureState.java:354)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized0(Native Method)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized(Unsafe.java:1169)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.ensureClassInitialized(MethodHandleAccessorFactory.java:341)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.newMethodAccessor(MethodHandleAccessorFactory.java:72)
+	at java.base/jdk.internal.reflect.ReflectionFactory.newMethodAccessor(ReflectionFactory.java:119)
+	at java.base/java.lang.reflect.Method.acquireMethodAccessor(Method.java:711)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:562)
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest.checkHelperVersion(AbstractFutureFallbackAtomicHelperTest.java:151)
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest.runTest(AbstractFutureFallbackAtomicHelperTest.java:110)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: java.lang.ClassNotFoundException: I'm sorry Dave, I'm afraid I can't do that.
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest$1.loadClass(AbstractFutureFallbackAtomicHelperTest.java:162)
+	... 27 more
+
+अप्रैल 03, 2026 11:47:02 AM com.google.common.util.concurrent.AbstractFutureState <clinit>
+SEVERE: AtomicReferenceFieldUpdaterAtomicHelper is broken!
+java.lang.NoClassDefFoundError: java/util/concurrent/atomic/AtomicReferenceFieldUpdater
+	at com.google.common.util.concurrent.AbstractFutureState$AtomicReferenceFieldUpdaterAtomicHelper.<clinit>(AbstractFutureState.java:752)
+	at com.google.common.util.concurrent.AbstractFutureState.<clinit>(AbstractFutureState.java:359)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized0(Native Method)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized(Unsafe.java:1169)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.ensureClassInitialized(MethodHandleAccessorFactory.java:341)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.newMethodAccessor(MethodHandleAccessorFactory.java:72)
+	at java.base/jdk.internal.reflect.ReflectionFactory.newMethodAccessor(ReflectionFactory.java:119)
+	at java.base/java.lang.reflect.Method.acquireMethodAccessor(Method.java:711)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:562)
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest.checkHelperVersion(AbstractFutureFallbackAtomicHelperTest.java:151)
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest.runTest(AbstractFutureFallbackAtomicHelperTest.java:110)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: java.lang.ClassNotFoundException: I'm sorry Dave, I'm afraid I can't do that.
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest$1.loadClass(AbstractFutureFallbackAtomicHelperTest.java:162)
+	... 27 more
+
+]]></system-err>
+  </testcase>
+  <testcase name="testSetFutureCancelBash_withDoneFuture" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.059"/>
+  <testcase name="testSetFutureToString_stackOverflow" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.241"/>
+  <testcase name="testSetFuture_misbehavingFutureThrows" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.001"/>
+  <testcase name="testSetFuture_misbehavingFutureDoesNotThrow" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testSetFutureSelf_toStringException" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.001"/>
+  <testcase name="testListenersExecuteImmediately_fromAfterDone" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.004"/>
+  <testcase name="testListenersExecuteImmediately_afterWaiterWakesUp" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testCatchesUndeclaredThrowableFromListener" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.001">
+    <system-err><![CDATA[अप्रैल 03, 2026 11:47:02 AM com.google.common.util.concurrent.AbstractFuture executeListener
+SEVERE: RuntimeException while executing runnable com.google.common.util.concurrent.AbstractFutureTest$$Lambda/0x0000040001a72410@27ce91cb with executor MoreExecutors.directExecutor()
+com.google.common.util.concurrent.AbstractFutureTest$SomeCheckedException
+	at com.google.common.util.concurrent.AbstractFutureTest.lambda$testCatchesUndeclaredThrowableFromListener$0(AbstractFutureTest.java:1008)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.addListener(AbstractFuture.java:526)
+	at com.google.common.util.concurrent.AbstractFutureTest.testCatchesUndeclaredThrowableFromListener(AbstractFutureTest.java:1008)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest.runTestMethod(AbstractFutureFallbackAtomicHelperTest.java:139)
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest.runTest(AbstractFutureFallbackAtomicHelperTest.java:120)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 03, 2026 11:47:02 AM com.google.common.util.concurrent.AbstractFuture executeListener
+SEVERE: RuntimeException while executing runnable com.google.common.util.concurrent.AbstractFutureTest$$Lambda/0x0000040001a76f08@44e57c6b with executor MoreExecutors.directExecutor()
+com.google.common.util.concurrent.AbstractFutureTest$SomeCheckedException
+	at com.google.common.util.concurrent.AbstractFutureTest.lambda$testCatchesUndeclaredThrowableFromListener$0(AbstractFutureTest.java:1008)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.addListener(AbstractFuture.java:526)
+	at com.google.common.util.concurrent.AbstractFutureTest.testCatchesUndeclaredThrowableFromListener(AbstractFutureTest.java:1008)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest.runTestMethod(AbstractFutureFallbackAtomicHelperTest.java:139)
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest.runTest(AbstractFutureFallbackAtomicHelperTest.java:123)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 03, 2026 11:47:02 AM com.google.common.util.concurrent.AbstractFuture executeListener
+SEVERE: RuntimeException while executing runnable com.google.common.util.concurrent.AbstractFutureTest$$Lambda/0x0000040001a6f1c8@3ee4ef6f with executor MoreExecutors.directExecutor()
+com.google.common.util.concurrent.AbstractFutureTest$SomeCheckedException
+	at com.google.common.util.concurrent.AbstractFutureTest.lambda$testCatchesUndeclaredThrowableFromListener$0(AbstractFutureTest.java:1008)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.addListener(AbstractFuture.java:526)
+	at com.google.common.util.concurrent.AbstractFutureTest.testCatchesUndeclaredThrowableFromListener(AbstractFutureTest.java:1008)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest.runTestMethod(AbstractFutureFallbackAtomicHelperTest.java:139)
+	at com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest.runTest(AbstractFutureFallbackAtomicHelperTest.java:125)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+]]></system-err>
+  </testcase>
+  <testcase name="testTrustedGetFailure_canceledNoCause" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testException" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testCancel_notDoneNoInterrupt" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testCancel_notDoneInterrupt" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testGetWithTimeoutDoneFuture" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testEvilFuture_setFuture" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.001"/>
+  <testcase name="testRemoveWaiter_interruption" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testRemoveWaiter_polling" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.001"/>
+  <testcase name="testToString_allUnique" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testToString_notDone" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.001"/>
+  <testcase name="testToString_delayedTimeout" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testToString_completed" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testToString_cancelled" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.001"/>
+  <testcase name="testToString_failed" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.001"/>
+  <testcase name="testToString_misbehaving" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testCompletionFinishesWithDone" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="1.311"/>
+  <testcase name="testSetFutureCancelBash" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="11.734"/>
+  <testcase name="testSetFuture_stackOverflow" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.02"/>
+  <testcase name="testCancel_stackOverflow" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.016"/>
+  <testcase name="testSetFutureSelf_cancel" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testSetFutureSelf_toString" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testSetSelf_toString" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testSetIndirectSelf_toString" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.187"/>
+  <testcase name="testTrustedGetFailure_completed" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testTrustedGetFailure_failed" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testTrustedGetFailure_notCompleted" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testGetFailure_completed" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testGetFailure_failed" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testGetFailure_notCompleted" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testGetFailure_canceledNoCause" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testForwardExceptionFastPath" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.002"/>
+  <testcase name="testSuccess" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.001"/>
+  <testcase name="testCancel_done" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testToString_oom" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="0.0"/>
+  <testcase name="testFutureBash" classname="com.google.common.util.concurrent.AbstractFutureFallbackAtomicHelperTest" time="2.314"/>
+</testsuite>
