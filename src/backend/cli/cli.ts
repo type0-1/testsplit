@@ -399,7 +399,8 @@ yargs(args)
         })
         .option('jobs', {
           type: 'number',
-          describe: 'Number of parallel jobs (defaults to --runner-cores)',
+          default: os.cpus().length,
+          describe: 'Number of parallel jobs',
         })
         .option('runner-cores', {
           type: 'number',
@@ -468,7 +469,7 @@ yargs(args)
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
       const runnerCores = argv['runner-cores'] as number;
-      const jobCount = (argv.jobs as number | undefined) ?? runnerCores;
+      const jobCount = normalizeJobs((argv.jobs as number | undefined) ?? os.cpus().length);
       const platform = argv.platform as Platform;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;

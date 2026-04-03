@@ -1258,17 +1258,17 @@ describe('generate-config command handler', () => {
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('disk full'));
   });
 
-  it('defaults --jobs to --runner-cores when --jobs is not specified', () => {
+  it('defaults --jobs to cpu count when --jobs is not specified', () => {
     const existingConfig = {
       on: ['push'],
       jobs: { test: { steps: [{ uses: 'actions/checkout@v4' }, { run: 'npm test' }] } },
     };
     setupExistsMocksWithCI(existingConfig);
 
-    // jobs=undefined → jobCount=3 (runner-cores), runnerCores=3 → totalSlots=3*3=9
+    // jobs=undefined → jobCount=cpu count, runnerCores=3 → totalSlots=cpu count * 3
     generateConfigHandler({ junit: '/test.xml', jobs: undefined, 'runner-cores': 3, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false, algorithm: 'lpt', 'risk-factor': 1.0 });
 
-    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 9, true, expect.any(String), expect.any(Number), expect.any(Map));
+    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), mockOs.cpus().length * 3, true, expect.any(String), expect.any(Number), expect.any(Map));
   });
 
   it('exits when no CI config path is found and --from is not provided', () => {
@@ -2296,6 +2296,10 @@ describe('command builder callbacks', () => {
     expect(y.option).toHaveBeenCalledWith(
       'junit',
       expect.objectContaining({ type: 'string', demandOption: true }),
+    );
+    expect(y.option).toHaveBeenCalledWith(
+      'jobs',
+      expect.objectContaining({ type: 'number', default: mockOs.cpus().length }),
     );
     expect(y.option).toHaveBeenCalledWith(
       'runner-cores',
