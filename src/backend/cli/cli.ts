@@ -106,9 +106,6 @@ const COL_VALUE = 18;
 const COL_DELTA = 14;
 const SEP = '-'.repeat(TABLE_WIDTH);
 
-function resolveJUnitPath(input: unknown): string {
-  return path.resolve(input as string);
-}
 
 function normalizeJobs(input: unknown): number {
   let jobCount = Number(input);
@@ -477,9 +474,13 @@ yargs(args)
           default: 'src/test/java',
           describe:
             'Path to Java test sources for dependency detection (default: src/test/java)',
+        })
+        .option('test-command', {
+          type: 'string',
+          describe:
+            'Override the test command used in generated CI jobs (bypasses CI file parsing, e.g. "./gradlew :module:test --tests")',
         }),
     (argv) => {
-      const junitPath = resolveJUnitPath(argv.junit);
       const runnerCores = argv['runner-cores'] as number;
       const jobCount = (argv.jobs as number | undefined) ?? runnerCores;
       const platform = argv.platform as Platform;
@@ -491,8 +492,29 @@ yargs(args)
       const dataDirArg = (argv.data as string | undefined) ?? '.data';
       const dataDir = path.isAbsolute(dataDirArg)
         ? dataDirArg
-        : path.resolve(outDir, dataDirArg);
-      const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
+        : path.resolve(process.cwd(), dataDirArg);
+      const testCommandOverride = argv['test-command'] as string | undefined;
+
+      // Auto-detect junit path if not provided
+      const junitRaw = argv.junit as string | undefined;
+      let junitPath: string;
+      if (junitRaw) {
+        junitPath = path.resolve(junitRaw);
+      } else {
+        const detected = inspectReportPath();
+        const dirs = detected.reportDirs.filter(d => fs.existsSync(d));
+        if (dirs.length === 0) {
+          console.error(chalk.red('Error: could not auto-detect report directory. Use --junit to specify one.'));
+          process.exit(EXIT_FAILURE);
+        }
+        junitPath = dirs[0];
+        console.log(chalk.dim(`Auto-detected ${detected.tool} reports at: ${junitPath}`));
+      }
+
+      // Auto-detect maven/gradle bin from project
+      const detectedTool = inspectReportPath();
+      const mavenBin = (argv['maven-bin'] as string | undefined) ??
+        (detectedTool.tool === 'gradle' ? './gradlew' : 'mvn');
       const dryRun = argv['dry-run'] as boolean;
 
       const fromFlag = argv['from'] as string | undefined;
@@ -590,21 +612,19 @@ yargs(args)
             : buildJobsWithDependencies(result.distribution.jobs);
 
         const testJobs = findTestJobs(existingCIConfig, platform);
-        if (testJobs.length === 0) {
-          throw new Error('No test jobs found in existing CI config');
+        if (testJobs.length === 0 && !testCommandOverride) {
+          throw new Error('No test jobs found in existing CI config. Use --test-command to specify the test command explicitly.');
         }
 
-        const commands = extractTestCommands(
-          existingCIConfig,
-          platform,
-          testJobs,
-        );
+        const commands = testCommandOverride
+          ? [testCommandOverride]
+          : extractTestCommands(existingCIConfig, platform, testJobs);
         const testCommand = commands[0] ?? `${mavenBin} test -Dtest=`;
 
         let ciConfig: string;
 
         if (platform === 'github') {
-          const baseJobName = testJobs[0];
+          const baseJobName = testJobs[0] ?? Object.keys(existingCIConfig.jobs ?? {})[0];
           const baseJob = existingCIConfig.jobs?.[baseJobName];
           if (!baseJob) {
             throw new Error('Unable to locate base GitHub test job');
