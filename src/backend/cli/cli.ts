@@ -482,8 +482,11 @@ yargs(args)
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
 
+      const templateFlag = argv['template'] as string | undefined;
       const fromFlag = argv['from'] as string | undefined;
-      const existingCIPath = fromFlag
+      const existingCIPath = templateFlag
+        ? path.resolve(templateFlag)
+        : fromFlag
         ? path.resolve(fromFlag)
         : findExistingCIFile(platform);
 

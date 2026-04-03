@@ -910,6 +910,44 @@ describe('generate-config command handler', () => {
     expect(mockFs.writeFileSync).toHaveBeenCalledWith('/tmp/ci.yml', expect.stringContaining('generated-yaml'), 'utf-8');
   });
 
+  it('uses --template as the base config before auto-detection', () => {
+    const templateConfig = {
+      on: ['push'],
+      jobs: { test: { steps: [{ run: 'npm test' }] } },
+    };
+
+    mockFs.existsSync.mockImplementation((filePath: any) => {
+      const resolved = String(filePath);
+      if (resolved === path.resolve('/tmp/template.yml')) return true;
+      if (resolved === path.resolve('/tmp/ci.yml')) return false;
+      if (resolved === path.dirname(path.resolve('/tmp/ci.yml'))) return true;
+      if (resolved === path.resolve('/test.xml')) return true;
+      return true;
+    });
+    mockFs.readFileSync.mockImplementation((filePath: any) => {
+      if (String(filePath) === path.resolve('/tmp/template.yml')) {
+        return 'template-yaml';
+      }
+      return 'raw-yaml';
+    });
+    mockYAML.parse.mockImplementation((raw: string) => {
+      if (raw === 'template-yaml') return templateConfig;
+      return templateConfig;
+    });
+
+    generateConfigHandler({
+      junit: '/test.xml',
+      jobs: 2,
+      platform: 'github',
+      out: '/tmp/ci.yml',
+      template: '/tmp/template.yml',
+      'dry-run': false,
+    });
+
+    expect(mockFs.readFileSync).toHaveBeenCalledWith(path.resolve('/tmp/template.yml'), 'utf-8');
+    expect(mockYAML.stringify).toHaveBeenCalled();
+  });
+
   it('passes needs when scheduled jobs have cross-job test dependencies', () => {
     const existingConfig = {
       on: ['push'],
