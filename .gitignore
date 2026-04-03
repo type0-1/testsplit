@@ -6,3 +6,4 @@ coverage/
 .data-e2e/
 test-results/
 coverage/playwright-report/
+.test-data/
