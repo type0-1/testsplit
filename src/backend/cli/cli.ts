@@ -98,6 +98,10 @@ import { getSchemaValidator } from '../generator/getSchemaValidator';
 import { validateYamlSyntax } from '../generator/YAMLSyntaxValidator';
 import YAML from 'yaml';
 import chalk from 'chalk';
+import {
+  buildDockerfileCommand,
+  handleDockerfileCommand,
+} from './commands/dockerfile';
 
 type Platform = 'github' | 'gitlab';
 const EXIT_FAILURE = 1;
@@ -1166,41 +1170,8 @@ yargs(args)
   .command(
     'dockerfile',
     'Generate a Dockerfile for a Maven/Java project',
-    (y) =>
-      y
-        .option('pom', {
-          type: 'string',
-          default: 'pom.xml',
-          describe:
-            'Path to pom.xml (used to detect Java version and Maven wrapper)',
-        })
-        .option('out', {
-          type: 'string',
-          default: 'Dockerfile',
-          describe: 'Output path for the generated Dockerfile',
-        }),
-    (argv) => {
-      const pomPath = path.resolve(argv.pom as string);
-      const outPath = path.resolve(argv.out as string);
-
-      let javaVersion: string | undefined;
-      const hasMavenWrapper = fs.existsSync(path.resolve('mvnw'));
-
-      if (fs.existsSync(pomPath)) {
-        const pomInfo = parsePom(pomPath);
-        if (pomInfo.javaVersion) javaVersion = pomInfo.javaVersion;
-      }
-
-      const content = generateDockerfile({ javaVersion, hasMavenWrapper });
-      fs.writeFileSync(outPath, content, 'utf-8');
-      console.log(chalk.green(`Dockerfile written to ${outPath}`));
-      if (javaVersion) {
-        console.log(chalk.dim(`  Java version: ${javaVersion}`));
-      }
-      if (hasMavenWrapper) {
-        console.log(chalk.dim('  Using ./mvnw'));
-      }
-    },
+    buildDockerfileCommand,
+    handleDockerfileCommand,
   )
   .command(
     'dashboard',
