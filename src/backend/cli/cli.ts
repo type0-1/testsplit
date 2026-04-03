@@ -623,8 +623,18 @@ yargs(args)
               : undefined,
             lifecycle.hasDockerCompose,
           );
+          const newJobNames = Object.keys(generatedJobs);
           for (const jobName of testJobs) {
             delete existingCIConfig.jobs?.[jobName];
+          }
+          // Update needs references in remaining jobs that pointed to replaced jobs
+          for (const job of Object.values<any>(existingCIConfig.jobs ?? {})) {
+            if (!job?.needs) continue;
+            const needs: string[] = Array.isArray(job.needs) ? job.needs : [job.needs];
+            const updatedNeeds = needs.flatMap((n: string) =>
+              testJobs.includes(n) ? newJobNames : [n]
+            );
+            job.needs = updatedNeeds.length === 1 ? updatedNeeds[0] : updatedNeeds;
           }
           existingCIConfig.jobs = {
             ...(existingCIConfig.jobs ?? {}),
