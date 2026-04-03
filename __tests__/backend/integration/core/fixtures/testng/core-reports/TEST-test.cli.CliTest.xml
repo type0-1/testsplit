@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.cli.CliTest" tests="49" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:56" hostname="MAC-ECC0B5.station" time="11.994">
+  <properties/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[0](CLI With Suites, org.testng.CommandLineArgs@716eae1)" classname="test.cli.CliTest" time="0.006"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[1](CLI With Classes, org.testng.CommandLineArgs@591ba330)" classname="test.cli.CliTest" time="0.006"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[2](CLI With Methods, org.testng.CommandLineArgs@1fab0394)" classname="test.cli.CliTest" time="0.006"/>
+  <testcase name="testExitCodeListenerBehavior[0](class test.cli.github1517.TestClassWithConfigFailureSample, 3)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testExitCodeListenerBehavior[1](class test.cli.github1517.TestClassWithConfigSkipSample, 2)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testExitCodeListenerBehavior[2](class test.cli.github1517.TestClassWithConfigSkipAndFailureSample, 3)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testToEnsureSuitesInJarAreExecutedViaCli" classname="test.cli.CliTest" time="0.05"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[0](CLI With Suites, org.testng.CommandLineArgs@63537871)" classname="test.cli.CliTest" time="0.007"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[1](CLI With Classes, org.testng.CommandLineArgs@591ba330)" classname="test.cli.CliTest" time="0.006"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[2](CLI With Methods, org.testng.CommandLineArgs@1fab0394)" classname="test.cli.CliTest" time="0.006"/>
+  <testcase name="testExitCodeListenerBehavior[0](class test.cli.github1517.TestClassWithConfigFailureSample, 3)" classname="test.cli.CliTest" time="0.002"/>
+  <testcase name="testExitCodeListenerBehavior[1](class test.cli.github1517.TestClassWithConfigSkipSample, 2)" classname="test.cli.CliTest" time="0.0"/>
+  <testcase name="testExitCodeListenerBehavior[2](class test.cli.github1517.TestClassWithConfigSkipAndFailureSample, 3)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testToEnsureSuitesInJarAreExecutedViaCli" classname="test.cli.CliTest" time="0.054"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[0](CLI With Suites, org.testng.CommandLineArgs@4270705f)" classname="test.cli.CliTest" time="0.008"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[1](CLI With Classes, org.testng.CommandLineArgs@9fc2f89)" classname="test.cli.CliTest" time="0.006"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[2](CLI With Methods, org.testng.CommandLineArgs@16120270)" classname="test.cli.CliTest" time="0.006"/>
+  <testcase name="testExitCodeListenerBehavior[0](class test.cli.github1517.TestClassWithConfigFailureSample, 3)" classname="test.cli.CliTest" time="0.002"/>
+  <testcase name="testExitCodeListenerBehavior[1](class test.cli.github1517.TestClassWithConfigSkipSample, 2)" classname="test.cli.CliTest" time="0.0"/>
+  <testcase name="testExitCodeListenerBehavior[2](class test.cli.github1517.TestClassWithConfigSkipAndFailureSample, 3)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testToEnsureSuitesInJarAreExecutedViaCli" classname="test.cli.CliTest" time="0.05"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[0](CLI With Suites, org.testng.CommandLineArgs@64eb14da)" classname="test.cli.CliTest" time="0.007"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[1](CLI With Classes, org.testng.CommandLineArgs@9fc2f89)" classname="test.cli.CliTest" time="0.006"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[2](CLI With Methods, org.testng.CommandLineArgs@16120270)" classname="test.cli.CliTest" time="0.005"/>
+  <testcase name="testExitCodeListenerBehavior[0](class test.cli.github1517.TestClassWithConfigFailureSample, 3)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testExitCodeListenerBehavior[1](class test.cli.github1517.TestClassWithConfigSkipSample, 2)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testExitCodeListenerBehavior[2](class test.cli.github1517.TestClassWithConfigSkipAndFailureSample, 3)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testToEnsureSuitesInJarAreExecutedViaCli" classname="test.cli.CliTest" time="0.054"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[0](CLI With Suites, org.testng.CommandLineArgs@1cb929a9)" classname="test.cli.CliTest" time="0.007"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[1](CLI With Classes, org.testng.CommandLineArgs@8aa1562)" classname="test.cli.CliTest" time="0.005"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[2](CLI With Methods, org.testng.CommandLineArgs@72015156)" classname="test.cli.CliTest" time="0.005"/>
+  <testcase name="testExitCodeListenerBehavior[0](class test.cli.github1517.TestClassWithConfigFailureSample, 3)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testExitCodeListenerBehavior[1](class test.cli.github1517.TestClassWithConfigSkipSample, 2)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testExitCodeListenerBehavior[2](class test.cli.github1517.TestClassWithConfigSkipAndFailureSample, 3)" classname="test.cli.CliTest" time="0.0"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[0](CLI With Suites, org.testng.CommandLineArgs@18bf1bad)" classname="test.cli.CliTest" time="0.007"/>
+  <testcase name="testToEnsureSuitesInJarAreExecutedViaCli" classname="test.cli.CliTest" time="0.052"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[1](CLI With Classes, org.testng.CommandLineArgs@8aa1562)" classname="test.cli.CliTest" time="0.007"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[2](CLI With Methods, org.testng.CommandLineArgs@72015156)" classname="test.cli.CliTest" time="0.006"/>
+  <testcase name="testExitCodeListenerBehavior[0](class test.cli.github1517.TestClassWithConfigFailureSample, 3)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testExitCodeListenerBehavior[1](class test.cli.github1517.TestClassWithConfigSkipSample, 2)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testExitCodeListenerBehavior[2](class test.cli.github1517.TestClassWithConfigSkipAndFailureSample, 3)" classname="test.cli.CliTest" time="0.0"/>
+  <testcase name="testToEnsureSuitesInJarAreExecutedViaCli" classname="test.cli.CliTest" time="0.052"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[0](CLI With Suites, org.testng.CommandLineArgs@4777f71e)" classname="test.cli.CliTest" time="0.007"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[1](CLI With Classes, org.testng.CommandLineArgs@4a3383dc)" classname="test.cli.CliTest" time="0.006"/>
+  <testcase name="ensureDataProviderCountCanBeOverridden[2](CLI With Methods, org.testng.CommandLineArgs@3efb863c)" classname="test.cli.CliTest" time="0.005"/>
+  <testcase name="testExitCodeListenerBehavior[0](class test.cli.github1517.TestClassWithConfigFailureSample, 3)" classname="test.cli.CliTest" time="0.001"/>
+  <testcase name="testExitCodeListenerBehavior[1](class test.cli.github1517.TestClassWithConfigSkipSample, 2)" classname="test.cli.CliTest" time="0.0"/>
+  <testcase name="testExitCodeListenerBehavior[2](class test.cli.github1517.TestClassWithConfigSkipAndFailureSample, 3)" classname="test.cli.CliTest" time="0.0"/>
+  <testcase name="testToEnsureSuitesInJarAreExecutedViaCli" classname="test.cli.CliTest" time="0.052"/>
+  <system-out><![CDATA[PASSED: com.kungfu.panda.Tigress.testMethod
+PASSED: com.kungfu.panda.DragonWarrior.testMethod
+
+===============================================
+    Default XmlTest name 471afd54-ad30-4028-90c0-c0c4f18fa5a7
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Jar suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: com.kungfu.panda.Tigress.testMethod
+PASSED: com.kungfu.panda.DragonWarrior.testMethod
+
+===============================================
+    Default XmlTest name 098c81e0-cc06-4760-bd32-f816545ca8a3
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Jar suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: com.kungfu.panda.DragonWarrior.testMethod
+PASSED: com.kungfu.panda.Tigress.testMethod
+
+===============================================
+    Default XmlTest name ee4cd032-7d7e-4629-8361-5b51abe868dd
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Jar suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: com.kungfu.panda.DragonWarrior.testMethod
+PASSED: com.kungfu.panda.Tigress.testMethod
+
+===============================================
+    Default XmlTest name cda7eb14-34b2-4628-98bc-a25f7032bef6
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Jar suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: com.kungfu.panda.Tigress.testMethod
+PASSED: com.kungfu.panda.DragonWarrior.testMethod
+
+===============================================
+    Default XmlTest name 92f367cd-c994-4c90-a322-a90ba0e42679
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Jar suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: com.kungfu.panda.Tigress.testMethod
+PASSED: com.kungfu.panda.DragonWarrior.testMethod
+
+===============================================
+    Default XmlTest name 024bf047-a96a-4949-b436-978b4737524a
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Jar suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: com.kungfu.panda.DragonWarrior.testMethod
+PASSED: com.kungfu.panda.Tigress.testMethod
+
+===============================================
+    Default XmlTest name a9a85347-b6c9-4572-8573-3b3953a559b0
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Jar suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

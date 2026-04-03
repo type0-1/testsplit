@@ -206,11 +206,6 @@ yargs(args)
           default: os.cpus().length,
           describe: 'Number of parallel jobs',
         })
-        .option('data', {
-          type: 'string',
-          default: '.data',
-          describe: 'Path to data directory',
-        })
         .option('explain', {
           type: 'boolean',
           default: false,
@@ -247,7 +242,7 @@ yargs(args)
             return dirs[0];
           })();
       const jobCount = normalizeJobs(argv.jobs);
-      const dataDir = argv.data as string;
+      const dataDir = path.resolve(process.cwd(), '.data');
       const explain = argv.explain as boolean;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = normalizeRiskFactor(
@@ -489,10 +484,7 @@ yargs(args)
       const artifactPath = argv['artifact-path'] as string;
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
-      const dataDirArg = (argv.data as string | undefined) ?? '.data';
-      const dataDir = path.isAbsolute(dataDirArg)
-        ? dataDirArg
-        : path.resolve(process.cwd(), dataDirArg);
+      const dataDir = path.resolve(process.cwd(), '.data');
       const testCommandOverride = argv['test-command'] as string | undefined;
 
       // Auto-detect junit path if not provided
@@ -737,11 +729,6 @@ yargs(args)
           default: 2,
           describe: 'Number of recent runs to load',
         })
-        .option('data', {
-          type: 'string',
-          default: '.data',
-          describe: 'Path to data directory',
-        })
         .option('threshold', {
           type: 'number',
           default: 10,
@@ -749,7 +736,7 @@ yargs(args)
         }),
     (argv) => {
       const runCount = argv.runs as number;
-      const dataDir = argv.data as string;
+      const dataDir = path.resolve(process.cwd(), '.data');
       const thresholdPct = argv.threshold as number;
 
       const store = new FileStore(dataDir);
@@ -1062,11 +1049,6 @@ yargs(args)
           demandOption: true,
           describe: 'Number of parallel jobs to spawn',
         })
-        .option('data', {
-          type: 'string',
-          default: '.data',
-          describe: 'Path to data directory for profiling artifacts',
-        })
         .option('cmd', {
           type: 'string',
           demandOption: true,
@@ -1116,7 +1098,7 @@ yargs(args)
     async (argv) => {
       const junitPath = path.resolve(argv.junit as string);
       const jobCount = normalizeJobs(argv.jobs);
-      const dataDir = argv.data as string;
+      const dataDir = path.resolve(process.cwd(), '.data');
       const cmd = argv.cmd as string;
       const filterFlag = argv['filter-flag'] as string;
       const filterJoin = argv['filter-join'] as string;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.listeners.github1465.IssueTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:43" hostname="MAC-ECC0B5.station" time="11.881">
+  <properties/>
+  <testcase name="reproduceIssue[0](continue, [Ljava.lang.String;@4ac5bbc8)" classname="test.listeners.github1465.IssueTest" time="0.002"/>
+  <testcase name="reproduceIssue[1](skip, [Ljava.lang.String;@679b73ab)" classname="test.listeners.github1465.IssueTest" time="0.001"/>
+  <testcase name="reproduceIssue[0](continue, [Ljava.lang.String;@4d437408)" classname="test.listeners.github1465.IssueTest" time="0.002"/>
+  <testcase name="reproduceIssue[1](skip, [Ljava.lang.String;@74e6fdef)" classname="test.listeners.github1465.IssueTest" time="0.001"/>
+  <testcase name="reproduceIssue[0](continue, [Ljava.lang.String;@17a394d2)" classname="test.listeners.github1465.IssueTest" time="0.002"/>
+  <testcase name="reproduceIssue[1](skip, [Ljava.lang.String;@1e09f286)" classname="test.listeners.github1465.IssueTest" time="0.0"/>
+  <testcase name="reproduceIssue[0](continue, [Ljava.lang.String;@790801f2)" classname="test.listeners.github1465.IssueTest" time="0.001"/>
+  <testcase name="reproduceIssue[1](skip, [Ljava.lang.String;@269f952f)" classname="test.listeners.github1465.IssueTest" time="0.001"/>
+  <testcase name="reproduceIssue[0](continue, [Ljava.lang.String;@269f952f)" classname="test.listeners.github1465.IssueTest" time="0.001"/>
+  <testcase name="reproduceIssue[1](skip, [Ljava.lang.String;@6d5254f3)" classname="test.listeners.github1465.IssueTest" time="0.001"/>
+  <testcase name="reproduceIssue[0](continue, [Ljava.lang.String;@2f418f72)" classname="test.listeners.github1465.IssueTest" time="0.001"/>
+  <testcase name="reproduceIssue[1](skip, [Ljava.lang.String;@5d6c74de)" classname="test.listeners.github1465.IssueTest" time="0.0"/>
+  <testcase name="reproduceIssue[0](continue, [Ljava.lang.String;@3f0c46e8)" classname="test.listeners.github1465.IssueTest" time="0.001"/>
+  <testcase name="reproduceIssue[1](skip, [Ljava.lang.String;@37cf8e35)" classname="test.listeners.github1465.IssueTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

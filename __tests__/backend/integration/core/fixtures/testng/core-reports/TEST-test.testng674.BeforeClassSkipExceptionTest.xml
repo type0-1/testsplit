@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.testng674.BeforeClassSkipExceptionTest" tests="56" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:30" hostname="MAC-ECC0B5.station" time="11.88">
+  <properties/>
+  <testcase name="testExceptionDetailsUsingGroupsWithFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.002"/>
+  <testcase name="testExceptionDetailsWhenClassHasExplicitSkipInConfiguration" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenClassHasMultipleFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenConfigHasAlwaysRun" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInABaseClass" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInSuiteConfigs" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testIfTestMethodHasException" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testIfTestMethodHasExceptionInInheritance" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsUsingGroupsWithFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenClassHasExplicitSkipInConfiguration" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenClassHasMultipleFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsWhenConfigHasAlwaysRun" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInABaseClass" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.002"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInSuiteConfigs" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testIfTestMethodHasException" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testIfTestMethodHasExceptionInInheritance" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsUsingGroupsWithFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenClassHasExplicitSkipInConfiguration" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsWhenClassHasMultipleFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsWhenConfigHasAlwaysRun" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInABaseClass" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInSuiteConfigs" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testIfTestMethodHasException" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.002"/>
+  <testcase name="testIfTestMethodHasExceptionInInheritance" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsUsingGroupsWithFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.002"/>
+  <testcase name="testExceptionDetailsWhenClassHasExplicitSkipInConfiguration" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenClassHasMultipleFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenConfigHasAlwaysRun" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInABaseClass" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInSuiteConfigs" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testIfTestMethodHasException" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testIfTestMethodHasExceptionInInheritance" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsUsingGroupsWithFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.002"/>
+  <testcase name="testExceptionDetailsWhenClassHasExplicitSkipInConfiguration" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenClassHasMultipleFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenConfigHasAlwaysRun" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInABaseClass" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInSuiteConfigs" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testIfTestMethodHasException" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testIfTestMethodHasExceptionInInheritance" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsUsingGroupsWithFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenClassHasExplicitSkipInConfiguration" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenClassHasMultipleFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenConfigHasAlwaysRun" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInABaseClass" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInSuiteConfigs" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testIfTestMethodHasException" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testIfTestMethodHasExceptionInInheritance" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsUsingGroupsWithFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenClassHasExplicitSkipInConfiguration" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenClassHasMultipleFailures" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testExceptionDetailsWhenConfigHasAlwaysRun" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInABaseClass" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testExceptionDetailsWhenFailuresExistInSuiteConfigs" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.0"/>
+  <testcase name="testIfTestMethodHasException" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <testcase name="testIfTestMethodHasExceptionInInheritance" classname="test.testng674.BeforeClassSkipExceptionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

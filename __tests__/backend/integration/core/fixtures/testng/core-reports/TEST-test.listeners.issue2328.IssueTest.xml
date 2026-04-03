@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.listeners.issue2328.IssueTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:32" hostname="MAC-ECC0B5.station" time="11.85">
+  <properties/>
+  <testcase name="testIfTestMethodInfoPassedToConfigListeners" classname="test.listeners.issue2328.IssueTest" time="0.001"/>
+  <testcase name="testIfTestMethodInfoPassedToConfigListeners" classname="test.listeners.issue2328.IssueTest" time="0.001"/>
+  <testcase name="testIfTestMethodInfoPassedToConfigListeners" classname="test.listeners.issue2328.IssueTest" time="0.001"/>
+  <testcase name="testIfTestMethodInfoPassedToConfigListeners" classname="test.listeners.issue2328.IssueTest" time="0.0"/>
+  <testcase name="testIfTestMethodInfoPassedToConfigListeners" classname="test.listeners.issue2328.IssueTest" time="0.001"/>
+  <testcase name="testIfTestMethodInfoPassedToConfigListeners" classname="test.listeners.issue2328.IssueTest" time="0.001"/>
+  <testcase name="testIfTestMethodInfoPassedToConfigListeners" classname="test.listeners.issue2328.IssueTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

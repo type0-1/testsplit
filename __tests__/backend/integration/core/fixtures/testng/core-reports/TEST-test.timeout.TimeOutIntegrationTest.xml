@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.timeout.TimeOutIntegrationTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:38" hostname="MAC-ECC0B5.station" time="13.017">
+  <properties/>
+  <testcase name="testGitHub1314" classname="test.timeout.TimeOutIntegrationTest" time="0.108"/>
+  <testcase name="testGitHub1314" classname="test.timeout.TimeOutIntegrationTest" time="0.108"/>
+  <testcase name="testTimeOutWhenParallelIsTest" classname="test.timeout.TimeOutIntegrationTest" time="1.003"/>
+  <testcase name="testTimeOutWhenParallelIsTest" classname="test.timeout.TimeOutIntegrationTest" time="1.002"/>
+  <testcase name="testGitHub1314" classname="test.timeout.TimeOutIntegrationTest" time="0.107"/>
+  <testcase name="testTimeOutWhenParallelIsTest" classname="test.timeout.TimeOutIntegrationTest" time="1.007"/>
+  <testcase name="testGitHub1314" classname="test.timeout.TimeOutIntegrationTest" time="0.104"/>
+  <testcase name="testGitHub1314" classname="test.timeout.TimeOutIntegrationTest" time="0.104"/>
+  <testcase name="testTimeOutWhenParallelIsTest" classname="test.timeout.TimeOutIntegrationTest" time="1.006"/>
+  <testcase name="testGitHub1314" classname="test.timeout.TimeOutIntegrationTest" time="0.107"/>
+  <testcase name="testTimeOutWhenParallelIsTest" classname="test.timeout.TimeOutIntegrationTest" time="1.007"/>
+  <testcase name="testTimeOutWhenParallelIsTest" classname="test.timeout.TimeOutIntegrationTest" time="1.005"/>
+  <testcase name="testGitHub1314" classname="test.timeout.TimeOutIntegrationTest" time="0.103"/>
+  <testcase name="testTimeOutWhenParallelIsTest" classname="test.timeout.TimeOutIntegrationTest" time="1.007"/>
+  <system-out><![CDATA[Test1
+Test2
+Test1
+Test2
+Test1
+Test2
+Test1
+Test2
+Test1
+Test2
+Test1
+Test2
+Test1
+Test2
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

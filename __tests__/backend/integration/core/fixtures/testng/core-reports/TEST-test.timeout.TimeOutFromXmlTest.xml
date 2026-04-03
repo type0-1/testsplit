@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.timeout.TimeOutFromXmlTest" tests="35" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:25" hostname="MAC-ECC0B5.station" time="24.946">
+  <properties/>
+  <testcase name="noTimeOut" classname="test.timeout.TimeOutFromXmlTest" time="2.005"/>
+  <testcase name="noTimeOut" classname="test.timeout.TimeOutFromXmlTest" time="2.004"/>
+  <testcase name="timeOutInParallelTestsFromXml" classname="test.timeout.TimeOutFromXmlTest" time="1.01"/>
+  <testcase name="timeOutInParallelTestsFromXml" classname="test.timeout.TimeOutFromXmlTest" time="1.007"/>
+  <testcase name="timeOutOnSuiteTag" classname="test.timeout.TimeOutFromXmlTest" time="1.004"/>
+  <testcase name="timeOutOnSuiteTag" classname="test.timeout.TimeOutFromXmlTest" time="1.006"/>
+  <testcase name="noTimeOut" classname="test.timeout.TimeOutFromXmlTest" time="2.003"/>
+  <testcase name="timeOutInParallelTestsFromXml" classname="test.timeout.TimeOutFromXmlTest" time="1.009"/>
+  <testcase name="timeOutOnSuiteTag" classname="test.timeout.TimeOutFromXmlTest" time="1.007"/>
+  <testcase name="noTimeOut" classname="test.timeout.TimeOutFromXmlTest" time="2.005"/>
+  <testcase name="timeOutOnTestTag" classname="test.timeout.TimeOutFromXmlTest" time="6.011"/>
+  <testcase name="noTimeOut" classname="test.timeout.TimeOutFromXmlTest" time="2.006"/>
+  <testcase name="timeOutInParallelTestsFromXml" classname="test.timeout.TimeOutFromXmlTest" time="1.006"/>
+  <testcase name="noTimeOut" classname="test.timeout.TimeOutFromXmlTest" time="2.004"/>
+  <testcase name="timeOutOnTestTag" classname="test.timeout.TimeOutFromXmlTest" time="6.01"/>
+  <testcase name="timeOutInParallelTestsFromXml" classname="test.timeout.TimeOutFromXmlTest" time="1.006"/>
+  <testcase name="timeOutOnSuiteTag" classname="test.timeout.TimeOutFromXmlTest" time="1.003"/>
+  <testcase name="timeOutInParallelTestsFromXml" classname="test.timeout.TimeOutFromXmlTest" time="1.005"/>
+  <testcase name="timeOutOnSuiteTag" classname="test.timeout.TimeOutFromXmlTest" time="1.006"/>
+  <testcase name="timeOutOnSuiteTag" classname="test.timeout.TimeOutFromXmlTest" time="1.006"/>
+  <testcase name="twoDifferentTests" classname="test.timeout.TimeOutFromXmlTest" time="3.008"/>
+  <testcase name="timeOutOnTestTag" classname="test.timeout.TimeOutFromXmlTest" time="6.011"/>
+  <testcase name="twoDifferentTests" classname="test.timeout.TimeOutFromXmlTest" time="3.012"/>
+  <testcase name="noTimeOut" classname="test.timeout.TimeOutFromXmlTest" time="2.002"/>
+  <testcase name="timeOutInParallelTestsFromXml" classname="test.timeout.TimeOutFromXmlTest" time="1.006"/>
+  <testcase name="timeOutOnSuiteTag" classname="test.timeout.TimeOutFromXmlTest" time="1.002"/>
+  <testcase name="twoDifferentTests" classname="test.timeout.TimeOutFromXmlTest" time="3.008"/>
+  <testcase name="timeOutOnTestTag" classname="test.timeout.TimeOutFromXmlTest" time="6.007"/>
+  <testcase name="timeOutOnTestTag" classname="test.timeout.TimeOutFromXmlTest" time="6.008"/>
+  <testcase name="timeOutOnTestTag" classname="test.timeout.TimeOutFromXmlTest" time="6.01"/>
+  <testcase name="twoDifferentTests" classname="test.timeout.TimeOutFromXmlTest" time="3.013"/>
+  <testcase name="twoDifferentTests" classname="test.timeout.TimeOutFromXmlTest" time="3.009"/>
+  <testcase name="twoDifferentTests" classname="test.timeout.TimeOutFromXmlTest" time="3.01"/>
+  <testcase name="timeOutOnTestTag" classname="test.timeout.TimeOutFromXmlTest" time="6.008"/>
+  <testcase name="twoDifferentTests" classname="test.timeout.TimeOutFromXmlTest" time="3.014"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

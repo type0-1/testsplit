@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.configuration.ConfigurationTest" tests="63" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:54" hostname="MAC-ECC0B5.station" time="11.904">
+  <properties/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[0](class test.listeners.issue2961.OnlyOnceConfigurationThatFailsTestSample)" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[1](class test.listeners.issue2961.OnlyOnceConfigurationThatPassesTestSample)" classname="test.configuration.ConfigurationTest" time="0.003"/>
+  <testcase name="ensureGroupInheritanceWorksForConfigMethods" classname="test.configuration.ConfigurationTest" time="0.003"/>
+  <testcase name="ensureNativelyInjectedTestResultForAfterMethodMatchesTestMethod" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="testAfterClassCalledOnlyOnceForParallelTestMethods" classname="test.configuration.ConfigurationTest" time="0.003"/>
+  <testcase name="testConfiguration" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="testMethodCallOrder" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testSuite" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testSuiteRunnerWithDefaultConfiguration" classname="test.configuration.ConfigurationTest" time="0.187"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[0](class test.listeners.issue2961.OnlyOnceConfigurationThatFailsTestSample)" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[1](class test.listeners.issue2961.OnlyOnceConfigurationThatPassesTestSample)" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureGroupInheritanceWorksForConfigMethods" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureNativelyInjectedTestResultForAfterMethodMatchesTestMethod" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testAfterClassCalledOnlyOnceForParallelTestMethods" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testConfiguration" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testMethodCallOrder" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="testSuite" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testSuiteRunnerWithDefaultConfiguration" classname="test.configuration.ConfigurationTest" time="0.144"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[0](class test.listeners.issue2961.OnlyOnceConfigurationThatFailsTestSample)" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[1](class test.listeners.issue2961.OnlyOnceConfigurationThatPassesTestSample)" classname="test.configuration.ConfigurationTest" time="0.005"/>
+  <testcase name="ensureGroupInheritanceWorksForConfigMethods" classname="test.configuration.ConfigurationTest" time="0.003"/>
+  <testcase name="ensureNativelyInjectedTestResultForAfterMethodMatchesTestMethod" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testAfterClassCalledOnlyOnceForParallelTestMethods" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testConfiguration" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testMethodCallOrder" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testSuite" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testSuiteRunnerWithDefaultConfiguration" classname="test.configuration.ConfigurationTest" time="0.159"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[0](class test.listeners.issue2961.OnlyOnceConfigurationThatFailsTestSample)" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[1](class test.listeners.issue2961.OnlyOnceConfigurationThatPassesTestSample)" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureGroupInheritanceWorksForConfigMethods" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureNativelyInjectedTestResultForAfterMethodMatchesTestMethod" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="testAfterClassCalledOnlyOnceForParallelTestMethods" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="testConfiguration" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testMethodCallOrder" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testSuite" classname="test.configuration.ConfigurationTest" time="0.003"/>
+  <testcase name="testSuiteRunnerWithDefaultConfiguration" classname="test.configuration.ConfigurationTest" time="0.161"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[0](class test.listeners.issue2961.OnlyOnceConfigurationThatFailsTestSample)" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[1](class test.listeners.issue2961.OnlyOnceConfigurationThatPassesTestSample)" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="ensureGroupInheritanceWorksForConfigMethods" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="ensureNativelyInjectedTestResultForAfterMethodMatchesTestMethod" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testAfterClassCalledOnlyOnceForParallelTestMethods" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testConfiguration" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testMethodCallOrder" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testSuite" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="testSuiteRunnerWithDefaultConfiguration" classname="test.configuration.ConfigurationTest" time="0.215"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[0](class test.listeners.issue2961.OnlyOnceConfigurationThatFailsTestSample)" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[1](class test.listeners.issue2961.OnlyOnceConfigurationThatPassesTestSample)" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureGroupInheritanceWorksForConfigMethods" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureNativelyInjectedTestResultForAfterMethodMatchesTestMethod" classname="test.configuration.ConfigurationTest" time="0.0"/>
+  <testcase name="testAfterClassCalledOnlyOnceForParallelTestMethods" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testConfiguration" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testMethodCallOrder" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testSuite" classname="test.configuration.ConfigurationTest" time="0.0"/>
+  <testcase name="testSuiteRunnerWithDefaultConfiguration" classname="test.configuration.ConfigurationTest" time="0.152"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[0](class test.listeners.issue2961.OnlyOnceConfigurationThatFailsTestSample)" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureFirstTimeOnlyConfigsHaveProperTestStatuses[1](class test.listeners.issue2961.OnlyOnceConfigurationThatPassesTestSample)" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureGroupInheritanceWorksForConfigMethods" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="ensureNativelyInjectedTestResultForAfterMethodMatchesTestMethod" classname="test.configuration.ConfigurationTest" time="0.0"/>
+  <testcase name="testAfterClassCalledOnlyOnceForParallelTestMethods" classname="test.configuration.ConfigurationTest" time="0.002"/>
+  <testcase name="testConfiguration" classname="test.configuration.ConfigurationTest" time="0.0"/>
+  <testcase name="testMethodCallOrder" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testSuite" classname="test.configuration.ConfigurationTest" time="0.001"/>
+  <testcase name="testSuiteRunnerWithDefaultConfiguration" classname="test.configuration.ConfigurationTest" time="0.166"/>
+  <system-out><![CDATA[
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

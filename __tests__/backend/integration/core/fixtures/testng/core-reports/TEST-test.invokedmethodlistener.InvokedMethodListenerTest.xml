@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.invokedmethodlistener.InvokedMethodListenerTest" tests="42" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:06" hostname="MAC-ECC0B5.station" time="12.143">
+  <properties/>
+  <testcase name="issue629_InvokedMethodDoesNotRecognizeConfigurationMethod" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.002"/>
+  <testcase name="issue87_method_orderning_with_disable_test_class" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.004"/>
+  <testcase name="sameMethodInvokedMultipleTimesShouldHaveDifferentTimeStamps" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.212"/>
+  <testcase name="testMethodsWithExpectedExceptionsShouldShowUpAsPass" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.002"/>
+  <testcase name="withFailure" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="withSuccess" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="issue629_InvokedMethodDoesNotRecognizeConfigurationMethod" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.002"/>
+  <testcase name="issue87_method_orderning_with_disable_test_class" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.004"/>
+  <testcase name="sameMethodInvokedMultipleTimesShouldHaveDifferentTimeStamps" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.204"/>
+  <testcase name="testMethodsWithExpectedExceptionsShouldShowUpAsPass" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.002"/>
+  <testcase name="withFailure" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.002"/>
+  <testcase name="withSuccess" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="issue629_InvokedMethodDoesNotRecognizeConfigurationMethod" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.002"/>
+  <testcase name="issue87_method_orderning_with_disable_test_class" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.004"/>
+  <testcase name="sameMethodInvokedMultipleTimesShouldHaveDifferentTimeStamps" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.226"/>
+  <testcase name="testMethodsWithExpectedExceptionsShouldShowUpAsPass" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.003"/>
+  <testcase name="withFailure" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.003"/>
+  <testcase name="withSuccess" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.002"/>
+  <testcase name="issue629_InvokedMethodDoesNotRecognizeConfigurationMethod" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.005"/>
+  <testcase name="issue87_method_orderning_with_disable_test_class" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.009"/>
+  <testcase name="sameMethodInvokedMultipleTimesShouldHaveDifferentTimeStamps" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.21"/>
+  <testcase name="testMethodsWithExpectedExceptionsShouldShowUpAsPass" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="withFailure" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="withSuccess" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="issue629_InvokedMethodDoesNotRecognizeConfigurationMethod" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.002"/>
+  <testcase name="issue87_method_orderning_with_disable_test_class" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.004"/>
+  <testcase name="issue629_InvokedMethodDoesNotRecognizeConfigurationMethod" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.002"/>
+  <testcase name="issue87_method_orderning_with_disable_test_class" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.004"/>
+  <testcase name="sameMethodInvokedMultipleTimesShouldHaveDifferentTimeStamps" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.208"/>
+  <testcase name="testMethodsWithExpectedExceptionsShouldShowUpAsPass" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="withFailure" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="withSuccess" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="sameMethodInvokedMultipleTimesShouldHaveDifferentTimeStamps" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.208"/>
+  <testcase name="testMethodsWithExpectedExceptionsShouldShowUpAsPass" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="withFailure" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="withSuccess" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="issue629_InvokedMethodDoesNotRecognizeConfigurationMethod" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="issue87_method_orderning_with_disable_test_class" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.004"/>
+  <testcase name="sameMethodInvokedMultipleTimesShouldHaveDifferentTimeStamps" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.208"/>
+  <testcase name="testMethodsWithExpectedExceptionsShouldShowUpAsPass" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.002"/>
+  <testcase name="withFailure" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <testcase name="withSuccess" classname="test.invokedmethodlistener.InvokedMethodListenerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

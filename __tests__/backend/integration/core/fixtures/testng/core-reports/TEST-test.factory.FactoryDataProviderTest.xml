@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.factory.FactoryDataProviderTest" tests="35" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:04" hostname="MAC-ECC0B5.station" time="11.921">
+  <properties/>
+  <testcase name="factoryWithLocalDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNonStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithNonStaticDataProviderShouldFail" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNotStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithLocalDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithNonStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNonStaticDataProviderShouldFail" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNotStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithLocalDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithNonStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNonStaticDataProviderShouldFail" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNotStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithLocalDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNonStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithNonStaticDataProviderShouldFail" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNotStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithLocalDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithNonStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithNonStaticDataProviderShouldFail" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNotStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithLocalDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithNonStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithNonStaticDataProviderShouldFail" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNotStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithLocalDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithNonStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNonStaticDataProviderShouldFail" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <testcase name="factoryWithNotStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.001"/>
+  <testcase name="factoryWithStaticDataProvider" classname="test.factory.FactoryDataProviderTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.priority.PriorityTest" tests="49" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:14" hostname="MAC-ECC0B5.station" time="11.907">
+  <properties/>
+  <testcase name="priorityInSequential1" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityInSequential2" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="priorityWithDependencyAndFailures" classname="test.priority.PriorityTest" time="0.003"/>
+  <testcase name="priorityWithDependsOnMethods" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityWithDependsOnMethodsParallel" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testInterruptStatusWithMethodsThatHavePriorities" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testPriorityOrdering" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityInSequential1" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="priorityInSequential2" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityWithDependencyAndFailures" classname="test.priority.PriorityTest" time="0.002"/>
+  <testcase name="priorityWithDependsOnMethods" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityWithDependsOnMethodsParallel" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testInterruptStatusWithMethodsThatHavePriorities" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="testPriorityOrdering" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityInSequential1" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityInSequential2" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="priorityWithDependencyAndFailures" classname="test.priority.PriorityTest" time="0.003"/>
+  <testcase name="priorityWithDependsOnMethods" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="priorityWithDependsOnMethodsParallel" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testInterruptStatusWithMethodsThatHavePriorities" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testPriorityOrdering" classname="test.priority.PriorityTest" time="0.002"/>
+  <testcase name="priorityInSequential1" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityInSequential2" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="priorityWithDependencyAndFailures" classname="test.priority.PriorityTest" time="0.002"/>
+  <testcase name="priorityWithDependsOnMethods" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="priorityWithDependsOnMethodsParallel" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testInterruptStatusWithMethodsThatHavePriorities" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testPriorityOrdering" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityInSequential1" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityInSequential2" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="priorityWithDependencyAndFailures" classname="test.priority.PriorityTest" time="0.002"/>
+  <testcase name="priorityWithDependsOnMethods" classname="test.priority.PriorityTest" time="0.002"/>
+  <testcase name="priorityWithDependsOnMethodsParallel" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testInterruptStatusWithMethodsThatHavePriorities" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testPriorityOrdering" classname="test.priority.PriorityTest" time="0.002"/>
+  <testcase name="priorityInSequential1" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityInSequential2" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="priorityWithDependencyAndFailures" classname="test.priority.PriorityTest" time="0.003"/>
+  <testcase name="priorityWithDependsOnMethods" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityWithDependsOnMethodsParallel" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testInterruptStatusWithMethodsThatHavePriorities" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testPriorityOrdering" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityInSequential1" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="priorityInSequential2" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="priorityWithDependencyAndFailures" classname="test.priority.PriorityTest" time="0.003"/>
+  <testcase name="priorityWithDependsOnMethods" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="priorityWithDependsOnMethodsParallel" classname="test.priority.PriorityTest" time="0.001"/>
+  <testcase name="testInterruptStatusWithMethodsThatHavePriorities" classname="test.priority.PriorityTest" time="0.0"/>
+  <testcase name="testPriorityOrdering" classname="test.priority.PriorityTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

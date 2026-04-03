@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.reports.PerSuiteXMLReporterTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:56" hostname="MAC-ECC0B5.station" time="11.947">
+  <properties/>
+  <testcase name="ensurePerSuiteGenerationHappens" classname="test.reports.PerSuiteXMLReporterTest" time="0.015"/>
+  <testcase name="ensurePerSuiteGenerationHappensWithEnabledViaMap" classname="test.reports.PerSuiteXMLReporterTest" time="0.013"/>
+  <testcase name="ensurePerSuiteGenerationHappens" classname="test.reports.PerSuiteXMLReporterTest" time="0.016"/>
+  <testcase name="ensurePerSuiteGenerationHappensWithEnabledViaMap" classname="test.reports.PerSuiteXMLReporterTest" time="0.014"/>
+  <testcase name="ensurePerSuiteGenerationHappens" classname="test.reports.PerSuiteXMLReporterTest" time="0.015"/>
+  <testcase name="ensurePerSuiteGenerationHappensWithEnabledViaMap" classname="test.reports.PerSuiteXMLReporterTest" time="0.012"/>
+  <testcase name="ensurePerSuiteGenerationHappens" classname="test.reports.PerSuiteXMLReporterTest" time="0.017"/>
+  <testcase name="ensurePerSuiteGenerationHappensWithEnabledViaMap" classname="test.reports.PerSuiteXMLReporterTest" time="0.014"/>
+  <testcase name="ensurePerSuiteGenerationHappens" classname="test.reports.PerSuiteXMLReporterTest" time="0.017"/>
+  <testcase name="ensurePerSuiteGenerationHappensWithEnabledViaMap" classname="test.reports.PerSuiteXMLReporterTest" time="0.013"/>
+  <testcase name="ensurePerSuiteGenerationHappens" classname="test.reports.PerSuiteXMLReporterTest" time="0.044"/>
+  <testcase name="ensurePerSuiteGenerationHappensWithEnabledViaMap" classname="test.reports.PerSuiteXMLReporterTest" time="0.016"/>
+  <testcase name="ensurePerSuiteGenerationHappens" classname="test.reports.PerSuiteXMLReporterTest" time="0.016"/>
+  <testcase name="ensurePerSuiteGenerationHappensWithEnabledViaMap" classname="test.reports.PerSuiteXMLReporterTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

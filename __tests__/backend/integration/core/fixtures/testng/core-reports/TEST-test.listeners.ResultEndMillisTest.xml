@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.listeners.ResultEndMillisTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:42" hostname="MAC-ECC0B5.station" time="11.897">
+  <properties/>
+  <testcase name="endMillisShouldBeNonNull" classname="test.listeners.ResultEndMillisTest" time="0.002"/>
+  <testcase name="endMillisShouldBeNonNull" classname="test.listeners.ResultEndMillisTest" time="0.002"/>
+  <testcase name="endMillisShouldBeNonNull" classname="test.listeners.ResultEndMillisTest" time="0.003"/>
+  <testcase name="endMillisShouldBeNonNull" classname="test.listeners.ResultEndMillisTest" time="0.001"/>
+  <testcase name="endMillisShouldBeNonNull" classname="test.listeners.ResultEndMillisTest" time="0.002"/>
+  <testcase name="endMillisShouldBeNonNull" classname="test.listeners.ResultEndMillisTest" time="0.002"/>
+  <testcase name="endMillisShouldBeNonNull" classname="test.listeners.ResultEndMillisTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

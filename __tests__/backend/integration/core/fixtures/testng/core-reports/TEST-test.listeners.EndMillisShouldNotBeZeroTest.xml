@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.listeners.EndMillisShouldNotBeZeroTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:42" hostname="MAC-ECC0B5.station" time="11.896">
+  <properties/>
+  <testcase name="f1" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.001"/>
+  <testcase name="f2" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.0"/>
+  <testcase name="f1" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.001"/>
+  <testcase name="f2" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.0"/>
+  <testcase name="f1" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.002"/>
+  <testcase name="f2" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.0"/>
+  <testcase name="f1" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.001"/>
+  <testcase name="f2" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.0"/>
+  <testcase name="f1" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.002"/>
+  <testcase name="f2" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.0"/>
+  <testcase name="f1" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.002"/>
+  <testcase name="f2" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.0"/>
+  <testcase name="f1" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.001"/>
+  <testcase name="f2" classname="test.listeners.EndMillisShouldNotBeZeroTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

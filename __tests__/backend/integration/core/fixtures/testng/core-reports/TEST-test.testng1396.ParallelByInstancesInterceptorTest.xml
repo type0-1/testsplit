@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.testng1396.ParallelByInstancesInterceptorTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:33" hostname="MAC-ECC0B5.station" time="11.848">
+  <properties/>
+  <testcase name="should_honor_interceptor_order_when_running_parallel_instances" classname="test.testng1396.ParallelByInstancesInterceptorTest" time="0.008"/>
+  <testcase name="should_honor_interceptor_order_when_running_parallel_instances" classname="test.testng1396.ParallelByInstancesInterceptorTest" time="0.007"/>
+  <testcase name="should_honor_interceptor_order_when_running_parallel_instances" classname="test.testng1396.ParallelByInstancesInterceptorTest" time="0.008"/>
+  <testcase name="should_honor_interceptor_order_when_running_parallel_instances" classname="test.testng1396.ParallelByInstancesInterceptorTest" time="0.008"/>
+  <testcase name="should_honor_interceptor_order_when_running_parallel_instances" classname="test.testng1396.ParallelByInstancesInterceptorTest" time="0.007"/>
+  <testcase name="should_honor_interceptor_order_when_running_parallel_instances" classname="test.testng1396.ParallelByInstancesInterceptorTest" time="0.008"/>
+  <testcase name="should_honor_interceptor_order_when_running_parallel_instances" classname="test.testng1396.ParallelByInstancesInterceptorTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

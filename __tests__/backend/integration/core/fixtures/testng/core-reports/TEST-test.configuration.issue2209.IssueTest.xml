@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.configuration.issue2209.IssueTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:58" hostname="MAC-ECC0B5.station" time="11.661">
+  <properties/>
+  <testcase name="testGithub2209" classname="test.configuration.issue2209.IssueTest" time="0.001"/>
+  <testcase name="testGithub2209" classname="test.configuration.issue2209.IssueTest" time="0.001"/>
+  <testcase name="testGithub2209" classname="test.configuration.issue2209.IssueTest" time="0.001"/>
+  <testcase name="testGithub2209" classname="test.configuration.issue2209.IssueTest" time="0.001"/>
+  <testcase name="testGithub2209" classname="test.configuration.issue2209.IssueTest" time="0.001"/>
+  <testcase name="testGithub2209" classname="test.configuration.issue2209.IssueTest" time="0.002"/>
+  <testcase name="testGithub2209" classname="test.configuration.issue2209.IssueTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.testng.internal.listeners.parameterindex.ParameterIndexListenerTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:42" hostname="MAC-ECC0B5.station" time="11.901">
+  <properties/>
+  <testcase name="listenerShouldReceiveRightParameterIndexTest" classname="org.testng.internal.listeners.parameterindex.ParameterIndexListenerTest" time="0.005"/>
+  <testcase name="listenerShouldReceiveRightParameterIndexTest" classname="org.testng.internal.listeners.parameterindex.ParameterIndexListenerTest" time="0.004"/>
+  <testcase name="listenerShouldReceiveRightParameterIndexTest" classname="org.testng.internal.listeners.parameterindex.ParameterIndexListenerTest" time="0.004"/>
+  <testcase name="listenerShouldReceiveRightParameterIndexTest" classname="org.testng.internal.listeners.parameterindex.ParameterIndexListenerTest" time="0.004"/>
+  <testcase name="listenerShouldReceiveRightParameterIndexTest" classname="org.testng.internal.listeners.parameterindex.ParameterIndexListenerTest" time="0.004"/>
+  <testcase name="listenerShouldReceiveRightParameterIndexTest" classname="org.testng.internal.listeners.parameterindex.ParameterIndexListenerTest" time="0.004"/>
+  <testcase name="listenerShouldReceiveRightParameterIndexTest" classname="org.testng.internal.listeners.parameterindex.ParameterIndexListenerTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

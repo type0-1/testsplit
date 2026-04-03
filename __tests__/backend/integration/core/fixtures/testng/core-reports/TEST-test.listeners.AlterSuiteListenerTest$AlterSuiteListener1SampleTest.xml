@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.listeners.AlterSuiteListenerTest$AlterSuiteListener1SampleTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:15:20" hostname="MAC-ECC0B5.station" time="84.259">
+  <properties/>
+  <testcase name="foo" classname="test.listeners.AlterSuiteListenerTest$AlterSuiteListener1SampleTest" time="0.0"/>
+  <testcase name="foo" classname="test.listeners.AlterSuiteListenerTest$AlterSuiteListener1SampleTest" time="0.0"/>
+  <testcase name="foo" classname="test.listeners.AlterSuiteListenerTest$AlterSuiteListener1SampleTest" time="0.0"/>
+  <testcase name="foo" classname="test.listeners.AlterSuiteListenerTest$AlterSuiteListener1SampleTest" time="0.0"/>
+  <testcase name="foo" classname="test.listeners.AlterSuiteListenerTest$AlterSuiteListener1SampleTest" time="0.0"/>
+  <testcase name="foo" classname="test.listeners.AlterSuiteListenerTest$AlterSuiteListener1SampleTest" time="0.0"/>
+  <testcase name="foo" classname="test.listeners.AlterSuiteListenerTest$AlterSuiteListener1SampleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

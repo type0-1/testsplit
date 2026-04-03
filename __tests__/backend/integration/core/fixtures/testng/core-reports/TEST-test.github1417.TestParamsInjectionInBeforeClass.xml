@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.github1417.TestParamsInjectionInBeforeClass" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:33" hostname="MAC-ECC0B5.station" time="11.846">
+  <properties/>
+  <testcase name="testMethod" classname="test.github1417.TestParamsInjectionInBeforeClass" time="0.006"/>
+  <testcase name="testMethod" classname="test.github1417.TestParamsInjectionInBeforeClass" time="0.006"/>
+  <testcase name="testMethod" classname="test.github1417.TestParamsInjectionInBeforeClass" time="0.007"/>
+  <testcase name="testMethod" classname="test.github1417.TestParamsInjectionInBeforeClass" time="0.007"/>
+  <testcase name="testMethod" classname="test.github1417.TestParamsInjectionInBeforeClass" time="0.006"/>
+  <testcase name="testMethod" classname="test.github1417.TestParamsInjectionInBeforeClass" time="0.007"/>
+  <testcase name="testMethod" classname="test.github1417.TestParamsInjectionInBeforeClass" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

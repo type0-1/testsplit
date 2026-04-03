@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.objectfactory.CustomFactoryTest" tests="35" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:39" hostname="MAC-ECC0B5.station" time="11.947">
+  <properties/>
+  <testcase name="factoryReceivesContext" classname="test.objectfactory.CustomFactoryTest" time="0.002"/>
+  <testcase name="setFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setFactoryOnSuite" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setFactoryOnTestNG" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setInvalidMethodFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="factoryReceivesContext" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setFactoryOnSuite" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setFactoryOnTestNG" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setInvalidMethodFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="factoryReceivesContext" classname="test.objectfactory.CustomFactoryTest" time="0.002"/>
+  <testcase name="setFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setFactoryOnSuite" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setFactoryOnTestNG" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setInvalidMethodFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="factoryReceivesContext" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setFactoryOnSuite" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setFactoryOnTestNG" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setInvalidMethodFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="factoryReceivesContext" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setFactoryOnSuite" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setFactoryOnTestNG" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setInvalidMethodFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="factoryReceivesContext" classname="test.objectfactory.CustomFactoryTest" time="0.002"/>
+  <testcase name="setFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setFactoryOnSuite" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setFactoryOnTestNG" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="setInvalidMethodFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <testcase name="factoryReceivesContext" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.002"/>
+  <testcase name="setFactoryOnSuite" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setFactoryOnTestNG" classname="test.objectfactory.CustomFactoryTest" time="0.001"/>
+  <testcase name="setInvalidMethodFactoryByAnnotation" classname="test.objectfactory.CustomFactoryTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

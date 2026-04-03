@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.thread.parallelization.ThreadAffinityTest" tests="42" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:15:13" hostname="MAC-ECC0B5.station" time="11.534">
+  <properties/>
+  <testcase name="ensureNoNPEIsThrown" classname="test.thread.parallelization.ThreadAffinityTest" time="0.018"/>
+  <testcase name="testThreadAffinity[0]([Ljava.lang.Class;@48fceda2)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinity[1]([Ljava.lang.Class;@8814c5d)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityAcrossTests[0](none)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityAcrossTests[1](classes)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityInFactoryInstances" classname="test.thread.parallelization.ThreadAffinityTest" time="0.003"/>
+  <testcase name="ensureNoNPEIsThrown" classname="test.thread.parallelization.ThreadAffinityTest" time="0.006"/>
+  <testcase name="testThreadAffinity[0]([Ljava.lang.Class;@64e99652)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinity[1]([Ljava.lang.Class;@6823bbb7)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.003"/>
+  <testcase name="testThreadAffinityAcrossTests[0](none)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.001"/>
+  <testcase name="testThreadAffinityAcrossTests[1](classes)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityInFactoryInstances" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="ensureNoNPEIsThrown" classname="test.thread.parallelization.ThreadAffinityTest" time="0.011"/>
+  <testcase name="testThreadAffinity[0]([Ljava.lang.Class;@2d0b8cc9)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinity[1]([Ljava.lang.Class;@13d4bf8)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityAcrossTests[0](none)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityAcrossTests[1](classes)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.001"/>
+  <testcase name="testThreadAffinityInFactoryInstances" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="ensureNoNPEIsThrown" classname="test.thread.parallelization.ThreadAffinityTest" time="0.026"/>
+  <testcase name="testThreadAffinity[0]([Ljava.lang.Class;@48fceda2)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinity[1]([Ljava.lang.Class;@8814c5d)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityAcrossTests[0](none)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityAcrossTests[1](classes)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.001"/>
+  <testcase name="testThreadAffinityInFactoryInstances" classname="test.thread.parallelization.ThreadAffinityTest" time="0.003"/>
+  <testcase name="ensureNoNPEIsThrown" classname="test.thread.parallelization.ThreadAffinityTest" time="0.011"/>
+  <testcase name="testThreadAffinity[0]([Ljava.lang.Class;@6823bbb7)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinity[1]([Ljava.lang.Class;@2199147f)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.006"/>
+  <testcase name="testThreadAffinityAcrossTests[0](none)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityAcrossTests[1](classes)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityInFactoryInstances" classname="test.thread.parallelization.ThreadAffinityTest" time="0.003"/>
+  <testcase name="ensureNoNPEIsThrown" classname="test.thread.parallelization.ThreadAffinityTest" time="0.061"/>
+  <testcase name="testThreadAffinity[0]([Ljava.lang.Class;@29ae8450)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinity[1]([Ljava.lang.Class;@33b5af2b)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityAcrossTests[0](none)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.001"/>
+  <testcase name="testThreadAffinityAcrossTests[1](classes)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityInFactoryInstances" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="ensureNoNPEIsThrown" classname="test.thread.parallelization.ThreadAffinityTest" time="0.022"/>
+  <testcase name="testThreadAffinity[0]([Ljava.lang.Class;@bd9e37b)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinity[1]([Ljava.lang.Class;@7df0b4bf)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.003"/>
+  <testcase name="testThreadAffinityAcrossTests[0](none)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityAcrossTests[1](classes)" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <testcase name="testThreadAffinityInFactoryInstances" classname="test.thread.parallelization.ThreadAffinityTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

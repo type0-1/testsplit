@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.github1336.TestNG3NoPriority" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:29" hostname="MAC-ECC0B5.station" time="18.445">
+  <properties/>
+  <testcase name="test1TestNG3" classname="test.github1336.TestNG3NoPriority" time="3.002"/>
+  <testcase name="test2TestNG3" classname="test.github1336.TestNG3NoPriority" time="4.001"/>
+  <testcase name="test3TestNG3" classname="test.github1336.TestNG3NoPriority" time="0.001"/>
+  <testcase name="test1TestNG3" classname="test.github1336.TestNG3NoPriority" time="2.004"/>
+  <testcase name="test1TestNG3" classname="test.github1336.TestNG3NoPriority" time="2.005"/>
+  <testcase name="test1TestNG3" classname="test.github1336.TestNG3NoPriority" time="2.004"/>
+  <testcase name="test1TestNG3" classname="test.github1336.TestNG3NoPriority" time="4.005"/>
+  <testcase name="test2TestNG3" classname="test.github1336.TestNG3NoPriority" time="1.005"/>
+  <testcase name="test2TestNG3" classname="test.github1336.TestNG3NoPriority" time="3.003"/>
+  <testcase name="test1TestNG3" classname="test.github1336.TestNG3NoPriority" time="4.004"/>
+  <testcase name="test2TestNG3" classname="test.github1336.TestNG3NoPriority" time="4.001"/>
+  <testcase name="test2TestNG3" classname="test.github1336.TestNG3NoPriority" time="2.003"/>
+  <testcase name="test1TestNG3" classname="test.github1336.TestNG3NoPriority" time="7.005"/>
+  <testcase name="test2TestNG3" classname="test.github1336.TestNG3NoPriority" time="7.002"/>
+  <testcase name="test3TestNG3" classname="test.github1336.TestNG3NoPriority" time="0.0"/>
+  <testcase name="test3TestNG3" classname="test.github1336.TestNG3NoPriority" time="3.003"/>
+  <testcase name="test3TestNG3" classname="test.github1336.TestNG3NoPriority" time="7.006"/>
+  <testcase name="test2TestNG3" classname="test.github1336.TestNG3NoPriority" time="1.006"/>
+  <testcase name="test3TestNG3" classname="test.github1336.TestNG3NoPriority" time="7.003"/>
+  <testcase name="test3TestNG3" classname="test.github1336.TestNG3NoPriority" time="2.001"/>
+  <testcase name="test3TestNG3" classname="test.github1336.TestNG3NoPriority" time="6.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

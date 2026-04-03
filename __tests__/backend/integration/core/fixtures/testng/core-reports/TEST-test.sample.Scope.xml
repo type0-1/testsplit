@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.sample.Scope" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:04" hostname="MAC-ECC0B5.station" time="11.907">
+  <properties/>
+  <testcase name="outerDeprecated[0](out)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="innerDeprecated[0](in)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="outerDeprecated[0](out)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="innerDeprecated[0](in)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="outerDeprecated[0](out)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="innerDeprecated[0](in)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="outerDeprecated[0](out)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="innerDeprecated[0](in)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="outerDeprecated[0](out)" classname="test.sample.Scope" time="0.001"/>
+  <testcase name="innerDeprecated[0](in)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="outerDeprecated[0](out)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="innerDeprecated[0](in)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="outerDeprecated[0](out)" classname="test.sample.Scope" time="0.0"/>
+  <testcase name="innerDeprecated[0](in)" classname="test.sample.Scope" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

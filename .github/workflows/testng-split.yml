@@ -1,0 +1,182 @@
+# Scheduling settings used for this distribution
+# algorithm: lpt
+# risk_factor: 1
+name: Test
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - master
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/master' || github.ref ==
+    'refs/heads/release' ) && format('ci-main-{0}', github.sha) ||
+    format('ci-main-{0}', github.ref) }}
+  cancel-in-progress: true
+jobs:
+  matrix_prep:
+    name: Matrix Preparation
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    env:
+      MATRIX_JOBS: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - id: set-matrix
+        run: |
+          npm ci --prefix .github/workflows
+          node .github/workflows/matrix.mjs
+  build:
+    name: Matrix Preparation
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    env:
+      MATRIX_JOBS: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - id: set-matrix
+        run: |
+          npm ci --prefix .github/workflows
+          node .github/workflows/matrix.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: target/
+    container: eclipse-temurin:21-jdk
+  test-job-1:
+    name: Matrix Preparation
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    env:
+      MATRIX_JOBS: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - id: set-matrix
+        run: |
+          npm ci --prefix .github/workflows
+          node .github/workflows/matrix.mjs
+      - &a1
+        name: Start services
+        run: |-
+          docker compose up -d
+          docker compose wait --no-deps 2>/dev/null || sleep 5
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - &a2
+        name: Detect available cores
+        id: cores
+        run: |-
+          TOTAL=$(nproc)
+          LOAD=$(awk '{print int($1+0.5)}' /proc/loadavg)
+          IDLE=$(( TOTAL - LOAD > 1 ? TOTAL - LOAD : 1 ))
+          echo "count=$IDLE" >> $GITHUB_OUTPUT
+      - name: Run tests
+        run: mvn test
+          -Dtest=test.timeout.github2440.TimeoutWithNoExecutorTest,test.thread.issue188.IssueTest,test.github1336.TestNG1,test.groups.issue2232.IssueTest,test.github1336.TestNG3NoPriority,test.dependent.DependentTest,test.parameters.ParameterTest,test.configuration.BeforeClassTest,test.timeout.TimeOutFromXmlTest,test.timeout.TimeOutTest,test.listeners.github551.Test551,test.methodselectors.ScriptTest,test.mannotation.issue1976.IssueTest,test.invocationcount.FailedInvocationCountTest,test.groovy.GroovyTest,test.thread.issue2361.IssueTest,test.reports.FailedReporterTest,test.guice.GuiceTest,test.configurationfailurepolicy.FailurePolicyTest,test.listeners.ListenersTest,test.dataprovider.DataProviderTest,test.methodselectors.CommandLineTest,test.failedreporter.FailedReporterTest,test.hook.HookableTest,test.thread.FactoryTest,test.reports.XmlReporterTest,test.skip.ReasonForSkipTest,test.reports.ReportTest,test.testng249.VerifyTest,test.thread.ParallelTestTest,test.guice.jitbinding.JitBindingTest,test.configuration.GroupsTest,test.thread.ParallelSuiteTest,test.listeners.factory.TestNGFactoryTest,test.yaml.YamlTest,test.junitreports.JUnitReportsTest,test.methodselectors.MethodSelectorTest,test.guice.issue279.IssueTest,test.groupinvocation.GroupSuiteTest,test.priority.PriorityTest,test.preserveorder.PreserveOrderTest,test.MethodTest,test.retryAnalyzer.RetryAnalyzerTest,test.thread.SequentialTest,test.thread.parallelization.ParallelByMethodsTestCase4Scenario1,org.testng.JarFileUtilsTest,test.thread.CustomExecutorServiceFactoryTest,test.thread.parallelization.ParallelByMethodsTestCase6Scenario1,test.dataprovider.TestContextTest,org.testng.xml.XmlSuiteTest,test.configuration.ConfigurationTest,test.dependsongroup.DependsOnGroupsTest,test.simple.IncludedExcludedTest,test.Misc,test.dataprovider.InterceptorTest,test.ignore.IgnoreTest,test.thread.parallelization.ParallelByMethodsTestCase1Scenario2,test.thread.parallelization.ThreadAffinityTest,test.dependent.ImplicitGroupInclusionTest,test.conffailure.ConfigurationFailure,test.dataprovider.FailingIterableDataProviderTest,test.dependent.MultiGroupTest,test.serviceloader.ServiceLoaderTest,test.guice.GuiceParentModuleTest,test.configuration.SuiteFactoryOnceTest,test.cli.CliTest,test.graph.GraphVisualiserTest,test.xml.issue2231.IssueTest,test.invocationcount.FirstAndLastTimeTest,test.aftergroups.AfterGroupsBehaviorTest,test.verify.VerifyTest,test.custom.CustomAttributeTest,test.github1490.VerifyDataProviderListener,test.listeners.github1319.TestResultInstanceCheckTest,test.methodinterceptors.MethodInterceptorTest,test.thread.parallelization.ParallelByMethodsTestCase2Scenario2,test.github799.EnsureInstancesAreOrderedViaFactories,test.retryAnalyzer.dataprovider.RetryAnalyzerWithComplexDataProviderTest,test.dataprovider.IndicesTest,test.groupinvocation.InvokerTest,test_result.ResultStatusTest,test.factory.nested.GitHub1307Test,test.listeners.ListenerTest,test.retryAnalyzer.issue2148.IssueTest,test.thread.parallelization.ParallelByMethodsTestCase3Scenario2,org.testng.internal.TestListenerHelperTest,test.objectfactory.ObjectFactoryTest,test.inject.NativeInjectionTest,test.invocationcount.issue1719.IssueTest,test.name.NameTest,org.testng.internal.ClassHelperTest,test.annotationtransformer.AnnotationTransformerTest,test.dependent.xml.GroupDependencyTest,test.inject.InjectDataProviderTest,test.listeners.github1465.IssueTest,test.listeners.ordering.ListenerInvocationListenerInvocationDisabledBehaviorTest,test.methodselection.MethodSelectionTest,test.override.OverrideTest,test.reflect.ReflectionRecipesTest,test.reflect.TestMethodMatcher,test.reports.EmailableReporterTest,test.testng1231.TestExecutionListenerInvocationOrder,test.thread.SharedThreadPoolTest,test.listeners.AlterSuiteListenerTest,org.testng.xml.ParserTest,test.factory.DisabledFactoryTest,org.testng.TestRunnerTest,test.objectfactory.ObjectFactory2Test,test.xml.XmlVerifyTest,org.testng.xml.internal.TestNamesMatcherTest,test.listeners.github2385.IssueTest,test.listeners.ordering.ListenerInvocationDefaultBehaviorTest,test.priority.parallel.EfficientPriorityParallelizationTest,test.xml.XMLStringBufferTest,org.testng.xml.SuiteXmlParserTest,org.testng.internal.KeyAwareAutoCloseableLockTest,test.configuration.ConfigurationWithParameters,test.factory.FactoryTest2,test.nested2.TmpA$NestedAWithTest,test.sample.Scope,test.thread.parallelization.ParallelByMethodsTestCase7Scenario1,test.GraphTest,test.thread.parallelization.ParallelByMethodsTestCase7Scenario2
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+      - &a3
+        name: Stop services
+        if: always()
+        run: docker compose down
+    container: eclipse-temurin:21-jdk
+    needs:
+      - build
+  test-job-2:
+    name: Matrix Preparation
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    env:
+      MATRIX_JOBS: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - id: set-matrix
+        run: |
+          npm ci --prefix .github/workflows
+          node .github/workflows/matrix.mjs
+      - *a1
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a2
+      - name: Run tests
+        run: mvn test
+          -Dtest=test.github1336.TestNG1,test.github1336.TestNG2,test.github1336.TestNG3,test.dependent.ClassDependsOnGroups,test.dependent.DependentTest,test.junitreports.JUnitReportsTest,test.annotationtransformer.AnnotationTransformerTest,test.timeout.TimeOutTest,test.attributes.AttributeTest,test.methodselectors.ScriptTest,test.timeout.github2672.TimeoutStacktraceTest,test.invocationcount.FailedInvocationCountTest,test.mannotation.issue1976.IssueTest,test.dataprovider.DataProviderTest,test.listeners.ListenersTest,test.thread.parallelization.ParallelByMethodsTestCase5Scenario2,test.thread.parallelization.ParallelByMethodsTestCase2Scenario1,test.failedreporter.FailedReporterTest,test.configurationfailurepolicy.FailurePolicyTest,test.cli.CliTest,test.reports.ReportTest,test.guice.GuiceTest,test.thread.ParallelSuiteTest,test.uniquesuite.TestAfter,test.thread.ParallelTestTest,test.commandline.CommandLineOverridesXml,test.failedreporter.FailedReporterScenariosTest,test.reports.EmailableReporterTest,test.Test2,org.testng.internal.DynamicGraphTest,test.failedreporter.issue2517.DataProviderWithFactoryFailedReporterTest,org.testng.internal.DynamicGraphHelperTest,test.expectedexceptions.ExpectedExceptionsTest,org.testng.internal.listeners.parameterindex.ParameterIndexListenerTest,test.inheritance.InheritanceConfigTest,test.inheritance.issue2489.IssueTest,test.factory.classconf.XClassOrderWithFactoryTest,test.reports.FailedReporterTest,test.retryAnalyzer.RetryAnalyzerTest,test.parameters.ParamInheritanceTest,test.graph.GraphVisualiserTest,test.thread.DataProviderThreadPoolSizeTest,test.attributes.issue2346.IssueTest,test.dataprovider.InterceptorTest,test.thread.parallelization.ThreadAffinityTest,test.superclass.Test3,test.configuration.ConfigurationGroupsTest,test_result.ResultStatusTest,test.thread.parallelization.ParallelByMethodsTestCase1Scenario2,test.aftergroups.AfterGroupsBehaviorTest,test.factory.ObjectIdTest,test.sanitycheck.CheckTestNamesTest,test.sanitycheck.CheckSuiteNamesTest,test.configuration.ConfigurationTest,test.inject.InjectTestResultTest,test.Test1,test.yaml.YamlTest,test.configuration.issue2432.IssueTest,test.listeners.ListenerTest,test.factory.FactoryInterleavingTest,test.groupinvocation.GroupSuiteTest,test.preserveorder.PreserveOrderTest,test.thread.SharedThreadPoolTest,test.configuration.github1700.RunTest,test.parameters.ParameterInjectAndOptionTest,test.dependent.ImplicitGroupInclusionTest,test.hook.issue2257.IssueTest,test.invocationcount.FirstAndLastTimeTest,test.dataprovider.FailingIterableDataProviderTest,test.thread.parallelization.ParallelByMethodsTestCase3Scenario1,test.github799.EnsureInstancesAreOrderedViaFactories,test.hook.HookableTest,test.skip.ReasonForSkipTest,test.configuration.issue2209.IssueTest,test.factory.issue553.IssueTest,test.listeners.ConfigurationListenerTest,test.thread.parallelization.ParallelByMethodsTestCase2Scenario2,test.listeners.github1130.GitHub1130Test,test.priority.PriorityTest,test.ignore.IgnoreTest,test.bug90.Bug90Test,test.github1490.VerifyDataProviderListener,test.parameters.issue2238.IssueTest,test.thread.parallelization.ParallelByMethodsTestCase3Scenario2,test.inheritance.github949.Github949Test,test.methodinterceptors.MethodInterceptorTest,test.thread.parallelization.ParallelByMethodsTestCase8Scenario1,test.defaultmethods.DefaultMethodTest,test.factory.FactoryDataProviderTest,test.listeners.github2385.IssueTest,test.mannotation.MAnnotation2SampleTest,test.priority.parallel.EfficientPriorityParallelizationTest2,test.skip.github1632.IssueTest,test.dependent.xml.GroupDependencyTest,test.inject.InjectDataProviderTest,test.invocationcount.issue1719.IssueTest,test.listeners.github1465.IssueTest,test.methodselection.MethodSelectionTest,test.parameters.ParameterOverrideTest,test.reflect.ReflectionRecipesTest,test.reflect.TestMethodMatcher,test.reports.ReporterLogTest,test.testng173.TestNG173Test,org.testng.xml.SuiteXmlParserTest,test.factory.FactoryIntegrationTest,test.listeners.ExecutionListenerTest,test.objectfactory.ObjectFactoryTest,org.testng.xml.internal.TestNamesMatcherTest,test.factory.EmptyFactoryDataProviderTest,org.testng.internal.objects.GuiceHelperTest,test.mannotation.MAnnotationSampleTest,test.testng1232.TestListenerInstances,test.thread.parallelization.ParallelByMethodsTestCase5Scenario1,test.name.NameTest,test.thread.parallelization.ParallelByMethodsTestCase7Scenario1,test.ClassConfigurations,test.IndividualMethodsTest,test.parameters.ParameterSample,test.triangle.Child1,test.configuration.ConfigurationInheritGroupsSampleTest,org.testng.internal.objects.InstanceCreatorTest,test.thread.ThreadPoolSizeTest,NoPackageTest,org.testng.internal.ClassHelperTest,org.testng.internal.GroupsHelperTest,org.testng.internal.TestListenerHelperTest,org.testng.internal.UtilsTest,org.testng.TestRunnerTest$TestWithOneListener,org.testng.TestRunnerTest$TestWithTwoListeners,org.testng.util.StringsTest,org.testng.xml.internal.XmlSuiteUtilsTest,org.testng.xml.ParserTest,org.testng.xml.XmlSuiteTest,org.testng.xml.XmlTestTest,test.abstractconfmethod.C,test.access.PrivateAccessConfigurationMethods,test.classgroup.First,test.classgroup.Second,test.configuration.ConfigurationGroups8SampleTest,test.configuration.ConfigurationWithParameters,test.configuration.issue2209.IssueTest$Sample,test.configuration.ReflectMethodParametrizedConfigurationMethodTest,test.configuration.SingleConfigurationTest,test.CtorCalledOnce,test.dataprovider.StaticDataProviderSampleWithoutGuiceSample,test.dependent.ClassWide1Test,test.dependent.DepBugSampleTest,test.dependent.DepBugVerifyTest,test.dependent.DependencyFixTest,test.dependent.DependsOnProtectedMethodTest,test.dependent.OrderMethodTest,test.dependent.SampleDependentConfigurationMethods,test.dependent.SampleDependentMethods,test.dependent.SampleDependentMethods3,test.EclipseTest,test.Exclude,test.expectedexceptions.WrappedExpectedExceptionTest,test.factory.FactoryAndTestMethodTest$NullArgsTest,test.factory.FactoryTest2,test.factory.MySample,test.factory.VerifyFactoryTest,test.factory.VerifyFactoryWithInstanceInfoTest,test.groupinvocation.DummyTest,test.groupinvocation.InvokerTest$RedundantGroupNamesSample,test.groupinvocation.InvokerTest$UniqueGroupNamesSample,test.guice.GuiceInheritanceTest,test.guice.GuiceModuleFactoryTest,test.inheritance.ClassScopeTest,test.inheritance.DChild_2,test.inject.Github1298Test,test.inject.InjectBeforeMethodTest,test.inject.InjectTestContextTest,test.inject.NoInjectionTest,test.listeners.AlterSuiteListenerTest$AlterSuiteListener1SampleTest,test.listeners.EndMillisShouldNotBeZeroTest,test.listeners.SuiteAndConfigurationListenerTest,test.listeners.SuiteAndInvokedMethodListenerTest,test.methods.SampleMethod1,test.nested2.TmpA$NestedAWithInheritedTest,test.ParameterConstructorTest,test.parameters.OptionalParameterTest,test.priority.parallel.EfficientPriorityParallelizationTest,test.privatemethod.PrivateMethodTest$PrivateMethodInnerTest,test.regression.groupsordering.A,test.regression.groupsordering.B,test.ReporterApiTest,test.reports.ReportTest$DpArrays,test.reports.ReportTest$NullParameter,test.retryAnalyzer.ExitCodeTest,test.ReturnValueTest,test.sample.AfterClassCalledAtEnd,test.sample.Basic1,test.sample.Basic2,test.sample.Scope,test.serviceloader.ServiceLoaderTest,test.StaticTest,test.StaticTest$InnerStaticClass,test.test111.Test1,test.thread.parallelization.ParallelByMethodsTestCase4Scenario1,test.thread.parallelization.ParallelByMethodsTestCase6Scenario1,test.triangle.Child2,test.uniquesuite.TestBefore1,test.uniquesuite.TestBefore2,test.xml.issue2231.IssueTest$ExampleTestCase,test.beforegroups.BeforeGroupsTest,test.timeout.TimeOutFromXmlTest,test.timeout.TimeOutIntegrationTest,test.thread.MultiThreadedDependentTest,test.thread.ThreadPoolSizeWithTimeOutTest,test.reports.PerSuiteXMLReporterTest,test.thread.CustomExecutorServiceFactoryTest,test.multiple.TestMultiple,test.methodselectors.CommandLineTest,test.github1417.TestParamsInjectionInBeforeClass,test.dataprovider.issue128.DataProviderParametersMismatchTest,test.failedreporter.FailedReporterParametersTest,test.skipex.SkippedExceptionTest,test.testng285.TestNG285Test,test.listeners.factory.TestNGFactoryTest,test.MethodTest,test.thread.SequentialTest,test.name.github1046.TestCustomNamesForTests,test.inheritance.testng739.TestNG739,test.inheritance.github980.Github980Test,test.order.OrderTest,test.guice.issue279.IssueTest,test.testng195.AfterMethodTest,test_result.TestResultTest,org.testng.internal.invokers.ParameterHandlerTest,test.configuration.BaseGroupsTest,test.testng106.TestNG106,test.factory.FactoryWithDataProviderTest,test.retryAnalyzer.dataprovider.RetryAnalyzerWithComplexDataProviderTest,test.factory.github2428.IssueTest,test.dependent.GroupByInstancesTest,test.parameters.ShadowTest,test.methodselectors.MethodSelectorTest,test.override.OverrideTest,org.testng.TestRunnerTest,test.thread.parallelization.ParallelByMethodsTestCase1Scenario1,test.listeners.ordering.ListenerInvocationDefaultBehaviorTest,org.testng.JarFileUtilsTest,test.factory.FactoryFailureTest,test.issue107.Issue107Test,test.methodselectors.ScriptNegativeTest,test.xml.TestNGContentHandlerTest,test.inject.NativeInjectionTest,test.listeners.ordering.ListenerInvocationListenerInvocationDisabledBehaviorTest,test.testng674.BeforeClassSkipExceptionTest,test.factory.github1631.GitHub1631Tests,test.hook.issue2266.IssueTest,test.NestedStaticTest,test.dependent.SampleDependentTest,test.listeners.issue2456.IssueTest,test.retryAnalyzer.dataprovider.RetryAnalyzerWithDataProviderTest,test.thread.parallelization.ParallelByMethodsTestCase7Scenario2,test.listeners.github1602.IssueTest,test.objectfactory.CustomFactoryTest,test.configuration.BeforeClassTest,org.testng.TestRunnerTest$TestWithThreeListeners,test.configuration.BeforeMethodTest,test.xml.XmlVerifyTest
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+      - *a3
+    container: eclipse-temurin:21-jdk
+    needs:
+      - build
+  test-job-3:
+    name: Matrix Preparation
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    env:
+      MATRIX_JOBS: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - id: set-matrix
+        run: |
+          npm ci --prefix .github/workflows
+          node .github/workflows/matrix.mjs
+      - *a1
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a2
+      - name: Run tests
+        run: mvn test
+          -Dtest=test.github1336.TestNG2,test.timeout.TimeOutTest,test.github1336.TestNG3NoPriority,test.dataprovider.DataProviderTest,test.dependent.DependentTest,test.timeout.TimeOutFromXmlTest,test.invokedmethodlistener.InvokedMethodListenerTest,test.mannotation.issue1976.IssueTest,test.thread.MultiThreadedDependentTest,test.timeout.TimeOutIntegrationTest,test.invocationcount.FailedInvocationCountTest,test.listeners.ListenersTest,test.retryAnalyzer.RetryAnalyzerTest,test.thread.ParallelTestTest,test.reports.ReportTest,org.testng.xml.XmlSuiteTest,test.failedreporter.FailedReporterTest,test.configuration.GroupsTest,test.methodselectors.CommandLineTest,test.configurationfailurepolicy.FailurePolicyTest,test.expectedexceptions.ExpectedExceptionsTest,test.beforegroups.BeforeGroupsTest,test.skip.ReasonForSkipTest,test.listeners.ExecutionListenerAndSuiteListenerTest,test.thread.parallelization.ParallelByMethodsTestCase1Scenario2,test.serviceloader.ServiceLoaderTest,test.listeners.github2385.IssueTest,test.configuration.BaseGroupsTest,test.thread.SharedThreadPoolTest,test.guice.GuiceTest,test.configuration.ConfigurationTest,test.groups.issue2232.IssueTest,test.configuration.ConfigurationGroupsTest,test.retryAnalyzer.ExitCodeTest,test.listeners.github1284.TestListeners,test.groupinvocation.GroupSuiteTest,test.conffailure.ConfigurationFailure,test.superclass.MainTest,test.thread.parallelization.ParallelByMethodsTestCase1Scenario1,test.hook.HookableTest,test.dependent.DependentAlwaysRunTest,org.testng.JarFileUtilsTest,test.thread.CustomExecutorServiceFactoryTest,org.testng.reporters.TextReporterTest,test.override.OverrideTest,test.reports.EmailableReporterTest,test.priority.PriorityTest,test.thread.parallelization.ParallelByMethodsTestCase8Scenario1,test.verify.VerifyTest,test.annotationtransformer.AnnotationTransformerTest,test.reports.FailedReporterTest,test.alwaysrun.AlwaysRunTest,test.dependent.xml.GroupDependencyTest,test.preserveorder.PreserveOrderTest,test.thread.parallelization.ThreadAffinityTest,org.testng.dataprovider.DynamicDataProviderLoadingTest,test.groupbug.GroupBugTest,test.multiplelisteners.TestMaker,test.yaml.YamlTest,test.listeners.github1735.ExecutionListenerTest,test.aftergroups.AfterGroupsBehaviorTest,test.methodinterceptors.MethodInterceptorTest,test,test.dependent.ImplicitGroupInclusionTest,test.invocationcount.FirstAndLastTimeTest,test.skipex.SkippedExceptionTest,test.defaultmethods.DefaultMethodTest,test.methodselectors.MethodSelectorTest,test.testng674.BeforeClassSkipExceptionTest,test.listeners.ordering.ListenerInvocationDefaultBehaviorTest,org.testng.internal.DynamicGraphTest,test.abstractmethods.AbstractTest,test.groups.issue2152.IssueTest,test.listeners.ListenerTest,test.simple.IncludedExcludedTest,test.thread.parallelization.ParallelByMethodsTestCase5Scenario2,test.ignore.IgnoreTest,test.parameters.ParametersPackageLevelMethodTest,test.cli.CliTest,test.factory.FactoryDataProviderTest,test.retryAnalyzer.dataprovider.RetryAnalyzerWithComplexDataProviderTest,test.xml.XmlVerifyTest,test.factory.FactoryIntegrationTest,test.groupinvocation.InvokerTest,test.listeners.github1602.IssueTest,test.name.NameTest,test.ReturnValueTest,org.testng.internal.ClassHelperTest,org.testng.internal.DynamicGraphHelperTest,test.attributes.AttributeTest,test.dataprovider.issue3237.CacheTest,test.inject.InjectDataProviderTest,test.listeners.ConfigurationListenerTest,test.listeners.github1465.IssueTest,test.methodselection.MethodSelectionTest,test.reflect.ReflectionRecipesTest,test.reflect.TestMethodMatcher,test.listeners.ordering.ListenerInvocationListenerInvocationDisabledBehaviorTest,test.factory.github328.GitHub328Test,test.listeners.ExecutionListenerTest,test.skip.github1632.IssueTest,test.inject.NativeInjectionTest,test.sanitycheck.CheckSuiteNamesTest,test.configuration.ConfigurationGroups8SampleTest,test.factory.FactoryFailureTest,test.thread.parallelization.ParallelByMethodsTestCase3Scenario2,test.mannotation.MAnnotationSampleTest,test.thread.parallelization.ParallelByMethodsTestCase7Scenario1,test.ClassConfigurations,test.GraphTest,test.parameters.issue2238.IssueTest,test.triangle.CheckCount,org.testng.xml.XmlTestTest,test.listeners.factory.TestNGFactoryTest,test.priority.parallel.EfficientPriorityParallelizationTest2,test.methods.VerifyMethod1,test.github1336.TestNG3,test.github1336.TestNG2NoPriority,test.github1336.TestNG1,test.configuration.BeforeClassTest,test.methodselectors.ScriptTest,test.configuration.github1625.TestRunnerIssue1625,test.failures.FailuresTest,test.interleavedorder.InterleavedInvocationTest,test.reports.XmlReporterTest,test.failedreporter.issue2521.DataProviderWithFactoryMultiFailedReporterTest,test.configuration.issue2426.IssueTest,test.Test1,test.methodselectors.MethodSelectorInSuiteTest,test.parameters.ParameterTest,test.InvocationAndSuccessPercentageTest,test.sanitycheck.CheckTestNamesTest,test.thread.ParallelSuiteTest,test.xml.TestNGContentHandlerTest,test.thread.parallelization.ParallelByMethodsTestCase4Scenario1,test.configuration.issue2400.IssueTest,test.inheritance.testng471.TestNG471,test.thread.SequentialTest,test.regression.BeforeTestFailingTest,test.inject.Github1649Test,test.groups.issue1834.IssueTest,test.Test2,test.listeners.github2522.IssueTest,test.configuration.BeforeMethodWithGroupFiltersTest,test.factory.issue1041.IssueTest,test.testng173.TestNG173Test,test.CountTest,test.hook.issue2251.IssueTest,test.dataprovider.IndicesTest,test.github765.ExcludeSyntheticMethodsFromTemplateCallsTest,test.listeners.issue1777.IssueTest,test.testng1232.TestListenerInstances,test.objectfactory.CustomFactoryTest,test.EclipseTest,test.jason.MainTest,test.factory.github1631.GitHub1631Tests,org.testng.internal.TestListenerHelperTest,test.dataprovider.FailingDataProviderTest,test.thread.parallelization.ParallelByMethodsTestCase6Scenario1,test.commandline.CommandLineOverridesXml,test.ReflectionHelperTest,test.github1490.VerifyDataProviderListener,test.issue107.Issue107Test,test.objectfactory.ObjectFactory2Test,test.thread.ThreadPoolSizeWithTimeOutTest,test.configuration.ReflectMethodParametrizedConfigurationMethodTest,test.factory.TestClassAnnotationTest,test.test111.Test1,org.testng.xml.SuiteXmlParserTest,test.inheritance.VerifyTest,test.priority.parallel.EfficientPriorityParallelizationTest,org.testng.internal.invokers.ParameterHandlerTest,test.methods.SampleMethod1
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+      - *a3
+    container: eclipse-temurin:21-jdk
+    needs:
+      - build
+  test-job-4:
+    name: Matrix Preparation
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    env:
+      MATRIX_JOBS: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - id: set-matrix
+        run: |
+          npm ci --prefix .github/workflows
+          node .github/workflows/matrix.mjs
+      - *a1
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a2
+      - name: Run tests
+        run: mvn test
+          -Dtest=test.github1336.TestNG2NoPriority,test.timeout.TimeOutTest,test.Test2,test.dependent.DependentTest,test.github1336.TestNG1NoPriority,test.factory.issue326.IssueTest,test_result.TestResultTest,test.thread.TrueParallelTest,test.listeners.ListenerTest,test.mannotation.issue1976.IssueTest,test.methodselectors.ScriptTest,test.invocationcount.FailedInvocationCountTest,test.thread.issue2361.IssueTest,test.dataprovider.DataProviderTest,test.listeners.ListenersTest,test.thread.ParallelSuiteTest,test.reports.XmlReporterTest,test.configurationfailurepolicy.FailurePolicyTest,test.reports.ReportTest,test.failedreporter.FailedReporterTest,test.testng1396.ParallelByInstancesInterceptorTest,test.configuration.issue2254.IssueTest,test.thread.ParallelTestTest,test.thread.FactoryTest,test.cli.CliTest,test.thread.parallelization.ParallelByMethodsTestCase4Scenario1,test.cli.github2974.OverrideGroupsCliTest,test.thread.SequentialTest,test.failedreporter.FailedReporterScenariosTest,test.enable.EnableTest,test.retryAnalyzer.RetryAnalyzerTest,test.guice.GuiceTest,test.custom.CustomAttributeTest,test.methodinterceptors.MethodInterceptorTest,test.junitreports.JUnitReportsTest,org.testng.xml.XmlSuiteTest,test.expectedexceptions.issue2074.IssueTest,test.thread.parallelization.ParallelByMethodsTestCase6Scenario1,test.groupinvocation.GroupSuiteTest,test.thread.parallelization.ThreadAffinityTest,test.annotationtransformer.AnnotationTransformerTest,test.beforegroups.BeforeGroupsTest,test.failedreporter.FailedReporterParametersTest,test.InvocationAndSuccessPercentageTest,test.Test1,org.testng.internal.DynamicGraphTest,test.parameters.ParameterTest,test.dependent.issue1648.TestRunner,test.configuration.ConfigurationGroupsTest,test.configuration.github1625.TestRunnerIssue1625,test.alwaysrun.AlwaysRunTest,test.invokedmethodlistener.InvokedMethodListenerTest,test.skip.ReasonForSkipTest,test.listeners.issue2220.IssueTest,test.sanitycheck.CheckTestNamesTest,test.hook.HookableTest,test.listeners.github1465.IssueTest,test.preserveorder.PreserveOrderTest,test.reports.UniqueReporterInjectionTest,test.dataprovider.issue128.DataProviderParametersMismatchTest,test.listeners.github1602.IssueTest,test.testng674.BeforeClassSkipExceptionTest,test.dependent.DependentAlwaysRunTest,org.testng.TestRunnerTest,test.factory.FactoryOrderMainTest,test.thread.parallelization.ParallelByMethodsTestCase7Scenario2,test.dataprovider.FailingDataProviderTest,test.invocationcount.FirstAndLastTimeTest,test.dataprovider.InterceptorTest,test.groups.issue182.IssueTest,test.skip.github1632.IssueTest,org.testng.internal.MethodHelperTest,test.methodselectors.MethodSelectorTest,test.github799.EnsureInstancesAreOrderedViaFactories,test.methodinterceptors.multipleinterceptors.MultipleInterceptorsTest,test.listeners.AlterSuiteListenerTest,test.dataprovider.TestContextTest,test.listeners.ordering.ListenerInvocationDefaultBehaviorTest,test.thread.parallelization.ParallelByMethodsTestCase2Scenario1,org.testng.internal.TestListenerHelperTest,test.configuration.ConfigurationListenerTest,test.dependent.ImplicitGroupInclusionTest,test.inject.Github1649Test,test.verify.VerifyTest,test.factory.FactoryDataProviderTest,test.inheritance.github949.Github949Test,test.thread.parallelization.ParallelByMethodsTestCase5Scenario1,test.defaultmethods.DefaultMethodTest,test.factory.issue1924.IssueTest,test.serviceloader.ServiceLoaderTest,test.github1490.VerifyDataProviderListener,test.ignore.IgnoreTest,test.listeners.github2522.IssueTest,test.listeners.ordering.ListenerInvocationListenerInvocationDisabledBehaviorTest,test.objectfactory.CombinedTestAndObjectFactoryTest,org.testng.internal.ClassHelperTest,org.testng.internal.DynamicGraphHelperTest,test.dependent.xml.GroupDependencyTest,test.listeners.ListenerInXmlTest,test.methodselection.MethodSelectionTest,test.objectfactory.ObjectFactoryTest,test.reflect.ReflectionRecipesTest,test.reflect.TestMethodMatcher,test.reports.EmailableReporterTest,test.thread.SharedThreadPoolTest,test.GraphTest,test.dependent.OrderMethodTest,test.issue1430.TestFileToClass,test.name.NameTest,test.listeners.ExecutionListenerTest,org.testng.xml.internal.TestNamesMatcherTest,test.thread.parallelization.ParallelByMethodsTestCase3Scenario1,org.testng.BasicTest,org.testng.xml.XmlTestTest,test.inject.NativeInjectionTest,test.reports.ReporterLogTest,test.commandline.CommandLineOverridesXml,test.dependent.ClassWide2Test,test.inheritance.ClassScopeTest,test.mannotation.MAnnotation2SampleTest,test.priority.parallel.EfficientPriorityParallelizationTest,test.xml.TestNGContentHandlerTest$LocalTestClass,test.listeners.github2385.IssueTest,test.testng1232.TestListenerInstances,org.testng.internal.UtilsTest,test.priority.parallel.EfficientPriorityParallelizationTest2,test.classgroup.First,test.github1336.TestNG3,test.timeout.TimeOutFromXmlTest,test.github1336.TestNG3NoPriority,test.github1461.MemoryLeakTestNg,test.configuration.ConfigurationTest,test.reports.PerSuiteXMLReporterTest,test.configuration.BeforeTestOrderingTest,test.parameters.ParamInheritanceTest,test.methodselectors.CommandLineTest,test.configuration.GroupsTest,test.yaml.YamlTest,test.thread.parallelization.ParallelByMethodsTestCase1Scenario1,test.configuration.issue1753.IssueTest,test.factory.Factory2Test,test.reports.FailedReporterTest,test.thread.DataProviderThreadPoolSizeTest,org.testng.JarFileUtilsTest,test.superclass.MainTest,test.listeners.ResultEndMillisTest,test.methodinterceptors.issue1726.CustomInterceptorTest,test.dataprovider.IndicesTest,test.xml.XmlVerifyTest,test.listeners.github1296.GitHub1296Test,test.configuration.AfterMethodWithGroupFiltersTest,test.objectfactory.CustomFactoryTest,test.skipex.SkipAndExpectedTest,test.factory.issue1745.Github1745Test,org.testng.DryRunTest,test.listeners.github1284.TestListeners,test.sanitycheck.CheckSuiteNamesTest,test.factory.FactoryInSuperClassTest,test.methodselectors.MethodSelectorInSuiteTest,test.expectedexceptions.issue2235.IssueTest,test.testng387.TestNG387,test.inheritance.testng234.PolymorphicFailureTest,test.retryAnalyzer.dataprovider.RetryAnalyzerWithComplexDataProviderTest,org.testng.dataprovider.DynamicDataProviderLoadingTest,test_result.ResultStatusTest,test.factory.FactoryWithDataProviderTest,test.listeners.issue2328.IssueTest,test.parameters.ParameterOverrideTest,test.thread.parallelization.ParallelByMethodsTestCase3Scenario2,org.testng.internal.GroupsHelperTest,test.thread.parallelization.ParallelByMethodsTestCase2Scenario2,test.retryAnalyzer.ExitCodeTest,test.conffailure.ConfigurationFailure,test.dependent.GroupByInstancesTest,test.listeners.github1130.GitHub1130Test,test.parameters.issue2238.IssueTest,test.thread.parallelization.ParallelByMethodsTestCase7Scenario1,org.testng.reporters.jq.TimesPanelTest,test.configuration.ConfigurationGroups8SampleTest,test.dependent.SampleDependentMethods,test.nested.GarfTest,org.testng.util.StringsTest,test.factory.FactoryInSeparateClassTest,test.thread.parallelization.ParallelByMethodsTestCase5Scenario2,test.CtorCalledOnce,test.factory.FactoryWithInstanceInfo2Sample
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+      - *a3
+    container: eclipse-temurin:21-jdk
+    needs:
+      - build

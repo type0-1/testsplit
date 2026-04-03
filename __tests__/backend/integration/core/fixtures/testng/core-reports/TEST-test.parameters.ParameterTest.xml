@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.parameters.ParameterTest" tests="49" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:45" hostname="MAC-ECC0B5.station" time="15.995">
+  <properties/>
+  <testcase name="beforeMethodWithParameters" classname="test.parameters.ParameterTest" time="0.005"/>
+  <testcase name="ensureParametersSpecifiedInsideSuiteFilesTagAreIgnored" classname="test.parameters.ParameterTest" time="0.007"/>
+  <testcase name="enumParameters" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="invalidEnumParameters" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="stringSingle" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="beforeMethodWithParameters" classname="test.parameters.ParameterTest" time="0.004"/>
+  <testcase name="ensureParametersSpecifiedInsideSuiteFilesTagAreIgnored" classname="test.parameters.ParameterTest" time="0.006"/>
+  <testcase name="enumParameters" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="invalidEnumParameters" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="stringSingle" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="beforeMethodWithParameters" classname="test.parameters.ParameterTest" time="0.003"/>
+  <testcase name="ensureParametersSpecifiedInsideSuiteFilesTagAreIgnored" classname="test.parameters.ParameterTest" time="0.005"/>
+  <testcase name="enumParameters" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="invalidEnumParameters" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="stringSingle" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="testNativeInjection" classname="test.parameters.ParameterTest" time="4.014"/>
+  <testcase name="testNativeInjectionAndParamsInjection" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="testNativeInjection" classname="test.parameters.ParameterTest" time="4.009"/>
+  <testcase name="testNativeInjectionAndParamsInjection" classname="test.parameters.ParameterTest" time="0.003"/>
+  <testcase name="beforeMethodWithParameters" classname="test.parameters.ParameterTest" time="0.003"/>
+  <testcase name="ensureParametersSpecifiedInsideSuiteFilesTagAreIgnored" classname="test.parameters.ParameterTest" time="0.006"/>
+  <testcase name="enumParameters" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="invalidEnumParameters" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="stringSingle" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="testNativeInjection" classname="test.parameters.ParameterTest" time="4.013"/>
+  <testcase name="testNativeInjectionAndParamsInjection" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="beforeMethodWithParameters" classname="test.parameters.ParameterTest" time="0.005"/>
+  <testcase name="ensureParametersSpecifiedInsideSuiteFilesTagAreIgnored" classname="test.parameters.ParameterTest" time="0.005"/>
+  <testcase name="enumParameters" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="invalidEnumParameters" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="stringSingle" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="beforeMethodWithParameters" classname="test.parameters.ParameterTest" time="0.005"/>
+  <testcase name="ensureParametersSpecifiedInsideSuiteFilesTagAreIgnored" classname="test.parameters.ParameterTest" time="0.006"/>
+  <testcase name="enumParameters" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="invalidEnumParameters" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="stringSingle" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="testNativeInjection" classname="test.parameters.ParameterTest" time="4.016"/>
+  <testcase name="testNativeInjectionAndParamsInjection" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="beforeMethodWithParameters" classname="test.parameters.ParameterTest" time="0.004"/>
+  <testcase name="testNativeInjection" classname="test.parameters.ParameterTest" time="4.01"/>
+  <testcase name="testNativeInjectionAndParamsInjection" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="ensureParametersSpecifiedInsideSuiteFilesTagAreIgnored" classname="test.parameters.ParameterTest" time="0.008"/>
+  <testcase name="enumParameters" classname="test.parameters.ParameterTest" time="0.001"/>
+  <testcase name="invalidEnumParameters" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="stringSingle" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="testNativeInjection" classname="test.parameters.ParameterTest" time="4.014"/>
+  <testcase name="testNativeInjectionAndParamsInjection" classname="test.parameters.ParameterTest" time="0.002"/>
+  <testcase name="testNativeInjection" classname="test.parameters.ParameterTest" time="4.011"/>
+  <testcase name="testNativeInjectionAndParamsInjection" classname="test.parameters.ParameterTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,958 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.listeners.ListenersTest" tests="504" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:31" hostname="MAC-ECC0B5.station" time="12.356">
+  <properties/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[0]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@10d28ee2, Inner_Suite2=[Ljava.lang.String;@7af66b8a, Inner_Suite1=[Ljava.lang.String;@7af66b8a})" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[1]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@47861e3c, Inner_Suite2=[Ljava.lang.String;@7af66b8a, Inner_Suite1=[Ljava.lang.String;@7af66b8a})" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[2]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@52ebb73a, Inner_Suite2=[Ljava.lang.String;@7af66b8a, Inner_Suite1=[Ljava.lang.String;@7af66b8a})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[3]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@288c16a5, Inner_Suite2=[Ljava.lang.String;@7af66b8a, Inner_Suite1=[Ljava.lang.String;@7af66b8a})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureInheritanceIsHandledWhenDealingWithListeners" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureListenerWorksWithCorrectTestClassInstance" classname="test.listeners.ListenersTest" time="0.067"/>
+  <testcase name="ensureListenersCanBeDisabled" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureListenersCanBeDisabledViaCLI" classname="test.listeners.ListenersTest" time="0.007"/>
+  <testcase name="ensureListenersCanBeDisabledViaSuiteFile" classname="test.listeners.ListenersTest" time="0.018"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForClassListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.007"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionListenersViaMaven" classname="test.listeners.ListenersTest" time="0.008"/>
+  <testcase name="ensureOrderingForExecutionListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaAnnotation" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedListenersViaApi" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForInvokedListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForTestListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.031"/>
+  <testcase name="ensureOrderingForTestListenersViaApi" classname="test.listeners.ListenersTest" time="0.031"/>
+  <testcase name="ensureOrderingForTestListenersViaCli" classname="test.listeners.ListenersTest" time="0.033"/>
+  <testcase name="ensureOrderingForTestListenersViaMaven" classname="test.listeners.ListenersTest" time="0.04"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[0]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@10d28ee2, Inner_Suite2=[Ljava.lang.String;@7af66b8a, Inner_Suite1=[Ljava.lang.String;@7af66b8a})" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[1]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@47861e3c, Inner_Suite2=[Ljava.lang.String;@7af66b8a, Inner_Suite1=[Ljava.lang.String;@7af66b8a})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[2]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@52ebb73a, Inner_Suite2=[Ljava.lang.String;@7af66b8a, Inner_Suite1=[Ljava.lang.String;@7af66b8a})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[3]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@288c16a5, Inner_Suite2=[Ljava.lang.String;@7af66b8a, Inner_Suite1=[Ljava.lang.String;@7af66b8a})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureInheritanceIsHandledWhenDealingWithListeners" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForTestListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.034"/>
+  <testcase name="ensureTestResultAttributesAreCarriedForward" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="testEnsureNativeListenersAreRunAlwaysAtEnd" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[0](class test.listeners.issue2880.TestClassWithPassingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[1](class test.listeners.issue2880.TestClassWithFailingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[2](class test.listeners.issue2880.TestClassWithPassingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[3](class test.listeners.issue2880.TestClassWithFailingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureListenerWorksWithCorrectTestClassInstance" classname="test.listeners.ListenersTest" time="0.083"/>
+  <testcase name="ensureListenersCanBeDisabled" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureListenersCanBeDisabledViaCLI" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureListenersCanBeDisabledViaSuiteFile" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForClassListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForClassListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testThreadIsNotInterruptedInListener" classname="test.listeners.ListenersTest" time="0.104"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.008"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithListenerInSuite" classname="test.listeners.ListenersTest" time="0.008"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithNoListenerInSuite" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForExecutionListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedListenersViaApi" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForInvokedListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForTestListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.028"/>
+  <testcase name="ensureOrderingForTestListenersViaApi" classname="test.listeners.ListenersTest" time="0.031"/>
+  <testcase name="ensureOrderingForTestListenersViaCli" classname="test.listeners.ListenersTest" time="0.034"/>
+  <testcase name="ensureOrderingForTestListenersViaMaven" classname="test.listeners.ListenersTest" time="0.039"/>
+  <testcase name="ensureOrderingForTestListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.03"/>
+  <testcase name="ensureTestResultAttributesAreCarriedForward" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="testEnsureNativeListenersAreRunAlwaysAtEnd" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[0](class test.listeners.issue2880.TestClassWithPassingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[1](class test.listeners.issue2880.TestClassWithFailingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[2](class test.listeners.issue2880.TestClassWithPassingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[3](class test.listeners.issue2880.TestClassWithFailingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testThreadIsNotInterruptedInListener" classname="test.listeners.ListenersTest" time="0.104"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithListenerInSuite" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithNoListenerInSuite" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[0]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@7740d2c, Inner_Suite2=[Ljava.lang.String;@5c7eeeb2, Inner_Suite1=[Ljava.lang.String;@5c7eeeb2})" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[1]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@5cb63d05, Inner_Suite2=[Ljava.lang.String;@5c7eeeb2, Inner_Suite1=[Ljava.lang.String;@5c7eeeb2})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[2]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@5f7a911f, Inner_Suite2=[Ljava.lang.String;@5c7eeeb2, Inner_Suite1=[Ljava.lang.String;@5c7eeeb2})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[3]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@34bc5763, Inner_Suite2=[Ljava.lang.String;@5c7eeeb2, Inner_Suite1=[Ljava.lang.String;@5c7eeeb2})" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureInheritanceIsHandledWhenDealingWithListeners" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureListenerWorksWithCorrectTestClassInstance" classname="test.listeners.ListenersTest" time="0.069"/>
+  <testcase name="ensureListenersCanBeDisabled" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureListenersCanBeDisabledViaCLI" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureListenersCanBeDisabledViaSuiteFile" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForClassListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForExecutionListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForExecutionListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaXmlTag" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForInvokedListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForTestListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.031"/>
+  <testcase name="ensureOrderingForTestListenersViaApi" classname="test.listeners.ListenersTest" time="0.031"/>
+  <testcase name="ensureOrderingForTestListenersViaCli" classname="test.listeners.ListenersTest" time="0.032"/>
+  <testcase name="ensureOrderingForTestListenersViaMaven" classname="test.listeners.ListenersTest" time="0.036"/>
+  <testcase name="ensureOrderingForTestListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.029"/>
+  <testcase name="ensureTestResultAttributesAreCarriedForward" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testEnsureNativeListenersAreRunAlwaysAtEnd" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[0](class test.listeners.issue2880.TestClassWithPassingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[1](class test.listeners.issue2880.TestClassWithFailingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[2](class test.listeners.issue2880.TestClassWithPassingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[3](class test.listeners.issue2880.TestClassWithFailingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="testThreadIsNotInterruptedInListener" classname="test.listeners.ListenersTest" time="0.103"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithListenerInSuite" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithNoListenerInSuite" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[0]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@357d4b6d, Inner_Suite2=[Ljava.lang.String;@74d41fcf, Inner_Suite1=[Ljava.lang.String;@74d41fcf})" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[1]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@2e7e9897, Inner_Suite2=[Ljava.lang.String;@74d41fcf, Inner_Suite1=[Ljava.lang.String;@74d41fcf})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[2]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@29ab7ccc, Inner_Suite2=[Ljava.lang.String;@74d41fcf, Inner_Suite1=[Ljava.lang.String;@74d41fcf})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[3]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@438cb294, Inner_Suite2=[Ljava.lang.String;@74d41fcf, Inner_Suite1=[Ljava.lang.String;@74d41fcf})" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureInheritanceIsHandledWhenDealingWithListeners" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureListenerWorksWithCorrectTestClassInstance" classname="test.listeners.ListenersTest" time="0.066"/>
+  <testcase name="ensureListenersCanBeDisabled" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureListenersCanBeDisabledViaCLI" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureListenersCanBeDisabledViaSuiteFile" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForClassListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForExecutionListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForExecutionListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForTestListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.033"/>
+  <testcase name="ensureOrderingForTestListenersViaApi" classname="test.listeners.ListenersTest" time="0.028"/>
+  <testcase name="ensureOrderingForTestListenersViaCli" classname="test.listeners.ListenersTest" time="0.03"/>
+  <testcase name="ensureOrderingForTestListenersViaMaven" classname="test.listeners.ListenersTest" time="0.037"/>
+  <testcase name="ensureOrderingForTestListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.033"/>
+  <testcase name="ensureTestResultAttributesAreCarriedForward" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testEnsureNativeListenersAreRunAlwaysAtEnd" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[0](class test.listeners.issue2880.TestClassWithPassingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[1](class test.listeners.issue2880.TestClassWithFailingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[2](class test.listeners.issue2880.TestClassWithPassingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[3](class test.listeners.issue2880.TestClassWithFailingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="testThreadIsNotInterruptedInListener" classname="test.listeners.ListenersTest" time="0.107"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithListenerInSuite" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithNoListenerInSuite" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[0]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@1a343d3e, Inner_Suite2=[Ljava.lang.String;@5f45d7db, Inner_Suite1=[Ljava.lang.String;@5f45d7db})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[1]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@6e32eea5, Inner_Suite2=[Ljava.lang.String;@5f45d7db, Inner_Suite1=[Ljava.lang.String;@5f45d7db})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[2]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@657c93da, Inner_Suite2=[Ljava.lang.String;@5f45d7db, Inner_Suite1=[Ljava.lang.String;@5f45d7db})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[3]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@408db405, Inner_Suite2=[Ljava.lang.String;@5f45d7db, Inner_Suite1=[Ljava.lang.String;@5f45d7db})" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureInheritanceIsHandledWhenDealingWithListeners" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[0]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@8742b32, Inner_Suite2=[Ljava.lang.String;@38dfbd6e, Inner_Suite1=[Ljava.lang.String;@38dfbd6e})" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[1]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@77d5a3ee, Inner_Suite2=[Ljava.lang.String;@38dfbd6e, Inner_Suite1=[Ljava.lang.String;@38dfbd6e})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[2]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@71d85b53, Inner_Suite2=[Ljava.lang.String;@38dfbd6e, Inner_Suite1=[Ljava.lang.String;@38dfbd6e})" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[3]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@7df468f6, Inner_Suite2=[Ljava.lang.String;@38dfbd6e, Inner_Suite1=[Ljava.lang.String;@38dfbd6e})" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureInheritanceIsHandledWhenDealingWithListeners" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureListenerWorksWithCorrectTestClassInstance" classname="test.listeners.ListenersTest" time="0.071"/>
+  <testcase name="ensureListenersCanBeDisabled" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureListenersCanBeDisabledViaCLI" classname="test.listeners.ListenersTest" time="0.015"/>
+  <testcase name="ensureListenersCanBeDisabledViaSuiteFile" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForClassListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForClassListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureListenerWorksWithCorrectTestClassInstance" classname="test.listeners.ListenersTest" time="0.073"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureListenersCanBeDisabled" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureListenersCanBeDisabledViaCLI" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForExecutionListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureListenersCanBeDisabledViaSuiteFile" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForExecutionListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForExecutionListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedListenersViaApi" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForInvokedListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForClassListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForSuiteListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForExecutionListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaMaven" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedListenersViaApi" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForInvokedListenersViaMaven" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForTestListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.033"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForTestListenersViaApi" classname="test.listeners.ListenersTest" time="0.033"/>
+  <testcase name="ensureOrderingForTestListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.028"/>
+  <testcase name="ensureOrderingForTestListenersViaCli" classname="test.listeners.ListenersTest" time="0.031"/>
+  <testcase name="ensureOrderingForTestListenersViaApi" classname="test.listeners.ListenersTest" time="0.028"/>
+  <testcase name="ensureOrderingForTestListenersViaMaven" classname="test.listeners.ListenersTest" time="0.039"/>
+  <testcase name="ensureOrderingForTestListenersViaCli" classname="test.listeners.ListenersTest" time="0.032"/>
+  <testcase name="ensureOrderingForTestListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.028"/>
+  <testcase name="ensureTestResultAttributesAreCarriedForward" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="testEnsureNativeListenersAreRunAlwaysAtEnd" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[0](class test.listeners.issue2880.TestClassWithPassingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[1](class test.listeners.issue2880.TestClassWithFailingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[2](class test.listeners.issue2880.TestClassWithPassingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[3](class test.listeners.issue2880.TestClassWithFailingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForTestListenersViaMaven" classname="test.listeners.ListenersTest" time="0.034"/>
+  <testcase name="ensureOrderingForTestListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.028"/>
+  <testcase name="ensureTestResultAttributesAreCarriedForward" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testEnsureNativeListenersAreRunAlwaysAtEnd" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[0](class test.listeners.issue2880.TestClassWithPassingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[1](class test.listeners.issue2880.TestClassWithFailingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[2](class test.listeners.issue2880.TestClassWithPassingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[3](class test.listeners.issue2880.TestClassWithFailingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testThreadIsNotInterruptedInListener" classname="test.listeners.ListenersTest" time="0.105"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithListenerInSuite" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithNoListenerInSuite" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="testThreadIsNotInterruptedInListener" classname="test.listeners.ListenersTest" time="0.103"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithListenerInSuite" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithNoListenerInSuite" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[0]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@62c732d2, Inner_Suite2=[Ljava.lang.String;@3dbe3bc4, Inner_Suite1=[Ljava.lang.String;@3dbe3bc4})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[1]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@2e7e9897, Inner_Suite2=[Ljava.lang.String;@3dbe3bc4, Inner_Suite1=[Ljava.lang.String;@3dbe3bc4})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[2]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@29ab7ccc, Inner_Suite2=[Ljava.lang.String;@3dbe3bc4, Inner_Suite1=[Ljava.lang.String;@3dbe3bc4})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureDuplicateListenersAreNotWiredInAcrossSuites[3]([Suite: &quot;Container_Suite&quot; ], {Container_Suite=[Ljava.lang.String;@438cb294, Inner_Suite2=[Ljava.lang.String;@3dbe3bc4, Inner_Suite1=[Ljava.lang.String;@3dbe3bc4})" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureInheritanceIsHandledWhenDealingWithListeners" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureListenerWorksWithCorrectTestClassInstance" classname="test.listeners.ListenersTest" time="0.076"/>
+  <testcase name="ensureListenersCanBeDisabled" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureListenersCanBeDisabledViaCLI" classname="test.listeners.ListenersTest" time="0.008"/>
+  <testcase name="ensureListenersCanBeDisabledViaSuiteFile" classname="test.listeners.ListenersTest" time="0.014"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForAlterSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForClassListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForClassListenersViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForClassListenersViaMaven" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForClassListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForConfigurationListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForDataProviderInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaMaven" classname="test.listeners.ListenersTest" time="0.005"/>
+  <testcase name="ensureOrderingForDataProviderListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForExecutionListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaAnnotation" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForExecutionVisualisersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForInvokedListenersViaMaven" classname="test.listeners.ListenersTest" time="0.009"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaCli" classname="test.listeners.ListenersTest" time="0.003"/>
+  <testcase name="ensureOrderingForInvokedMethodListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaApi" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaCli" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForMethodInterceptorsViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.002"/>
+  <testcase name="ensureOrderingForSuiteListenersViaApi" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaCli" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForSuiteListenersViaMaven" classname="test.listeners.ListenersTest" time="0.004"/>
+  <testcase name="ensureOrderingForSuiteListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="ensureOrderingForTestListenersViaAnnotation" classname="test.listeners.ListenersTest" time="0.033"/>
+  <testcase name="ensureOrderingForTestListenersViaApi" classname="test.listeners.ListenersTest" time="0.033"/>
+  <testcase name="ensureOrderingForTestListenersViaCli" classname="test.listeners.ListenersTest" time="0.032"/>
+  <testcase name="ensureOrderingForTestListenersViaMaven" classname="test.listeners.ListenersTest" time="0.039"/>
+  <testcase name="ensureOrderingForTestListenersViaXmlTag" classname="test.listeners.ListenersTest" time="0.028"/>
+  <testcase name="ensureTestResultAttributesAreCarriedForward" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testEnsureNativeListenersAreRunAlwaysAtEnd" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[0](class test.listeners.issue2880.TestClassWithPassingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[1](class test.listeners.issue2880.TestClassWithFailingConfigsSample, skip, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[2](class test.listeners.issue2880.TestClassWithPassingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_SUCCESS, BeforeInvocation_beforeMethod_STARTED, AfterInvocation_beforeMethod_SUCCESS, BeforeInvocation_testMethod_STARTED, AfterInvocation_testMethod_SUCCESS, BeforeInvocation_afterMethod_STARTED, AfterInvocation_afterMethod_SUCCESS, BeforeInvocation_afterClass_STARTED, AfterInvocation_afterClass_SUCCESS])" classname="test.listeners.ListenersTest" time="0.001"/>
+  <testcase name="testSkipStatusInBeforeAndAfterConfigurationMethod[3](class test.listeners.issue2880.TestClassWithFailingConfigsSample, continue, [BeforeInvocation_beforeClass_STARTED, AfterInvocation_beforeClass_FAILURE, BeforeInvocation_beforeMethod_SKIP, AfterInvocation_beforeMethod_SKIP, BeforeInvocation_testMethod_SKIP, AfterInvocation_testMethod_SKIP, BeforeInvocation_afterMethod_SKIP, AfterInvocation_afterMethod_SKIP, BeforeInvocation_afterClass_SKIP, AfterInvocation_afterClass_SKIP])" classname="test.listeners.ListenersTest" time="0.0"/>
+  <testcase name="testThreadIsNotInterruptedInListener" classname="test.listeners.ListenersTest" time="0.106"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithListenerInSuite" classname="test.listeners.ListenersTest" time="0.006"/>
+  <testcase name="testWiringInOfListenersInMultipleTestTagsWithNoListenerInSuite" classname="test.listeners.ListenersTest" time="0.005"/>
+  <system-out><![CDATA[
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+...
+... TestNG [WORKING] by Cédric Beust (cedric@beust.com)
+...
+
+PASSED: test.listeners.issue2381.TestClassSample.testMethod
+PASSED: test.listeners.issue2381.FactoryTestClassSample.testMethod
+
+===============================================
+    2381_test
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+2381_suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+...
+... TestNG [WORKING] by Cédric Beust (cedric@beust.com)
+...
+
+PASSED: test.listeners.issue2381.TestClassSample.testMethod
+PASSED: test.listeners.issue2381.FactoryTestClassSample.testMethod
+
+===============================================
+    2381_test
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+2381_suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+...
+... TestNG [WORKING] by Cédric Beust (cedric@beust.com)
+...
+
+PASSED: test.listeners.issue2381.TestClassSample.testMethod
+PASSED: test.listeners.issue2381.FactoryTestClassSample.testMethod
+
+===============================================
+    2381_test
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+2381_suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+...
+... TestNG [WORKING] by Cédric Beust (cedric@beust.com)
+...
+
+PASSED: test.listeners.issue2381.TestClassSample.testMethod
+PASSED: test.listeners.issue2381.FactoryTestClassSample.testMethod
+
+===============================================
+    2381_test
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+2381_suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+...
+... TestNG [WORKING] by Cédric Beust (cedric@beust.com)
+...
+
+PASSED: test.listeners.issue2381.TestClassSample.testMethod
+PASSED: test.listeners.issue2381.FactoryTestClassSample.testMethod
+
+===============================================
+    2381_test
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+2381_suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+...
+... TestNG [WORKING] by Cédric Beust (cedric@beust.com)
+...
+
+PASSED: test.listeners.issue2381.TestClassSample.testMethod
+PASSED: test.listeners.issue2381.FactoryTestClassSample.testMethod
+
+===============================================
+    2381_test
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+2381_suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+...
+... TestNG [WORKING] by Cédric Beust (cedric@beust.com)
+...
+
+PASSED: test.listeners.issue2381.TestClassSample.testMethod
+PASSED: test.listeners.issue2381.FactoryTestClassSample.testMethod
+
+===============================================
+    2381_test
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+2381_suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_1
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+PASSED: test.listeners.issue2752.TestClassSample.testMethod
+
+===============================================
+    Xml_Test_2
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Xml_Suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

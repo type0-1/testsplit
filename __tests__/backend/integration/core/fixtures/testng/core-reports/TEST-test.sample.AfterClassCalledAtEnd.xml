@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.sample.AfterClassCalledAtEnd" tests="42" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:54" hostname="MAC-ECC0B5.station" time="82.106">
+  <properties/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.001"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test1" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test2" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <testcase name="test3" classname="test.sample.AfterClassCalledAtEnd" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.testng1232.TestListenerInstances" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:30" hostname="MAC-ECC0B5.station" time="11.876">
+  <properties/>
+  <testcase name="testIfOnlyOneListenerInstanceExists" classname="test.testng1232.TestListenerInstances" time="0.002"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingAnnotations" classname="test.testng1232.TestListenerInstances" time="0.001"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingListenerTag" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExists" classname="test.testng1232.TestListenerInstances" time="0.001"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingAnnotations" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingListenerTag" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExists" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingAnnotations" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingListenerTag" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExists" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingAnnotations" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingListenerTag" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExists" classname="test.testng1232.TestListenerInstances" time="0.001"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingAnnotations" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingListenerTag" classname="test.testng1232.TestListenerInstances" time="0.001"/>
+  <testcase name="testIfOnlyOneListenerInstanceExists" classname="test.testng1232.TestListenerInstances" time="0.001"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingAnnotations" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingListenerTag" classname="test.testng1232.TestListenerInstances" time="0.001"/>
+  <testcase name="testIfOnlyOneListenerInstanceExists" classname="test.testng1232.TestListenerInstances" time="0.001"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingAnnotations" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <testcase name="testIfOnlyOneListenerInstanceExistsUsingListenerTag" classname="test.testng1232.TestListenerInstances" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

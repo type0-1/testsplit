@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.annotationtransformer.AnnotationTransformerTest" tests="112" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:56" hostname="MAC-ECC0B5.station" time="20.976">
+  <properties/>
+  <testcase name="annotationTransformerInXmlShouldBeRun" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="ensureAnnotationTransformerInvokedForClassLevelTestAnnotations" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="ensureAnnotationTransformerIsNotInvokedMultipleTimes" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[0]([org.testng.xml.XmlPackage@abf57b0c])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[1]([org.testng.xml.XmlPackage@5e643665, org.testng.xml.XmlPackage@4d651455])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="annotationTransformerInXmlShouldBeRun" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="ensureAnnotationTransformerInvokedForClassLevelTestAnnotations" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="ensureAnnotationTransformerIsNotInvokedMultipleTimes" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[0]([org.testng.xml.XmlPackage@abf57b0c])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[1]([org.testng.xml.XmlPackage@5e643665, org.testng.xml.XmlPackage@4d651455])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="2.007"/>
+  <testcase name="verifyAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="2.01"/>
+  <testcase name="annotationTransformerInXmlShouldBeRun" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="ensureAnnotationTransformerInvokedForClassLevelTestAnnotations" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="ensureAnnotationTransformerIsNotInvokedMultipleTimes" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[0]([org.testng.xml.XmlPackage@abf57b0c])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[1]([org.testng.xml.XmlPackage@5e643665, org.testng.xml.XmlPackage@4d651455])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="2.009"/>
+  <testcase name="annotationTransformerInXmlShouldBeRun" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="ensureAnnotationTransformerInvokedForClassLevelTestAnnotations" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="ensureAnnotationTransformerIsNotInvokedMultipleTimes" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[0]([org.testng.xml.XmlPackage@abf57b0c])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[1]([org.testng.xml.XmlPackage@5e643665, org.testng.xml.XmlPackage@4d651455])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="annotationTransformerInXmlShouldBeRun" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="ensureAnnotationTransformerInvokedForClassLevelTestAnnotations" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="ensureAnnotationTransformerIsNotInvokedMultipleTimes" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[0]([org.testng.xml.XmlPackage@abf57b0c])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[1]([org.testng.xml.XmlPackage@5e643665, org.testng.xml.XmlPackage@4d651455])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyAnnotationTransformerClass2" classname="test.annotationtransformer.AnnotationTransformerTest" time="6.032"/>
+  <testcase name="verifyAnnotationTransformerHasOnlyOneNonNullArgument" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationTransformerInvocationForAllApplicableEvents" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationTransformerMethod" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.003"/>
+  <testcase name="verifyAnnotationWithoutTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyConfigurationTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.005"/>
+  <testcase name="verifyDataProviderTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyInvocationCountTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="annotationTransformerInXmlShouldBeRun" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="ensureAnnotationTransformerInvokedForClassLevelTestAnnotations" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="ensureAnnotationTransformerIsNotInvokedMultipleTimes" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[0]([org.testng.xml.XmlPackage@abf57b0c])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[1]([org.testng.xml.XmlPackage@5e643665, org.testng.xml.XmlPackage@4d651455])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyAnnotationTransformerClass2" classname="test.annotationtransformer.AnnotationTransformerTest" time="6.012"/>
+  <testcase name="verifyAnnotationTransformerHasOnlyOneNonNullArgument" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.003"/>
+  <testcase name="verifyAnnotationTransformerInvocationForAllApplicableEvents" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyAnnotationTransformerMethod" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationWithoutTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyConfigurationTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.004"/>
+  <testcase name="verifyDataProviderTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyInvocationCountTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyListenerAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="1.009"/>
+  <testcase name="verifyMyParamTransformerOnlyOneNonNull" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="verifyListenerAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="1.005"/>
+  <testcase name="verifyMyParamTransformerOnlyOneNonNull" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="verifyAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="2.01"/>
+  <testcase name="verifyAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="2.011"/>
+  <testcase name="verifyAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="2.014"/>
+  <testcase name="verifyAnnotationTransformerClass2" classname="test.annotationtransformer.AnnotationTransformerTest" time="6.016"/>
+  <testcase name="verifyAnnotationTransformerHasOnlyOneNonNullArgument" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationTransformerInvocationForAllApplicableEvents" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationTransformerMethod" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationWithoutTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyConfigurationTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.005"/>
+  <testcase name="verifyDataProviderTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyInvocationCountTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="annotationTransformerInXmlShouldBeRun" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="ensureAnnotationTransformerInvokedForClassLevelTestAnnotations" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="ensureAnnotationTransformerIsNotInvokedMultipleTimes" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[0]([org.testng.xml.XmlPackage@abf57b0c])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="testNestedTestClass_packageIncludesNormalTestClasses[1]([org.testng.xml.XmlPackage@5e643665, org.testng.xml.XmlPackage@4d651455])" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyListenerAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="1.011"/>
+  <testcase name="verifyMyParamTransformerOnlyOneNonNull" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="verifyAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="2.01"/>
+  <testcase name="verifyAnnotationTransformerClass2" classname="test.annotationtransformer.AnnotationTransformerTest" time="6.015"/>
+  <testcase name="verifyAnnotationTransformerHasOnlyOneNonNullArgument" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.003"/>
+  <testcase name="verifyAnnotationTransformerInvocationForAllApplicableEvents" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyAnnotationTransformerMethod" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.003"/>
+  <testcase name="verifyAnnotationWithoutTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyConfigurationTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.004"/>
+  <testcase name="verifyDataProviderTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="verifyInvocationCountTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyAnnotationTransformerClass2" classname="test.annotationtransformer.AnnotationTransformerTest" time="6.016"/>
+  <testcase name="verifyAnnotationTransformerHasOnlyOneNonNullArgument" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationTransformerInvocationForAllApplicableEvents" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationTransformerMethod" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.003"/>
+  <testcase name="verifyAnnotationWithoutTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyConfigurationTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.005"/>
+  <testcase name="verifyDataProviderTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyInvocationCountTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyAnnotationTransformerClass2" classname="test.annotationtransformer.AnnotationTransformerTest" time="6.014"/>
+  <testcase name="verifyAnnotationTransformerHasOnlyOneNonNullArgument" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.003"/>
+  <testcase name="verifyAnnotationTransformerInvocationForAllApplicableEvents" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationTransformerMethod" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.004"/>
+  <testcase name="verifyAnnotationWithoutTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyConfigurationTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.004"/>
+  <testcase name="verifyDataProviderTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyInvocationCountTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyListenerAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="1.011"/>
+  <testcase name="verifyMyParamTransformerOnlyOneNonNull" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="verifyListenerAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="1.007"/>
+  <testcase name="verifyMyParamTransformerOnlyOneNonNull" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="verifyListenerAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="1.006"/>
+  <testcase name="verifyMyParamTransformerOnlyOneNonNull" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="verifyAnnotationTransformerClass2" classname="test.annotationtransformer.AnnotationTransformerTest" time="6.012"/>
+  <testcase name="verifyAnnotationTransformerHasOnlyOneNonNullArgument" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationTransformerInvocationForAllApplicableEvents" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationTransformerMethod" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyAnnotationWithoutTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.002"/>
+  <testcase name="verifyConfigurationTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.005"/>
+  <testcase name="verifyDataProviderTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <testcase name="verifyInvocationCountTransformer" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.001"/>
+  <testcase name="verifyListenerAnnotationTransformerClass" classname="test.annotationtransformer.AnnotationTransformerTest" time="1.012"/>
+  <testcase name="verifyMyParamTransformerOnlyOneNonNull" classname="test.annotationtransformer.AnnotationTransformerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.reports.EmailableReporterTest" tests="49" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:25" hostname="MAC-ECC0B5.station" time="16.905">
+  <properties/>
+  <testcase name="ensureEmailableReportsDontThrowExceptions" classname="test.reports.EmailableReporterTest" time="0.002"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenConfigsHaveErrors" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenMultipleClassesAreUsed" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2@15d0f2a3, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocation[0](org.testng.reporters.EmailableReporter2@23e54c8a)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptions" classname="test.reports.EmailableReporterTest" time="0.003"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenConfigsHaveErrors" classname="test.reports.EmailableReporterTest" time="0.003"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenMultipleClassesAreUsed" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2@15d0f2a3, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocation[0](org.testng.reporters.EmailableReporter2@23e54c8a)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptions" classname="test.reports.EmailableReporterTest" time="0.003"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenConfigsHaveErrors" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenMultipleClassesAreUsed" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2@15d0f2a3, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.002"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocation[0](org.testng.reporters.EmailableReporter2@23e54c8a)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocation[0](org.testng.reporters.EmailableReporter2)" classname="test.reports.EmailableReporterTest" time="5.012"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.005"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocation[0](org.testng.reporters.EmailableReporter2)" classname="test.reports.EmailableReporterTest" time="5.011"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.005"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptions" classname="test.reports.EmailableReporterTest" time="0.003"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenConfigsHaveErrors" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenMultipleClassesAreUsed" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2@2122b4bd, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocation[0](org.testng.reporters.EmailableReporter2@b3c7c75)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptions" classname="test.reports.EmailableReporterTest" time="0.002"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenConfigsHaveErrors" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenMultipleClassesAreUsed" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2@55e75ce0, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.002"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocation[0](org.testng.reporters.EmailableReporter2@77f1026e)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptions" classname="test.reports.EmailableReporterTest" time="0.004"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenConfigsHaveErrors" classname="test.reports.EmailableReporterTest" time="0.002"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenMultipleClassesAreUsed" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2@62a78446, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.002"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocation[0](org.testng.reporters.EmailableReporter2@73cd3b8)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocation[0](org.testng.reporters.EmailableReporter2)" classname="test.reports.EmailableReporterTest" time="5.011"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.005"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptions" classname="test.reports.EmailableReporterTest" time="0.002"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenConfigsHaveErrors" classname="test.reports.EmailableReporterTest" time="0.002"/>
+  <testcase name="ensureEmailableReportsDontThrowExceptionsWhenMultipleClassesAreUsed" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2@2122b4bd, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaRunMethodInvocation[0](org.testng.reporters.EmailableReporter2@b3c7c75)" classname="test.reports.EmailableReporterTest" time="0.001"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocation[0](org.testng.reporters.EmailableReporter2)" classname="test.reports.EmailableReporterTest" time="5.011"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.006"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocation[0](org.testng.reporters.EmailableReporter2)" classname="test.reports.EmailableReporterTest" time="5.011"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.005"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocation[0](org.testng.reporters.EmailableReporter2)" classname="test.reports.EmailableReporterTest" time="5.011"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.005"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocation[0](org.testng.reporters.EmailableReporter2)" classname="test.reports.EmailableReporterTest" time="5.011"/>
+  <testcase name="testReportsNameCustomizationViaMainMethodInvocationAndJVMArguments[0](org.testng.reporters.EmailableReporter2, emailable.report2.name)" classname="test.reports.EmailableReporterTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

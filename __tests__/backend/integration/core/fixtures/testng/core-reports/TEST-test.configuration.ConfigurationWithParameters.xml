@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.configuration.ConfigurationWithParameters" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:39" hostname="MAC-ECC0B5.station" time="11.944">
+  <properties/>
+  <testcase name="testMethod[0](value1)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value2)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value1)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value2)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value1)" classname="test.configuration.ConfigurationWithParameters" time="0.001"/>
+  <testcase name="testMethod[0](value2)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value1)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value2)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value1)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value2)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value1)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value2)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value1)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <testcase name="testMethod[0](value2)" classname="test.configuration.ConfigurationWithParameters" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

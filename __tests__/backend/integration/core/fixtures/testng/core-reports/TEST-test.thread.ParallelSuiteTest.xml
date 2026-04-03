@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.thread.ParallelSuiteTest" tests="63" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:56" hostname="MAC-ECC0B5.station" time="11.983">
+  <properties/>
+  <testcase name="childSuiteObeyParentThreadCount" classname="test.thread.ParallelSuiteTest" time="0.024"/>
+  <testcase name="suitesShouldRun1" classname="test.thread.ParallelSuiteTest" time="0.005"/>
+  <testcase name="suitesShouldRunInOrder" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel1" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel2" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel3" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInParallel4" classname="test.thread.ParallelSuiteTest" time="0.009"/>
+  <testcase name="suitesShouldRunInParallel5" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="suitesShouldRunInParallel6" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="childSuiteObeyParentThreadCount" classname="test.thread.ParallelSuiteTest" time="0.022"/>
+  <testcase name="suitesShouldRun1" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInOrder" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel1" classname="test.thread.ParallelSuiteTest" time="0.002"/>
+  <testcase name="suitesShouldRunInParallel2" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInParallel3" classname="test.thread.ParallelSuiteTest" time="0.002"/>
+  <testcase name="suitesShouldRunInParallel4" classname="test.thread.ParallelSuiteTest" time="0.008"/>
+  <testcase name="suitesShouldRunInParallel5" classname="test.thread.ParallelSuiteTest" time="0.006"/>
+  <testcase name="suitesShouldRunInParallel6" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="childSuiteObeyParentThreadCount" classname="test.thread.ParallelSuiteTest" time="0.021"/>
+  <testcase name="suitesShouldRun1" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInOrder" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInParallel1" classname="test.thread.ParallelSuiteTest" time="0.002"/>
+  <testcase name="suitesShouldRunInParallel2" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInParallel3" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInParallel4" classname="test.thread.ParallelSuiteTest" time="0.008"/>
+  <testcase name="suitesShouldRunInParallel5" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="suitesShouldRunInParallel6" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="childSuiteObeyParentThreadCount" classname="test.thread.ParallelSuiteTest" time="0.023"/>
+  <testcase name="suitesShouldRun1" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInOrder" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel1" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel2" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel3" classname="test.thread.ParallelSuiteTest" time="0.005"/>
+  <testcase name="suitesShouldRunInParallel4" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="suitesShouldRunInParallel5" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="suitesShouldRunInParallel6" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="childSuiteObeyParentThreadCount" classname="test.thread.ParallelSuiteTest" time="0.022"/>
+  <testcase name="suitesShouldRun1" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInOrder" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInParallel1" classname="test.thread.ParallelSuiteTest" time="0.002"/>
+  <testcase name="suitesShouldRunInParallel2" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInParallel3" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel4" classname="test.thread.ParallelSuiteTest" time="0.008"/>
+  <testcase name="suitesShouldRunInParallel5" classname="test.thread.ParallelSuiteTest" time="0.008"/>
+  <testcase name="suitesShouldRunInParallel6" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="childSuiteObeyParentThreadCount" classname="test.thread.ParallelSuiteTest" time="0.023"/>
+  <testcase name="suitesShouldRun1" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInOrder" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel1" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel2" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel3" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInParallel4" classname="test.thread.ParallelSuiteTest" time="0.008"/>
+  <testcase name="suitesShouldRunInParallel5" classname="test.thread.ParallelSuiteTest" time="0.006"/>
+  <testcase name="suitesShouldRunInParallel6" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="childSuiteObeyParentThreadCount" classname="test.thread.ParallelSuiteTest" time="0.021"/>
+  <testcase name="suitesShouldRun1" classname="test.thread.ParallelSuiteTest" time="0.004"/>
+  <testcase name="suitesShouldRunInOrder" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel1" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel2" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel3" classname="test.thread.ParallelSuiteTest" time="0.003"/>
+  <testcase name="suitesShouldRunInParallel4" classname="test.thread.ParallelSuiteTest" time="0.008"/>
+  <testcase name="suitesShouldRunInParallel5" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <testcase name="suitesShouldRunInParallel6" classname="test.thread.ParallelSuiteTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

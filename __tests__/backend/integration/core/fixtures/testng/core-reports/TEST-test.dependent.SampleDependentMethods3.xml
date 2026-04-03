@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.dependent.SampleDependentMethods3" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:59" hostname="MAC-ECC0B5.station" time="16.932">
+  <properties/>
+  <testcase name="one" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one[0](Cedric)" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one[0](Cedric)" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one[0](Cedric)" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="secondA" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="secondA" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one[0](Cedric)" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one[0](Cedric)" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="secondA" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one[0](Cedric)" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="one[0](Cedric)" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="secondA" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="secondA" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="secondA" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <testcase name="secondA" classname="test.dependent.SampleDependentMethods3" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

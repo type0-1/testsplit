@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.issue107.Issue107Test" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:30" hostname="MAC-ECC0B5.station" time="11.874">
+  <properties/>
+  <testcase name="testSuiteParameterModificationFromListener" classname="test.issue107.Issue107Test" time="0.001"/>
+  <testcase name="testSuiteParameterSetFromListener" classname="test.issue107.Issue107Test" time="0.001"/>
+  <testcase name="testSuiteParameterModificationFromListener" classname="test.issue107.Issue107Test" time="0.001"/>
+  <testcase name="testSuiteParameterSetFromListener" classname="test.issue107.Issue107Test" time="0.0"/>
+  <testcase name="testSuiteParameterModificationFromListener" classname="test.issue107.Issue107Test" time="0.0"/>
+  <testcase name="testSuiteParameterSetFromListener" classname="test.issue107.Issue107Test" time="0.0"/>
+  <testcase name="testSuiteParameterModificationFromListener" classname="test.issue107.Issue107Test" time="0.001"/>
+  <testcase name="testSuiteParameterSetFromListener" classname="test.issue107.Issue107Test" time="0.0"/>
+  <testcase name="testSuiteParameterModificationFromListener" classname="test.issue107.Issue107Test" time="0.001"/>
+  <testcase name="testSuiteParameterSetFromListener" classname="test.issue107.Issue107Test" time="0.001"/>
+  <testcase name="testSuiteParameterModificationFromListener" classname="test.issue107.Issue107Test" time="0.001"/>
+  <testcase name="testSuiteParameterSetFromListener" classname="test.issue107.Issue107Test" time="0.0"/>
+  <testcase name="testSuiteParameterModificationFromListener" classname="test.issue107.Issue107Test" time="0.001"/>
+  <testcase name="testSuiteParameterSetFromListener" classname="test.issue107.Issue107Test" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

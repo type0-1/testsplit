@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.thread.TrueParallelTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:55" hostname="MAC-ECC0B5.station" time="12.578">
+  <properties/>
+  <testcase name="shouldRunInParallel" classname="test.thread.TrueParallelTest" time="0.656"/>
+  <testcase name="shouldRunInParallel" classname="test.thread.TrueParallelTest" time="0.647"/>
+  <testcase name="shouldRunInParallel" classname="test.thread.TrueParallelTest" time="0.655"/>
+  <testcase name="shouldRunInParallel" classname="test.thread.TrueParallelTest" time="0.658"/>
+  <testcase name="shouldRunInParallel" classname="test.thread.TrueParallelTest" time="0.643"/>
+  <testcase name="shouldRunInParallel" classname="test.thread.TrueParallelTest" time="0.652"/>
+  <testcase name="shouldRunInParallel" classname="test.thread.TrueParallelTest" time="0.666"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.yaml.YamlTest" tests="63" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:54" hostname="MAC-ECC0B5.station" time="11.779">
+  <properties/>
+  <testcase name="accept" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="compareFiles[0](a1)" classname="test.yaml.YamlTest" time="0.005"/>
+  <testcase name="compareFiles[1](a2)" classname="test.yaml.YamlTest" time="0.01"/>
+  <testcase name="compareFiles[2](a3)" classname="test.yaml.YamlTest" time="0.004"/>
+  <testcase name="compareFiles[3](a4)" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="testLoadClassesFlag" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testParameterInclusion" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testXmlDependencyGroups" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="testXmlTestIndex" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="accept" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="compareFiles[0](a1)" classname="test.yaml.YamlTest" time="0.003"/>
+  <testcase name="compareFiles[1](a2)" classname="test.yaml.YamlTest" time="0.003"/>
+  <testcase name="compareFiles[2](a3)" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="compareFiles[3](a4)" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testLoadClassesFlag" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testParameterInclusion" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testXmlDependencyGroups" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="testXmlTestIndex" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="accept" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="compareFiles[0](a1)" classname="test.yaml.YamlTest" time="0.003"/>
+  <testcase name="compareFiles[1](a2)" classname="test.yaml.YamlTest" time="0.004"/>
+  <testcase name="compareFiles[2](a3)" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="compareFiles[3](a4)" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="testLoadClassesFlag" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="testParameterInclusion" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="testXmlDependencyGroups" classname="test.yaml.YamlTest" time="0.007"/>
+  <testcase name="testXmlTestIndex" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="accept" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="compareFiles[0](a1)" classname="test.yaml.YamlTest" time="0.003"/>
+  <testcase name="compareFiles[1](a2)" classname="test.yaml.YamlTest" time="0.005"/>
+  <testcase name="compareFiles[2](a3)" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="compareFiles[3](a4)" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="testLoadClassesFlag" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testParameterInclusion" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testXmlDependencyGroups" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testXmlTestIndex" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="accept" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="compareFiles[0](a1)" classname="test.yaml.YamlTest" time="0.005"/>
+  <testcase name="compareFiles[1](a2)" classname="test.yaml.YamlTest" time="0.005"/>
+  <testcase name="compareFiles[2](a3)" classname="test.yaml.YamlTest" time="0.004"/>
+  <testcase name="compareFiles[3](a4)" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="testLoadClassesFlag" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="testParameterInclusion" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="testXmlDependencyGroups" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testXmlTestIndex" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="accept" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="compareFiles[0](a1)" classname="test.yaml.YamlTest" time="0.003"/>
+  <testcase name="compareFiles[1](a2)" classname="test.yaml.YamlTest" time="0.003"/>
+  <testcase name="compareFiles[2](a3)" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="compareFiles[3](a4)" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="testLoadClassesFlag" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="testParameterInclusion" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testXmlDependencyGroups" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testXmlTestIndex" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="accept" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="compareFiles[0](a1)" classname="test.yaml.YamlTest" time="0.003"/>
+  <testcase name="compareFiles[1](a2)" classname="test.yaml.YamlTest" time="0.004"/>
+  <testcase name="compareFiles[2](a3)" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="compareFiles[3](a4)" classname="test.yaml.YamlTest" time="0.002"/>
+  <testcase name="testLoadClassesFlag" classname="test.yaml.YamlTest" time="0.0"/>
+  <testcase name="testParameterInclusion" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testXmlDependencyGroups" classname="test.yaml.YamlTest" time="0.001"/>
+  <testcase name="testXmlTestIndex" classname="test.yaml.YamlTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

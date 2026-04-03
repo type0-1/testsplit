@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.testng.internal.DynamicGraphHelperTest" tests="70" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:54" hostname="MAC-ECC0B5.station" time="11.964">
+  <properties/>
+  <testcase name="testCreateDynamicGraphAllIndependent" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithDependency[0](class org.testng.internal.dynamicgraph.HardDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithDependency[1](class org.testng.internal.dynamicgraph.HardDependencyViaGroupsTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithGroupByInstances" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[0]([Ljava.lang.Class;@5fe5c68b)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[1]([Ljava.lang.Class;@419f0ea)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[0]([Ljava.lang.Class;@3c544c9)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[1]([Ljava.lang.Class;@43a59289)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPreserveOrderAndNoParallelism" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithSoftDependency[0](class org.testng.internal.dynamicgraph.SoftDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphAllIndependent" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithDependency[0](class org.testng.internal.dynamicgraph.HardDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithDependency[1](class org.testng.internal.dynamicgraph.HardDependencyViaGroupsTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithGroupByInstances" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[0]([Ljava.lang.Class;@1851c7d2)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[1]([Ljava.lang.Class;@63e70bf9)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[0]([Ljava.lang.Class;@59371066)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[1]([Ljava.lang.Class;@87aec6a)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPreserveOrderAndNoParallelism" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithSoftDependency[0](class org.testng.internal.dynamicgraph.SoftDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphAllIndependent" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithDependency[0](class org.testng.internal.dynamicgraph.HardDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithDependency[1](class org.testng.internal.dynamicgraph.HardDependencyViaGroupsTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithGroupByInstances" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[0]([Ljava.lang.Class;@79d49790)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.004"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[1]([Ljava.lang.Class;@10f20d38)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[0]([Ljava.lang.Class;@419f0ea)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[1]([Ljava.lang.Class;@22e813fc)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPreserveOrderAndNoParallelism" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithSoftDependency[0](class org.testng.internal.dynamicgraph.SoftDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphAllIndependent" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithDependency[0](class org.testng.internal.dynamicgraph.HardDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithDependency[1](class org.testng.internal.dynamicgraph.HardDependencyViaGroupsTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithGroupByInstances" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[0]([Ljava.lang.Class;@2ffb0d10)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[1]([Ljava.lang.Class;@2d47b06)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[0]([Ljava.lang.Class;@22e813fc)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[1]([Ljava.lang.Class;@6c2883b1)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPreserveOrderAndNoParallelism" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithSoftDependency[0](class org.testng.internal.dynamicgraph.SoftDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphAllIndependent" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithDependency[0](class org.testng.internal.dynamicgraph.HardDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithDependency[1](class org.testng.internal.dynamicgraph.HardDependencyViaGroupsTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithGroupByInstances" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[0]([Ljava.lang.Class;@7fe87c0e)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[1]([Ljava.lang.Class;@603d25db)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[0]([Ljava.lang.Class;@29c244e)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[1]([Ljava.lang.Class;@4d2f9e3c)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPreserveOrderAndNoParallelism" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithSoftDependency[0](class org.testng.internal.dynamicgraph.SoftDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphAllIndependent" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithDependency[0](class org.testng.internal.dynamicgraph.HardDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithDependency[1](class org.testng.internal.dynamicgraph.HardDependencyViaGroupsTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithGroupByInstances" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[0]([Ljava.lang.Class;@69d667a5)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[1]([Ljava.lang.Class;@3f9f8d23)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[0]([Ljava.lang.Class;@b86cb18)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[1]([Ljava.lang.Class;@671da0f9)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPreserveOrderAndNoParallelism" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithSoftDependency[0](class org.testng.internal.dynamicgraph.SoftDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphAllIndependent" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithDependency[0](class org.testng.internal.dynamicgraph.HardDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithDependency[1](class org.testng.internal.dynamicgraph.HardDependencyViaGroupsTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithGroupByInstances" classname="org.testng.internal.DynamicGraphHelperTest" time="0.003"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[0]([Ljava.lang.Class;@79d49790)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithAbstractClassPreserveOrderTrue[1]([Ljava.lang.Class;@10f20d38)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[0]([Ljava.lang.Class;@419f0ea)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPackageWithoutAbstractClass[1]([Ljava.lang.Class;@22e813fc)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <testcase name="testCreateDynamicGraphWithPreserveOrderAndNoParallelism" classname="org.testng.internal.DynamicGraphHelperTest" time="0.001"/>
+  <testcase name="testCreateDynamicGraphWithSoftDependency[0](class org.testng.internal.dynamicgraph.SoftDependencyTestClassSample)" classname="org.testng.internal.DynamicGraphHelperTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.configuration.BeforeClassTest" tests="28" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:54" hostname="MAC-ECC0B5.station" time="15.678">
+  <properties/>
+  <testcase name="afterClassShouldRunEvenWithDisabledMethods" classname="test.configuration.BeforeClassTest" time="0.0"/>
+  <testcase name="afterClassShouldRunEvenWithDisabledMethods" classname="test.configuration.BeforeClassTest" time="0.0"/>
+  <testcase name="beforeClassMethodsShouldRunInParallel" classname="test.configuration.BeforeClassTest" time="2.007"/>
+  <testcase name="beforeClassMethodsShouldRunInParallel" classname="test.configuration.BeforeClassTest" time="2.01"/>
+  <testcase name="afterClassShouldRunEvenWithDisabledMethods" classname="test.configuration.BeforeClassTest" time="0.0"/>
+  <testcase name="ensureBeforeClassGetsCalledConcurrentlyWhenWorkingWithFactories" classname="test.configuration.BeforeClassTest" time="2.008"/>
+  <testcase name="ensureIndependentConfigurationsAlwaysRunFirstWhenUsingDependencies" classname="test.configuration.BeforeClassTest" time="0.003"/>
+  <testcase name="ensureBeforeClassGetsCalledConcurrentlyWhenWorkingWithFactories" classname="test.configuration.BeforeClassTest" time="2.014"/>
+  <testcase name="ensureIndependentConfigurationsAlwaysRunFirstWhenUsingDependencies" classname="test.configuration.BeforeClassTest" time="0.002"/>
+  <testcase name="beforeClassMethodsShouldRunInParallel" classname="test.configuration.BeforeClassTest" time="2.007"/>
+  <testcase name="afterClassShouldRunEvenWithDisabledMethods" classname="test.configuration.BeforeClassTest" time="0.0"/>
+  <testcase name="ensureBeforeClassGetsCalledConcurrentlyWhenWorkingWithFactories" classname="test.configuration.BeforeClassTest" time="2.007"/>
+  <testcase name="ensureIndependentConfigurationsAlwaysRunFirstWhenUsingDependencies" classname="test.configuration.BeforeClassTest" time="0.002"/>
+  <testcase name="afterClassShouldRunEvenWithDisabledMethods" classname="test.configuration.BeforeClassTest" time="0.0"/>
+  <testcase name="afterClassShouldRunEvenWithDisabledMethods" classname="test.configuration.BeforeClassTest" time="0.001"/>
+  <testcase name="beforeClassMethodsShouldRunInParallel" classname="test.configuration.BeforeClassTest" time="2.007"/>
+  <testcase name="beforeClassMethodsShouldRunInParallel" classname="test.configuration.BeforeClassTest" time="2.006"/>
+  <testcase name="beforeClassMethodsShouldRunInParallel" classname="test.configuration.BeforeClassTest" time="2.005"/>
+  <testcase name="ensureBeforeClassGetsCalledConcurrentlyWhenWorkingWithFactories" classname="test.configuration.BeforeClassTest" time="2.008"/>
+  <testcase name="ensureIndependentConfigurationsAlwaysRunFirstWhenUsingDependencies" classname="test.configuration.BeforeClassTest" time="0.002"/>
+  <testcase name="afterClassShouldRunEvenWithDisabledMethods" classname="test.configuration.BeforeClassTest" time="0.001"/>
+  <testcase name="ensureBeforeClassGetsCalledConcurrentlyWhenWorkingWithFactories" classname="test.configuration.BeforeClassTest" time="2.008"/>
+  <testcase name="ensureIndependentConfigurationsAlwaysRunFirstWhenUsingDependencies" classname="test.configuration.BeforeClassTest" time="0.003"/>
+  <testcase name="ensureBeforeClassGetsCalledConcurrentlyWhenWorkingWithFactories" classname="test.configuration.BeforeClassTest" time="2.008"/>
+  <testcase name="ensureIndependentConfigurationsAlwaysRunFirstWhenUsingDependencies" classname="test.configuration.BeforeClassTest" time="0.002"/>
+  <testcase name="beforeClassMethodsShouldRunInParallel" classname="test.configuration.BeforeClassTest" time="2.007"/>
+  <testcase name="ensureBeforeClassGetsCalledConcurrentlyWhenWorkingWithFactories" classname="test.configuration.BeforeClassTest" time="2.008"/>
+  <testcase name="ensureIndependentConfigurationsAlwaysRunFirstWhenUsingDependencies" classname="test.configuration.BeforeClassTest" time="0.002"/>
+  <system-out><![CDATA[
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

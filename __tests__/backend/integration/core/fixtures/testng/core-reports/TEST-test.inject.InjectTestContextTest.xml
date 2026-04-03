@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.inject.InjectTestContextTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:43" hostname="MAC-ECC0B5.station" time="11.875">
+  <properties/>
+  <testcase name="injectionAndParameters[0](Cedric, org.testng.TestRunner@33f2ccd1)" classname="test.inject.InjectTestContextTest" time="0.0"/>
+  <testcase name="injectionAndParameters[0](Cedric, org.testng.TestRunner@3848c63)" classname="test.inject.InjectTestContextTest" time="0.0"/>
+  <testcase name="injectionAndParameters[0](Cedric, org.testng.TestRunner@6c3dae0f)" classname="test.inject.InjectTestContextTest" time="0.0"/>
+  <testcase name="injectionAndParameters[0](Cedric, org.testng.TestRunner@361fb3b3)" classname="test.inject.InjectTestContextTest" time="0.0"/>
+  <testcase name="injectionAndParameters[0](Cedric, org.testng.TestRunner@295e3370)" classname="test.inject.InjectTestContextTest" time="0.0"/>
+  <testcase name="injectionAndParameters[0](Cedric, org.testng.TestRunner@2668c100)" classname="test.inject.InjectTestContextTest" time="0.0"/>
+  <testcase name="injectionAndParameters[0](Cedric, org.testng.TestRunner@254bd293)" classname="test.inject.InjectTestContextTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

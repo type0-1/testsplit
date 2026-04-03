@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.junitreports.JUnitReportsTest" tests="49" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:09" hostname="MAC-ECC0B5.station" time="16.95">
+  <properties/>
+  <testcase name="ensureTestReportContainsNoSysOutContent" classname="test.junitreports.JUnitReportsTest" time="0.025"/>
+  <testcase name="ensureTestReportContainsNoSysOutContent" classname="test.junitreports.JUnitReportsTest" time="0.022"/>
+  <testcase name="ensureTestReportContainsValidSysOutContent" classname="test.junitreports.JUnitReportsTest" time="5.017"/>
+  <testcase name="testEnsureTestnameDoesnotAcceptNullValues" classname="test.junitreports.JUnitReportsTest" time="0.003"/>
+  <testcase name="testJUnitReportReporter" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testJUnitReportReporterWithMultipleClasses" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testJUnitXMLReporter" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testTestCaseOrderingInJUnitReportReporterWhenPrioritiesDefined" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="ensureTestReportContainsValidSysOutContent" classname="test.junitreports.JUnitReportsTest" time="5.017"/>
+  <testcase name="testEnsureTestnameDoesnotAcceptNullValues" classname="test.junitreports.JUnitReportsTest" time="0.003"/>
+  <testcase name="testJUnitReportReporter" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testJUnitReportReporterWithMultipleClasses" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testJUnitXMLReporter" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="testTestCaseOrderingInJUnitReportReporterWhenPrioritiesDefined" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="ensureTestReportContainsNoSysOutContent" classname="test.junitreports.JUnitReportsTest" time="5.027"/>
+  <testcase name="ensureTestReportContainsValidSysOutContent" classname="test.junitreports.JUnitReportsTest" time="0.012"/>
+  <testcase name="testEnsureTestnameDoesnotAcceptNullValues" classname="test.junitreports.JUnitReportsTest" time="0.003"/>
+  <testcase name="testJUnitReportReporter" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="testJUnitReportReporterWithMultipleClasses" classname="test.junitreports.JUnitReportsTest" time="0.004"/>
+  <testcase name="testJUnitXMLReporter" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testTestCaseOrderingInJUnitReportReporterWhenPrioritiesDefined" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="ensureTestReportContainsNoSysOutContent" classname="test.junitreports.JUnitReportsTest" time="0.021"/>
+  <testcase name="ensureTestReportContainsValidSysOutContent" classname="test.junitreports.JUnitReportsTest" time="0.01"/>
+  <testcase name="testEnsureTestnameDoesnotAcceptNullValues" classname="test.junitreports.JUnitReportsTest" time="0.003"/>
+  <testcase name="ensureTestReportContainsNoSysOutContent" classname="test.junitreports.JUnitReportsTest" time="5.026"/>
+  <testcase name="ensureTestReportContainsValidSysOutContent" classname="test.junitreports.JUnitReportsTest" time="0.012"/>
+  <testcase name="testEnsureTestnameDoesnotAcceptNullValues" classname="test.junitreports.JUnitReportsTest" time="0.003"/>
+  <testcase name="testJUnitReportReporter" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="testJUnitReportReporterWithMultipleClasses" classname="test.junitreports.JUnitReportsTest" time="0.003"/>
+  <testcase name="testJUnitXMLReporter" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="testTestCaseOrderingInJUnitReportReporterWhenPrioritiesDefined" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="ensureTestReportContainsNoSysOutContent" classname="test.junitreports.JUnitReportsTest" time="5.059"/>
+  <testcase name="ensureTestReportContainsValidSysOutContent" classname="test.junitreports.JUnitReportsTest" time="0.011"/>
+  <testcase name="testEnsureTestnameDoesnotAcceptNullValues" classname="test.junitreports.JUnitReportsTest" time="0.003"/>
+  <testcase name="testJUnitReportReporter" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="testJUnitReportReporterWithMultipleClasses" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testJUnitXMLReporter" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="testTestCaseOrderingInJUnitReportReporterWhenPrioritiesDefined" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="ensureTestReportContainsNoSysOutContent" classname="test.junitreports.JUnitReportsTest" time="5.026"/>
+  <testcase name="ensureTestReportContainsValidSysOutContent" classname="test.junitreports.JUnitReportsTest" time="0.01"/>
+  <testcase name="testEnsureTestnameDoesnotAcceptNullValues" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testJUnitReportReporter" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testJUnitReportReporterWithMultipleClasses" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testJUnitXMLReporter" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <testcase name="testTestCaseOrderingInJUnitReportReporterWhenPrioritiesDefined" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="testJUnitReportReporter" classname="test.junitreports.JUnitReportsTest" time="5.007"/>
+  <testcase name="testJUnitReportReporterWithMultipleClasses" classname="test.junitreports.JUnitReportsTest" time="0.004"/>
+  <testcase name="testJUnitXMLReporter" classname="test.junitreports.JUnitReportsTest" time="0.001"/>
+  <testcase name="testTestCaseOrderingInJUnitReportReporterWhenPrioritiesDefined" classname="test.junitreports.JUnitReportsTest" time="0.002"/>
+  <system-out><![CDATA[Teenage Mutant Ninja Turtles Movies
+Teenage Mutant Ninja Turtles: <i>Rise of the Teenage Mutant Ninja Turtles</i>
+Teenage Mutant Ninja Turtles
+Teenage Mutant Ninja Turtles: <i>Out of the Shadows</i>
+Teenage Mutant Ninja Turtles: <i>The Secret of the Ooze</i>
+Teenage Mutant Ninja Turtles: <i>Mutant Mayhem</i>
+Teenage Mutant Ninja Turtles Movies
+Teenage Mutant Ninja Turtles: <i>Rise of the Teenage Mutant Ninja Turtles</i>
+Teenage Mutant Ninja Turtles
+Teenage Mutant Ninja Turtles: <i>Out of the Shadows</i>
+Teenage Mutant Ninja Turtles: <i>The Secret of the Ooze</i>
+Teenage Mutant Ninja Turtles: <i>Mutant Mayhem</i>
+To be continued
+To be continued
+Teenage Mutant Ninja Turtles Movies
+Teenage Mutant Ninja Turtles: <i>Rise of the Teenage Mutant Ninja Turtles</i>
+Teenage Mutant Ninja Turtles
+Teenage Mutant Ninja Turtles: <i>Out of the Shadows</i>
+Teenage Mutant Ninja Turtles: <i>The Secret of the Ooze</i>
+Teenage Mutant Ninja Turtles: <i>Mutant Mayhem</i>
+To be continued
+Teenage Mutant Ninja Turtles Movies
+Teenage Mutant Ninja Turtles: <i>Rise of the Teenage Mutant Ninja Turtles</i>
+Teenage Mutant Ninja Turtles
+Teenage Mutant Ninja Turtles: <i>Out of the Shadows</i>
+Teenage Mutant Ninja Turtles: <i>The Secret of the Ooze</i>
+Teenage Mutant Ninja Turtles: <i>Mutant Mayhem</i>
+To be continued
+Teenage Mutant Ninja Turtles Movies
+Teenage Mutant Ninja Turtles: <i>Rise of the Teenage Mutant Ninja Turtles</i>
+Teenage Mutant Ninja Turtles
+Teenage Mutant Ninja Turtles: <i>Out of the Shadows</i>
+Teenage Mutant Ninja Turtles: <i>The Secret of the Ooze</i>
+Teenage Mutant Ninja Turtles: <i>Mutant Mayhem</i>
+To be continued
+Teenage Mutant Ninja Turtles Movies
+Teenage Mutant Ninja Turtles: <i>Rise of the Teenage Mutant Ninja Turtles</i>
+Teenage Mutant Ninja Turtles
+Teenage Mutant Ninja Turtles: <i>Out of the Shadows</i>
+Teenage Mutant Ninja Turtles: <i>The Secret of the Ooze</i>
+Teenage Mutant Ninja Turtles: <i>Mutant Mayhem</i>
+To be continued
+Teenage Mutant Ninja Turtles Movies
+Teenage Mutant Ninja Turtles: <i>Rise of the Teenage Mutant Ninja Turtles</i>
+Teenage Mutant Ninja Turtles
+Teenage Mutant Ninja Turtles: <i>Out of the Shadows</i>
+Teenage Mutant Ninja Turtles: <i>The Secret of the Ooze</i>
+Teenage Mutant Ninja Turtles: <i>Mutant Mayhem</i>
+To be continued
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

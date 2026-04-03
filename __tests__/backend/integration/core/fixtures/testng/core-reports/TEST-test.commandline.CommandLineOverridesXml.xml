@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.commandline.CommandLineOverridesXml" tests="42" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:14" hostname="MAC-ECC0B5.station" time="11.909">
+  <properties/>
+  <testcase name="commandLineExcludedGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.0"/>
+  <testcase name="ensureNoNullPointerExceptionIsThrown" classname="test.commandline.CommandLineOverridesXml" time="0.002"/>
+  <testcase name="ensureParallelismIsHonoredWhenOnlyClassesSpecifiedInJar" classname="test.commandline.CommandLineOverridesXml" time="0.005"/>
+  <testcase name="ensureThatParallelismAndThreadCountAreRallied" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="shouldRunBothMethods" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineExcludedGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.0"/>
+  <testcase name="ensureNoNullPointerExceptionIsThrown" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="ensureParallelismIsHonoredWhenOnlyClassesSpecifiedInJar" classname="test.commandline.CommandLineOverridesXml" time="0.006"/>
+  <testcase name="ensureThatParallelismAndThreadCountAreRallied" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="shouldRunBothMethods" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineExcludedGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.0"/>
+  <testcase name="ensureNoNullPointerExceptionIsThrown" classname="test.commandline.CommandLineOverridesXml" time="0.002"/>
+  <testcase name="ensureParallelismIsHonoredWhenOnlyClassesSpecifiedInJar" classname="test.commandline.CommandLineOverridesXml" time="0.006"/>
+  <testcase name="ensureThatParallelismAndThreadCountAreRallied" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="shouldRunBothMethods" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineExcludedGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="ensureNoNullPointerExceptionIsThrown" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="ensureParallelismIsHonoredWhenOnlyClassesSpecifiedInJar" classname="test.commandline.CommandLineOverridesXml" time="0.005"/>
+  <testcase name="ensureThatParallelismAndThreadCountAreRallied" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="shouldRunBothMethods" classname="test.commandline.CommandLineOverridesXml" time="0.0"/>
+  <testcase name="commandLineExcludedGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.0"/>
+  <testcase name="ensureNoNullPointerExceptionIsThrown" classname="test.commandline.CommandLineOverridesXml" time="0.002"/>
+  <testcase name="ensureParallelismIsHonoredWhenOnlyClassesSpecifiedInJar" classname="test.commandline.CommandLineOverridesXml" time="0.006"/>
+  <testcase name="ensureThatParallelismAndThreadCountAreRallied" classname="test.commandline.CommandLineOverridesXml" time="0.002"/>
+  <testcase name="shouldRunBothMethods" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineExcludedGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.0"/>
+  <testcase name="ensureNoNullPointerExceptionIsThrown" classname="test.commandline.CommandLineOverridesXml" time="0.002"/>
+  <testcase name="ensureParallelismIsHonoredWhenOnlyClassesSpecifiedInJar" classname="test.commandline.CommandLineOverridesXml" time="0.007"/>
+  <testcase name="ensureThatParallelismAndThreadCountAreRallied" classname="test.commandline.CommandLineOverridesXml" time="0.002"/>
+  <testcase name="shouldRunBothMethods" classname="test.commandline.CommandLineOverridesXml" time="0.0"/>
+  <testcase name="commandLineExcludedGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="commandLineGroupsShouldOverrideXml" classname="test.commandline.CommandLineOverridesXml" time="0.0"/>
+  <testcase name="ensureNoNullPointerExceptionIsThrown" classname="test.commandline.CommandLineOverridesXml" time="0.001"/>
+  <testcase name="ensureParallelismIsHonoredWhenOnlyClassesSpecifiedInJar" classname="test.commandline.CommandLineOverridesXml" time="0.005"/>
+  <testcase name="ensureThatParallelismAndThreadCountAreRallied" classname="test.commandline.CommandLineOverridesXml" time="0.002"/>
+  <testcase name="shouldRunBothMethods" classname="test.commandline.CommandLineOverridesXml" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

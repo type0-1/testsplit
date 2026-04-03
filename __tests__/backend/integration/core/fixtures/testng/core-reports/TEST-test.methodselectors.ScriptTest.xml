@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.methodselectors.ScriptTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:40" hostname="MAC-ECC0B5.station" time="12.157">
+  <properties/>
+  <testcase name="onlyGroup1[0](beanshell, groups.&#10;     containsKey   &#9;    (&quot;test1&quot;), [Ljava.lang.String;@3d8da9da)" classname="test.methodselectors.ScriptTest" time="0.019"/>
+  <testcase name="onlyGroup1[1](groovy, groups.&#10;     containsKey   &#9;    (&quot;test2&quot;), [Ljava.lang.String;@356b37dd)" classname="test.methodselectors.ScriptTest" time="0.177"/>
+  <testcase name="onlyGroup1[0](beanshell, groups.&#10;     containsKey   &#9;    (&quot;test1&quot;), [Ljava.lang.String;@40364b40)" classname="test.methodselectors.ScriptTest" time="0.018"/>
+  <testcase name="onlyGroup1[1](groovy, groups.&#10;     containsKey   &#9;    (&quot;test2&quot;), [Ljava.lang.String;@36b085da)" classname="test.methodselectors.ScriptTest" time="0.178"/>
+  <testcase name="onlyGroup1[0](beanshell, groups.&#10;     containsKey   &#9;    (&quot;test1&quot;), [Ljava.lang.String;@1e853bd4)" classname="test.methodselectors.ScriptTest" time="0.017"/>
+  <testcase name="onlyGroup1[1](groovy, groups.&#10;     containsKey   &#9;    (&quot;test2&quot;), [Ljava.lang.String;@15f4dffe)" classname="test.methodselectors.ScriptTest" time="0.166"/>
+  <testcase name="onlyGroup1[0](beanshell, groups.&#10;     containsKey   &#9;    (&quot;test1&quot;), [Ljava.lang.String;@4bbd9a1)" classname="test.methodselectors.ScriptTest" time="0.022"/>
+  <testcase name="onlyGroup1[1](groovy, groups.&#10;     containsKey   &#9;    (&quot;test2&quot;), [Ljava.lang.String;@40fd8aa1)" classname="test.methodselectors.ScriptTest" time="0.171"/>
+  <testcase name="onlyGroup1[0](beanshell, groups.&#10;     containsKey   &#9;    (&quot;test1&quot;), [Ljava.lang.String;@44a98855)" classname="test.methodselectors.ScriptTest" time="0.018"/>
+  <testcase name="onlyGroup1[1](groovy, groups.&#10;     containsKey   &#9;    (&quot;test2&quot;), [Ljava.lang.String;@122b07f1)" classname="test.methodselectors.ScriptTest" time="0.214"/>
+  <testcase name="onlyGroup1[0](beanshell, groups.&#10;     containsKey   &#9;    (&quot;test1&quot;), [Ljava.lang.String;@235cbf67)" classname="test.methodselectors.ScriptTest" time="0.022"/>
+  <testcase name="onlyGroup1[1](groovy, groups.&#10;     containsKey   &#9;    (&quot;test2&quot;), [Ljava.lang.String;@43defae6)" classname="test.methodselectors.ScriptTest" time="0.177"/>
+  <testcase name="onlyGroup1[0](beanshell, groups.&#10;     containsKey   &#9;    (&quot;test1&quot;), [Ljava.lang.String;@d4de13b)" classname="test.methodselectors.ScriptTest" time="0.018"/>
+  <testcase name="onlyGroup1[1](groovy, groups.&#10;     containsKey   &#9;    (&quot;test2&quot;), [Ljava.lang.String;@56b3dcff)" classname="test.methodselectors.ScriptTest" time="0.197"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.methodselectors.MethodSelectorTest" tests="49" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:39" hostname="MAC-ECC0B5.station" time="11.952">
+  <properties/>
+  <testcase name="greaterThanPriorityTest1Test2" classname="test.methodselectors.MethodSelectorTest" time="0.004"/>
+  <testcase name="lessThanPriorityAllTests" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="lessThanPriorityTest1Test" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="negativePriorityAllGroups" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="negativePriorityGroup2" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="testFilteringOfMethodsWork" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="testNoMethodsAreExecutedWithNoMatchFound" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="greaterThanPriorityTest1Test2" classname="test.methodselectors.MethodSelectorTest" time="0.002"/>
+  <testcase name="lessThanPriorityAllTests" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="lessThanPriorityTest1Test" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="negativePriorityAllGroups" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="negativePriorityGroup2" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="testFilteringOfMethodsWork" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="testNoMethodsAreExecutedWithNoMatchFound" classname="test.methodselectors.MethodSelectorTest" time="0.002"/>
+  <testcase name="greaterThanPriorityTest1Test2" classname="test.methodselectors.MethodSelectorTest" time="0.003"/>
+  <testcase name="lessThanPriorityAllTests" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="lessThanPriorityTest1Test" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="negativePriorityAllGroups" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="negativePriorityGroup2" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="testFilteringOfMethodsWork" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="testNoMethodsAreExecutedWithNoMatchFound" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="greaterThanPriorityTest1Test2" classname="test.methodselectors.MethodSelectorTest" time="0.002"/>
+  <testcase name="lessThanPriorityAllTests" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="lessThanPriorityTest1Test" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="negativePriorityAllGroups" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="negativePriorityGroup2" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="testFilteringOfMethodsWork" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="testNoMethodsAreExecutedWithNoMatchFound" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="greaterThanPriorityTest1Test2" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="lessThanPriorityAllTests" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="lessThanPriorityTest1Test" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="negativePriorityAllGroups" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="negativePriorityGroup2" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="testFilteringOfMethodsWork" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="testNoMethodsAreExecutedWithNoMatchFound" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="greaterThanPriorityTest1Test2" classname="test.methodselectors.MethodSelectorTest" time="0.003"/>
+  <testcase name="lessThanPriorityAllTests" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="lessThanPriorityTest1Test" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="negativePriorityAllGroups" classname="test.methodselectors.MethodSelectorTest" time="0.0"/>
+  <testcase name="negativePriorityGroup2" classname="test.methodselectors.MethodSelectorTest" time="0.002"/>
+  <testcase name="testFilteringOfMethodsWork" classname="test.methodselectors.MethodSelectorTest" time="0.002"/>
+  <testcase name="testNoMethodsAreExecutedWithNoMatchFound" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="greaterThanPriorityTest1Test2" classname="test.methodselectors.MethodSelectorTest" time="0.003"/>
+  <testcase name="lessThanPriorityAllTests" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="lessThanPriorityTest1Test" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="negativePriorityAllGroups" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="negativePriorityGroup2" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="testFilteringOfMethodsWork" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <testcase name="testNoMethodsAreExecutedWithNoMatchFound" classname="test.methodselectors.MethodSelectorTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

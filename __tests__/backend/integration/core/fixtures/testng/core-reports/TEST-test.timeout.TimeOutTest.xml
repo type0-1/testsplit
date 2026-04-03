@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.timeout.TimeOutTest" tests="63" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:04" hostname="MAC-ECC0B5.station" time="32.257">
+  <properties/>
+  <testcase name="testTimeOutWhenParallelIsMethods" classname="test.timeout.TimeOutTest" time="1.006"/>
+  <testcase name="testTimeOutWhenParallelIsMethods" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="testWithOnlyOneThread" classname="test.timeout.TimeOutTest" time="1.009"/>
+  <testcase name="testWithOnlyOneThread" classname="test.timeout.TimeOutTest" time="1.003"/>
+  <testcase name="timeOutInNonParallel" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="timeOutInNonParallel" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="timeOutInParallel[0](tests)" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="testTimeOutWhenParallelIsMethods" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="timeOutInParallel[0](tests)" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="testWithOnlyOneThread" classname="test.timeout.TimeOutTest" time="1.008"/>
+  <testcase name="timeOutInNonParallel" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="timeOutInParallel[0](tests)" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="testTimeOutWhenParallelIsMethods" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="testTimeOutWhenParallelIsMethods" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="testWithOnlyOneThread" classname="test.timeout.TimeOutTest" time="1.003"/>
+  <testcase name="testTimeOutWhenParallelIsMethods" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="timeOutInParallel[1](methods)" classname="test.timeout.TimeOutTest" time="6.011"/>
+  <testcase name="testWithOnlyOneThread" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="timeOutInNonParallel" classname="test.timeout.TimeOutTest" time="1.008"/>
+  <testcase name="testWithOnlyOneThread" classname="test.timeout.TimeOutTest" time="1.003"/>
+  <testcase name="timeOutInParallel[1](methods)" classname="test.timeout.TimeOutTest" time="6.01"/>
+  <testcase name="timeOutInParallel[2](classes)" classname="test.timeout.TimeOutTest" time="1.004"/>
+  <testcase name="timeOutInNonParallel" classname="test.timeout.TimeOutTest" time="1.006"/>
+  <testcase name="timeOutInParallel[0](tests)" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="timeOutInNonParallel" classname="test.timeout.TimeOutTest" time="1.008"/>
+  <testcase name="timeOutInParallel[2](classes)" classname="test.timeout.TimeOutTest" time="1.009"/>
+  <testcase name="timeOutInParallel[3](instances)" classname="test.timeout.TimeOutTest" time="1.009"/>
+  <testcase name="timeOutInParallel[0](tests)" classname="test.timeout.TimeOutTest" time="1.006"/>
+  <testcase name="timeOutInParallel[0](tests)" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="timeOutInParallel[3](instances)" classname="test.timeout.TimeOutTest" time="1.008"/>
+  <testcase name="testTimeOutWhenParallelIsMethods" classname="test.timeout.TimeOutTest" time="1.006"/>
+  <testcase name="timeOutInParallel[4](none)" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="timeOutInParallel[1](methods)" classname="test.timeout.TimeOutTest" time="6.014"/>
+  <testcase name="timeOutInParallel[4](none)" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="testWithOnlyOneThread" classname="test.timeout.TimeOutTest" time="1.006"/>
+  <testcase name="timeOutInParallel[2](classes)" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="timeOutInNonParallel" classname="test.timeout.TimeOutTest" time="1.004"/>
+  <testcase name="timeOutInParallel[3](instances)" classname="test.timeout.TimeOutTest" time="1.004"/>
+  <testcase name="timeOutInParallel[0](tests)" classname="test.timeout.TimeOutTest" time="1.002"/>
+  <testcase name="timeOutInParallel[4](none)" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="timeOutInParallel[1](methods)" classname="test.timeout.TimeOutTest" time="6.012"/>
+  <testcase name="timeOutInParallel[1](methods)" classname="test.timeout.TimeOutTest" time="6.01"/>
+  <testcase name="timeOutInParallel[2](classes)" classname="test.timeout.TimeOutTest" time="1.004"/>
+  <testcase name="timeOutInParallel[1](methods)" classname="test.timeout.TimeOutTest" time="6.009"/>
+  <testcase name="timeOutInParallel[2](classes)" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="timeOutInParallel[3](instances)" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="timeOutInParallel[2](classes)" classname="test.timeout.TimeOutTest" time="1.004"/>
+  <testcase name="timeOutInParallel[3](instances)" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="timeOutInParallel[4](none)" classname="test.timeout.TimeOutTest" time="1.003"/>
+  <testcase name="verifyInvocationTimeOut" classname="test.timeout.TimeOutTest" time="7.286"/>
+  <testcase name="timeOutInParallel[3](instances)" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="verifyInvocationTimeOut" classname="test.timeout.TimeOutTest" time="7.281"/>
+  <testcase name="timeOutInParallel[4](none)" classname="test.timeout.TimeOutTest" time="1.003"/>
+  <testcase name="timeOutInParallel[4](none)" classname="test.timeout.TimeOutTest" time="1.007"/>
+  <testcase name="timeOutInParallel[1](methods)" classname="test.timeout.TimeOutTest" time="6.011"/>
+  <testcase name="timeOutInParallel[2](classes)" classname="test.timeout.TimeOutTest" time="1.006"/>
+  <testcase name="verifyInvocationTimeOut" classname="test.timeout.TimeOutTest" time="7.271"/>
+  <testcase name="timeOutInParallel[3](instances)" classname="test.timeout.TimeOutTest" time="1.005"/>
+  <testcase name="timeOutInParallel[4](none)" classname="test.timeout.TimeOutTest" time="1.006"/>
+  <testcase name="verifyInvocationTimeOut" classname="test.timeout.TimeOutTest" time="7.278"/>
+  <testcase name="verifyInvocationTimeOut" classname="test.timeout.TimeOutTest" time="7.282"/>
+  <testcase name="verifyInvocationTimeOut" classname="test.timeout.TimeOutTest" time="7.275"/>
+  <testcase name="verifyInvocationTimeOut" classname="test.timeout.TimeOutTest" time="7.286"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

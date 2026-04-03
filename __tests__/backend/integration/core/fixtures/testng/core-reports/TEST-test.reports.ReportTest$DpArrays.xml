@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.reports.ReportTest$DpArrays" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:54" hostname="MAC-ECC0B5.station" time="11.951">
+  <properties/>
+  <testcase name="testMethod[0]([Ltest.reports.ReportTest$DpArrays$Item;@4a4b288a)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[1]([Ltest.reports.ReportTest$DpArrays$Item;@29892a77)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[0]([Ltest.reports.ReportTest$DpArrays$Item;@3f1158ee)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[1]([Ltest.reports.ReportTest$DpArrays$Item;@4a4b288a)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[0]([Ltest.reports.ReportTest$DpArrays$Item;@2bc0b8c8)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[1]([Ltest.reports.ReportTest$DpArrays$Item;@3f1158ee)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[0]([Ltest.reports.ReportTest$DpArrays$Item;@1c6ac73c)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[1]([Ltest.reports.ReportTest$DpArrays$Item;@5341e71a)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[0]([Ltest.reports.ReportTest$DpArrays$Item;@6233c6c2)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[1]([Ltest.reports.ReportTest$DpArrays$Item;@7e50eeb9)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[0]([Ltest.reports.ReportTest$DpArrays$Item;@42211e04)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[1]([Ltest.reports.ReportTest$DpArrays$Item;@312a738d)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[0]([Ltest.reports.ReportTest$DpArrays$Item;@2bc0b8c8)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <testcase name="testMethod[1]([Ltest.reports.ReportTest$DpArrays$Item;@3f1158ee)" classname="test.reports.ReportTest$DpArrays" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

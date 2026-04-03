@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.listeners.github1284.TestListeners" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:31" hostname="MAC-ECC0B5.station" time="11.873">
+  <properties/>
+  <testcase name="verifyWithoutListener" classname="test.listeners.github1284.TestListeners" time="0.004"/>
+  <testcase name="verifyWithListener" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithChildSuite" classname="test.listeners.github1284.TestListeners" time="0.002"/>
+  <testcase name="verifyWithoutListener" classname="test.listeners.github1284.TestListeners" time="0.002"/>
+  <testcase name="verifyWithListener" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithChildSuite" classname="test.listeners.github1284.TestListeners" time="0.002"/>
+  <testcase name="verifyWithoutListener" classname="test.listeners.github1284.TestListeners" time="0.002"/>
+  <testcase name="verifyWithListener" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithChildSuite" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithoutListener" classname="test.listeners.github1284.TestListeners" time="0.002"/>
+  <testcase name="verifyWithListener" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithChildSuite" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithoutListener" classname="test.listeners.github1284.TestListeners" time="0.002"/>
+  <testcase name="verifyWithListener" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithChildSuite" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithoutListener" classname="test.listeners.github1284.TestListeners" time="0.002"/>
+  <testcase name="verifyWithListener" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithChildSuite" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithoutListener" classname="test.listeners.github1284.TestListeners" time="0.002"/>
+  <testcase name="verifyWithListener" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <testcase name="verifyWithChildSuite" classname="test.listeners.github1284.TestListeners" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.beforegroups.BeforeGroupsTest" tests="42" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:35" hostname="MAC-ECC0B5.station" time="18.928">
+  <properties/>
+  <testcase name="ensureBeforeGroupIsRunBeforeFirstTestInParallelMethodLaunch" classname="test.beforegroups.BeforeGroupsTest" time="7.012"/>
+  <testcase name="ensureBeforeGroupsAreInvokedByDefaultEvenWithoutGrouping" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="ensureBeforeGroupsAreInvokedWhenCoupledWithAfterGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.006"/>
+  <testcase name="ensureInheritedAttributeWorksForBeforeGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.002"/>
+  <testcase name="testInSequentialMode" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="testParallelMode" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="ensureBeforeGroupIsRunBeforeFirstTestInParallelMethodLaunch" classname="test.beforegroups.BeforeGroupsTest" time="7.016"/>
+  <testcase name="ensureBeforeGroupsAreInvokedByDefaultEvenWithoutGrouping" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="ensureBeforeGroupsAreInvokedWhenCoupledWithAfterGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.006"/>
+  <testcase name="ensureInheritedAttributeWorksForBeforeGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.001"/>
+  <testcase name="testInSequentialMode" classname="test.beforegroups.BeforeGroupsTest" time="0.004"/>
+  <testcase name="testParallelMode" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="ensureBeforeGroupIsRunBeforeFirstTestInParallelMethodLaunch" classname="test.beforegroups.BeforeGroupsTest" time="7.014"/>
+  <testcase name="ensureBeforeGroupsAreInvokedByDefaultEvenWithoutGrouping" classname="test.beforegroups.BeforeGroupsTest" time="0.002"/>
+  <testcase name="ensureBeforeGroupsAreInvokedWhenCoupledWithAfterGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.005"/>
+  <testcase name="ensureInheritedAttributeWorksForBeforeGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.001"/>
+  <testcase name="testInSequentialMode" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="testParallelMode" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="ensureBeforeGroupIsRunBeforeFirstTestInParallelMethodLaunch" classname="test.beforegroups.BeforeGroupsTest" time="7.014"/>
+  <testcase name="ensureBeforeGroupsAreInvokedByDefaultEvenWithoutGrouping" classname="test.beforegroups.BeforeGroupsTest" time="0.002"/>
+  <testcase name="ensureBeforeGroupsAreInvokedWhenCoupledWithAfterGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.007"/>
+  <testcase name="ensureInheritedAttributeWorksForBeforeGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.001"/>
+  <testcase name="testInSequentialMode" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="testParallelMode" classname="test.beforegroups.BeforeGroupsTest" time="0.002"/>
+  <testcase name="ensureBeforeGroupIsRunBeforeFirstTestInParallelMethodLaunch" classname="test.beforegroups.BeforeGroupsTest" time="7.014"/>
+  <testcase name="ensureBeforeGroupsAreInvokedByDefaultEvenWithoutGrouping" classname="test.beforegroups.BeforeGroupsTest" time="0.002"/>
+  <testcase name="ensureBeforeGroupsAreInvokedWhenCoupledWithAfterGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.006"/>
+  <testcase name="ensureInheritedAttributeWorksForBeforeGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.001"/>
+  <testcase name="testInSequentialMode" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="testParallelMode" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="ensureBeforeGroupIsRunBeforeFirstTestInParallelMethodLaunch" classname="test.beforegroups.BeforeGroupsTest" time="7.014"/>
+  <testcase name="ensureBeforeGroupsAreInvokedByDefaultEvenWithoutGrouping" classname="test.beforegroups.BeforeGroupsTest" time="0.002"/>
+  <testcase name="ensureBeforeGroupsAreInvokedWhenCoupledWithAfterGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.006"/>
+  <testcase name="ensureInheritedAttributeWorksForBeforeGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.001"/>
+  <testcase name="testInSequentialMode" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="testParallelMode" classname="test.beforegroups.BeforeGroupsTest" time="0.002"/>
+  <testcase name="ensureBeforeGroupIsRunBeforeFirstTestInParallelMethodLaunch" classname="test.beforegroups.BeforeGroupsTest" time="7.009"/>
+  <testcase name="ensureBeforeGroupsAreInvokedByDefaultEvenWithoutGrouping" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="ensureBeforeGroupsAreInvokedWhenCoupledWithAfterGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.006"/>
+  <testcase name="ensureInheritedAttributeWorksForBeforeGroups" classname="test.beforegroups.BeforeGroupsTest" time="0.001"/>
+  <testcase name="testInSequentialMode" classname="test.beforegroups.BeforeGroupsTest" time="0.003"/>
+  <testcase name="testParallelMode" classname="test.beforegroups.BeforeGroupsTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

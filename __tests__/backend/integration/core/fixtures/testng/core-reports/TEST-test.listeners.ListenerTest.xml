@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.listeners.ListenerTest" tests="203" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:42" hostname="MAC-ECC0B5.station" time="12.421">
+  <properties/>
+  <testcase name="aggregateListeners" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="classListenerShouldBeOnlyRunOnce" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="classListenerShouldWork" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWorkFromAnnotation" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="classListenerShouldWorkWithManyTestMethods" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureDynamicListenerAdditionsDontTriggerConcurrentModificationExceptions" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureDynamicTestListenerInjection" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureInsertionOrderIsHonouredByListeners" classname="test.listeners.ListenerTest" time="0.004"/>
+  <testcase name="ensureTimeoutListenerIsInvokedForTimingoutTests" classname="test.listeners.ListenerTest" time="0.506"/>
+  <testcase name="ensureXmlTestIsNotNull[0](class test.listeners.github1029.Issue1029SampleTestClassWithFiveMethods, methods)" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="ensureXmlTestIsNotNull[1](class test.listeners.github1029.Issue1029SampleTestClassWithOneMethod, methods)" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureXmlTestIsNotNull[2](class test.listeners.github1029.Issue1029SampleTestClassWithDataDrivenMethod, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[3](class test.listeners.github1029.Issue1029SampleTestClassWithFiveInstances, instances)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="failureBeforeAfterMethod" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="invokedMethodListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="listenerRegistration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="listenerShouldBeCalledBeforeConfiguration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnceWhenCustomisedListenerImplementsITestListenerAndIMethodInterceptor" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodListenersShouldNotBeCalledForSkippedMethods" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="runTest" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="setStatusShouldWorkInListener" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="shouldAttachOnlyOneInstanceOfTheSameListenerClassPerTest" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenerInListernersAnnotationShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyIdenticalTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldWork" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="testFailATestFromOnTestStart" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="testListenerCallInvocation" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="aggregateListeners" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldBeOnlyRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWork" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWorkFromAnnotation" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="classListenerShouldWorkWithManyTestMethods" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureDynamicListenerAdditionsDontTriggerConcurrentModificationExceptions" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureDynamicTestListenerInjection" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureInsertionOrderIsHonouredByListeners" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="ensureTimeoutListenerIsInvokedForTimingoutTests" classname="test.listeners.ListenerTest" time="0.504"/>
+  <testcase name="ensureXmlTestIsNotNull[0](class test.listeners.github1029.Issue1029SampleTestClassWithFiveMethods, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[1](class test.listeners.github1029.Issue1029SampleTestClassWithOneMethod, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[2](class test.listeners.github1029.Issue1029SampleTestClassWithDataDrivenMethod, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[3](class test.listeners.github1029.Issue1029SampleTestClassWithFiveInstances, instances)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="failureBeforeAfterMethod" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="invokedMethodListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="listenerRegistration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="listenerShouldBeCalledBeforeConfiguration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="methodInterceptorShouldBeRunOnceWhenCustomisedListenerImplementsITestListenerAndIMethodInterceptor" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodListenersShouldNotBeCalledForSkippedMethods" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="runTest" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="setStatusShouldWorkInListener" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="shouldAttachOnlyOneInstanceOfTheSameListenerClassPerTest" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenerInListernersAnnotationShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyIdenticalTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldWork" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="testFailATestFromOnTestStart" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="testListenerCallInvocation" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="aggregateListeners" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldBeOnlyRunOnce" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="classListenerShouldWork" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="classListenerShouldWorkFromAnnotation" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWorkWithManyTestMethods" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureDynamicListenerAdditionsDontTriggerConcurrentModificationExceptions" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureDynamicTestListenerInjection" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureInsertionOrderIsHonouredByListeners" classname="test.listeners.ListenerTest" time="0.003"/>
+  <testcase name="ensureTimeoutListenerIsInvokedForTimingoutTests" classname="test.listeners.ListenerTest" time="0.503"/>
+  <testcase name="ensureXmlTestIsNotNull[0](class test.listeners.github1029.Issue1029SampleTestClassWithFiveMethods, methods)" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="ensureXmlTestIsNotNull[1](class test.listeners.github1029.Issue1029SampleTestClassWithOneMethod, methods)" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureXmlTestIsNotNull[2](class test.listeners.github1029.Issue1029SampleTestClassWithDataDrivenMethod, methods)" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureXmlTestIsNotNull[3](class test.listeners.github1029.Issue1029SampleTestClassWithFiveInstances, instances)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="failureBeforeAfterMethod" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="invokedMethodListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="listenerRegistration" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="listenerShouldBeCalledBeforeConfiguration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="methodInterceptorShouldBeRunOnceWhenCustomisedListenerImplementsITestListenerAndIMethodInterceptor" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="methodListenersShouldNotBeCalledForSkippedMethods" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="runTest" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="setStatusShouldWorkInListener" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="shouldAttachOnlyOneInstanceOfTheSameListenerClassPerTest" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenerInListernersAnnotationShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyIdenticalTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="suiteListenersShouldWork" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="testFailATestFromOnTestStart" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="testListenerCallInvocation" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="aggregateListeners" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="classListenerShouldBeOnlyRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWork" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWorkFromAnnotation" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWorkWithManyTestMethods" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureDynamicListenerAdditionsDontTriggerConcurrentModificationExceptions" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureDynamicTestListenerInjection" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureInsertionOrderIsHonouredByListeners" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="ensureTimeoutListenerIsInvokedForTimingoutTests" classname="test.listeners.ListenerTest" time="0.502"/>
+  <testcase name="ensureXmlTestIsNotNull[0](class test.listeners.github1029.Issue1029SampleTestClassWithFiveMethods, methods)" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="ensureXmlTestIsNotNull[1](class test.listeners.github1029.Issue1029SampleTestClassWithOneMethod, methods)" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureXmlTestIsNotNull[2](class test.listeners.github1029.Issue1029SampleTestClassWithDataDrivenMethod, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[3](class test.listeners.github1029.Issue1029SampleTestClassWithFiveInstances, instances)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="failureBeforeAfterMethod" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="invokedMethodListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="listenerRegistration" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="listenerShouldBeCalledBeforeConfiguration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="methodInterceptorShouldBeRunOnceWhenCustomisedListenerImplementsITestListenerAndIMethodInterceptor" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="methodListenersShouldNotBeCalledForSkippedMethods" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="runTest" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="setStatusShouldWorkInListener" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="shouldAttachOnlyOneInstanceOfTheSameListenerClassPerTest" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenerInListernersAnnotationShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyIdenticalTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="suiteListenersShouldWork" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="testFailATestFromOnTestStart" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="testListenerCallInvocation" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="aggregateListeners" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldBeOnlyRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWork" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWorkFromAnnotation" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="classListenerShouldWorkWithManyTestMethods" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureDynamicListenerAdditionsDontTriggerConcurrentModificationExceptions" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureDynamicTestListenerInjection" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureInsertionOrderIsHonouredByListeners" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="aggregateListeners" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldBeOnlyRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWork" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="classListenerShouldWorkFromAnnotation" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWorkWithManyTestMethods" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureDynamicListenerAdditionsDontTriggerConcurrentModificationExceptions" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureDynamicTestListenerInjection" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureInsertionOrderIsHonouredByListeners" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureTimeoutListenerIsInvokedForTimingoutTests" classname="test.listeners.ListenerTest" time="0.505"/>
+  <testcase name="ensureXmlTestIsNotNull[0](class test.listeners.github1029.Issue1029SampleTestClassWithFiveMethods, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[1](class test.listeners.github1029.Issue1029SampleTestClassWithOneMethod, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[2](class test.listeners.github1029.Issue1029SampleTestClassWithDataDrivenMethod, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[3](class test.listeners.github1029.Issue1029SampleTestClassWithFiveInstances, instances)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="failureBeforeAfterMethod" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="invokedMethodListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="listenerRegistration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="listenerShouldBeCalledBeforeConfiguration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnceWhenCustomisedListenerImplementsITestListenerAndIMethodInterceptor" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="methodListenersShouldNotBeCalledForSkippedMethods" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="runTest" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="setStatusShouldWorkInListener" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="shouldAttachOnlyOneInstanceOfTheSameListenerClassPerTest" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="suiteListenerInListernersAnnotationShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyIdenticalTests" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldWork" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="testFailATestFromOnTestStart" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="testListenerCallInvocation" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureTimeoutListenerIsInvokedForTimingoutTests" classname="test.listeners.ListenerTest" time="0.503"/>
+  <testcase name="ensureXmlTestIsNotNull[0](class test.listeners.github1029.Issue1029SampleTestClassWithFiveMethods, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[1](class test.listeners.github1029.Issue1029SampleTestClassWithOneMethod, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[2](class test.listeners.github1029.Issue1029SampleTestClassWithDataDrivenMethod, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[3](class test.listeners.github1029.Issue1029SampleTestClassWithFiveInstances, instances)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="failureBeforeAfterMethod" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="invokedMethodListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="listenerRegistration" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="listenerShouldBeCalledBeforeConfiguration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnceWhenCustomisedListenerImplementsITestListenerAndIMethodInterceptor" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="methodListenersShouldNotBeCalledForSkippedMethods" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="runTest" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="setStatusShouldWorkInListener" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="shouldAttachOnlyOneInstanceOfTheSameListenerClassPerTest" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="suiteListenerInListernersAnnotationShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyIdenticalTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldWork" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="testFailATestFromOnTestStart" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="testListenerCallInvocation" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="aggregateListeners" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="classListenerShouldBeOnlyRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWork" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWorkFromAnnotation" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="classListenerShouldWorkWithManyTestMethods" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureDynamicListenerAdditionsDontTriggerConcurrentModificationExceptions" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureDynamicTestListenerInjection" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="ensureInsertionOrderIsHonouredByListeners" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="ensureTimeoutListenerIsInvokedForTimingoutTests" classname="test.listeners.ListenerTest" time="0.505"/>
+  <testcase name="ensureXmlTestIsNotNull[0](class test.listeners.github1029.Issue1029SampleTestClassWithFiveMethods, methods)" classname="test.listeners.ListenerTest" time="0.002"/>
+  <testcase name="ensureXmlTestIsNotNull[1](class test.listeners.github1029.Issue1029SampleTestClassWithOneMethod, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[2](class test.listeners.github1029.Issue1029SampleTestClassWithDataDrivenMethod, methods)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="ensureXmlTestIsNotNull[3](class test.listeners.github1029.Issue1029SampleTestClassWithFiveInstances, instances)" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="failureBeforeAfterMethod" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="invokedMethodListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="listenerRegistration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="listenerShouldBeCalledBeforeConfiguration" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="methodInterceptorShouldBeRunOnceWhenCustomisedListenerImplementsITestListenerAndIMethodInterceptor" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="methodListenersShouldNotBeCalledForSkippedMethods" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="runTest" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="setStatusShouldWorkInListener" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="shouldAttachOnlyOneInstanceOfTheSameListenerClassPerTest" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenerInListernersAnnotationShouldBeRunOnce" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyIdenticalTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldBeOnlyRunOnceWithManyTests" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="suiteListenersShouldWork" classname="test.listeners.ListenerTest" time="0.001"/>
+  <testcase name="testFailATestFromOnTestStart" classname="test.listeners.ListenerTest" time="0.0"/>
+  <testcase name="testListenerCallInvocation" classname="test.listeners.ListenerTest" time="0.001"/>
+  <system-out><![CDATA[In onTestStart
+In onTestStart
+In onTestStart
+In onTestStart
+In onTestStart
+In onTestStart
+In onTestStart
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

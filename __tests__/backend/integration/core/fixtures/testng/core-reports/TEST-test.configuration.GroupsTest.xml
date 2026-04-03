@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.configuration.GroupsTest" tests="28" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:54" hostname="MAC-ECC0B5.station" time="11.72">
+  <properties/>
+  <testcase name="verifyBothAfterGroups" classname="test.configuration.GroupsTest" time="0.009"/>
+  <testcase name="verifyDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyIteratorDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.005"/>
+  <testcase name="verifyParametersAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyBothAfterGroups" classname="test.configuration.GroupsTest" time="0.006"/>
+  <testcase name="verifyDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyIteratorDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyParametersAfterGroups" classname="test.configuration.GroupsTest" time="0.003"/>
+  <testcase name="verifyBothAfterGroups" classname="test.configuration.GroupsTest" time="0.006"/>
+  <testcase name="verifyDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.005"/>
+  <testcase name="verifyIteratorDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyParametersAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyBothAfterGroups" classname="test.configuration.GroupsTest" time="0.006"/>
+  <testcase name="verifyDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyIteratorDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyParametersAfterGroups" classname="test.configuration.GroupsTest" time="0.005"/>
+  <testcase name="verifyBothAfterGroups" classname="test.configuration.GroupsTest" time="0.009"/>
+  <testcase name="verifyDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.006"/>
+  <testcase name="verifyIteratorDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyParametersAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyBothAfterGroups" classname="test.configuration.GroupsTest" time="0.005"/>
+  <testcase name="verifyDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.005"/>
+  <testcase name="verifyIteratorDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyParametersAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyBothAfterGroups" classname="test.configuration.GroupsTest" time="0.006"/>
+  <testcase name="verifyDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.005"/>
+  <testcase name="verifyIteratorDataProviderAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <testcase name="verifyParametersAfterGroups" classname="test.configuration.GroupsTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

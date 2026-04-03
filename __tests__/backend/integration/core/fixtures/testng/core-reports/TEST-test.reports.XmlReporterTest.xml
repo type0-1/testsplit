@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.reports.XmlReporterTest" tests="35" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:56" hostname="MAC-ECC0B5.station" time="11.956">
+  <properties/>
+  <testcase name="ensureConfigurationMethodsAreNotCountedAsSkippedInXmlReports" classname="test.reports.XmlReporterTest" time="0.013"/>
+  <testcase name="ensureCustomisationOfReportIsSupported" classname="test.reports.XmlReporterTest" time="0.007"/>
+  <testcase name="ensureReportGenerationWhenTestMethodIsWrappedWithWrappedTestNGMethod" classname="test.reports.XmlReporterTest" time="0.005"/>
+  <testcase name="ensureStackTraceHasLineFeedsTest" classname="test.reports.XmlReporterTest" time="0.007"/>
+  <testcase name="testMethod" classname="test.reports.XmlReporterTest" time="0.004"/>
+  <testcase name="ensureConfigurationMethodsAreNotCountedAsSkippedInXmlReports" classname="test.reports.XmlReporterTest" time="0.014"/>
+  <testcase name="ensureCustomisationOfReportIsSupported" classname="test.reports.XmlReporterTest" time="0.006"/>
+  <testcase name="ensureReportGenerationWhenTestMethodIsWrappedWithWrappedTestNGMethod" classname="test.reports.XmlReporterTest" time="0.004"/>
+  <testcase name="ensureStackTraceHasLineFeedsTest" classname="test.reports.XmlReporterTest" time="0.008"/>
+  <testcase name="testMethod" classname="test.reports.XmlReporterTest" time="0.004"/>
+  <testcase name="ensureConfigurationMethodsAreNotCountedAsSkippedInXmlReports" classname="test.reports.XmlReporterTest" time="0.013"/>
+  <testcase name="ensureCustomisationOfReportIsSupported" classname="test.reports.XmlReporterTest" time="0.006"/>
+  <testcase name="ensureReportGenerationWhenTestMethodIsWrappedWithWrappedTestNGMethod" classname="test.reports.XmlReporterTest" time="0.004"/>
+  <testcase name="ensureStackTraceHasLineFeedsTest" classname="test.reports.XmlReporterTest" time="0.007"/>
+  <testcase name="testMethod" classname="test.reports.XmlReporterTest" time="0.004"/>
+  <testcase name="ensureConfigurationMethodsAreNotCountedAsSkippedInXmlReports" classname="test.reports.XmlReporterTest" time="0.016"/>
+  <testcase name="ensureCustomisationOfReportIsSupported" classname="test.reports.XmlReporterTest" time="0.007"/>
+  <testcase name="ensureReportGenerationWhenTestMethodIsWrappedWithWrappedTestNGMethod" classname="test.reports.XmlReporterTest" time="0.005"/>
+  <testcase name="ensureStackTraceHasLineFeedsTest" classname="test.reports.XmlReporterTest" time="0.007"/>
+  <testcase name="testMethod" classname="test.reports.XmlReporterTest" time="0.004"/>
+  <testcase name="ensureConfigurationMethodsAreNotCountedAsSkippedInXmlReports" classname="test.reports.XmlReporterTest" time="0.015"/>
+  <testcase name="ensureCustomisationOfReportIsSupported" classname="test.reports.XmlReporterTest" time="0.008"/>
+  <testcase name="ensureReportGenerationWhenTestMethodIsWrappedWithWrappedTestNGMethod" classname="test.reports.XmlReporterTest" time="0.005"/>
+  <testcase name="ensureStackTraceHasLineFeedsTest" classname="test.reports.XmlReporterTest" time="0.007"/>
+  <testcase name="testMethod" classname="test.reports.XmlReporterTest" time="0.004"/>
+  <testcase name="ensureConfigurationMethodsAreNotCountedAsSkippedInXmlReports" classname="test.reports.XmlReporterTest" time="0.014"/>
+  <testcase name="ensureCustomisationOfReportIsSupported" classname="test.reports.XmlReporterTest" time="0.007"/>
+  <testcase name="ensureReportGenerationWhenTestMethodIsWrappedWithWrappedTestNGMethod" classname="test.reports.XmlReporterTest" time="0.004"/>
+  <testcase name="ensureStackTraceHasLineFeedsTest" classname="test.reports.XmlReporterTest" time="0.006"/>
+  <testcase name="testMethod" classname="test.reports.XmlReporterTest" time="0.004"/>
+  <testcase name="ensureConfigurationMethodsAreNotCountedAsSkippedInXmlReports" classname="test.reports.XmlReporterTest" time="0.014"/>
+  <testcase name="ensureCustomisationOfReportIsSupported" classname="test.reports.XmlReporterTest" time="0.006"/>
+  <testcase name="ensureReportGenerationWhenTestMethodIsWrappedWithWrappedTestNGMethod" classname="test.reports.XmlReporterTest" time="0.004"/>
+  <testcase name="ensureStackTraceHasLineFeedsTest" classname="test.reports.XmlReporterTest" time="0.005"/>
+  <testcase name="testMethod" classname="test.reports.XmlReporterTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

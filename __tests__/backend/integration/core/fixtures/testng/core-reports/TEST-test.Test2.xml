@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.Test2" tests="56" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:03:49" hostname="MAC-ECC0B5.station" time="65.958">
+  <properties/>
+  <testcase name="noGroups" classname="test.Test2" time="5.031"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.004"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.002"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.0"/>
+  <testcase name="noGroups" classname="test.Test2" time="5.013"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.005"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.002"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.0"/>
+  <testcase name="noGroups" classname="test.Test2" time="5.014"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.006"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.003"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.001"/>
+  <testcase name="noGroups" classname="test.Test2" time="5.017"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.005"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.002"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.001"/>
+  <testcase name="noGroups" classname="test.Test2" time="5.015"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.005"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.002"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.0"/>
+  <testcase name="noGroups" classname="test.Test2" time="5.025"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.007"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.002"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.001"/>
+  <testcase name="noGroups" classname="test.Test2" time="5.015"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.006"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.002"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.0"/>
+  <testcase name="noGroups" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.001"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.0"/>
+  <testcase name="noGroups" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.001"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.001"/>
+  <testcase name="noGroups" classname="test.Test2" time="0.003"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.001"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.0"/>
+  <testcase name="noGroups" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.001"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.0"/>
+  <testcase name="noGroups" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.001"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.0"/>
+  <testcase name="noGroups" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.001"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.001"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.0"/>
+  <testcase name="noGroups" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsClass" classname="test.Test2" time="0.002"/>
+  <testcase name="partialGroupsMethod" classname="test.Test2" time="0.001"/>
+  <testcase name="setUpWithGroups" classname="test.Test2" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

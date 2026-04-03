@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" tests="49" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:14:12" hostname="MAC-ECC0B5.station" time="11.521">
+  <properties/>
+  <testcase name="sanityCheck" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.003"/>
+  <testcase name="verifyNumberOfInstanceOfTestClassForAllTestMethodsForAllSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifySuiteAndTestLevelEventsRunInSequentialOrderForIndividualSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifySuitesRunSequentiallyInSameThread" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyTestLevelMethodLevelEventLogsOccurBetweenAfterTestListenerStartAndFinishEventLogs" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyThatMethodLevelEventsRunInDifferentThreadsFromSuiteAndTestLevelEvents" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifyThatTestMethodsRunInParallelThreads" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="sanityCheck" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifyNumberOfInstanceOfTestClassForAllTestMethodsForAllSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifySuiteAndTestLevelEventsRunInSequentialOrderForIndividualSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.0"/>
+  <testcase name="verifySuitesRunSequentiallyInSameThread" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.0"/>
+  <testcase name="verifyTestLevelMethodLevelEventLogsOccurBetweenAfterTestListenerStartAndFinishEventLogs" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyThatMethodLevelEventsRunInDifferentThreadsFromSuiteAndTestLevelEvents" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifyThatTestMethodsRunInParallelThreads" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.003"/>
+  <testcase name="sanityCheck" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifyNumberOfInstanceOfTestClassForAllTestMethodsForAllSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifySuiteAndTestLevelEventsRunInSequentialOrderForIndividualSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.0"/>
+  <testcase name="verifySuitesRunSequentiallyInSameThread" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyTestLevelMethodLevelEventLogsOccurBetweenAfterTestListenerStartAndFinishEventLogs" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyThatMethodLevelEventsRunInDifferentThreadsFromSuiteAndTestLevelEvents" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifyThatTestMethodsRunInParallelThreads" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="sanityCheck" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifyNumberOfInstanceOfTestClassForAllTestMethodsForAllSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.021"/>
+  <testcase name="verifySuiteAndTestLevelEventsRunInSequentialOrderForIndividualSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.0"/>
+  <testcase name="verifySuitesRunSequentiallyInSameThread" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyTestLevelMethodLevelEventLogsOccurBetweenAfterTestListenerStartAndFinishEventLogs" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyThatMethodLevelEventsRunInDifferentThreadsFromSuiteAndTestLevelEvents" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyThatTestMethodsRunInParallelThreads" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="sanityCheck" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifyNumberOfInstanceOfTestClassForAllTestMethodsForAllSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifySuiteAndTestLevelEventsRunInSequentialOrderForIndividualSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.0"/>
+  <testcase name="verifySuitesRunSequentiallyInSameThread" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyTestLevelMethodLevelEventLogsOccurBetweenAfterTestListenerStartAndFinishEventLogs" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyThatMethodLevelEventsRunInDifferentThreadsFromSuiteAndTestLevelEvents" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyThatTestMethodsRunInParallelThreads" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="sanityCheck" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.01"/>
+  <testcase name="verifyNumberOfInstanceOfTestClassForAllTestMethodsForAllSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <testcase name="verifySuiteAndTestLevelEventsRunInSequentialOrderForIndividualSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.0"/>
+  <testcase name="verifySuitesRunSequentiallyInSameThread" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyTestLevelMethodLevelEventLogsOccurBetweenAfterTestListenerStartAndFinishEventLogs" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyThatMethodLevelEventsRunInDifferentThreadsFromSuiteAndTestLevelEvents" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.004"/>
+  <testcase name="verifyThatTestMethodsRunInParallelThreads" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.003"/>
+  <testcase name="sanityCheck" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyNumberOfInstanceOfTestClassForAllTestMethodsForAllSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifySuiteAndTestLevelEventsRunInSequentialOrderForIndividualSuites" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.0"/>
+  <testcase name="verifySuitesRunSequentiallyInSameThread" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyTestLevelMethodLevelEventLogsOccurBetweenAfterTestListenerStartAndFinishEventLogs" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyThatMethodLevelEventsRunInDifferentThreadsFromSuiteAndTestLevelEvents" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.001"/>
+  <testcase name="verifyThatTestMethodsRunInParallelThreads" classname="test.thread.parallelization.ParallelByMethodsTestCase5Scenario2" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

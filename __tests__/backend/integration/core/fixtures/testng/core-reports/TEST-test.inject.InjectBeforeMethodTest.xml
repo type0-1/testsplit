@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.inject.InjectBeforeMethodTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:43" hostname="MAC-ECC0B5.station" time="11.875">
+  <properties/>
+  <testcase name="f[0](a)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[1](b)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[0](a)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[1](b)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[0](a)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[1](b)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[0](a)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[1](b)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[0](a)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[1](b)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[0](a)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[1](b)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[0](a)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <testcase name="f[1](b)" classname="test.inject.InjectBeforeMethodTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.dataprovider.FailingIterableDataProviderTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:40" hostname="MAC-ECC0B5.station" time="11.971">
+  <properties/>
+  <testcase name="failingDataProvider" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.001"/>
+  <testcase name="failingDataProviderWithInvocationNumber" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.001"/>
+  <testcase name="failingDataProvider" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.0"/>
+  <testcase name="failingDataProviderWithInvocationNumber" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.001"/>
+  <testcase name="failingDataProvider" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.001"/>
+  <testcase name="failingDataProviderWithInvocationNumber" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.002"/>
+  <testcase name="failingDataProvider" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.001"/>
+  <testcase name="failingDataProviderWithInvocationNumber" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.001"/>
+  <testcase name="failingDataProvider" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.003"/>
+  <testcase name="failingDataProviderWithInvocationNumber" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.002"/>
+  <testcase name="failingDataProvider" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.0"/>
+  <testcase name="failingDataProviderWithInvocationNumber" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.001"/>
+  <testcase name="failingDataProvider" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.0"/>
+  <testcase name="failingDataProviderWithInvocationNumber" classname="test.dataprovider.FailingIterableDataProviderTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

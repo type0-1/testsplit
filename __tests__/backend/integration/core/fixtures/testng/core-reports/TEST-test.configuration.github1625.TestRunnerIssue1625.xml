@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.configuration.github1625.TestRunnerIssue1625" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:54" hostname="MAC-ECC0B5.station" time="11.728">
+  <properties/>
+  <testcase name="testMethod[0](class test.configuration.github1625.TestclassSampleUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.059"/>
+  <testcase name="testMethod[1](class test.configuration.github1625.TestclassSampleWithoutUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.003"/>
+  <testcase name="testMethod[0](class test.configuration.github1625.TestclassSampleUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.034"/>
+  <testcase name="testMethod[1](class test.configuration.github1625.TestclassSampleWithoutUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.001"/>
+  <testcase name="testMethod[0](class test.configuration.github1625.TestclassSampleUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.033"/>
+  <testcase name="testMethod[1](class test.configuration.github1625.TestclassSampleWithoutUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.001"/>
+  <testcase name="testMethod[0](class test.configuration.github1625.TestclassSampleUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.047"/>
+  <testcase name="testMethod[1](class test.configuration.github1625.TestclassSampleWithoutUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.001"/>
+  <testcase name="testMethod[0](class test.configuration.github1625.TestclassSampleUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.055"/>
+  <testcase name="testMethod[1](class test.configuration.github1625.TestclassSampleWithoutUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.002"/>
+  <testcase name="testMethod[0](class test.configuration.github1625.TestclassSampleUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.032"/>
+  <testcase name="testMethod[1](class test.configuration.github1625.TestclassSampleWithoutUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.002"/>
+  <testcase name="testMethod[0](class test.configuration.github1625.TestclassSampleUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.033"/>
+  <testcase name="testMethod[1](class test.configuration.github1625.TestclassSampleWithoutUsingMocks)" classname="test.configuration.github1625.TestRunnerIssue1625" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.failedreporter.FailedReporterScenariosTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:30" hostname="MAC-ECC0B5.station" time="11.897">
+  <properties/>
+  <testcase name="testFileCreationInMixedMode" classname="test.failedreporter.FailedReporterScenariosTest" time="0.006"/>
+  <testcase name="testFileCreationSkipWhenNoFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.005"/>
+  <testcase name="testFileCreationWhenFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.005"/>
+  <testcase name="testFileCreationInMixedMode" classname="test.failedreporter.FailedReporterScenariosTest" time="0.006"/>
+  <testcase name="testFileCreationSkipWhenNoFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.006"/>
+  <testcase name="testFileCreationWhenFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.006"/>
+  <testcase name="testFileCreationInMixedMode" classname="test.failedreporter.FailedReporterScenariosTest" time="0.006"/>
+  <testcase name="testFileCreationSkipWhenNoFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.005"/>
+  <testcase name="testFileCreationWhenFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.005"/>
+  <testcase name="testFileCreationInMixedMode" classname="test.failedreporter.FailedReporterScenariosTest" time="0.006"/>
+  <testcase name="testFileCreationSkipWhenNoFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.005"/>
+  <testcase name="testFileCreationWhenFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.005"/>
+  <testcase name="testFileCreationInMixedMode" classname="test.failedreporter.FailedReporterScenariosTest" time="0.006"/>
+  <testcase name="testFileCreationSkipWhenNoFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.004"/>
+  <testcase name="testFileCreationWhenFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.006"/>
+  <testcase name="testFileCreationInMixedMode" classname="test.failedreporter.FailedReporterScenariosTest" time="0.007"/>
+  <testcase name="testFileCreationSkipWhenNoFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.004"/>
+  <testcase name="testFileCreationWhenFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.006"/>
+  <testcase name="testFileCreationInMixedMode" classname="test.failedreporter.FailedReporterScenariosTest" time="0.006"/>
+  <testcase name="testFileCreationSkipWhenNoFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.004"/>
+  <testcase name="testFileCreationWhenFailuresExist" classname="test.failedreporter.FailedReporterScenariosTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

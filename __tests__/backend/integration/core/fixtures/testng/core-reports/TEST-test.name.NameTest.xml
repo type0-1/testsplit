@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.name.NameTest" tests="70" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:58" hostname="MAC-ECC0B5.station" time="11.678">
+  <properties/>
+  <testcase name="blankNameTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="blankNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="complexITestTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="itestTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="itestTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="noNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="noNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="testNameTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="testNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="testOnClassFromReporter" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="blankNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="blankNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="complexITestTest" classname="test.name.NameTest" time="0.002"/>
+  <testcase name="itestTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="itestTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="noNameTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="noNameTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="testNameTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="testNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="testOnClassFromReporter" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="blankNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="blankNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="complexITestTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="itestTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="itestTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="noNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="noNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="testNameTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="testNameTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="testOnClassFromReporter" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="blankNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="blankNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="complexITestTest" classname="test.name.NameTest" time="0.002"/>
+  <testcase name="itestTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="itestTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="noNameTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="noNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="testNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="testNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="testOnClassFromReporter" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="blankNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="blankNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="complexITestTest" classname="test.name.NameTest" time="0.002"/>
+  <testcase name="itestTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="itestTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="noNameTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="noNameTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="testNameTest" classname="test.name.NameTest" time="0.002"/>
+  <testcase name="testNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="testOnClassFromReporter" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="blankNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="blankNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="complexITestTest" classname="test.name.NameTest" time="0.002"/>
+  <testcase name="itestTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="itestTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="noNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="noNameTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="testNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="testNameTestWithXml" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="testOnClassFromReporter" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="blankNameTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="blankNameTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="complexITestTest" classname="test.name.NameTest" time="0.002"/>
+  <testcase name="itestTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="itestTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="noNameTest" classname="test.name.NameTest" time="0.0"/>
+  <testcase name="noNameTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="testNameTest" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="testNameTestWithXml" classname="test.name.NameTest" time="0.001"/>
+  <testcase name="testOnClassFromReporter" classname="test.name.NameTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

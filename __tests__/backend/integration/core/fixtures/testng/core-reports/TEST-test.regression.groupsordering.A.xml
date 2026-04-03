@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.regression.groupsordering.A" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:54" hostname="MAC-ECC0B5.station" time="11.788">
+  <properties/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <testcase name="testA" classname="test.regression.groupsordering.A" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

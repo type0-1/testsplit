@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.methods.SampleMethod1" tests="42" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:39" hostname="MAC-ECC0B5.station" time="11.942">
+  <properties/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.001"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun1" classname="test.methods.SampleMethod1" time="0.0"/>
+  <testcase name="shouldRun2" classname="test.methods.SampleMethod1" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

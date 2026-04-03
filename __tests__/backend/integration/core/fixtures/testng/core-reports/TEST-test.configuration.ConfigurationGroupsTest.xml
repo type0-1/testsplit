@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.configuration.ConfigurationGroupsTest" tests="98" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:05:53" hostname="MAC-ECC0B5.station" time="11.805">
+  <properties/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[0](class test.configuration.issue2664.suite.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[1](class test.configuration.issue2664.suite.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[2](class test.configuration.issue2664.test.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[3](class test.configuration.issue2664.test.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[4](class test.configuration.issue2664.cls.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[5](class test.configuration.issue2664.cls.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="multipleBeforeGroupTest" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[0](class test.configuration.ConfigurationGroups1SampleTest, cg1-a, cg1-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="runTest[1](class test.configuration.ConfigurationGroups2SampleTest, cg2-a,cg2-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[2](class test.configuration.ConfigurationGroups3SampleTest, cg34-a, cg34-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[3](class test.configuration.ConfigurationGroups4SampleTest, cg4-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="runTest[4](class test.configuration.ConfigurationGroups5SampleTest, cg5-1, cg5-2)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[5](class test.configuration.ConfigurationGroups6SampleTest, cg6-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="runTest[6](class test.configuration.ConfigurationGroups7SampleTest, A)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[0](class test.configuration.issue2664.suite.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.003"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[1](class test.configuration.issue2664.suite.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[2](class test.configuration.issue2664.test.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.004"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[3](class test.configuration.issue2664.test.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.003"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[4](class test.configuration.issue2664.cls.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[5](class test.configuration.issue2664.cls.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="multipleBeforeGroupTest" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="runTest[0](class test.configuration.ConfigurationGroups1SampleTest, cg1-a, cg1-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[1](class test.configuration.ConfigurationGroups2SampleTest, cg2-a,cg2-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[2](class test.configuration.ConfigurationGroups3SampleTest, cg34-a, cg34-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="runTest[3](class test.configuration.ConfigurationGroups4SampleTest, cg4-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[4](class test.configuration.ConfigurationGroups5SampleTest, cg5-1, cg5-2)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[5](class test.configuration.ConfigurationGroups6SampleTest, cg6-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="runTest[6](class test.configuration.ConfigurationGroups7SampleTest, A)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[0](class test.configuration.issue2664.suite.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[1](class test.configuration.issue2664.suite.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[2](class test.configuration.issue2664.test.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[3](class test.configuration.issue2664.test.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[4](class test.configuration.issue2664.cls.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[5](class test.configuration.issue2664.cls.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="multipleBeforeGroupTest" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[0](class test.configuration.ConfigurationGroups1SampleTest, cg1-a, cg1-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[1](class test.configuration.ConfigurationGroups2SampleTest, cg2-a,cg2-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[2](class test.configuration.ConfigurationGroups3SampleTest, cg34-a, cg34-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="runTest[3](class test.configuration.ConfigurationGroups4SampleTest, cg4-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[4](class test.configuration.ConfigurationGroups5SampleTest, cg5-1, cg5-2)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[5](class test.configuration.ConfigurationGroups6SampleTest, cg6-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="runTest[6](class test.configuration.ConfigurationGroups7SampleTest, A)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[0](class test.configuration.issue2664.suite.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[1](class test.configuration.issue2664.suite.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[2](class test.configuration.issue2664.test.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[3](class test.configuration.issue2664.test.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[4](class test.configuration.issue2664.cls.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[5](class test.configuration.issue2664.cls.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="multipleBeforeGroupTest" classname="test.configuration.ConfigurationGroupsTest" time="0.003"/>
+  <testcase name="runTest[0](class test.configuration.ConfigurationGroups1SampleTest, cg1-a, cg1-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="runTest[1](class test.configuration.ConfigurationGroups2SampleTest, cg2-a,cg2-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.003"/>
+  <testcase name="runTest[2](class test.configuration.ConfigurationGroups3SampleTest, cg34-a, cg34-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[3](class test.configuration.ConfigurationGroups4SampleTest, cg4-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="runTest[4](class test.configuration.ConfigurationGroups5SampleTest, cg5-1, cg5-2)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[5](class test.configuration.ConfigurationGroups6SampleTest, cg6-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[6](class test.configuration.ConfigurationGroups7SampleTest, A)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[0](class test.configuration.issue2664.suite.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[1](class test.configuration.issue2664.suite.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[2](class test.configuration.issue2664.test.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[3](class test.configuration.issue2664.test.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[4](class test.configuration.issue2664.cls.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[5](class test.configuration.issue2664.cls.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="multipleBeforeGroupTest" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="runTest[0](class test.configuration.ConfigurationGroups1SampleTest, cg1-a, cg1-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="runTest[1](class test.configuration.ConfigurationGroups2SampleTest, cg2-a,cg2-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[2](class test.configuration.ConfigurationGroups3SampleTest, cg34-a, cg34-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="runTest[3](class test.configuration.ConfigurationGroups4SampleTest, cg4-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[4](class test.configuration.ConfigurationGroups5SampleTest, cg5-1, cg5-2)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[5](class test.configuration.ConfigurationGroups6SampleTest, cg6-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[6](class test.configuration.ConfigurationGroups7SampleTest, A)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[0](class test.configuration.issue2664.suite.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[1](class test.configuration.issue2664.suite.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[2](class test.configuration.issue2664.test.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[3](class test.configuration.issue2664.test.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.005"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[4](class test.configuration.issue2664.cls.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[5](class test.configuration.issue2664.cls.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="multipleBeforeGroupTest" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[0](class test.configuration.ConfigurationGroups1SampleTest, cg1-a, cg1-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.005"/>
+  <testcase name="runTest[1](class test.configuration.ConfigurationGroups2SampleTest, cg2-a,cg2-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[2](class test.configuration.ConfigurationGroups3SampleTest, cg34-a, cg34-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[3](class test.configuration.ConfigurationGroups4SampleTest, cg4-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.003"/>
+  <testcase name="runTest[4](class test.configuration.ConfigurationGroups5SampleTest, cg5-1, cg5-2)" classname="test.configuration.ConfigurationGroupsTest" time="0.003"/>
+  <testcase name="runTest[5](class test.configuration.ConfigurationGroups6SampleTest, cg6-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="runTest[6](class test.configuration.ConfigurationGroups7SampleTest, A)" classname="test.configuration.ConfigurationGroupsTest" time="0.005"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[0](class test.configuration.issue2664.suite.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[1](class test.configuration.issue2664.suite.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.0"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[2](class test.configuration.issue2664.test.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[3](class test.configuration.issue2664.test.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[4](class test.configuration.issue2664.cls.GroupDependenciesSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="ensureDependsOnGroupsHonouredForConfigs[5](class test.configuration.issue2664.cls.GroupDependenciesChildSample)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="multipleBeforeGroupTest" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="runTest[0](class test.configuration.ConfigurationGroups1SampleTest, cg1-a, cg1-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[1](class test.configuration.ConfigurationGroups2SampleTest, cg2-a,cg2-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[2](class test.configuration.ConfigurationGroups3SampleTest, cg34-a, cg34-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[3](class test.configuration.ConfigurationGroups4SampleTest, cg4-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[4](class test.configuration.ConfigurationGroups5SampleTest, cg5-1, cg5-2)" classname="test.configuration.ConfigurationGroupsTest" time="0.002"/>
+  <testcase name="runTest[5](class test.configuration.ConfigurationGroups6SampleTest, cg6-1)" classname="test.configuration.ConfigurationGroupsTest" time="0.001"/>
+  <testcase name="runTest[6](class test.configuration.ConfigurationGroups7SampleTest, A)" classname="test.configuration.ConfigurationGroupsTest" time="0.003"/>
+  <system-out><![CDATA[
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Command line suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

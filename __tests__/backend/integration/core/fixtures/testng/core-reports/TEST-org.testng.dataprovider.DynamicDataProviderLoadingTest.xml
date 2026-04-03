@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.testng.dataprovider.DynamicDataProviderLoadingTest" tests="21" skipped="7" failures="0" errors="0" timestamp="2026-04-03T15:15:20" hostname="MAC-ECC0B5.station" time="84.269">
+  <properties/>
+  <testcase name="comparePerformanceAgainstCsvFiles" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.01"/>
+  <testcase name="testDynamicDataProviderPasses" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.001"/>
+  <testcase name="testDynamicDataProviderUnloaded" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.001">
+    <skipped/>
+  </testcase>
+  <testcase name="comparePerformanceAgainstCsvFiles" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.008"/>
+  <testcase name="testDynamicDataProviderPasses" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.001"/>
+  <testcase name="testDynamicDataProviderUnloaded" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.001">
+    <skipped/>
+  </testcase>
+  <testcase name="comparePerformanceAgainstCsvFiles" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.008"/>
+  <testcase name="testDynamicDataProviderPasses" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.0"/>
+  <testcase name="testDynamicDataProviderUnloaded" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.002">
+    <skipped/>
+  </testcase>
+  <testcase name="comparePerformanceAgainstCsvFiles" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.012"/>
+  <testcase name="testDynamicDataProviderPasses" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.001"/>
+  <testcase name="comparePerformanceAgainstCsvFiles" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.012"/>
+  <testcase name="testDynamicDataProviderPasses" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.001"/>
+  <testcase name="testDynamicDataProviderUnloaded" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.002">
+    <skipped/>
+  </testcase>
+  <testcase name="comparePerformanceAgainstCsvFiles" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.01"/>
+  <testcase name="testDynamicDataProviderPasses" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.001"/>
+  <testcase name="testDynamicDataProviderUnloaded" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.002">
+    <skipped/>
+  </testcase>
+  <testcase name="testDynamicDataProviderUnloaded" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.001">
+    <skipped/>
+  </testcase>
+  <testcase name="comparePerformanceAgainstCsvFiles" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.008"/>
+  <testcase name="testDynamicDataProviderPasses" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.001"/>
+  <testcase name="testDynamicDataProviderUnloaded" classname="org.testng.dataprovider.DynamicDataProviderLoadingTest" time="0.001">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[simple dataprovider execution times: 0 milliseconds.
+dataprovider as code execution times: 1 milliseconds.
+csv dataprovider execution times: 6 milliseconds.
+simple dataprovider execution times: 1 milliseconds.
+dataprovider as code execution times: 0 milliseconds.
+csv dataprovider execution times: 5 milliseconds.
+simple dataprovider execution times: 1 milliseconds.
+dataprovider as code execution times: 0 milliseconds.
+csv dataprovider execution times: 5 milliseconds.
+simple dataprovider execution times: 0 milliseconds.
+simple dataprovider execution times: 0 milliseconds.
+dataprovider as code execution times: 1 milliseconds.
+dataprovider as code execution times: 3 milliseconds.
+simple dataprovider execution times: 2 milliseconds.
+dataprovider as code execution times: 1 milliseconds.
+csv dataprovider execution times: 8 milliseconds.
+csv dataprovider execution times: 7 milliseconds.
+csv dataprovider execution times: 6 milliseconds.
+simple dataprovider execution times: 1 milliseconds.
+dataprovider as code execution times: 1 milliseconds.
+csv dataprovider execution times: 6 milliseconds.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

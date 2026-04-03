@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.attributes.AttributeTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:09" hostname="MAC-ECC0B5.station" time="12.232">
+  <properties/>
+  <testcase name="ensureAttributeAccessIsThreadSafe" classname="test.attributes.AttributeTest" time="0.327"/>
+  <testcase name="f1[0](org.testng.TestRunner@13c90c06)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="f2[0](org.testng.TestRunner@13c90c06)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="ensureAttributeAccessIsThreadSafe" classname="test.attributes.AttributeTest" time="0.324"/>
+  <testcase name="f1[0](org.testng.TestRunner@29d2fa84)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="f2[0](org.testng.TestRunner@29d2fa84)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="ensureAttributeAccessIsThreadSafe" classname="test.attributes.AttributeTest" time="0.34"/>
+  <testcase name="f1[0](org.testng.TestRunner@2f07930a)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="f2[0](org.testng.TestRunner@2f07930a)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="ensureAttributeAccessIsThreadSafe" classname="test.attributes.AttributeTest" time="0.398"/>
+  <testcase name="f1[0](org.testng.TestRunner@2bc0b8c8)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="f2[0](org.testng.TestRunner@2bc0b8c8)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="ensureAttributeAccessIsThreadSafe" classname="test.attributes.AttributeTest" time="0.408"/>
+  <testcase name="f1[0](org.testng.TestRunner@1d1cfe4)" classname="test.attributes.AttributeTest" time="0.001"/>
+  <testcase name="f2[0](org.testng.TestRunner@1d1cfe4)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="ensureAttributeAccessIsThreadSafe" classname="test.attributes.AttributeTest" time="0.47"/>
+  <testcase name="f1[0](org.testng.TestRunner@2f471037)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="f2[0](org.testng.TestRunner@2f471037)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <testcase name="ensureAttributeAccessIsThreadSafe" classname="test.attributes.AttributeTest" time="0.322"/>
+  <testcase name="f1[0](org.testng.TestRunner@2f07930a)" classname="test.attributes.AttributeTest" time="0.001"/>
+  <testcase name="f2[0](org.testng.TestRunner@2f07930a)" classname="test.attributes.AttributeTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

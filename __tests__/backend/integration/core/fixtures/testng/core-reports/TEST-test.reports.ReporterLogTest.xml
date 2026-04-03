@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.reports.ReporterLogTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-04-03T15:04:30" hostname="MAC-ECC0B5.station" time="11.882">
+  <properties/>
+  <testcase name="shouldLogFromListener[0](class test.reports.ReporterLogSuccessSample, Listener: onTestSuccess)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[1](class test.reports.ReporterLogSkippedSample, Listener: onTestSkipped)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[2](class test.reports.ReporterLogFailureSample, Listener: onTestFailure)" classname="test.reports.ReporterLogTest" time="0.0"/>
+  <testcase name="shouldLogFromListener[0](class test.reports.ReporterLogSuccessSample, Listener: onTestSuccess)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[1](class test.reports.ReporterLogSkippedSample, Listener: onTestSkipped)" classname="test.reports.ReporterLogTest" time="0.0"/>
+  <testcase name="shouldLogFromListener[2](class test.reports.ReporterLogFailureSample, Listener: onTestFailure)" classname="test.reports.ReporterLogTest" time="0.0"/>
+  <testcase name="shouldLogFromListener[0](class test.reports.ReporterLogSuccessSample, Listener: onTestSuccess)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[1](class test.reports.ReporterLogSkippedSample, Listener: onTestSkipped)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[2](class test.reports.ReporterLogFailureSample, Listener: onTestFailure)" classname="test.reports.ReporterLogTest" time="0.0"/>
+  <testcase name="shouldLogFromListener[0](class test.reports.ReporterLogSuccessSample, Listener: onTestSuccess)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[1](class test.reports.ReporterLogSkippedSample, Listener: onTestSkipped)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[2](class test.reports.ReporterLogFailureSample, Listener: onTestFailure)" classname="test.reports.ReporterLogTest" time="0.0"/>
+  <testcase name="shouldLogFromListener[0](class test.reports.ReporterLogSuccessSample, Listener: onTestSuccess)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[1](class test.reports.ReporterLogSkippedSample, Listener: onTestSkipped)" classname="test.reports.ReporterLogTest" time="0.0"/>
+  <testcase name="shouldLogFromListener[2](class test.reports.ReporterLogFailureSample, Listener: onTestFailure)" classname="test.reports.ReporterLogTest" time="0.0"/>
+  <testcase name="shouldLogFromListener[0](class test.reports.ReporterLogSuccessSample, Listener: onTestSuccess)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[1](class test.reports.ReporterLogSkippedSample, Listener: onTestSkipped)" classname="test.reports.ReporterLogTest" time="0.0"/>
+  <testcase name="shouldLogFromListener[2](class test.reports.ReporterLogFailureSample, Listener: onTestFailure)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[0](class test.reports.ReporterLogSuccessSample, Listener: onTestSuccess)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <testcase name="shouldLogFromListener[1](class test.reports.ReporterLogSkippedSample, Listener: onTestSkipped)" classname="test.reports.ReporterLogTest" time="0.0"/>
+  <testcase name="shouldLogFromListener[2](class test.reports.ReporterLogFailureSample, Listener: onTestFailure)" classname="test.reports.ReporterLogTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
