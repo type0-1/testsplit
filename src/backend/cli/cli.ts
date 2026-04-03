@@ -1016,7 +1016,7 @@ yargs(args)
         })
         .option('jobs', {
           type: 'number',
-          demandOption: true,
+          default: os.cpus().length,
           describe: 'Number of parallel jobs to spawn',
         })
         .option('data', {

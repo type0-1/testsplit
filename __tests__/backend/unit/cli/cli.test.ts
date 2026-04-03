@@ -2294,7 +2294,7 @@ describe('command builder callbacks', () => {
 
     expect(returned).toBe(y);
     expect(y.option).toHaveBeenCalledWith('junit', expect.objectContaining({ type: 'string', demandOption: true }));
-    expect(y.option).toHaveBeenCalledWith('jobs', expect.objectContaining({ type: 'number', demandOption: true }));
+    expect(y.option).toHaveBeenCalledWith('jobs', expect.objectContaining({ type: 'number', default: os.cpus().length }));
     expect(y.option).toHaveBeenCalledWith('data', expect.objectContaining({ type: 'string', default: '.data' }));
     expect(y.option).toHaveBeenCalledWith('cmd', expect.objectContaining({ type: 'string', demandOption: true }));
     expect(y.option).toHaveBeenCalledWith('filter-flag', expect.objectContaining({ type: 'string', default: '--testNamePattern' }));
