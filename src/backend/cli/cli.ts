@@ -22,11 +22,11 @@ function getCustomHelp(): string {
       desc: 'Profile tests and display scheduling metrics',
     },
     {
-      name: 'generate-config|generate',
+      name: 'generate-config',
       desc: 'Generate CI configuration from test profile',
     },
     {
-      name: 'dockerfile|generate-dockerfile',
+      name: 'dockerfile',
       desc: 'Generate a Dockerfile for a Maven/Java project',
     },
     {
@@ -388,7 +388,7 @@ yargs(args)
     },
   )
   .command(
-    ['generate-config', 'generate'],
+    'generate-config',
     'Generate CI configuration from test profile',
     (y) =>
       y
@@ -1164,7 +1164,7 @@ yargs(args)
     },
   )
   .command(
-    ['dockerfile', 'generate-dockerfile'],
+    'dockerfile',
     'Generate a Dockerfile for a Maven/Java project',
     (y) =>
       y
