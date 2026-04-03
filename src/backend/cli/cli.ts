@@ -22,7 +22,7 @@ function getCustomHelp(): string {
       desc: 'Profile tests and display scheduling metrics',
     },
     {
-      name: 'generate|generate-config',
+      name: 'generate-config|generate',
       desc: 'Generate CI configuration from test profile',
     },
     {
@@ -388,7 +388,7 @@ yargs(args)
     },
   )
   .command(
-    ['generate', 'generate-config'],
+    ['generate-config', 'generate'],
     'Generate CI configuration from test profile',
     (y) =>
       y

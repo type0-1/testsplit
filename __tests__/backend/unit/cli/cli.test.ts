@@ -2129,7 +2129,7 @@ describe('top-level help rendering', () => {
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('testsplit'));
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('v'));
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('Commands:'));
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('generate|generate-config'));
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('generate-config|generate'));
 
     process.argv = originalArgv;
   });
