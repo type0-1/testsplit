@@ -14,7 +14,7 @@ const SPAWN_OPTS = { encoding: 'utf-8' as const, cwd: PROJECT_ROOT };
 
 jest.setTimeout(300_000);
 
-describe('generate-dockerfile CLI integration', () => {
+describe('dockerfile CLI integration', () => {
   test('generates Dockerfile with Java version from pom.xml compiler plugin', () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'testsplit-dockerfile-'));
     const outPath = path.join(tempDir, 'Dockerfile');
@@ -22,7 +22,7 @@ describe('generate-dockerfile CLI integration', () => {
     try {
       const result = spawnSync(
         TS_NODE,
-        ['--transpile-only', CLI_PATH, 'generate-dockerfile', '--pom', POM_FIXTURE, '--out', outPath],
+        ['--transpile-only', CLI_PATH, 'dockerfile', '--pom', POM_FIXTURE, '--out', outPath],
         SPAWN_OPTS,
       );
 
@@ -45,7 +45,7 @@ describe('generate-dockerfile CLI integration', () => {
     try {
       const result = spawnSync(
         TS_NODE,
-        ['--transpile-only', CLI_PATH, 'generate-dockerfile', '--pom', POM_PROPERTIES_FIXTURE, '--out', outPath],
+        ['--transpile-only', CLI_PATH, 'dockerfile', '--pom', POM_PROPERTIES_FIXTURE, '--out', outPath],
         SPAWN_OPTS,
       );
 
@@ -65,7 +65,7 @@ describe('generate-dockerfile CLI integration', () => {
     try {
       const result = spawnSync(
         TS_NODE,
-        ['--transpile-only', CLI_PATH, 'generate-dockerfile', '--pom', POM_MINIMAL_FIXTURE, '--out', outPath],
+        ['--transpile-only', CLI_PATH, 'dockerfile', '--pom', POM_MINIMAL_FIXTURE, '--out', outPath],
         SPAWN_OPTS,
       );
 
@@ -85,7 +85,7 @@ describe('generate-dockerfile CLI integration', () => {
     try {
       const result = spawnSync(
         TS_NODE,
-        ['--transpile-only', CLI_PATH, 'generate-dockerfile', '--pom', POM_MINIMAL_FIXTURE, '--out', outPath],
+        ['--transpile-only', CLI_PATH, 'dockerfile', '--pom', POM_MINIMAL_FIXTURE, '--out', outPath],
         SPAWN_OPTS,
       );
 
