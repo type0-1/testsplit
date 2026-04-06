@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="org.jsoup.integration.HttpClientConnectTest" time="0.11" tests="71" errors="4" skipped="0" failures="0">
+  <properties>
+    <property name="jsoup.useHttpClient" value="false"/>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/sam/Downloads/jsoup/target/test-classes:/Users/sam/Downloads/jsoup/target/classes:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter/5.14.0/junit-jupiter-5.14.0.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.0/junit-jupiter-api-5.14.0.jar:/Users/sam/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-commons/1.14.0/junit-platform-commons-1.14.0.jar:/Users/sam/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.0/junit-jupiter-params-5.14.0.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.0/junit-jupiter-engine-5.14.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-engine/1.14.0/junit-platform-engine-1.14.0.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.13.2/gson-2.13.2.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.41.0/error_prone_annotations-2.41.0.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-server/9.4.58.v20250814/jetty-server-9.4.58.v20250814.jar:/Users/sam/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-http/9.4.58.v20250814/jetty-http-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-io/9.4.58.v20250814/jetty-io-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-servlet/9.4.58.v20250814/jetty-servlet-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-security/9.4.58.v20250814/jetty-security-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util-ajax/9.4.58.v20250814/jetty-util-ajax-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-proxy/9.4.58.v20250814/jetty-proxy-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util/9.4.58.v20250814/jetty-util-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-client/9.4.58.v20250814/jetty-client-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/re2j/re2j/1.8/re2j-1.8.jar:/Users/sam/Downloads/jsoup/target/classes/META-INF/versions/11:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="user.timezone" value="Europe/Dublin"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IE"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@21/21.0.10/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/sam/Downloads/jsoup/target/surefire/surefirebooter-20260406191651066_3.jar /Users/sam/Downloads/jsoup/target/surefire 2026-04-06T19-16-50_639-jvmRun1 surefire-20260406191651066_1tmp surefire_0-20260406191651066_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/sam/Downloads/jsoup/target/test-classes:/Users/sam/Downloads/jsoup/target/classes:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter/5.14.0/junit-jupiter-5.14.0.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.0/junit-jupiter-api-5.14.0.jar:/Users/sam/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-commons/1.14.0/junit-platform-commons-1.14.0.jar:/Users/sam/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.0/junit-jupiter-params-5.14.0.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.0/junit-jupiter-engine-5.14.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-engine/1.14.0/junit-platform-engine-1.14.0.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.13.2/gson-2.13.2.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.41.0/error_prone_annotations-2.41.0.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-server/9.4.58.v20250814/jetty-server-9.4.58.v20250814.jar:/Users/sam/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-http/9.4.58.v20250814/jetty-http-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-io/9.4.58.v20250814/jetty-io-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-servlet/9.4.58.v20250814/jetty-servlet-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-security/9.4.58.v20250814/jetty-security-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util-ajax/9.4.58.v20250814/jetty-util-ajax-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-proxy/9.4.58.v20250814/jetty-proxy-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util/9.4.58.v20250814/jetty-util-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-client/9.4.58.v20250814/jetty-client-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/re2j/re2j/1.8/re2j-1.8.jar:/Users/sam/Downloads/jsoup/target/classes/META-INF/versions/11:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/sam"/>
+    <property name="user.language" value="en"/>
+    <property name="jdk.http.auth.tunneling.disabledSchemes" value=""/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk@21/21.0.10/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/sam/Downloads/jsoup"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/sam/Downloads/jsoup/target/surefire/surefirebooter-20260406191651066_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="21.0.10"/>
+    <property name="user.name" value="sam"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.3.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="sun.net.http.allowRestrictedHeaders" value="true"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/sam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="jetty.git.hash" value="8f1440587e9e4ae7db3d74cf205643f3d707148d"/>
+    <property name="java.io.tmpdir" value="/var/folders/kd/3_n5y3zx17q_1bhv8vddsghh0000gn/T/"/>
+    <property name="java.version" value="21.0.10"/>
+    <property name="user.dir" value="/Users/sam/Downloads/jsoup"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="animal.sniffer.skip" value="true"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/sam/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="21.0.10"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="multipleParsesOkAfterBufferUp" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="handlesWrongContentLengthDuringBufferedRead" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="multiCookieSet" classname="org.jsoup.integration.HttpClientConnectTest" time="0.002"/>
+  <testcase name="sendHeadRequest" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="failsIfNotAuthenticated(String)[1]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="failsIfNotAuthenticated(String)[2]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.005"/>
+  <testcase name="fetchURIWithWhitespace" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="bodyAndBytesAvailableBeforeParse" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="sendsRequestBodyStream" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="formLoginFlow" classname="org.jsoup.integration.HttpClientConnectTest" time="0.002"/>
+  <testcase name="statusMessage" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="postHtmlFile" classname="org.jsoup.integration.HttpClientConnectTest" time="0.003"/>
+  <testcase name="parseParseThrowsValidates" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="preservesUrlFragment" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="imageXmlMimeType" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="multipleParsesOkAfterReadFully" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="canFetchBinaryAsBytes" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="testSupplyParserToConnection" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="maxBodySize" classname="org.jsoup.integration.HttpClientConnectTest" time="0.016"/>
+  <testcase name="streamerGetUtf8Bom" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="handlesUnknownEscapesAcrossBuffer" classname="org.jsoup.integration.HttpClientConnectTest" time="0.002"/>
+  <testcase name="throwsExceptionOn404" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="doesPostMultipartWithoutInputstream" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="sendsRequestBodyWithUrlParams" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="maxBodySizeInReadToByteBuffer" classname="org.jsoup.integration.HttpClientConnectTest" time="0.003"/>
+  <testcase name="fetchHandlesXmlAsHtmlWhenParserSet" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="fetchURl" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="fetchToW3c" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="testBinaryContentTypeThrowsException" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="fetchUnicodeUrl" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="sendsRequestBody" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="bodyAfterParseThrowsValidationError" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="doesDeleteWithBody" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="canConnectToLocalTlsServer" classname="org.jsoup.integration.HttpClientConnectTest" time="0.003"/>
+  <testcase name="handlesRedirect" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="doesPost" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="getUtf8Bom" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="supportsDeflate" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="canAuthenticate(String)[1]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0">
+    <error message="Unresolved compilation problem: &#10;	The type java.lang.Override is not accessible&#10;" type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	The type java.lang.Override is not accessible
+
+	at org.jsoup.helper.RequestAuthHandler.remove(RequestAuthHandler.java:27)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:955)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:866)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:365)
+	at org.jsoup.integration.ConnectTest.canAuthenticate(ConnectTest.java:992)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+]]></error>
+  </testcase>
+  <testcase name="canAuthenticate(String)[2]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0">
+    <error message="Unresolved compilation problem: &#10;	The type java.lang.Override is not accessible&#10;" type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	The type java.lang.Override is not accessible
+
+	at org.jsoup.helper.RequestAuthHandler.remove(RequestAuthHandler.java:27)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:955)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:866)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:365)
+	at org.jsoup.integration.ConnectTest.canAuthenticate(ConnectTest.java:992)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+]]></error>
+  </testcase>
+  <testcase name="repeatable" classname="org.jsoup.integration.HttpClientConnectTest" time="0.002"/>
+  <testcase name="sendsRequestBodyJsonWithoutData" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="doesDeleteWithoutBody" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="formLoginFlow2" classname="org.jsoup.integration.HttpClientConnectTest" time="0.002"/>
+  <testcase name="combinesSameHeadersWithComma" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="sendsRequestBodyJsonWithData" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="willEscapePathInRedirect" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="doesPostFor307" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="baseHrefCorrectAfterHttpEquiv" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="fetchHandlesXml" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="handlesEmptyRedirect" classname="org.jsoup.integration.HttpClientConnectTest" time="0.007"/>
+  <testcase name="canConnectToLocalServer" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="ignoresExceptionIfSoConfigured" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="doesGet(String)[1]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="doesGet(String)[2]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="doesPut" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="streamParserGet(String)[1]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="streamParserGet(String)[2]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="progressListener(String)[1]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.002"/>
+  <testcase name="progressListener(String)[2]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.003"/>
+  <testcase name="testParseRss" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="exceptOnUnsupportedProtocol" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="doesNotPostFor302" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="postFiles(String)[1]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.004"/>
+  <testcase name="postFiles(String)[2]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.006"/>
+  <testcase name="secFetchHeadersSurviveRedirect" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="canSendSecFetchHeaders" classname="org.jsoup.integration.HttpClientConnectTest" time="0.0"/>
+  <testcase name="handlesLargerContentLengthParseRead" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001"/>
+  <testcase name="incorrectAuth(String)[1]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001">
+    <error message="Unresolved compilation problem: &#10;	The type java.lang.Override is not accessible&#10;" type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	The type java.lang.Override is not accessible
+
+	at org.jsoup.helper.RequestAuthHandler.remove(RequestAuthHandler.java:27)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:955)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:866)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:365)
+	at org.jsoup.integration.ConnectTest.incorrectAuth(ConnectTest.java:1017)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+]]></error>
+  </testcase>
+  <testcase name="incorrectAuth(String)[2]" classname="org.jsoup.integration.HttpClientConnectTest" time="0.001">
+    <error message="Unresolved compilation problem: &#10;	The type java.lang.Override is not accessible&#10;" type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	The type java.lang.Override is not accessible
+
+	at org.jsoup.helper.RequestAuthHandler.remove(RequestAuthHandler.java:27)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:955)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:866)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:365)
+	at org.jsoup.integration.ConnectTest.incorrectAuth(ConnectTest.java:1017)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.Optional.ifPresent(Optional.java:178)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+]]></error>
+  </testcase>
+  <testcase name="requestCookiesSurviveRedirect" classname="org.jsoup.integration.HttpClientConnectTest" time="0.002"/>
+</testsuite>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="org.jsoup.select.SelectorTest" time="0.02" tests="139" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="jsoup.useHttpClient" value="false"/>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/sam/Downloads/jsoup/target/test-classes:/Users/sam/Downloads/jsoup/target/classes:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter/5.14.0/junit-jupiter-5.14.0.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.0/junit-jupiter-api-5.14.0.jar:/Users/sam/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-commons/1.14.0/junit-platform-commons-1.14.0.jar:/Users/sam/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.0/junit-jupiter-params-5.14.0.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.0/junit-jupiter-engine-5.14.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-engine/1.14.0/junit-platform-engine-1.14.0.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.13.2/gson-2.13.2.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.41.0/error_prone_annotations-2.41.0.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-server/9.4.58.v20250814/jetty-server-9.4.58.v20250814.jar:/Users/sam/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-http/9.4.58.v20250814/jetty-http-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-io/9.4.58.v20250814/jetty-io-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-servlet/9.4.58.v20250814/jetty-servlet-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-security/9.4.58.v20250814/jetty-security-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util-ajax/9.4.58.v20250814/jetty-util-ajax-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-proxy/9.4.58.v20250814/jetty-proxy-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util/9.4.58.v20250814/jetty-util-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-client/9.4.58.v20250814/jetty-client-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/re2j/re2j/1.8/re2j-1.8.jar:/Users/sam/Downloads/jsoup/target/classes/META-INF/versions/11:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="user.timezone" value="Europe/Dublin"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IE"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@21/21.0.10/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/sam/Downloads/jsoup/target/surefire/surefirebooter-20260406191651066_3.jar /Users/sam/Downloads/jsoup/target/surefire 2026-04-06T19-16-50_639-jvmRun1 surefire-20260406191651066_1tmp surefire_0-20260406191651066_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/sam/Downloads/jsoup/target/test-classes:/Users/sam/Downloads/jsoup/target/classes:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter/5.14.0/junit-jupiter-5.14.0.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.0/junit-jupiter-api-5.14.0.jar:/Users/sam/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-commons/1.14.0/junit-platform-commons-1.14.0.jar:/Users/sam/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.0/junit-jupiter-params-5.14.0.jar:/Users/sam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.0/junit-jupiter-engine-5.14.0.jar:/Users/sam/.m2/repository/org/junit/platform/junit-platform-engine/1.14.0/junit-platform-engine-1.14.0.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.13.2/gson-2.13.2.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.41.0/error_prone_annotations-2.41.0.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-server/9.4.58.v20250814/jetty-server-9.4.58.v20250814.jar:/Users/sam/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-http/9.4.58.v20250814/jetty-http-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-io/9.4.58.v20250814/jetty-io-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-servlet/9.4.58.v20250814/jetty-servlet-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-security/9.4.58.v20250814/jetty-security-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util-ajax/9.4.58.v20250814/jetty-util-ajax-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-proxy/9.4.58.v20250814/jetty-proxy-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util/9.4.58.v20250814/jetty-util-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-client/9.4.58.v20250814/jetty-client-9.4.58.v20250814.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/re2j/re2j/1.8/re2j-1.8.jar:/Users/sam/Downloads/jsoup/target/classes/META-INF/versions/11:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/sam"/>
+    <property name="user.language" value="en"/>
+    <property name="jdk.http.auth.tunneling.disabledSchemes" value=""/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk@21/21.0.10/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/sam/Downloads/jsoup"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/sam/Downloads/jsoup/target/surefire/surefirebooter-20260406191651066_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="21.0.10"/>
+    <property name="user.name" value="sam"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.3.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="sun.net.http.allowRestrictedHeaders" value="true"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/sam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="jetty.git.hash" value="8f1440587e9e4ae7db3d74cf205643f3d707148d"/>
+    <property name="java.io.tmpdir" value="/var/folders/kd/3_n5y3zx17q_1bhv8vddsghh0000gn/T/"/>
+    <property name="java.version" value="21.0.10"/>
+    <property name="user.dir" value="/Users/sam/Downloads/jsoup"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="animal.sniffer.skip" value="true"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/sam/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="21.0.10"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="containsData(Locale)[1]" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="containsData(Locale)[2]" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="html_mixed_case_simple_name" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="wildcardNamespaceMatchesNoNamespace" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="selectFirstLevelChildrenOnly" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="nestedMultiHas" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="matchesWholeText" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="precedingComment" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testWildcardNamespacedXmlTag" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="testByAttributeStarting(Locale)[1]" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testByAttributeStarting(Locale)[2]" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="deeperDescendant" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="elementsViaNodeInterface" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="selectSameElements" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="negativeNthChild" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="selectTextNodes" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="emptyAttributePrefix" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testPseudoEquals" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="nodeContains" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="unescapeCssIdentifier" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="xml_lowercase_simple_name" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="hexDigitUnescape" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="nonBlankText" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="hasComment" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testByClassCaseInsensitive" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="divHasDivPreceding" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testByAttributeRegexCharacterClass" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testAllWithClass" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testByTag" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testWildCardNamespacedCaseVariations" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="html_lowercase_wildcard_name" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="hasCommentWithText" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="selectorExceptionNotStringFormatException" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testById" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="descendantComment" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="findBetweenSpan" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="descendant" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="handlesCommasInSelector" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="byEscapedTag" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="notAll" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testByAttribute(Locale)[1]" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testByAttribute(Locale)[2]" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="xml_lowercase_wildcard_name" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="nodeWithElementAncestor" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testHasSibling" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="byEscapedClass" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testNamespacedWildcardTag" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="anyAttribute" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="startsWithBeginsWithSpace" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="selectClassWithSpace" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="notAdjacent" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testCombinedWithContains" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="containsWithQuote" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testPseudoGreaterThan" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testAllElements" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testByAttributeRegex" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="blankNodes" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="evaluatorMemosAreReset" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="blankElements" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="parentFromSpecifiedDescender" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="mixCombinator" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testRelaxedTags" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testPseudoBetween" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="leafNodeContains" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="blankTextNodesAreConsideredEmpty" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testPseudoLessThan" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="elelemtDescendantSkipsNodes" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testGroupOr" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testByClass" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="containsWholeOwnText" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="is" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="and" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="rootImmediateParentSubquery" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="attributeWithBrackets" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testPsuedoContainsWithParentheses" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testGroupOrAttribute" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="caseInsensitive" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="selectFirst" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="containsOwn(Locale)[1]" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="containsOwn(Locale)[2]" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="unknownPseudoNodeSelectError" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="xml_mixed_case_wildcard_name" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="html_mixed_case_wildcard_name" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testCharactersInIdAndClass" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="splitOnBr" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="multiChildDescent" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="adjacentSiblingsWithId" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testMatches" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="notResetCascades" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="matchText" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="selectFirstWithOr" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="siblingsSkipNodes" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="matchTextAttributes" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="endsWithEndsWithSpaces" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="evaluatorOf" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testImmediateParentRunCascades" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="byEscapedId" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="parentWithClassChild" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="containsTextQueryIsNormalized" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="xml_mixed_case_simple_name" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="emptyPseudo" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="generalSiblings" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="parentChildStar" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="attributeSelectorQuotedWhitespace" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="matchesWholeOwnText" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="divHasSpanPreceding" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="nthLastChildWithNoParent" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testPseudoCombined" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="canSelectBlankAttribute" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="testPseudoContains(Locale)[1]" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testPseudoContains(Locale)[2]" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="xmlWildcardNamespaceTest" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testPseudoHas" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="notClass" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="html_lowercase_simple_name" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="notParas" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="leafNode" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="selectSupplementaryCharacter" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="cdataNodes" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="nodeMatches" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="escapeCssIdentifier" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="streamParentChildStar" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="adjacentSiblings" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="selectComment" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testNamespacedTag" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testNestedHas" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="trimSelector" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="datanode" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="parentChildElement" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="childElements" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testByAttributeRegexCombined" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="matchesOwn" classname="org.jsoup.select.SelectorTest" time="0.001"/>
+  <testcase name="testSupportsLeadingCombinator" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="orAfterClass" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="mixCombinatorGroup" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testAncestorChain" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="containsWholeText" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="testWildcardNamespacedTag" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+  <testcase name="selectFirstWithAnd" classname="org.jsoup.select.SelectorTest" time="0.0"/>
+</testsuite>
