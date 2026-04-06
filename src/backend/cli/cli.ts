@@ -412,8 +412,7 @@ yargs(args)
         })
         .option('jobs', {
           type: 'number',
-          default: os.cpus().length,
-          describe: 'Number of parallel jobs',
+          describe: `Number of parallel jobs (default: available CPU cores = ${os.cpus().length})`,
         })
         .option('runner-cores', {
           type: 'number',
@@ -486,7 +485,8 @@ yargs(args)
         }),
     (argv) => {
       const runnerCores = argv['runner-cores'] as number;
-      const jobCount = normalizeJobs((argv.jobs as number | undefined) ?? os.cpus().length);
+      const jobsExplicit = argv.jobs !== undefined;
+      let jobCount = normalizeJobs((argv.jobs as number | undefined) ?? os.cpus().length);
       const platform = argv.platform as Platform;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
@@ -613,16 +613,24 @@ yargs(args)
           When runnerCores > 1 we schedule jobCount*runnerCores virtual slots so LPT can balance at sub-runner granularity, then group them back into
           jobCount runners (NxM -> N).
         */
-        const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
-        const result = engine.run(
-          junitPath,
-          totalSlots,
-          true,
-          algorithm,
-          riskFactor,
-          dependencyMap,
-        );
-        const jobs =
+        const MIN_VIABLE_JOB_S = 60;
+        let totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
+        let result = engine.run(junitPath, totalSlots, true, algorithm, riskFactor, dependencyMap);
+
+        if (!jobsExplicit) {
+          const totalDuration = result.distribution.jobs.reduce((s, j) => s + j.totalTime, 0);
+          const smartJobCount = Math.max(2, Math.min(jobCount, Math.floor(totalDuration / MIN_VIABLE_JOB_S)));
+          if (smartJobCount < jobCount) {
+            console.warn(chalk.yellow(
+              `Warning: test suite total duration (${totalDuration.toFixed(1)}s) is too short for ${jobCount} jobs — runner startup overhead would dominate. Reducing to ${smartJobCount} job(s). Use --jobs to override.`
+            ));
+            jobCount = smartJobCount;
+            totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
+            result = engine.run(junitPath, totalSlots, true, algorithm, riskFactor, dependencyMap);
+          }
+        }
+
+        let jobs =
           runnerCores > 1
             ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores)
             : buildJobsWithDependencies(result.distribution.jobs);

@@ -80,26 +80,36 @@ export function buildGitHubPhasedJobs(
 ): Record<string, any> {
   const result: Record<string, any> = {};
 
-  const isMavenStep = (step: any): boolean =>
-    typeof step.run === 'string' && /^(mvn|\.\/mvnw)\b/.test(step.run.trim());
+  const isMavenStep = (step: any): boolean => typeof step.run === 'string' && /^(mvn|\.\/mvnw)\b/.test(step.run.trim());
 
   const githubServices = services ? buildGitHubServices(services) : undefined;
   const composeStartStep = hasDockerCompose ? buildDockerComposeStartStep() : null;
   const composeStopStep = hasDockerCompose ? buildDockerComposeStopStep() : null;
 
+  /**
+   * Strip matrix from build job. Phased pipelines require a single build artifact. 
+   * A matrix would produce N concurrent uploads with the same name, so resolve matrix.java references in steps using the last (highest) java value.
+   */
+  
   const buildJob = JSON.parse(JSON.stringify(baseJob));
-  // Strip matrix from build job phased pipelines require a single build
-  // artifact; a matrix would produce N concurrent uploads with the same name
+  const javaMatrix: (string | number)[] | undefined = baseJob.strategy?.matrix?.java;
+  const resolvedJava = javaMatrix ? String(javaMatrix[javaMatrix.length - 1]) : '21';
   delete buildJob.strategy;
   delete buildJob.name;
   buildJob['runs-on'] = 'ubuntu-latest';
+
   if (containerImage) buildJob.container = containerImage;
   if (githubServices) buildJob.services = githubServices;
+
   buildJob.steps = buildJob.steps.map((step: any) => {
-    if (isMavenStep(step) && !step.run.includes('-DskipTests')) {
-      return { ...step, run: `${step.run.trim()} -DskipTests` };
+    // Resolve ${{ matrix.java }} in any string fields of this step
+    const resolved = JSON.parse(
+      JSON.stringify(step).replace(/\$\{\{\s*matrix\.java\s*\}\}/g, resolvedJava)
+    );
+    if (isMavenStep(resolved) && !resolved.run.includes('-DskipTests')) {
+      return { ...resolved, run: `${resolved.run.trim()} -DskipTests` };
     }
-    return step;
+    return resolved;
   });
   buildJob.steps.push({
     uses: 'actions/upload-artifact@v4',
@@ -107,7 +117,11 @@ export function buildGitHubPhasedJobs(
   });
   result['build'] = buildJob;
 
-  const setupSteps = (baseJob.steps as any[]).filter((step: any) => !isMavenStep(step));
+  const setupSteps = (baseJob.steps as any[])
+    .filter((step: any) => !isMavenStep(step))
+    .map((step: any) => JSON.parse(
+      JSON.stringify(step).replace(/\$\{\{\s*matrix\.java\s*\}\}/g, resolvedJava)
+    ));
 
   const coreDetectStep = runnerCores > 1 ? {
     name: 'Detect available cores',
@@ -126,6 +140,10 @@ export function buildGitHubPhasedJobs(
 
   for (const job of jobs) {
     const testJob: any = JSON.parse(JSON.stringify(baseJob));
+    // Strip matrix from test jobs: splitting already provides parallelism
+    delete testJob.strategy;
+    delete testJob.name;
+    testJob['runs-on'] = 'ubuntu-latest';
     if (containerImage) testJob.container = containerImage;
     if (githubServices) testJob.services = githubServices;
     const testSteps: any[] = [...JSON.parse(JSON.stringify(setupSteps))];
