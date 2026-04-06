@@ -407,7 +407,7 @@ yargs(args)
       y
         .option('junit', {
           type: 'string',
-          demandOption: true,
+          demandOption: false,
           describe: 'Path to JUnit XML file or directory',
         })
         .option('jobs', {
@@ -434,11 +434,6 @@ yargs(args)
           type: 'string',
           describe:
             'Path to an existing CI YAML template to inject split jobs into',
-        })
-        .option('data', {
-          type: 'string',
-          default: '.data',
-          describe: 'Path to persisted profiling data directory',
         })
         .option('maven-bin', {
           type: 'string',
@@ -565,7 +560,7 @@ yargs(args)
         (argv.src as string | undefined) ?? 'src/test/java',
       );
       const { containerImage, dependencyMap, lifecycle } = runDetection(
-        path.resolve('.'),
+        fs.existsSync(srcDir) ? path.resolve('.') : srcDir,
         srcDir,
         path.resolve('testng-suite.xml'),
         path.resolve('pom.xml'),
@@ -664,7 +659,7 @@ yargs(args)
             ...(existingCIConfig.jobs ?? {}),
             ...generatedJobs,
           };
-          ciConfig = YAML.stringify(existingCIConfig);
+          ciConfig = YAML.stringify(existingCIConfig, null, { lineWidth: 0 });
         } else {
           const baseJobName = testJobs[0];
           const baseJob = existingCIConfig[baseJobName];
@@ -687,7 +682,7 @@ yargs(args)
             delete existingCIConfig[jobName];
           }
           Object.assign(existingCIConfig, splitJobs);
-          ciConfig = YAML.stringify(existingCIConfig);
+          ciConfig = YAML.stringify(existingCIConfig, null, { lineWidth: 0 });
         }
 
         const outputConfig = prependSchedulingHeader(

@@ -274,7 +274,15 @@ function parseJUnitXMLPath(path: string): TestResult[] {
 
 export class JUnitXMLParser implements TestResultParser {
   parse(path: string): TestResult[] {
-    return parseJUnitXMLPath(path);
+    const results = parseJUnitXMLPath(path);
+    const seen = new Map<string, TestResult>();
+    for (const r of results) {
+      const existing = seen.get(r.name);
+      if (!existing || r.duration > existing.duration) {
+        seen.set(r.name, r);
+      }
+    }
+    return [...seen.values()];
   }
 }
 

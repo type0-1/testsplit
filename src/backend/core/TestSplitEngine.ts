@@ -39,17 +39,12 @@ export class TestSplitEngine {
 
     const { perTestStats } = this.profiler.generateHistoricalProfile();
 
-    const taskMap = new Map<string, Task>();
-    for (const r of profile.testResults) {
+    const tasks: Task[] = profile.testResults.map(r => {
       const stats = perTestStats[r.name];
       const duration = stats ? stats.meanDuration + riskFactor * stats.stdDev : r.duration;
       const dependencies = dependencyMap?.get(r.name);
-      const existing = taskMap.get(r.name);
-      if (!existing || duration > existing.duration) {
-        taskMap.set(r.name, { id: r.name, duration, ...(dependencies ? { dependencies } : {}) });
-      }
-    }
-    const tasks: Task[] = [...taskMap.values()];
+      return { id: r.name, duration, ...(dependencies ? { dependencies } : {}) };
+    });
 
     const scheduler = algorithm === 'multifit' ? new MULTIFITScheduler() : new LPTScheduler();
     const distribution = scheduler.schedule(tasks, jobCount);
