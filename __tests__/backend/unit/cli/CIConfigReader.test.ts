@@ -8,7 +8,7 @@ function makeGitHubConfig(steps: any[], jobName = 'build') {
   };
 }
 
-describe('findTestJobs — GitHub', () => {
+describe('findTestJobs GitHub', () => {
   it('detects Maven mvn test step', () => {
     const config = makeGitHubConfig([{ run: 'mvn test' }], 'java');
     expect(findTestJobs(config, 'github')).toEqual(['java']);
@@ -40,7 +40,7 @@ describe('findTestJobs — GitHub', () => {
   });
 
   it('detects multiline gradlew build (YAML folded scalar)', () => {
-    // YAML > folds newlines to spaces — simulate that here
+    // YAML > folds newlines to spaces  simulate that here
     const config = makeGitHubConfig([
       { run: './gradlew -Pmockito.test.java=17 build --stacktrace --scan' },
     ], 'java');
@@ -62,7 +62,7 @@ describe('findTestJobs — GitHub', () => {
   });
 });
 
-describe('extractTestCommands — GitHub', () => {
+describe('extractTestCommands GitHub', () => {
   it('extracts mvn test command', () => {
     const config = makeGitHubConfig([{ run: 'mvn test' }], 'java');
     expect(extractTestCommands(config, 'github', ['java'])).toEqual(['mvn test']);
@@ -89,7 +89,7 @@ describe('extractTestCommands — GitHub', () => {
   });
 });
 
-describe('findTestJobs — GitLab', () => {
+describe('findTestJobs GitLab', () => {
   it('detects mvn test in script', () => {
     const config = { test: { script: ['mvn test'] } };
     expect(findTestJobs(config, 'gitlab')).toEqual(['test']);

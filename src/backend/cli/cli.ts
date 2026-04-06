@@ -243,7 +243,7 @@ yargs(args)
               process.exit(EXIT_FAILURE);
             }
             if (dirs.length > 1) {
-              console.log(chalk.dim(`Auto-detected ${detected.tool} multi-module reports — merging ${dirs.length} directories`));
+              console.log(chalk.dim(`Auto-detected ${detected.tool} multi-module reports merging ${dirs.length} directories`));
             } else {
               console.log(chalk.dim(`Auto-detected ${detected.tool} reports at: ${dirs[0]}`));
             }
@@ -561,14 +561,26 @@ yargs(args)
       // Argument validation
       assertJUnitPathExists(junitPath);
 
+      const projectRoot = (() => {
+        if (existingCIPath) {
+          const normalized = existingCIPath.replace(/\\/g, '/');
+          const githubIdx = normalized.indexOf('/.github/workflows/');
+          if (githubIdx !== -1) return normalized.slice(0, githubIdx);
+          const gitlabIdx = normalized.lastIndexOf('/.gitlab-ci.yml');
+          if (gitlabIdx !== -1) return normalized.slice(0, gitlabIdx);
+        }
+        return path.resolve('.');
+      })();
+
       const srcDir = path.resolve(
+        projectRoot,
         (argv.src as string | undefined) ?? 'src/test/java',
       );
       const { containerImage, dependencyMap, lifecycle } = runDetection(
-        path.resolve('.'),
+        projectRoot,
         srcDir,
-        path.resolve('testng-suite.xml'),
-        path.resolve('pom.xml'),
+        path.resolve(projectRoot, 'testng-suite.xml'),
+        path.resolve(projectRoot, 'pom.xml'),
       );
 
       if (containerImage) {
@@ -586,7 +598,7 @@ yargs(args)
       if (lifecycle.hasDockerCompose) {
         console.log(
           chalk.dim(
-            '  docker-compose.yml detected — startup steps will be injected',
+            '  docker-compose.yml detected startup steps will be injected',
           ),
         );
       } else if (lifecycle.requirements.length > 0) {

@@ -1397,7 +1397,7 @@ describe('generate-config command handler', () => {
     generateConfigHandler({ junit: '/test.xml', jobs: 2, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false });
 
     const allLogs = (console.log as jest.Mock).mock.calls.flat().join('\n');
-    expect(allLogs).toContain('docker-compose.yml detected — startup steps will be injected');
+    expect(allLogs).toContain('docker-compose.yml detected startup steps will be injected');
   });
 
   it('uses fallback test command with custom maven-bin when extracted commands are empty for GitLab', () => {
@@ -2414,7 +2414,7 @@ describe('dashboard command handler', () => {
     jest.spyOn(console, 'log').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
     jest.spyOn(process, 'on').mockImplementation();
-    // Re-require each time so we get the current mock instances — jest.resetModules() in an
+    // Re-require each time so we get the current mock instances jest.resetModules() in an
     // earlier afterEach invalidates the registry, causing dynamic imports in the handler to
     // receive fresh jest.fn()s that are different from the file-scope mockSpawn/mockExecSync.
     // eslint-disable-next-line @typescript-eslint/no-require-imports

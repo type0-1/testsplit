@@ -88,6 +88,11 @@ export function buildGitHubPhasedJobs(
   const composeStopStep = hasDockerCompose ? buildDockerComposeStopStep() : null;
 
   const buildJob = JSON.parse(JSON.stringify(baseJob));
+  // Strip matrix from build job phased pipelines require a single build
+  // artifact; a matrix would produce N concurrent uploads with the same name
+  delete buildJob.strategy;
+  delete buildJob.name;
+  buildJob['runs-on'] = 'ubuntu-latest';
   if (containerImage) buildJob.container = containerImage;
   if (githubServices) buildJob.services = githubServices;
   buildJob.steps = buildJob.steps.map((step: any) => {

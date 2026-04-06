@@ -27,7 +27,7 @@ export class Profiler {
       const suffix = zeroDuration.length > WARN_INLINE_LIMIT
         ? ` (and ${zeroDuration.length - WARN_INLINE_LIMIT} more)`
         : '';
-      console.warn(`Warning: ${zeroDuration.length} test(s) reported zero duration (sub-millisecond) — these will be scheduled with equal weight: ${preview}${suffix}`);
+      console.warn(`Warning: ${zeroDuration.length} test(s) reported zero duration (sub-millisecond), these will be scheduled with equal weight: ${preview}${suffix}`);
     }
 
     const outliers = detectOutlierTests(results);
