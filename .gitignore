@@ -7,3 +7,4 @@ coverage/
 test-results/
 coverage/playwright-report/
 .test-data/
+__tests__/backend/integration/core/fixtures/*/
