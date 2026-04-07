@@ -568,20 +568,23 @@ yargs(args)
           if (githubIdx !== -1) return normalized.slice(0, githubIdx);
           const gitlabIdx = normalized.lastIndexOf('/.gitlab-ci.yml');
           if (gitlabIdx !== -1) return normalized.slice(0, gitlabIdx);
+          // --from path doesn't follow CI directory conventions - can't infer project root
+          return null;
         }
         return path.resolve('.');
       })();
 
-      const srcDir = path.resolve(
-        projectRoot,
-        (argv.src as string | undefined) ?? 'src/test/java',
-      );
-      const { containerImage, dependencyMap, lifecycle } = runDetection(
-        projectRoot,
-        srcDir,
-        path.resolve(projectRoot, 'testng-suite.xml'),
-        path.resolve(projectRoot, 'pom.xml'),
-      );
+      const srcDir = projectRoot
+        ? path.resolve(projectRoot, (argv.src as string | undefined) ?? 'src/test/java')
+        : null;
+      const { containerImage, dependencyMap, lifecycle } = projectRoot
+        ? runDetection(
+            projectRoot,
+            srcDir!,
+            path.resolve(projectRoot, 'testng-suite.xml'),
+            path.resolve(projectRoot, 'pom.xml'),
+          )
+        : { containerImage: undefined, dependencyMap: undefined, lifecycle: { hasDockerCompose: false, requirements: [] } };
 
       if (containerImage) {
         console.log(

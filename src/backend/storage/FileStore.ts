@@ -190,7 +190,7 @@ export class FileStore {
     const profiles: Profile[] = [];
 
     for (const file of files) {
-      if (!file.endsWith('.json')) {
+      if (!file.endsWith('.json') || file === 'historical.json') {
         continue;
       }
 
