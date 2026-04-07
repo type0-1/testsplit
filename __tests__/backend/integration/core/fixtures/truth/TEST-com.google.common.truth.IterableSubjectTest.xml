@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.google.common.truth.IterableSubjectTest" time="0.013" tests="165" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/sam/Downloads/truth/core/target/test-classes:/Users/sam/Downloads/truth/core/target/classes:/Users/sam/.m2/repository/com/google/guava/guava/33.4.3-android/guava-33.4.3-android.jar:/Users/sam/.m2/repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar:/Users/sam/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sam/.m2/repository/org/checkerframework/checker-qual/3.43.0/checker-qual-3.43.0.jar:/Users/sam/.m2/repository/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/sam/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/sam/.m2/repository/org/gwtproject/gwt-user/2.11.0/gwt-user-2.11.0.jar:/Users/sam/.m2/repository/com/google/jsinterop/jsinterop-annotations/2.0.0/jsinterop-annotations-2.0.0.jar:/Users/sam/.m2/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar:/Users/sam/.m2/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar:/Users/sam/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/Users/sam/.m2/repository/org/w3c/css/sac/1.3/sac-1.3.jar:/Users/sam/.m2/repository/org/gwtproject/gwt-dev/2.11.0/gwt-dev-2.11.0.jar:/Users/sam/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.6.2/gson-2.6.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-util/9.2/asm-util-9.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-tree/9.2/asm-tree-9.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-analysis/9.2/asm-analysis-9.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-commons/9.2/asm-commons-9.2.jar:/Users/sam/.m2/repository/colt/colt/1.2.0/colt-1.2.0.jar:/Users/sam/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/Users/sam/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar:/Users/sam/.m2/repository/com/ibm/icu/icu4j/63.1/icu4j-63.1.jar:/Users/sam/.m2/repository/tapestry/tapestry/4.0.2/tapestry-4.0.2.jar:/Users/sam/.m2/repository/net/sourceforge/htmlunit/htmlunit/2.55.0/htmlunit-2.55.0.jar:/Users/sam/.m2/repository/xalan/xalan/2.7.2/xalan-2.7.2.jar:/Users/sam/.m2/repository/xalan/serializer/2.7.2/serializer-2.7.2.jar:/Users/sam/.m2/repository/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar:/Users/sam/.m2/repository/org/apache/commons/commons-text/1.9/commons-text-1.9.jar:/Users/sam/.m2/repository/org/apache/httpcomponents/httpmime/4.5.13/httpmime-4.5.13.jar:/Users/sam/.m2/repository/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13.jar:/Users/sam/.m2/repository/org/apache/httpcomponents/httpcore/4.4.13/httpcore-4.4.13.jar:/Users/sam/.m2/repository/commons-codec/commons-codec/1.11/commons-codec-1.11.jar:/Users/sam/.m2/repository/net/sourceforge/htmlunit/htmlunit-core-js/2.55.0/htmlunit-core-js-2.55.0.jar:/Users/sam/.m2/repository/net/sourceforge/htmlunit/neko-htmlunit/2.55.0/neko-htmlunit-2.55.0.jar:/Users/sam/.m2/repository/xerces/xercesImpl/2.12.1/xercesImpl-2.12.1.jar:/Users/sam/.m2/repository/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar:/Users/sam/.m2/repository/net/sourceforge/htmlunit/htmlunit-cssparser/1.10.0/htmlunit-cssparser-1.10.0.jar:/Users/sam/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/Users/sam/.m2/repository/commons-net/commons-net/3.8.0/commons-net-3.8.0.jar:/Users/sam/.m2/repository/org/brotli/dec/0.1.2/dec-0.1.2.jar:/Users/sam/.m2/repository/com/shapesecurity/salvation2/3.0.0/salvation2-3.0.0.jar:/Users/sam/.m2/repository/org/eclipse/jetty/websocket/websocket-client/9.4.44.v20210927/websocket-client-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-client/9.4.44.v20210927/jetty-client-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/websocket/websocket-common/9.4.44.v20210927/websocket-common-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/websocket/websocket-api/9.4.44.v20210927/websocket-api-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-webapp/9.4.44.v20210927/jetty-webapp-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-xml/9.4.44.v20210927/jetty-xml-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-servlet/9.4.44.v20210927/jetty-servlet-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-security/9.4.44.v20210927/jetty-security-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-server/9.4.44.v20210927/jetty-server-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util-ajax/9.4.44.v20210927/jetty-util-ajax-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-servlets/9.4.44.v20210927/jetty-servlets-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-continuation/9.4.44.v20210927/jetty-continuation-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-http/9.4.44.v20210927/jetty-http-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util/9.4.44.v20210927/jetty-util-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-io/9.4.44.v20210927/jetty-io-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-annotations/9.4.44.v20210927/jetty-annotations-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-plus/9.4.44.v20210927/jetty-plus-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-jndi/9.4.44.v20210927/jetty-jndi-9.4.44.v20210927.jar:/Users/sam/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:/Users/sam/.m2/repository/org/eclipse/jetty/apache-jsp/9.4.44.v20210927/apache-jsp-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/toolchain/jetty-schemas/3.1.2/jetty-schemas-3.1.2.jar:/Users/sam/.m2/repository/org/mortbay/jasper/apache-jsp/8.5.70/apache-jsp-8.5.70.jar:/Users/sam/.m2/repository/org/mortbay/jasper/apache-el/8.5.70/apache-el-8.5.70.jar:/Users/sam/.m2/repository/org/eclipse/jdt/ecj/3.19.0/ecj-3.19.0.jar:/Users/sam/.m2/repository/com/google/auto/value/auto-value-annotations/1.11.1/auto-value-annotations-1.11.1.jar:/Users/sam/.m2/repository/com/google/guava/guava-gwt/33.4.3-jre/guava-gwt-33.4.3-jre.jar:/Users/sam/.m2/repository/com/google/guava/guava-testlib/33.4.3-android/guava-testlib-33.4.3-android.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.48.0/error_prone_annotations-2.48.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.9.1/asm-9.9.1.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IE"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/sam/Downloads/truth/core/target/surefire/surefirebooter-20260407085005981_3.jar /Users/sam/Downloads/truth/core/target/surefire 2026-04-07T08-50-05_953-jvmRun1 surefire-20260407085005981_1tmp surefire_0-20260407085005981_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/sam/Downloads/truth/core/target/test-classes:/Users/sam/Downloads/truth/core/target/classes:/Users/sam/.m2/repository/com/google/guava/guava/33.4.3-android/guava-33.4.3-android.jar:/Users/sam/.m2/repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar:/Users/sam/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sam/.m2/repository/org/checkerframework/checker-qual/3.43.0/checker-qual-3.43.0.jar:/Users/sam/.m2/repository/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/sam/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/sam/.m2/repository/org/gwtproject/gwt-user/2.11.0/gwt-user-2.11.0.jar:/Users/sam/.m2/repository/com/google/jsinterop/jsinterop-annotations/2.0.0/jsinterop-annotations-2.0.0.jar:/Users/sam/.m2/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar:/Users/sam/.m2/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar:/Users/sam/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/Users/sam/.m2/repository/org/w3c/css/sac/1.3/sac-1.3.jar:/Users/sam/.m2/repository/org/gwtproject/gwt-dev/2.11.0/gwt-dev-2.11.0.jar:/Users/sam/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.6.2/gson-2.6.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-util/9.2/asm-util-9.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-tree/9.2/asm-tree-9.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-analysis/9.2/asm-analysis-9.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-commons/9.2/asm-commons-9.2.jar:/Users/sam/.m2/repository/colt/colt/1.2.0/colt-1.2.0.jar:/Users/sam/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/Users/sam/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar:/Users/sam/.m2/repository/com/ibm/icu/icu4j/63.1/icu4j-63.1.jar:/Users/sam/.m2/repository/tapestry/tapestry/4.0.2/tapestry-4.0.2.jar:/Users/sam/.m2/repository/net/sourceforge/htmlunit/htmlunit/2.55.0/htmlunit-2.55.0.jar:/Users/sam/.m2/repository/xalan/xalan/2.7.2/xalan-2.7.2.jar:/Users/sam/.m2/repository/xalan/serializer/2.7.2/serializer-2.7.2.jar:/Users/sam/.m2/repository/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar:/Users/sam/.m2/repository/org/apache/commons/commons-text/1.9/commons-text-1.9.jar:/Users/sam/.m2/repository/org/apache/httpcomponents/httpmime/4.5.13/httpmime-4.5.13.jar:/Users/sam/.m2/repository/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13.jar:/Users/sam/.m2/repository/org/apache/httpcomponents/httpcore/4.4.13/httpcore-4.4.13.jar:/Users/sam/.m2/repository/commons-codec/commons-codec/1.11/commons-codec-1.11.jar:/Users/sam/.m2/repository/net/sourceforge/htmlunit/htmlunit-core-js/2.55.0/htmlunit-core-js-2.55.0.jar:/Users/sam/.m2/repository/net/sourceforge/htmlunit/neko-htmlunit/2.55.0/neko-htmlunit-2.55.0.jar:/Users/sam/.m2/repository/xerces/xercesImpl/2.12.1/xercesImpl-2.12.1.jar:/Users/sam/.m2/repository/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar:/Users/sam/.m2/repository/net/sourceforge/htmlunit/htmlunit-cssparser/1.10.0/htmlunit-cssparser-1.10.0.jar:/Users/sam/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/Users/sam/.m2/repository/commons-net/commons-net/3.8.0/commons-net-3.8.0.jar:/Users/sam/.m2/repository/org/brotli/dec/0.1.2/dec-0.1.2.jar:/Users/sam/.m2/repository/com/shapesecurity/salvation2/3.0.0/salvation2-3.0.0.jar:/Users/sam/.m2/repository/org/eclipse/jetty/websocket/websocket-client/9.4.44.v20210927/websocket-client-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-client/9.4.44.v20210927/jetty-client-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/websocket/websocket-common/9.4.44.v20210927/websocket-common-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/websocket/websocket-api/9.4.44.v20210927/websocket-api-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-webapp/9.4.44.v20210927/jetty-webapp-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-xml/9.4.44.v20210927/jetty-xml-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-servlet/9.4.44.v20210927/jetty-servlet-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-security/9.4.44.v20210927/jetty-security-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-server/9.4.44.v20210927/jetty-server-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util-ajax/9.4.44.v20210927/jetty-util-ajax-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-servlets/9.4.44.v20210927/jetty-servlets-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-continuation/9.4.44.v20210927/jetty-continuation-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-http/9.4.44.v20210927/jetty-http-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-util/9.4.44.v20210927/jetty-util-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-io/9.4.44.v20210927/jetty-io-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-annotations/9.4.44.v20210927/jetty-annotations-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-plus/9.4.44.v20210927/jetty-plus-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/jetty-jndi/9.4.44.v20210927/jetty-jndi-9.4.44.v20210927.jar:/Users/sam/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:/Users/sam/.m2/repository/org/eclipse/jetty/apache-jsp/9.4.44.v20210927/apache-jsp-9.4.44.v20210927.jar:/Users/sam/.m2/repository/org/eclipse/jetty/toolchain/jetty-schemas/3.1.2/jetty-schemas-3.1.2.jar:/Users/sam/.m2/repository/org/mortbay/jasper/apache-jsp/8.5.70/apache-jsp-8.5.70.jar:/Users/sam/.m2/repository/org/mortbay/jasper/apache-el/8.5.70/apache-el-8.5.70.jar:/Users/sam/.m2/repository/org/eclipse/jdt/ecj/3.19.0/ecj-3.19.0.jar:/Users/sam/.m2/repository/com/google/auto/value/auto-value-annotations/1.11.1/auto-value-annotations-1.11.1.jar:/Users/sam/.m2/repository/com/google/guava/guava-gwt/33.4.3-jre/guava-gwt-33.4.3-jre.jar:/Users/sam/.m2/repository/com/google/guava/guava-testlib/33.4.3-android/guava-testlib-33.4.3-android.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.48.0/error_prone_annotations-2.48.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.9.1/asm-9.9.1.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/sam"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/sam/Downloads/truth/core"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/sam/Downloads/truth/core/target/surefire/surefirebooter-20260407085005981_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.2"/>
+    <property name="user.name" value="sam"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.3.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="surefire.failIfNoSpecifiedTests" value="false"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/sam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/kd/3_n5y3zx17q_1bhv8vddsghh0000gn/T/"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/Users/sam/Downloads/truth/core"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/sam/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="25.0.2"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="containsExactlyInOrderWithOneShotIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithCommaSeparatedVsIndividual" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="hasSizeOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInOrderMultipleFailures" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyInWithNullExpectedArray" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoDuplicatesMixedTypes" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyOf" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoneOfFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="arrayContainsExactly" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyMissingItemFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isNotEmptyWithFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithDuplicatesNotEnoughItemsFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithEmptyStringAmongMissingItems" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithDuplicatesMissingItemsWithNewlineFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithMissingAndExtraElements" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastInOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isEqualToNotConsistentWithEquals_failure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInStrictOrderWithNullComparator" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyElementsInArray" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyFailsWithSameToStringAndListWithNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithDuplicatesMissingAndExtraItemsWithNewlineFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="withNoToStringOverride" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyInWithNullExpectedIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastElementsInIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlySingleElementNoEqualsMagic" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="somethingEqualToNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsWithNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isNotEmptyOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="nullEqualToNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastWithDuplicates" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInStrictOrderWithComparator" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlySingleElement" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyOfFailsWithSameToStringAndNullInExpectation" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithOnlyNullPassedAsNullArray" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastWithNullFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isEmptyWithFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInOrderWithNullComparator" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInOrderFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithMany" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastFailsWithEmptyString" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastWithDuplicateMissingElements" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isEmptyOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyInIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastElementsInArrayWithNullExpected" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="somethingEqualToSomething" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyInOrderWithFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyElementsInInOrderPassesWithEmptyExpectedAndActual" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithOneNonIterableDoesNotGiveWarning" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="containsNoneOfFailureWithDuplicateInExpected" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoneOf" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="hasSizeFails" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeast" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="hasSizeZero" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="contains" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastFailsWithSameToStringAndHomogeneousListWithDuplicates" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoneInNullArray" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyInArray" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="nullEqualToSomething" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="containsAtLeastElementsInOutOfOrderDoesNotStringify" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithOneIterableGivesWarning" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isNoneOf" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastInOrderWithGaps" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="containsAtLeastInOrderWithNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoDuplicatesOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoDuplicatesFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="hasSizeNegative" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="iterableContainsFailsWithSameToStringLocalClass" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isNotInNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithElementsThatThrowWhenYouCallHashCode" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyElementsInNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithDuplicateMissingElements" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="containsAnyOfFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithOnlyNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="doesNotContain" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyFailsWithSameToStringAndHomogeneousListWithDuplicates" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoneOfOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInOrderOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isEqualToNotConsistentWithEquals" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithDuplicateMissingAndExtraElements" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isIn" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="containsNoneInIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastElementsInCanUseFactPerElement" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyUnexpectedItemFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithNullThird" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastWithMany" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastWithNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoneInArray" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInOrderWithNonComparableElementsFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithDuplicatesOutOfOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastWithExtraCopiesOfOutOfOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInOrderWithComparatorFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="containsAtLeastInOrderWithOneShotIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="orderedByBaseClassComparator" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastWithDuplicatesFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithElementsThatThrowWhenYouCallHashCodeFailureTooMany" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsFailsWithSameToString" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastElementsInArray" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastInOrderWrongOrderAndMissing" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="containsExactlyWithNullOutOfOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyOfWithNullInThirdAndFinalPosition" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="hasSize" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyFailsWithSameToStringAndHeterogeneousList" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastInOrderWithFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isNotEmpty" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoneOfFailureWithDuplicateInSubject" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastInOrderWithOneShotIterableWrongOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastFailsWithSameToStringAndHomogeneousListWithNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithNullSecond" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyElementsInWithEmptyExpected" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyOfFailsWithSameToStringAndHomogeneousListWithDuplicates" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithNullFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastWithNullAtThirdAndFinalPosition" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithElementsThatThrowWhenYouCallHashCodeOneMismatch" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastInOrderWithFailureWithActualOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInStrictOrderFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyArray" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyOfWithOneShotIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="doesNotContainNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsFailsWithSameToStringAndNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="doesNotContainOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="containsExactlyWithTwoIterablesDoesNotGiveWarning" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyOfFailsWithSameToStringAndNullInSubject" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyFailsWithSameToStringAndHomogeneousList" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyElementsInIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastFailsWithSameToStringAndHeterogeneousListWithDuplicates" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="isInStrictOrderWithComparatorFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoDuplicates" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInOrderWithComparator" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithEmptyStringAndUnexpectedItem" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastWithExtras" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyOfFailsWithSameToStringAndHomogeneousList" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithDuplicatesUnexpectedItemFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="doesNotContainFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInStrictOrderWithNonComparableElementsFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="isInStrictOrderOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithEmptyStringAndMissingItem" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyElementsInWithOneIterableDoesNotGiveWarning" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyFailsWithSameToStringAndHeterogeneousListWithDuplicates" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithEmptyString" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyInOrderWithOneShotIterableWrongOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastFailsWithSameToStringAndHomogeneousList" classname="com.google.common.truth.IterableSubjectTest" time="0.001"/>
+  <testcase name="containsExactlyInOrderWithNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyOfWithNull" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyElementsInNullArray" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAnyOfOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyInOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyOutOfOrderDoesNotStringify" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithDuplicates" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoneInNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyElementsInErrorMessageIsInOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastElementsInIterableWithNullExpected" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsAtLeastOnNullIterable" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyWithDuplicatesMissingItemFailure" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isAnyOf" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isEmpty" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isNotIn" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="isInStrictOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsExactlyOutOfOrder" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+  <testcase name="containsNoneOfFailureWithEmptyString" classname="com.google.common.truth.IterableSubjectTest" time="0.0"/>
+</testsuite>
