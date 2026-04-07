@@ -155,7 +155,7 @@ export function buildGitHubPhasedJobs(
       run: [
         `${mavenBin} test`,
         `-Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')}`,
-        `-DfailIfNoTests=false`,
+        `-DfailIfNoSpecifiedTests=false`,
         ...forkFlags,
       ].join(' '),
     });

@@ -1,0 +1,1695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.google.common.util.concurrent.FuturesTest" time="3.77" tests="160" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/test-classes:/Users/sam/Downloads/guava/guava-tests/target/classes:/Users/sam/.m2/repository/com/google/guava/guava-testlib/999.0.0-HEAD-jre-SNAPSHOT/guava-testlib-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/j2objc/j2objc-annotations/3.1/j2objc-annotations-3.1.jar:/Users/sam/.m2/repository/com/google/guava/guava/999.0.0-HEAD-jre-SNAPSHOT/guava-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/Users/sam/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.47.0/error_prone_annotations-2.47.0.jar:/Users/sam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/sam/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.12.19/byte-buddy-1.12.19.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/sam/.m2/repository/com/google/truth/truth/1.4.5/truth-1.4.5.jar:/Users/sam/.m2/repository/com/google/auto/value/auto-value-annotations/1.11.0/auto-value-annotations-1.11.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/com/google/jimfs/jimfs/1.3.1/jimfs-1.3.1.jar:/Users/sam/.m2/repository/com/google/caliper/caliper/1.0-beta-3/caliper-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-core/1.0-beta-3/caliper-core-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-api/1.0-beta-3/caliper-api-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-util/1.0-beta-3/caliper-util-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.8.7/gson-2.8.7.jar:/Users/sam/.m2/repository/joda-time/joda-time/2.10.10/joda-time-2.10.10.jar:/Users/sam/.m2/repository/com/squareup/okhttp/okhttp/2.7.5/okhttp-2.7.5.jar:/Users/sam/.m2/repository/com/squareup/okio/okio/1.6.0/okio-1.6.0.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-runner/1.0-beta-3/caliper-runner-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/dagger/dagger-producers/2.22.1/dagger-producers-2.22.1.jar:/Users/sam/.m2/repository/org/checkerframework/checker-compat-qual/2.5.3/checker-compat-qual-2.5.3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker-jvm/1.0-beta-3/caliper-worker-jvm-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker/1.0-beta-3/caliper-worker-1.0-beta-3.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-client/1.19.4/jersey-client-1.19.4.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-core/1.19.4/jersey-core-1.19.4.jar:/Users/sam/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar:/Users/sam/.m2/repository/com/google/dagger/dagger/2.22.1/dagger-2.22.1.jar:/Users/sam/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/sam/.m2/repository/com/google/code/java-allocation-instrumenter/java-allocation-instrumenter/3.3.0/java-allocation-instrumenter-3.3.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-analysis/7.2/asm-analysis-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-commons/7.2/asm-commons-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-tree/7.2/asm-tree-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-util/7.2/asm-util-7.2.jar:/Users/sam/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Europe/Dublin"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="user.country" value="IN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/Users/sam/.m2/jdks/jdk-25.0.2+10/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/sam/Downloads/guava/guava-tests/target/surefire/surefirebooter-20260407092109061_3.jar /Users/sam/Downloads/guava/guava-tests/target/surefire 2026-04-07T09-21-08_488-jvmRun1 surefire-20260407092109061_1tmp surefire_0-20260407092109061_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/test-classes:/Users/sam/Downloads/guava/guava-tests/target/classes:/Users/sam/.m2/repository/com/google/guava/guava-testlib/999.0.0-HEAD-jre-SNAPSHOT/guava-testlib-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/j2objc/j2objc-annotations/3.1/j2objc-annotations-3.1.jar:/Users/sam/.m2/repository/com/google/guava/guava/999.0.0-HEAD-jre-SNAPSHOT/guava-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/Users/sam/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.47.0/error_prone_annotations-2.47.0.jar:/Users/sam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/sam/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.12.19/byte-buddy-1.12.19.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/sam/.m2/repository/com/google/truth/truth/1.4.5/truth-1.4.5.jar:/Users/sam/.m2/repository/com/google/auto/value/auto-value-annotations/1.11.0/auto-value-annotations-1.11.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/com/google/jimfs/jimfs/1.3.1/jimfs-1.3.1.jar:/Users/sam/.m2/repository/com/google/caliper/caliper/1.0-beta-3/caliper-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-core/1.0-beta-3/caliper-core-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-api/1.0-beta-3/caliper-api-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-util/1.0-beta-3/caliper-util-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.8.7/gson-2.8.7.jar:/Users/sam/.m2/repository/joda-time/joda-time/2.10.10/joda-time-2.10.10.jar:/Users/sam/.m2/repository/com/squareup/okhttp/okhttp/2.7.5/okhttp-2.7.5.jar:/Users/sam/.m2/repository/com/squareup/okio/okio/1.6.0/okio-1.6.0.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-runner/1.0-beta-3/caliper-runner-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/dagger/dagger-producers/2.22.1/dagger-producers-2.22.1.jar:/Users/sam/.m2/repository/org/checkerframework/checker-compat-qual/2.5.3/checker-compat-qual-2.5.3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker-jvm/1.0-beta-3/caliper-worker-jvm-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker/1.0-beta-3/caliper-worker-1.0-beta-3.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-client/1.19.4/jersey-client-1.19.4.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-core/1.19.4/jersey-core-1.19.4.jar:/Users/sam/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar:/Users/sam/.m2/repository/com/google/dagger/dagger/2.22.1/dagger-2.22.1.jar:/Users/sam/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/sam/.m2/repository/com/google/code/java-allocation-instrumenter/java-allocation-instrumenter/3.3.0/java-allocation-instrumenter-3.3.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-analysis/7.2/asm-analysis-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-commons/7.2/asm-commons-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-tree/7.2/asm-tree-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-util/7.2/asm-util-7.2.jar:/Users/sam/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/sam"/>
+    <property name="user.language" value="hi"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/Users/sam/.m2/jdks/jdk-25.0.2+10/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/sam/Downloads/guava/guava-tests"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/surefire/surefirebooter-20260407092109061_3.jar"/>
+    <property name="java.protocol.handler.pkgs" value="com.google.common"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.2+10-LTS"/>
+    <property name="user.name" value="sam"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.3.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-25.0.2+10"/>
+    <property name="localRepository" value="/Users/sam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/kd/3_n5y3zx17q_1bhv8vddsghh0000gn/T/"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/Users/sam/Downloads/guava/guava-tests"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/sam/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="25.0.2+10-LTS"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="testTransformAsync_functionToString" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_failureLoggedEvenAfterOutputCancelled" classname="com.google.common.util.concurrent.FuturesTest" time="0.001">
+    <system-err><![CDATA[अप्रैल 07, 2026 9:25:23 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Input Future failed with Error
+java.lang.Error: You can't fire me, I quit.
+	at com.google.common.util.concurrent.FuturesTest$CancelPanickingFuture.cancel(FuturesTest.java:3127)
+	at com.google.common.util.concurrent.AggregateFuture.afterDone(AggregateFuture.java:88)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:792)
+	at com.google.common.util.concurrent.AbstractFuture.cancel(AbstractFuture.java:429)
+	at com.google.common.util.concurrent.AbstractFuture$TrustedFuture.cancel(AbstractFuture.java:125)
+	at com.google.common.util.concurrent.FuturesTest.testSuccessfulAsList_failureLoggedEvenAfterOutputCancelled(FuturesTest.java:3117)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+]]></system-err>
+  </testcase>
+  <testcase name="testSuccessfulAsList_mixed" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_logging_seenExceptionUpdateCancelRace" classname="com.google.common.util.concurrent.FuturesTest" time="0.0">
+    <system-err><![CDATA[अप्रैल 07, 2026 9:25:23 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+com.google.common.util.concurrent.FuturesTest$MyException
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_logging_seenExceptionUpdateCancelRace(FuturesTest.java:2084)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+]]></system-err>
+  </testcase>
+  <testcase name="testImmediateFuture" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSubmitAsync_asyncCallable_nullInsteadOfFuture" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_interruptPropagatesToTransformingThread" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllComplete_asyncResult" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_getThrowsRuntimeException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransform_genericsNull" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_genericsHierarchy_asyncFunction" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_fallbackReturnsCheckedException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_totalFailure" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_resultCancelledRacingInputDone" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransform_getThrowsRuntimeException" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testNonCancellationPropagating_failure" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransform_stackOverflow" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_resultInterrupted" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_cancelled" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_doneFutures" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_immediateFailure" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testImmediateCancelledFutureBasic" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testImmediateCancelledFutureStack" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_getThrowsError" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllComplete_noLeakInterruption" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testScheduleAsync_asyncCallable_error" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_listenerThrowsError" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_listenerThrowsError" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_cancelled" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllComplete_asyncError" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_logging_exception" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_fallbackReturnsRuntimeException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_customTypeNoMatch" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_listenerThrowsError" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_stackOverflow" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_emptyArray" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testCompletionOrderFutureCancelled" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSubmit_runnable_completesAfterRun" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_resultCancelled" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testFutures_nullChecks" classname="com.google.common.util.concurrent.FuturesTest" time="0.01"/>
+  <testcase name="testCatchingAsync_throwable" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testInputGCedIfUnreferenced" classname="com.google.common.util.concurrent.FuturesTest" time="0.065"/>
+  <testcase name="testCatchingAsync_fallbackGeneratesCheckedException" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testTransformAsync_asyncFunction_cancelledBeforeApplyingFunction" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_inputRaisesException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_fallbackNotReady" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_customTypeMatch" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_functionToString" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testLazyTransform_exception" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_resultCancelled" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_resultInterruptedBeforeFallback" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testNonCancellationPropagating_delegateCancelled" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_emptyArray" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCompletionOrderFutureInterruption" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testImmediateFailedFuture" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testCatching_getThrowsError" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSubmit_runnable_throwsException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_asyncFunction_nullInsteadOfFuture" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_nullInsteadOfFuture" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformExceptionRemainsMemoized" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSubmitAsync_asyncCallable_cancelledBeforeApplyingFunction" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_rejectionPropagatesToOutput" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_singleFailure" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_fallbackGeneratesRuntimeException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_logging_multipleExceptions_alreadyDone" classname="com.google.common.util.concurrent.FuturesTest" time="0.001">
+    <system-err><![CDATA[अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+com.google.common.util.concurrent.FuturesTest$MyException
+	at com.google.common.util.concurrent.FuturesTest.lambda$testAllAsList_logging_multipleExceptions_alreadyDone$0(FuturesTest.java:2019)
+	at com.google.common.util.concurrent.ReflectionFreeAssertThrows.doAssertThrows(ReflectionFreeAssertThrows.java:84)
+	at com.google.common.util.concurrent.ReflectionFreeAssertThrows.assertThrows(ReflectionFreeAssertThrows.java:56)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_logging_multipleExceptions_alreadyDone(FuturesTest.java:2014)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+]]></system-err>
+  </testcase>
+  <testcase name="testAllAsList" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_asyncFunction_error" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_interruptPropagatesToInput" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_asyncFunction_cancelledWhileApplyingFunction" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testScheduleAsync_asyncCallable_cancelledBeforeCallingFunction" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllComplete_releasesInputFuturesUponCancellation" classname="com.google.common.util.concurrent.FuturesTest" time="0.046"/>
+  <testcase name="testTransformAsync_errorAfterCancellation" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_logging_same_cause" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllSucceed" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testCatching_fallbackGeneratesRuntimeException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testScheduleAsync_asyncCallable_nullInsteadOfFuture" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransform_errorAfterCancellation" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCancellingADelegatePropagates" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllCompleteRunnable_resultCanceledWithInterrupt_interruptsRunnable" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_customTypeNoMatch" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_resultCancelledBeforeFallback" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_inputCancelledWithoutFallback" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_exceptionAfterCancellation" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllSucceed_releasesCallable" classname="com.google.common.util.concurrent.FuturesTest" time="0.035"/>
+  <testcase name="testCatching_errorAfterCancellation" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_exceptionAfterCancellation" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_logging_exception" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testCatchingAsync_resultCancelledAfterFallback" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_resultInterruptedBeforeFallback" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransform_rejectionPropagatesToOutput" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_getThrowsRuntimeException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllComplete_runnableError" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testNonCancellationPropagating_successful" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_genericsWildcard_asyncFunction" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_resultCancelledBeforeFallback" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_inputCancelledWithoutFallback" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSubmitAsync_asyncCallable_cancelledWhileApplyingFunction" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testLazyTransform" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransform_getThrowsError" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_logging_error" classname="com.google.common.util.concurrent.FuturesTest" time="0.001">
+    <system-err><![CDATA[अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Input Future failed with Error
+com.google.common.util.concurrent.TestExceptions$SomeError
+	at com.google.common.util.concurrent.FuturesTest.testSuccessfulAsList_logging_error(FuturesTest.java:3107)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+]]></system-err>
+  </testcase>
+  <testcase name="testTransformAsync_stackOverflow" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_futureToString" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testNonCancellationPropagating_doesNotPropagate" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllSucceed_releasesInputFuturesUponSubmission" classname="com.google.common.util.concurrent.FuturesTest" time="0.031"/>
+  <testcase name="testCatchingAsync_stackOverflow" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_failure" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSubmit_callable_throwsException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_inputDoesNotRaiseException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_interruptPropagatesToTransformingThread" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_partialFailure" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_customTypeMatch" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_getThrowsRuntimeException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_logging_error" classname="com.google.common.util.concurrent.FuturesTest" time="0.0">
+    <system-err><![CDATA[अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Input Future failed with Error
+com.google.common.util.concurrent.TestExceptions$SomeError
+	at com.google.common.util.concurrent.FuturesTest.lambda$testAllAsList_logging_error$0(FuturesTest.java:2004)
+	at com.google.common.util.concurrent.ReflectionFreeAssertThrows.doAssertThrows(ReflectionFreeAssertThrows.java:84)
+	at com.google.common.util.concurrent.ReflectionFreeAssertThrows.assertThrows(ReflectionFreeAssertThrows.java:56)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_logging_error(FuturesTest.java:2002)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+]]></system-err>
+  </testcase>
+  <testcase name="testCatching_exceptionAfterCancellation" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_asyncFunction_timeout" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testWhenAllComplete_interrupted" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testCompletionOrder" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_fallbackGeneratesError" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatchingAsync_errorAfterCancellation" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_interruptPropagatesToAsyncOutput" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_emptyList" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_cancelPropagatesToAsyncOutput" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_resultCancelledInterrupted_withSecondaryListFuture" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllComplete_cancelledNotInterrupted" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_emptyList" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllCompleteRunnable_resultCanceledWithoutInterrupt_doesNotInterruptRunnable" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransform_genericsHierarchy" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_throwable" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_logging_seenExceptionUpdateRace" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testWhenAllComplete_runnableResult" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransform_executor" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSubmit_callable_returnsValue" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_rejectionPropagatesToOutput" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_rejectionPropagatesToOutput" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_getThrowsError" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testCatching_inputRaisesException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCompletionOrderMixedBagOTypes" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransform_listenerThrowsError" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testImmediateFailedFuture_cancellationException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_logging_same_exception" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSuccessfulAsList_resultInterrupted" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_error" classname="com.google.common.util.concurrent.FuturesTest" time="0.0">
+    <system-err><![CDATA[अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Input Future failed with Error
+java.lang.Error: deliberate
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_error(FuturesTest.java:1876)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+]]></system-err>
+  </testcase>
+  <testcase name="testTransform_exceptionAfterCancellation" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCatching_inputDoesNotRaiseException" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformValueRemainsMemoized" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_logging_multipleExceptions_doneLater" classname="com.google.common.util.concurrent.FuturesTest" time="0.0">
+    <system-err><![CDATA[अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+com.google.common.util.concurrent.FuturesTest$MyException
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_logging_multipleExceptions_doneLater(FuturesTest.java:2035)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+com.google.common.util.concurrent.FuturesTest$MyException
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_logging_multipleExceptions_doneLater(FuturesTest.java:2036)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+]]></system-err>
+  </testcase>
+  <testcase name="testScheduleAsync_asyncCallable_cancelledWhileApplyingFunction" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testTransformAsync_cancelPropagatesToInput" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testAllAsList_extensive" classname="com.google.common.util.concurrent.FuturesTest" time="1.182">
+    <system-err><![CDATA[अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$1.get(FuturesTest.java:2581)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$1.get(FuturesTest.java:2571)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.init(AggregateFuture.java:144)
+	at com.google.common.util.concurrent.CollectionFuture$ListFuture.<init>(CollectionFuture.java:91)
+	at com.google.common.util.concurrent.Futures.allAsList(Futures.java:605)
+	at com.google.common.util.concurrent.FuturesTest$Merger$1.merged(FuturesTest.java:2722)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2779)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$1.get(FuturesTest.java:2581)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$1.get(FuturesTest.java:2571)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.init(AggregateFuture.java:144)
+	at com.google.common.util.concurrent.CollectionFuture$ListFuture.<init>(CollectionFuture.java:91)
+	at com.google.common.util.concurrent.Futures.allAsList(Futures.java:605)
+	at com.google.common.util.concurrent.FuturesTest$Merger$1.merged(FuturesTest.java:2722)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2779)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.<init>(FuturesTest.java:2563)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.<init>(FuturesTest.java:2560)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2776)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.<init>(FuturesTest.java:2563)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.<init>(FuturesTest.java:2560)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2776)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$1.get(FuturesTest.java:2581)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$1.get(FuturesTest.java:2571)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.init(AggregateFuture.java:144)
+	at com.google.common.util.concurrent.CollectionFuture$ListFuture.<init>(CollectionFuture.java:91)
+	at com.google.common.util.concurrent.Futures.allAsList(Futures.java:605)
+	at com.google.common.util.concurrent.FuturesTest$Merger$1.merged(FuturesTest.java:2722)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2779)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$1.get(FuturesTest.java:2581)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$1.get(FuturesTest.java:2571)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.init(AggregateFuture.java:144)
+	at com.google.common.util.concurrent.CollectionFuture$ListFuture.<init>(CollectionFuture.java:91)
+	at com.google.common.util.concurrent.Futures.allAsList(Futures.java:605)
+	at com.google.common.util.concurrent.FuturesTest$Merger$1.merged(FuturesTest.java:2722)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2779)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.<init>(FuturesTest.java:2563)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.<init>(FuturesTest.java:2560)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2776)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.<init>(FuturesTest.java:2563)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.<init>(FuturesTest.java:2560)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2776)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:24 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:25 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:25 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:25 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:25 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:25 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:25 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2812)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:25 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:25 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.Exception
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$5(FuturesTest.java:2625)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:25 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+अप्रैल 07, 2026 9:25:25 AM com.google.common.util.concurrent.AggregateFuture log
+SEVERE: Got more than one input Future failure. Logging failures after the first
+java.lang.RuntimeException
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2605)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch$2.get(FuturesTest.java:2596)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:277)
+	at com.google.common.util.concurrent.AggregateFuture.collectValueFromNonCancelledFuture(AggregateFuture.java:284)
+	at com.google.common.util.concurrent.AggregateFuture.processAllMustSucceedDoneFuture(AggregateFuture.java:191)
+	at com.google.common.util.concurrent.AggregateFuture.lambda$init$0(AggregateFuture.java:147)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1061)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:824)
+	at com.google.common.util.concurrent.AbstractFuture.set(AbstractFuture.java:548)
+	at com.google.common.util.concurrent.SettableFuture.set(SettableFuture.java:48)
+	at com.google.common.util.concurrent.FuturesTest$TestFutureBatch.lambda$new$7(FuturesTest.java:2631)
+	at com.google.common.util.concurrent.FuturesTest.runExtensiveMergerTest(FuturesTest.java:2813)
+	at com.google.common.util.concurrent.FuturesTest.testAllAsList_extensive(FuturesTest.java:2871)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at junit.framework.TestCase.runBare(TestCase.java:142)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+]]></system-err>
+  </testcase>
+  <testcase name="testAllAsList_resultCancelled_withSecondaryListFuture" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSubmitAsync_asyncCallable_returnsInterruptedFuture" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testImmediateVoidFuture" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testSubmitAsync_asyncCallable_error" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testCatchingAsync_fallbackGeneratesError" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testSuccessfulAsList_extensive" classname="com.google.common.util.concurrent.FuturesTest" time="2.328"/>
+  <testcase name="testWhenAllComplete_wildcard" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+  <testcase name="testCompletionOrderExceptionThrown" classname="com.google.common.util.concurrent.FuturesTest" time="0.001"/>
+  <testcase name="testCancellingAllDelegatesIsNotQuadratic" classname="com.google.common.util.concurrent.FuturesTest" time="0.056"/>
+  <testcase name="testTransformAsync_inputCancelButNotInterruptPropagatesToOutput" classname="com.google.common.util.concurrent.FuturesTest" time="0.0"/>
+</testsuite>

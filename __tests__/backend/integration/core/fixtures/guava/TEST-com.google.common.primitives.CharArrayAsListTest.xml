@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.google.common.primitives.CharArrayAsListTest" time="0.017" tests="896" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/test-classes:/Users/sam/Downloads/guava/guava-tests/target/classes:/Users/sam/.m2/repository/com/google/guava/guava-testlib/999.0.0-HEAD-jre-SNAPSHOT/guava-testlib-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/j2objc/j2objc-annotations/3.1/j2objc-annotations-3.1.jar:/Users/sam/.m2/repository/com/google/guava/guava/999.0.0-HEAD-jre-SNAPSHOT/guava-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/Users/sam/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.47.0/error_prone_annotations-2.47.0.jar:/Users/sam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/sam/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.12.19/byte-buddy-1.12.19.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/sam/.m2/repository/com/google/truth/truth/1.4.5/truth-1.4.5.jar:/Users/sam/.m2/repository/com/google/auto/value/auto-value-annotations/1.11.0/auto-value-annotations-1.11.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/com/google/jimfs/jimfs/1.3.1/jimfs-1.3.1.jar:/Users/sam/.m2/repository/com/google/caliper/caliper/1.0-beta-3/caliper-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-core/1.0-beta-3/caliper-core-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-api/1.0-beta-3/caliper-api-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-util/1.0-beta-3/caliper-util-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.8.7/gson-2.8.7.jar:/Users/sam/.m2/repository/joda-time/joda-time/2.10.10/joda-time-2.10.10.jar:/Users/sam/.m2/repository/com/squareup/okhttp/okhttp/2.7.5/okhttp-2.7.5.jar:/Users/sam/.m2/repository/com/squareup/okio/okio/1.6.0/okio-1.6.0.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-runner/1.0-beta-3/caliper-runner-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/dagger/dagger-producers/2.22.1/dagger-producers-2.22.1.jar:/Users/sam/.m2/repository/org/checkerframework/checker-compat-qual/2.5.3/checker-compat-qual-2.5.3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker-jvm/1.0-beta-3/caliper-worker-jvm-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker/1.0-beta-3/caliper-worker-1.0-beta-3.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-client/1.19.4/jersey-client-1.19.4.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-core/1.19.4/jersey-core-1.19.4.jar:/Users/sam/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar:/Users/sam/.m2/repository/com/google/dagger/dagger/2.22.1/dagger-2.22.1.jar:/Users/sam/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/sam/.m2/repository/com/google/code/java-allocation-instrumenter/java-allocation-instrumenter/3.3.0/java-allocation-instrumenter-3.3.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-analysis/7.2/asm-analysis-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-commons/7.2/asm-commons-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-tree/7.2/asm-tree-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-util/7.2/asm-util-7.2.jar:/Users/sam/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Europe/Dublin"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="user.country" value="IN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/Users/sam/.m2/jdks/jdk-25.0.2+10/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/sam/Downloads/guava/guava-tests/target/surefire/surefirebooter-20260407092109061_3.jar /Users/sam/Downloads/guava/guava-tests/target/surefire 2026-04-07T09-21-08_488-jvmRun1 surefire-20260407092109061_1tmp surefire_0-20260407092109061_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/test-classes:/Users/sam/Downloads/guava/guava-tests/target/classes:/Users/sam/.m2/repository/com/google/guava/guava-testlib/999.0.0-HEAD-jre-SNAPSHOT/guava-testlib-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/j2objc/j2objc-annotations/3.1/j2objc-annotations-3.1.jar:/Users/sam/.m2/repository/com/google/guava/guava/999.0.0-HEAD-jre-SNAPSHOT/guava-999.0.0-HEAD-jre-SNAPSHOT.jar:/Users/sam/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/Users/sam/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/sam/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/sam/.m2/repository/com/google/errorprone/error_prone_annotations/2.47.0/error_prone_annotations-2.47.0.jar:/Users/sam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/sam/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/sam/.m2/repository/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy/1.12.19/byte-buddy-1.12.19.jar:/Users/sam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.19/byte-buddy-agent-1.12.19.jar:/Users/sam/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/sam/.m2/repository/com/google/truth/truth/1.4.5/truth-1.4.5.jar:/Users/sam/.m2/repository/com/google/auto/value/auto-value-annotations/1.11.0/auto-value-annotations-1.11.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm/9.8/asm-9.8.jar:/Users/sam/.m2/repository/com/google/jimfs/jimfs/1.3.1/jimfs-1.3.1.jar:/Users/sam/.m2/repository/com/google/caliper/caliper/1.0-beta-3/caliper-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-core/1.0-beta-3/caliper-core-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-api/1.0-beta-3/caliper-api-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-util/1.0-beta-3/caliper-util-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/code/gson/gson/2.8.7/gson-2.8.7.jar:/Users/sam/.m2/repository/joda-time/joda-time/2.10.10/joda-time-2.10.10.jar:/Users/sam/.m2/repository/com/squareup/okhttp/okhttp/2.7.5/okhttp-2.7.5.jar:/Users/sam/.m2/repository/com/squareup/okio/okio/1.6.0/okio-1.6.0.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-runner/1.0-beta-3/caliper-runner-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/dagger/dagger-producers/2.22.1/dagger-producers-2.22.1.jar:/Users/sam/.m2/repository/org/checkerframework/checker-compat-qual/2.5.3/checker-compat-qual-2.5.3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker-jvm/1.0-beta-3/caliper-worker-jvm-1.0-beta-3.jar:/Users/sam/.m2/repository/com/google/caliper/caliper-worker/1.0-beta-3/caliper-worker-1.0-beta-3.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-client/1.19.4/jersey-client-1.19.4.jar:/Users/sam/.m2/repository/com/sun/jersey/jersey-core/1.19.4/jersey-core-1.19.4.jar:/Users/sam/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar:/Users/sam/.m2/repository/com/google/dagger/dagger/2.22.1/dagger-2.22.1.jar:/Users/sam/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/sam/.m2/repository/com/google/code/java-allocation-instrumenter/java-allocation-instrumenter/3.3.0/java-allocation-instrumenter-3.3.0.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-analysis/7.2/asm-analysis-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-commons/7.2/asm-commons-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-tree/7.2/asm-tree-7.2.jar:/Users/sam/.m2/repository/org/ow2/asm/asm-util/7.2/asm-util-7.2.jar:/Users/sam/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/sam"/>
+    <property name="user.language" value="hi"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/Users/sam/.m2/jdks/jdk-25.0.2+10/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/sam/Downloads/guava/guava-tests"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/sam/Downloads/guava/guava-tests/target/surefire/surefirebooter-20260407092109061_3.jar"/>
+    <property name="java.protocol.handler.pkgs" value="com.google.common"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.2+10-LTS"/>
+    <property name="user.name" value="sam"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.3.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-25.0.2+10"/>
+    <property name="localRepository" value="/Users/sam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/kd/3_n5y3zx17q_1bhv8vddsghh0000gn/T/"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/Users/sam/Downloads/guava/guava-tests"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/sam/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="25.0.2+10-LTS"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="testAddAll_unsupportedSomePresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedSomePresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNothing[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedNonePresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddAllTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.001"/>
+  <testcase name="testAdd_unsupportedNotPresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedNotPresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionAddTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testClear_unsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionClearTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_subset[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_disjoint[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_nullNotAllowed[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_self[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_wrongType[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_empty[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_sameElements[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContainsAll_partialOverlap[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsAllTester" time="0.0"/>
+  <testcase name="testContains_yes[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_yes[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_no[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_nullNotContainedAndUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testContains_wrongType[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionContainsTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.0"/>
+  <testcase name="testCreateWithNull_unsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionCreationTester" time="0.001"/>
+  <testcase name="testEquals_null[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_null[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_self[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testEquals_notACollection[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionEqualsTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testForEachKnownOrder[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionForEachTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIsEmpty_no[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIsEmptyTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.001"/>
+  <testcase name="testIterator[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIteratorNoSuchElementException[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterationOrdering[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator_knownOrderRemoveUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testIterator[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionIteratorTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedPresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedEmptyCollection[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveAll_unsupportedNonePresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveAllTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemoveIf_alwaysTrueUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveIfTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupportedNotPresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRemove_unsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testIteratorRemove_unsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRemoveTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_partialOverlapUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_subsetUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_partialOverlapUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_subsetUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_partialOverlapUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_subsetUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_disjointPreviouslyNonEmptyUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_emptyPreviouslyNonEmptyUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_supersetUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_partialOverlapUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_subsetUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testRetainAll_sameElementsUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionRetainAllTester" time="0.0"/>
+  <testcase name="testSize[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSize[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSizeTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testSpliteratorKnownOrder[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionSpliteratorTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamToArrayKnownOrder[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testStreamCount[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionStreamTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray_ordered[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfObject[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject_ordered[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArrayOfWrongTypeForNonEmptyCollection[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArgs[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_oversizedArray_ordered[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_isPlainObjectArray[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArrayOfObject[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_emptyArray_ordered[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToArray_rightSizedArray[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToArrayTester" time="0.0"/>
+  <testcase name="testToString_size1[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_sizeSeveral[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_size1[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_sizeSeveral[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_size1[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_sizeSeveral[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_size1[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_sizeSeveral[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testToString_minimal[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.CollectionToStringTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedNothing[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedSomePresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAllAtIndex_unsupportedAllPresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllAtIndexTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAll_unsupportedAllPresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAllTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedNotPresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAddAtIndex_unsupportedPresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddAtIndexTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testAdd_unsupportedPresent[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListAddTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_shorterList[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_longerList[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_set[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithDifferentElements[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListWithSameElements[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testEquals_otherListContainingNull[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListEqualsTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_tooLarge[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_negative[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testGet_valid[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListGetTester" time="0.0"/>
+  <testcase name="testHashCode[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testHashCode[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListHashCodeTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testIndexOf_duplicate[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testIndexOf_duplicate[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testIndexOf_duplicate[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testIndexOf_duplicate[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testLastIndexOf_duplicate[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testLastIndexOf_duplicate[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testLastIndexOf_duplicate[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testLastIndexOf_duplicate[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_wrongType[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_no[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_nullNotContainedAndUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testFind_yes[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListLastIndexOfTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooHigh[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_atSize[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testListIterator_tooLow[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListListIteratorTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testRemoveAtIndex_unsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListRemoveAtIndexTester" time="0.0"/>
+  <testcase name="testReplaceAll[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testReplaceAll_changesSome[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListReplaceAllTester" time="0.0"/>
+  <testcase name="testSet[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooLow[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_nullUnsupported[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSet_indexTooHigh[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSetTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.001"/>
+  <testcase name="testSubList_entireList[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubListLargeList[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginalLargeList[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_lastIndexOf[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_contains[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_indexOf[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListNonEmpty[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_get[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.001"/>
+  <testcase name="testSubList_empty[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubListLargeList[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginalLargeList[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_lastIndexOf[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_contains[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_indexOf[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListNonEmpty[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_get[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubListLargeList[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginalLargeList[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_lastIndexOf[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_contains[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_indexOf[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListNonEmpty[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_get[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListEmpty[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubListLargeList[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_empty[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginalLargeList[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startGreaterThanEnd[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_lastIndexOf[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_startNegative[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_subListSetAffectsOriginal[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_entireList[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_contains[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_indexOf[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_isEmpty[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_ofSubListNonEmpty[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_originalListSetAffectsSubList[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_endTooLarge[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_size[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testSubList_get[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListSubListTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Chars.asList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Chars.asList, head subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Chars.asList, tail subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Chars.asList, middle subList [collection size: one]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_tooSmall[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_largeEnough[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testToArray_noArg[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListToArrayTester" time="0.0"/>
+  <testcase name="testCreateWithDuplicates[Chars.asList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListCreationTester" time="0.0"/>
+  <testcase name="testCreateWithDuplicates[Chars.asList, head subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListCreationTester" time="0.0"/>
+  <testcase name="testCreateWithDuplicates[Chars.asList, tail subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListCreationTester" time="0.0"/>
+  <testcase name="testCreateWithDuplicates[Chars.asList, middle subList [collection size: several]]" classname="com.google.common.collect.testing.testers.ListCreationTester" time="0.0"/>
+</testsuite>
