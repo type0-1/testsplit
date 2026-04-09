@@ -17,7 +17,7 @@ jobs:
       actions: write  # for styfle/cancel-workflow-action to cancel/stop running workflows
       contents: read  # for actions/checkout to fetch code
     name: "${{ matrix.root-pom }} on JDK ${{ matrix.java }} on ${{ matrix.os }}"
-    strategy:
+    strategy: # test comment to see pipeline completion time -2
       matrix:
         os: [ ubuntu-latest ]
         java: [ 8, 11, 17, 21 ]

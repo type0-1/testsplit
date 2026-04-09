@@ -265,7 +265,7 @@ yargs(args)
       const { profile, distribution } = engine.run(
         junitPath,
         jobCount,
-        true,
+        false,
         algorithm,
         riskFactor,
       );

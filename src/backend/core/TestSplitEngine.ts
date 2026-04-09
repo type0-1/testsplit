@@ -39,23 +39,34 @@ export class TestSplitEngine {
 
     const { perTestStats } = this.profiler.generateHistoricalProfile();
 
-    const taskMap = new Map<string, Task>();
+    /**
+     * Aggregate durations by class name before scheduling. The CI generator
+     * emits -Dtest=ClassName so per-method task granularity adds no scheduling
+     * value and is prohibitively expensive for suites with large parameterised test counts.
+     */
+
+    const classMap = new Map<string, number>();
+
     for (const r of profile.testResults) {
+      const className = r.name.includes('#') ? r.name.split('#')[0] : r.name.split('.').slice(0, -1).join('.') || r.name;
       const stats = perTestStats[r.name];
       const duration = stats ? stats.meanDuration + riskFactor * stats.stdDev : r.duration;
-      const dependencies = dependencyMap?.get(r.name);
-      const existing = taskMap.get(r.name);
-      if (!existing || duration > existing.duration) {
-        taskMap.set(r.name, { id: r.name, duration, ...(dependencies ? { dependencies } : {}) });
-      }
+      classMap.set(className, (classMap.get(className) ?? 0) + duration);
     }
-    const tasks: Task[] = [...taskMap.values()];
 
+    const taskMap = new Map<string, Task>();
+    for (const [className, duration] of classMap) {
+      const dependencies = dependencyMap?.get(className);
+      taskMap.set(className, { id: className, duration, ...(dependencies ? { dependencies } : {}) });
+    }
+
+    const tasks: Task[] = [...taskMap.values()];
     const scheduler = algorithm === 'multifit' ? new MULTIFITScheduler() : new LPTScheduler();
     const distribution = scheduler.schedule(tasks, jobCount);
     const runId = generateRunId();
-
-    if (persist) {
+    const MAX_PERSIST_TESTS = 100_000;
+    
+    if (persist && profile.testCount <= MAX_PERSIST_TESTS) {
       this.store.saveProfile(runId, profile);
       this.store.saveDistribution(runId, distribution);
       this.store.saveHistoricalProfile(this.profiler.generateHistoricalProfile());
