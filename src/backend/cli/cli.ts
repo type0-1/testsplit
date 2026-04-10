@@ -97,6 +97,7 @@ import {
 import { getSchemaValidator } from '../generator/getSchemaValidator';
 import { validateYamlSyntax } from '../generator/YAMLSyntaxValidator';
 import { inspectReportPath } from '../generator/ProjectInspection';
+import { computeAdaptiveJobCount, adaptiveCapWarning } from '../utils/adaptiveJobCap';
 import YAML from 'yaml';
 import chalk from 'chalk';
 import {
@@ -211,8 +212,7 @@ yargs(args)
         })
         .option('jobs', {
           type: 'number',
-          default: os.cpus().length,
-          describe: 'Number of parallel jobs',
+          describe: `Number of parallel jobs (default: available CPU cores = ${os.cpus().length})`,
         })
         .option('explain', {
           type: 'boolean',
@@ -249,7 +249,8 @@ yargs(args)
             }
             return dirs[0];
           })();
-      const jobCount = normalizeJobs(argv.jobs);
+      const jobsExplicit = argv.jobs !== undefined;
+      let jobCount = normalizeJobs((argv.jobs as number | undefined) ?? os.cpus().length);
       const dataDir = path.resolve(process.cwd(), '.data');
       const explain = argv.explain as boolean;
       const algorithm = argv.algorithm as Algorithm;
@@ -262,13 +263,20 @@ yargs(args)
 
       const engine = new TestSplitEngine(dataDir);
       const profileStart = performance.now();
-      const { profile, distribution } = engine.run(
+      let { profile, distribution } = engine.run(
         junitPath,
         jobCount,
         false,
         algorithm,
         riskFactor,
       );
+
+      const cap = computeAdaptiveJobCount(distribution, jobCount, jobsExplicit);
+      if (cap.reduced) {
+        console.warn(chalk.yellow(adaptiveCapWarning(cap.totalDuration, jobCount, cap.jobCount)));
+        jobCount = cap.jobCount;
+        ({ profile, distribution } = engine.run(junitPath, jobCount, false, algorithm, riskFactor));
+      }
       const analysisMs = (performance.now() - profileStart).toFixed(1);
 
       try {
@@ -616,21 +624,15 @@ yargs(args)
           When runnerCores > 1 we schedule jobCount*runnerCores virtual slots so LPT can balance at sub-runner granularity, then group them back into
           jobCount runners (NxM -> N).
         */
-        const MIN_VIABLE_JOB_S = 60;
         let totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
         let result = engine.run(junitPath, totalSlots, true, algorithm, riskFactor, dependencyMap);
 
-        if (!jobsExplicit) {
-          const totalDuration = result.distribution.jobs.reduce((s, j) => s + j.totalTime, 0);
-          const smartJobCount = Math.max(2, Math.min(jobCount, Math.floor(totalDuration / MIN_VIABLE_JOB_S)));
-          if (smartJobCount < jobCount) {
-            console.warn(chalk.yellow(
-              `Warning: test suite total duration (${totalDuration.toFixed(1)}s) is too short for ${jobCount} jobs — runner startup overhead would dominate. Reducing to ${smartJobCount} job(s). Use --jobs to override.`
-            ));
-            jobCount = smartJobCount;
-            totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
-            result = engine.run(junitPath, totalSlots, true, algorithm, riskFactor, dependencyMap);
-          }
+        const cap = computeAdaptiveJobCount(result.distribution, jobCount, jobsExplicit);
+        if (cap.reduced) {
+          console.warn(chalk.yellow(adaptiveCapWarning(cap.totalDuration, jobCount, cap.jobCount)));
+          jobCount = cap.jobCount;
+          totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
+          result = engine.run(junitPath, totalSlots, true, algorithm, riskFactor, dependencyMap);
         }
 
         let jobs =
