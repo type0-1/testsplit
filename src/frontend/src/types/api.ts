@@ -21,6 +21,7 @@ export interface SummaryResponse {
   speedupFactor: number
   balanceRatio: number
   sequentialDuration: number
+  cpuCores: number | null
 }
 
 export interface TestsResponse {
