@@ -80,8 +80,6 @@ import {
 import { renderBar } from '../utils/Terminal';
 import { FileStore } from '../storage/FileStore';
 import { HistoricalProfiler } from '../profiler/core/HistoricalProfiler';
-import { generateDockerfile } from '../generator/DockerfileGenerator';
-import { parsePom } from '../detector/PomParser';
 import { runDetection } from '../core/DetectionOrchestrator';
 import {
   findExistingCIFile,
@@ -473,7 +471,9 @@ yargs(args)
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
       const runnerCores = argv['runner-cores'] as number;
-      const jobCount = normalizeJobs((argv.jobs as number | undefined) ?? os.cpus().length);
+      const jobCount = normalizeJobs(
+        (argv.jobs as number | undefined) ?? os.cpus().length,
+      );
       const platform = argv.platform as Platform;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
@@ -492,8 +492,8 @@ yargs(args)
       const existingCIPath = templateFlag
         ? path.resolve(templateFlag)
         : fromFlag
-        ? path.resolve(fromFlag)
-        : findExistingCIFile(platform);
+          ? path.resolve(fromFlag)
+          : findExistingCIFile(platform);
 
       if (!existingCIPath) {
         console.error(
