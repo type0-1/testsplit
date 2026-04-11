@@ -5,7 +5,7 @@ import { getSchemaValidator } from './getSchemaValidator';
 import { validateYamlSyntax } from './YAMLSyntaxValidator';
 import { ServiceRequirement } from '../detector/LifecycleDetector';
 import { buildGitHubServices, buildDockerComposeStartStep, buildDockerComposeStopStep } from './LifecycleStepGenerator';
-import { toMavenClassName } from './JobBuilder';
+
 
 export interface CIResourceConstraints {
   cpuCores: number;
@@ -129,7 +129,7 @@ export function buildGitHubPhasedJobs(
   buildJob.steps = buildJob.steps.map((step: any) => {
     const resolved = JSON.parse(resolveStrippedEnvRefs(resolveMatrixRefs(JSON.stringify(step))));
     if (isMavenStep(resolved) && !resolved.run.includes('-DskipTests')) {
-      return { ...resolved, run: `${resolved.run.trim()} -DskipTests` };
+      return { ...resolved, run: `${resolved.run.trim()} -DskipTests -Drat.skip=true` };
     }
     return resolved;
   });
@@ -186,7 +186,7 @@ export function buildGitHubPhasedJobs(
       name: 'Run tests',
       run: [
         `${mavenBin} test`,
-        `-Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')}`,
+        `-Dtest=${[...new Set(job.tests)].join(',')}`,
         `-DfailIfNoSpecifiedTests=false`,
         ...forkFlags,
       ].join(' '),

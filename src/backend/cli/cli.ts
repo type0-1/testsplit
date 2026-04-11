@@ -689,7 +689,7 @@ yargs(args)
             ...(existingCIConfig.jobs ?? {}),
             ...generatedJobs,
           };
-          ciConfig = YAML.stringify(existingCIConfig);
+          ciConfig = YAML.stringify(existingCIConfig, null, { lineWidth: 0 });
         } else {
           const baseJobName = testJobs[0];
           const baseJob = existingCIConfig[baseJobName];
@@ -712,7 +712,7 @@ yargs(args)
             delete existingCIConfig[jobName];
           }
           Object.assign(existingCIConfig, splitJobs);
-          ciConfig = YAML.stringify(existingCIConfig);
+          ciConfig = YAML.stringify(existingCIConfig, null, { lineWidth: 0 });
         }
 
         const outputConfig = prependSchedulingHeader(

@@ -48,7 +48,7 @@ export class TestSplitEngine {
     const classMap = new Map<string, number>();
 
     for (const r of profile.testResults) {
-      const className = r.name.includes('#') ? r.name.split('#')[0] : r.name.split('.').slice(0, -1).join('.') || r.name;
+      const className = r.className ?? (r.name.includes('#') ? r.name.split('#')[0] : r.name.split('.').slice(0, -1).join('.') || r.name);
       const stats = perTestStats[r.name];
       const duration = stats ? stats.meanDuration + riskFactor * stats.stdDev : r.duration;
       classMap.set(className, (classMap.get(className) ?? 0) + duration);
