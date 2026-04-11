@@ -22,8 +22,12 @@ function getCustomHelp(): string {
       desc: 'Profile tests and display scheduling metrics',
     },
     {
-      name: 'generate|generate-config',
+      name: 'generate-config',
       desc: 'Generate CI configuration from test profile',
+    },
+    {
+      name: 'dockerfile',
+      desc: 'Generate a Dockerfile for a Maven/Java project',
     },
     {
       name: 'run',
@@ -76,8 +80,6 @@ import {
 import { renderBar } from '../utils/Terminal';
 import { FileStore } from '../storage/FileStore';
 import { HistoricalProfiler } from '../profiler/core/HistoricalProfiler';
-import { generateDockerfile } from '../generator/DockerfileGenerator';
-import { parsePom } from '../detector/PomParser';
 import { runDetection } from '../core/DetectionOrchestrator';
 import {
   findExistingCIFile,
@@ -95,6 +97,10 @@ import { validateYamlSyntax } from '../generator/YAMLSyntaxValidator';
 import { inspectReportPath } from '../generator/ProjectInspection';
 import YAML from 'yaml';
 import chalk from 'chalk';
+import {
+  buildDockerfileCommand,
+  handleDockerfileCommand,
+} from './commands/dockerfile';
 
 type Platform = 'github' | 'gitlab';
 const EXIT_FAILURE = 1;
@@ -401,7 +407,7 @@ yargs(args)
     },
   )
   .command(
-    ['generate', 'generate-config'],
+    'generate-config',
     'Generate CI configuration from test profile',
     (y) =>
       y
@@ -412,7 +418,8 @@ yargs(args)
         })
         .option('jobs', {
           type: 'number',
-          describe: 'Number of parallel jobs (defaults to --runner-cores)',
+          default: os.cpus().length,
+          describe: 'Number of parallel jobs',
         })
         .option('runner-cores', {
           type: 'number',
@@ -481,7 +488,9 @@ yargs(args)
     (argv) => {
       const junitPath = resolveJUnitPath(argv.junit);
       const runnerCores = argv['runner-cores'] as number;
-      const jobCount = (argv.jobs as number | undefined) ?? runnerCores;
+      const jobCount = normalizeJobs(
+        (argv.jobs as number | undefined) ?? os.cpus().length,
+      );
       const platform = argv.platform as Platform;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = argv['risk-factor'] as number;
@@ -495,10 +504,13 @@ yargs(args)
       const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
 
+      const templateFlag = argv['template'] as string | undefined;
       const fromFlag = argv['from'] as string | undefined;
-      const existingCIPath = fromFlag
-        ? path.resolve(fromFlag)
-        : findExistingCIFile(platform);
+      const existingCIPath = templateFlag
+        ? path.resolve(templateFlag)
+        : fromFlag
+          ? path.resolve(fromFlag)
+          : findExistingCIFile(platform);
 
       if (!existingCIPath) {
         console.error(
@@ -1029,7 +1041,7 @@ yargs(args)
         })
         .option('jobs', {
           type: 'number',
-          demandOption: true,
+          default: os.cpus().length,
           describe: 'Number of parallel jobs to spawn',
         })
         .option('data', {
@@ -1173,43 +1185,10 @@ yargs(args)
     },
   )
   .command(
-    'generate-dockerfile',
+    'dockerfile',
     'Generate a Dockerfile for a Maven/Java project',
-    (y) =>
-      y
-        .option('pom', {
-          type: 'string',
-          default: 'pom.xml',
-          describe:
-            'Path to pom.xml (used to detect Java version and Maven wrapper)',
-        })
-        .option('out', {
-          type: 'string',
-          default: 'Dockerfile',
-          describe: 'Output path for the generated Dockerfile',
-        }),
-    (argv) => {
-      const pomPath = path.resolve(argv.pom as string);
-      const outPath = path.resolve(argv.out as string);
-
-      let javaVersion: string | undefined;
-      const hasMavenWrapper = fs.existsSync(path.resolve('mvnw'));
-
-      if (fs.existsSync(pomPath)) {
-        const pomInfo = parsePom(pomPath);
-        if (pomInfo.javaVersion) javaVersion = pomInfo.javaVersion;
-      }
-
-      const content = generateDockerfile({ javaVersion, hasMavenWrapper });
-      fs.writeFileSync(outPath, content, 'utf-8');
-      console.log(chalk.green(`Dockerfile written to ${outPath}`));
-      if (javaVersion) {
-        console.log(chalk.dim(`  Java version: ${javaVersion}`));
-      }
-      if (hasMavenWrapper) {
-        console.log(chalk.dim('  Using ./mvnw'));
-      }
-    },
+    buildDockerfileCommand,
+    handleDockerfileCommand,
   )
   .command(
     'dashboard',

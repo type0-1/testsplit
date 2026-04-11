@@ -2,11 +2,15 @@
   "name": "testsplit",
   "version": "0.1.0",
   "description": "Test distribution and scheduling engine for parallel CI/CD pipelines",
+  "bin": {
+    "testsplit": "bin/testsplit"
+  },
   "scripts": {
     "test:unit": "jest --config jest.unit.config.js",
     "test:integration": "jest --config jest.integration.config.js",
     "test:all": "npm run test:unit && npm run test:integration",
     "test": "npm run test:unit",
+    "cli": "ts-node src/backend/cli/cli.ts",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "lint": "eslint src/",
