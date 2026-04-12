@@ -1,5 +1,5 @@
-import { validateYamlSyntax } from '../generator/YAMLSyntaxValidator';
-import { getSchemaValidator } from '../generator/getSchemaValidator';
+import { validateYamlSyntax } from '../../generator/YAMLSyntaxValidator';
+import { getSchemaValidator } from '../../generator/getSchemaValidator';
 
 type Platform = 'github' | 'gitlab';
 

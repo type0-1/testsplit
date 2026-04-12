@@ -50,11 +50,18 @@ export function groupSlotsIntoRunners(
   runnerCores: number,
 ): { id: number; tests: string[] }[] {
   const n = Math.max(1, runnerCores);
-  const runners: { id: number; tests: string[] }[] = [];
-  for (let i = 0; i < slots.length; i += n) {
-    const group = slots.slice(i, i + n);
-    const tests = group.flatMap((slot) => slot.tasks.map((t) => t.id));
-    runners.push({ id: runners.length + 1, tests });
-  }
+  const runnerCount = Math.ceil(slots.length / n);
+  const runners: { id: number; tests: string[] }[] = Array.from(
+    { length: runnerCount },
+    (_, i) => ({ id: i + 1, tests: [] }),
+  );
+
+  // Round-robin slots across runners to avoid concentrating non-empty slots
+  // into early runners when there are fewer tasks than virtual slots.
+  slots.forEach((slot, idx) => {
+    const runnerIdx = idx % runnerCount;
+    runners[runnerIdx].tests.push(...slot.tasks.map((t) => t.id));
+  });
+
   return runners;
 }

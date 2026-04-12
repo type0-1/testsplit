@@ -161,7 +161,7 @@ export function handleGenerateConfigCommand(argv: any): void {
     console.log(chalk.dim(`  Found ${dependencyMap.size} test(s) with declared dependencies`));
   }
   if (lifecycle.hasDockerCompose) {
-    console.log(chalk.dim('  docker-compose.yml detected — startup steps will be injected'));
+    console.log(chalk.dim('  docker-compose.yml detected startup steps will be injected'));
   } else if (lifecycle.requirements.length > 0) {
     const types = lifecycle.requirements.map((r) => r.type).join(', ');
     console.log(chalk.dim(`  Detected services: ${types}`));
