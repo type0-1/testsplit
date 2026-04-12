@@ -2,7 +2,13 @@ import * as fs from 'fs';
 import * as zlib from 'zlib';
 import * as path from 'path';
 
-import { profilesDir, distributionsDir, profilePath, distributionPath, historicalProfilePath } from './StoragePaths';
+import {
+  profilesDir,
+  distributionsDir,
+  profilePath,
+  distributionPath,
+  historicalProfilePath,
+} from './StoragePaths';
 import { RunId } from './Types';
 import { Profile } from '../profiler/model/Profile';
 import { DISTRIBUTION_SCHEMA_VERSION } from './SchemaVersions';
@@ -36,8 +42,14 @@ export class FileStore {
   // Method to integrate preventive measures for infinite file storage growth (compress old delta files)
   private rotateHistoricalDeltas(): void {
     const dir = this.deltasDir();
-    const jsonFiles = fs.readdirSync(dir).filter(f => f.endsWith('.json') && f.startsWith('delta-')).sort();
-    const toCompress = jsonFiles.slice(0, Math.max(0, jsonFiles.length - MAX_UNCOMPRESSED_DELTAS));
+    const jsonFiles = fs
+      .readdirSync(dir)
+      .filter((f) => f.endsWith('.json') && f.startsWith('delta-'))
+      .sort();
+    const toCompress = jsonFiles.slice(
+      0,
+      Math.max(0, jsonFiles.length - MAX_UNCOMPRESSED_DELTAS),
+    );
 
     for (const file of toCompress) {
       const fullPath = path.join(dir, file);
@@ -51,7 +63,10 @@ export class FileStore {
 
   private cleanupOldArchivedDeltas(): void {
     const dir = this.deltasDir();
-    const gzFiles = fs.readdirSync(dir).filter(f => f.endsWith('.json.gz')).sort();
+    const gzFiles = fs
+      .readdirSync(dir)
+      .filter((f) => f.endsWith('.json.gz'))
+      .sort();
 
     if (gzFiles.length <= MAX_ARCHIVED_DELTAS) {
       return;
@@ -65,7 +80,11 @@ export class FileStore {
   }
 
   saveProfile(runId: RunId, profile: unknown): void {
-    fs.writeFileSync(profilePath(runId, this.baseDir), JSON.stringify(profile, null, 2), 'utf-8');
+    fs.writeFileSync(
+      profilePath(runId, this.baseDir),
+      JSON.stringify(profile, null, 2),
+      'utf-8',
+    );
   }
 
   saveDistribution(runId: RunId, distribution: unknown): void {
@@ -73,18 +92,21 @@ export class FileStore {
       schemaVersion: DISTRIBUTION_SCHEMA_VERSION,
       runId,
       createdAt: new Date().toISOString(),
-      distribution
+      distribution,
     };
-    fs.writeFileSync(distributionPath(runId, this.baseDir), JSON.stringify(wrapped, null, 2), 'utf-8');
+    fs.writeFileSync(
+      distributionPath(runId, this.baseDir),
+      JSON.stringify(wrapped, null, 2),
+      'utf-8',
+    );
   }
 
   saveHistoricalProfile(historicalProfile: unknown): void {
     // Strip raw profiles array before persisting - it holds full testResults for every
     // run and grows unboundedly. Only derived stats (perTestStats, metadata, aggregates)
     // are needed by the API and future profiling runs.
-    const rest = Object.fromEntries(
-      Object.entries(historicalProfile as Record<string, unknown>).filter(([k]) => k !== 'profiles'),
-    );
+    const { profiles, ...rest } = historicalProfile as Record<string, unknown>;
+    void profiles;
     const json = JSON.stringify(rest);
     const compressed = zlib.gzipSync(Buffer.from(json, 'utf-8'));
     fs.writeFileSync(historicalProfilePath(this.baseDir), compressed);
@@ -99,7 +121,7 @@ export class FileStore {
 
     const payload: StoredHistoricalDelta = {
       createdAt: new Date().toISOString(),
-      deltas
+      deltas,
     };
 
     fs.writeFileSync(fullPath, JSON.stringify(payload, null, 2), 'utf-8');
@@ -115,8 +137,9 @@ export class FileStore {
       return [];
     }
 
-    const files = fs.readdirSync(dir)
-      .filter(f => f.startsWith('delta-'))
+    const files = fs
+      .readdirSync(dir)
+      .filter((f) => f.startsWith('delta-'))
       .sort()
       .reverse()
       .slice(0, limit);
@@ -166,14 +189,20 @@ export class FileStore {
       return null;
     }
 
-    const files = fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort();
+    const files = fs
+      .readdirSync(dir)
+      .filter((f) => f.endsWith('.json'))
+      .sort();
 
     if (files.length === 0) {
       return null;
     }
 
     try {
-      const raw = fs.readFileSync(path.join(dir, files[files.length - 1]), 'utf-8');
+      const raw = fs.readFileSync(
+        path.join(dir, files[files.length - 1]),
+        'utf-8',
+      );
       const parsed = JSON.parse(raw);
       return parsed.distribution ?? parsed;
     } catch {
@@ -210,12 +239,16 @@ export class FileStore {
         const testCountIsNumber = typeof profile.testCount === 'number';
         const totalDurationIsNumber = typeof profile.totalDuration === 'number';
 
-        if (Array.isArray(profile.testResults) && testCountIsNumber && totalDurationIsNumber) {
+        if (
+          Array.isArray(profile.testResults) &&
+          testCountIsNumber &&
+          totalDurationIsNumber
+        ) {
           profiles.push(profile);
         }
       } catch (err) {
         console.warn(
-          `Warning: failed to load profile ${file}: ${(err as Error).message}`
+          `Warning: failed to load profile ${file}: ${(err as Error).message}`,
         );
       }
     }

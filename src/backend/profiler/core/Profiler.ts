@@ -25,9 +25,14 @@ export class Profiler {
     if (zeroDuration.length > 0) {
       const preview = zeroDuration.slice(0, WARN_INLINE_LIMIT).map((t) => t.name).join(', ');
       const suffix = zeroDuration.length > WARN_INLINE_LIMIT
-        ? ` (and ${zeroDuration.length - WARN_INLINE_LIMIT} more)`
+        ? ` (and ${zeroDuration.length - WARN_INLINE_LIMIT} more - see .data/reports/zero-duration.txt)`
         : '';
       console.warn(`Warning: ${zeroDuration.length} test(s) reported zero duration (sub-millisecond), these will be scheduled with equal weight: ${preview}${suffix}`);
+
+      if (zeroDuration.length > WARN_INLINE_LIMIT) {
+        fs.mkdirSync(REPORTS_DIR, { recursive: true });
+        fs.writeFileSync(path.join(REPORTS_DIR, 'zero-duration.txt'), zeroDuration.map((t) => t.name).join('\n') + '\n');
+      }
     }
 
     const outliers = detectOutlierTests(results);
