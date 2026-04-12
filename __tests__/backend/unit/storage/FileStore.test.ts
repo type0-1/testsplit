@@ -169,8 +169,11 @@ describe('FileStore', () => {
     const filePath = path.join(tempDir, 'profiles', 'historical.json');
     expect(fs.existsSync(filePath)).toBe(true);
 
-    const written = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    expect(written).toEqual(historicalProfile);
+    // File is stored gzip-compressed; profiles array is stripped before persisting
+    const compressed = fs.readFileSync(filePath);
+    const written = JSON.parse(zlib.gunzipSync(compressed).toString('utf-8'));
+    const { profiles: _profiles, ...expectedWithoutProfiles } = historicalProfile;
+    expect(written).toEqual(expectedWithoutProfiles);
   });
 
    it('saves and loads historical deltas', () => {

@@ -3,11 +3,11 @@ import { Task } from '../algorithm/model/Task';
 export function toMavenClassName(testId: string): string {
   const stripped = testId.replace(/\(.*$/, '').replace(/\[.*$/, '');
   const parts = stripped.split('.');
-  const methodIdx = parts.reduce(
-    (last, p, i) => (/^[a-z]/.test(p) ? i : last),
-    -1,
-  );
-  return methodIdx > 0 ? parts.slice(0, methodIdx).join('.') : stripped;
+  // A method segment is lowerCamelCase: starts with lowercase and contains at least one uppercase letter.
+  // Package segments are all-lowercase; class names start with uppercase — neither qualify as method-like.
+  const last = parts[parts.length - 1];
+  const isMethodLike = parts.length > 1 && /^[a-z]/.test(last) && /[A-Z]/.test(last);
+  return isMethodLike ? parts.slice(0, -1).join('.') : stripped;
 }
 
 export function buildJobsWithDependencies(
@@ -56,10 +56,8 @@ export function groupSlotsIntoRunners(
     (_, i) => ({ id: i + 1, tests: [] }),
   );
 
-  // Round-robin slots across runners to avoid concentrating non-empty slots
-  // into early runners when there are fewer tasks than virtual slots.
   slots.forEach((slot, idx) => {
-    const runnerIdx = idx % runnerCount;
+    const runnerIdx = Math.floor(idx / n);
     runners[runnerIdx].tests.push(...slot.tasks.map((t) => t.id));
   });
 

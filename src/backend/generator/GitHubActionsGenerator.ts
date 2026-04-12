@@ -5,6 +5,7 @@ import { getSchemaValidator } from './getSchemaValidator';
 import { validateYamlSyntax } from './YAMLSyntaxValidator';
 import { ServiceRequirement } from '../detector/LifecycleDetector';
 import { buildGitHubServices, buildDockerComposeStartStep, buildDockerComposeStopStep } from './LifecycleStepGenerator';
+import { toMavenClassName } from './JobBuilder';
 
 
 export interface CIResourceConstraints {
@@ -47,10 +48,7 @@ export function generateGitHubActionsConfig(
     ? `# Resource constraints captured during profiling\n# Keep baseline and optimized runs on identical container config\n# cpu_limit: ${resourceConstraints.cpuCores}\n# memory_limit_mb: ${resourceConstraints.memoryLimitMb ?? chalk.yellow('unknown')}\n\n`
     : '';
 
-  const yamlOutput = `${constraintsComment}name: TestSplit CI
-                        on: [push, pull_request]
-                        jobs:${jobsYaml}
-                        `;
+  const yamlOutput = `${constraintsComment}name: TestSplit CI\non: [push, pull_request]\njobs:${jobsYaml}\n`;
 
   validateYamlSyntax(yamlOutput);
 
@@ -186,7 +184,7 @@ export function buildGitHubPhasedJobs(
       name: 'Run tests',
       run: [
         `${mavenBin} test`,
-        `-Dtest=${[...new Set(job.tests)].join(',')}`,
+        `-Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')}`,
         `-DfailIfNoTests=false`,
         ...forkFlags,
       ].join(' '),

@@ -175,10 +175,19 @@ export function handleGenerateConfigCommand(argv: any): void {
     */
     const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
     const result = engine.run(junitPath, totalSlots, true, algorithm, riskFactor, dependencyMap);
-    const jobs =
-      runnerCores > 1
-        ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores)
-        : buildJobsWithDependencies(result.distribution.jobs);
+    const nonEmptySlots = result.distribution.jobs.filter((j) => j.tasks.length > 0);
+
+    let jobs;
+    if (runnerCores > 1 && nonEmptySlots.length >= totalSlots) {
+      jobs = groupSlotsIntoRunners(result.distribution.jobs, runnerCores);
+    } else if (runnerCores > 1) {
+      // If virtual slots are underfilled, schedule directly at runner granularity
+      // so the generated CI preserves requested jobCount.
+      const rerun = engine.run(junitPath, jobCount, false, algorithm, riskFactor, dependencyMap);
+      jobs = buildJobsWithDependencies(rerun.distribution.jobs.filter((j) => j.tasks.length > 0));
+    } else {
+      jobs = buildJobsWithDependencies(nonEmptySlots);
+    }
 
     const testJobs = findTestJobs(existingCIConfig, platform);
     if (testJobs.length === 0) {
