@@ -80,8 +80,6 @@ import {
 import { renderBar } from '../utils/Terminal';
 import { FileStore } from '../storage/FileStore';
 import { HistoricalProfiler } from '../profiler/core/HistoricalProfiler';
-import { generateDockerfile } from '../generator/DockerfileGenerator';
-import { parsePom } from '../detector/PomParser';
 import { runDetection } from '../core/DetectionOrchestrator';
 import {
   findExistingCIFile,
@@ -531,8 +529,8 @@ yargs(args)
       const existingCIPath = templateFlag
         ? path.resolve(templateFlag)
         : fromFlag
-        ? path.resolve(fromFlag)
-        : findExistingCIFile(platform);
+          ? path.resolve(fromFlag)
+          : findExistingCIFile(platform);
 
       if (!existingCIPath) {
         console.error(

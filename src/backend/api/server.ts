@@ -57,6 +57,7 @@ export async function buildApp() {
       speedupFactor: latest && distribution?.metrics?.criticalPath ? latest.totalDuration / distribution.metrics.criticalPath : 1,
       balanceRatio: distribution?.metrics?.balanceRatio ?? 1,
       sequentialDuration: latest?.totalDuration ?? 0,
+      cpuCores: historical?.metadata?.[0]?.cpuCores ?? null,
     };
   });
 

@@ -246,6 +246,7 @@ describe('API server', () => {
         speedupFactor: 5,
         balanceRatio: 1.25,
         sequentialDuration: 20,
+        cpuCores: null,
       });
     });
 
