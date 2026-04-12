@@ -95,10 +95,6 @@ import {
 import { getSchemaValidator } from '../generator/getSchemaValidator';
 import { validateYamlSyntax } from '../generator/YAMLSyntaxValidator';
 import { inspectReportPath } from '../generator/ProjectInspection';
-import {
-  computeAdaptiveJobCount,
-  adaptiveCapWarning,
-} from '../utils/adaptiveJobCap';
 import YAML from 'yaml';
 import chalk from 'chalk';
 import {
@@ -115,6 +111,10 @@ const COL_LABEL = 18;
 const COL_VALUE = 18;
 const COL_DELTA = 14;
 const SEP = '-'.repeat(TABLE_WIDTH);
+
+function resolveJUnitPath(input: unknown): string {
+  return path.resolve(input as string);
+}
 
 function normalizeJobs(input: unknown): number {
   let jobCount = Number(input);
@@ -213,7 +213,13 @@ yargs(args)
         })
         .option('jobs', {
           type: 'number',
-          describe: `Number of parallel jobs (default: available CPU cores = ${os.cpus().length})`,
+          default: os.cpus().length,
+          describe: 'Number of parallel jobs',
+        })
+        .option('data', {
+          type: 'string',
+          default: '.data',
+          describe: 'Path to data directory',
         })
         .option('explain', {
           type: 'boolean',
@@ -250,7 +256,7 @@ yargs(args)
             if (dirs.length > 1) {
               console.log(
                 chalk.dim(
-                  `Auto-detected ${detected.tool} multi-module reports merging ${dirs.length} directories`,
+                  `Auto-detected ${detected.tool} multi-module reports — merging ${dirs.length} directories`,
                 ),
               );
             } else {
@@ -262,11 +268,8 @@ yargs(args)
             }
             return dirs[0];
           })();
-      const jobsExplicit = argv.jobs !== undefined;
-      let jobCount = normalizeJobs(
-        (argv.jobs as number | undefined) ?? os.cpus().length,
-      );
-      const dataDir = path.resolve(process.cwd(), '.data');
+      const jobCount = normalizeJobs(argv.jobs);
+      const dataDir = argv.data as string;
       const explain = argv.explain as boolean;
       const algorithm = argv.algorithm as Algorithm;
       const riskFactor = normalizeRiskFactor(
@@ -278,30 +281,13 @@ yargs(args)
 
       const engine = new TestSplitEngine(dataDir);
       const profileStart = performance.now();
-      let { profile, distribution } = engine.run(
+      const { profile, distribution } = engine.run(
         junitPath,
         jobCount,
-        false,
+        true,
         algorithm,
         riskFactor,
       );
-
-      const cap = computeAdaptiveJobCount(distribution, jobCount, jobsExplicit);
-      if (cap.reduced) {
-        console.warn(
-          chalk.yellow(
-            adaptiveCapWarning(cap.totalDuration, jobCount, cap.jobCount),
-          ),
-        );
-        jobCount = cap.jobCount;
-        ({ profile, distribution } = engine.run(
-          junitPath,
-          jobCount,
-          false,
-          algorithm,
-          riskFactor,
-        ));
-      }
       const analysisMs = (performance.now() - profileStart).toFixed(1);
 
       try {
@@ -445,7 +431,8 @@ yargs(args)
         })
         .option('jobs', {
           type: 'number',
-          describe: `Number of parallel jobs (default: available CPU cores = ${os.cpus().length})`,
+          default: os.cpus().length,
+          describe: 'Number of parallel jobs',
         })
         .option('runner-cores', {
           type: 'number',
@@ -510,19 +497,11 @@ yargs(args)
           default: 'src/test/java',
           describe:
             'Path to Java test sources for dependency detection (default: src/test/java)',
-        })
-        .option('test-command', {
-          type: 'string',
-          describe:
-            'Override the test command used in generated CI jobs (bypasses CI file parsing, e.g. "./gradlew :module:test --tests")',
         }),
     (argv) => {
+      const junitPath = resolveJUnitPath(argv.junit);
       const runnerCores = argv['runner-cores'] as number;
       const jobCount = normalizeJobs(
-        (argv.jobs as number | undefined) ?? os.cpus().length,
-      );
-      const jobsExplicit = argv.jobs !== undefined;
-      let jobCount = normalizeJobs(
         (argv.jobs as number | undefined) ?? os.cpus().length,
       );
       const platform = argv.platform as Platform;
@@ -531,36 +510,11 @@ yargs(args)
       const artifactPath = argv['artifact-path'] as string;
       const outPath = path.resolve(argv.out as string);
       const outDir = path.dirname(outPath);
-      const dataDir = path.resolve(process.cwd(), '.data');
-      const testCommandOverride = argv['test-command'] as string | undefined;
-
-      // Auto-detect junit path if not provided
-      const junitRaw = argv.junit as string | undefined;
-      let junitPath: string;
-      if (junitRaw) {
-        junitPath = path.resolve(junitRaw);
-      } else {
-        const detected = inspectReportPath();
-        const dirs = detected.reportDirs.filter((d) => fs.existsSync(d));
-        if (dirs.length === 0) {
-          console.error(
-            chalk.red(
-              'Error: could not auto-detect report directory. Use --junit to specify one.',
-            ),
-          );
-          process.exit(EXIT_FAILURE);
-        }
-        junitPath = dirs[0];
-        console.log(
-          chalk.dim(`Auto-detected ${detected.tool} reports at: ${junitPath}`),
-        );
-      }
-
-      // Auto-detect maven/gradle bin from project
-      const detectedTool = inspectReportPath();
-      const mavenBin =
-        (argv['maven-bin'] as string | undefined) ??
-        (detectedTool.tool === 'gradle' ? './gradlew' : 'mvn');
+      const dataDirArg = (argv.data as string | undefined) ?? '.data';
+      const dataDir = path.isAbsolute(dataDirArg)
+        ? dataDirArg
+        : path.resolve(outDir, dataDirArg);
+      const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
       const dryRun = argv['dry-run'] as boolean;
 
       const templateFlag = argv['template'] as string | undefined;
@@ -606,37 +560,15 @@ yargs(args)
       // Argument validation
       assertJUnitPathExists(junitPath);
 
-      const projectRoot = (() => {
-        if (existingCIPath) {
-          const normalized = existingCIPath.replace(/\\/g, '/');
-          const githubIdx = normalized.indexOf('/.github/workflows/');
-          if (githubIdx !== -1) return normalized.slice(0, githubIdx);
-          const gitlabIdx = normalized.lastIndexOf('/.gitlab-ci.yml');
-          if (gitlabIdx !== -1) return normalized.slice(0, gitlabIdx);
-          // --from path doesn't follow CI directory conventions - can't infer project root
-          return null;
-        }
-        return path.resolve('.');
-      })();
-
-      const srcDir = projectRoot
-        ? path.resolve(
-            projectRoot,
-            (argv.src as string | undefined) ?? 'src/test/java',
-          )
-        : null;
-      const { containerImage, dependencyMap, lifecycle } = projectRoot
-        ? runDetection(
-            projectRoot,
-            srcDir!,
-            path.resolve(projectRoot, 'testng-suite.xml'),
-            path.resolve(projectRoot, 'pom.xml'),
-          )
-        : {
-            containerImage: undefined,
-            dependencyMap: undefined,
-            lifecycle: { hasDockerCompose: false, requirements: [] },
-          };
+      const srcDir = path.resolve(
+        (argv.src as string | undefined) ?? 'src/test/java',
+      );
+      const { containerImage, dependencyMap, lifecycle } = runDetection(
+        path.resolve('.'),
+        srcDir,
+        path.resolve('testng-suite.xml'),
+        path.resolve('pom.xml'),
+      );
 
       if (containerImage) {
         console.log(
@@ -653,7 +585,7 @@ yargs(args)
       if (lifecycle.hasDockerCompose) {
         console.log(
           chalk.dim(
-            '  docker-compose.yml detected startup steps will be injected',
+            '  docker-compose.yml detected — startup steps will be injected',
           ),
         );
       } else if (lifecycle.requirements.length > 0) {
@@ -668,8 +600,8 @@ yargs(args)
           When runnerCores > 1 we schedule jobCount*runnerCores virtual slots so LPT can balance at sub-runner granularity, then group them back into
           jobCount runners (NxM -> N).
         */
-        let totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
-        let result = engine.run(
+        const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
+        const result = engine.run(
           junitPath,
           totalSlots,
           true,
@@ -677,52 +609,27 @@ yargs(args)
           riskFactor,
           dependencyMap,
         );
-
-        const cap = computeAdaptiveJobCount(
-          result.distribution,
-          jobCount,
-          jobsExplicit,
-        );
-        if (cap.reduced) {
-          console.warn(
-            chalk.yellow(
-              adaptiveCapWarning(cap.totalDuration, jobCount, cap.jobCount),
-            ),
-          );
-          jobCount = cap.jobCount;
-          totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
-          result = engine.run(
-            junitPath,
-            totalSlots,
-            true,
-            algorithm,
-            riskFactor,
-            dependencyMap,
-          );
-        }
-
-        let jobs =
+        const jobs =
           runnerCores > 1
             ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores)
             : buildJobsWithDependencies(result.distribution.jobs);
 
         const testJobs = findTestJobs(existingCIConfig, platform);
-        if (testJobs.length === 0 && !testCommandOverride) {
-          throw new Error(
-            'No test jobs found in existing CI config. Use --test-command to specify the test command explicitly.',
-          );
+        if (testJobs.length === 0) {
+          throw new Error('No test jobs found in existing CI config');
         }
 
-        const commands = testCommandOverride
-          ? [testCommandOverride]
-          : extractTestCommands(existingCIConfig, platform, testJobs);
+        const commands = extractTestCommands(
+          existingCIConfig,
+          platform,
+          testJobs,
+        );
         const testCommand = commands[0] ?? `${mavenBin} test -Dtest=`;
 
         let ciConfig: string;
 
         if (platform === 'github') {
-          const baseJobName =
-            testJobs[0] ?? Object.keys(existingCIConfig.jobs ?? {})[0];
+          const baseJobName = testJobs[0];
           const baseJob = existingCIConfig.jobs?.[baseJobName];
           if (!baseJob) {
             throw new Error('Unable to locate base GitHub test job');
@@ -741,27 +648,14 @@ yargs(args)
               : undefined,
             lifecycle.hasDockerCompose,
           );
-          const newJobNames = Object.keys(generatedJobs);
           for (const jobName of testJobs) {
             delete existingCIConfig.jobs?.[jobName];
-          }
-          // Update needs references in remaining jobs that pointed to replaced jobs
-          for (const job of Object.values<any>(existingCIConfig.jobs ?? {})) {
-            if (!job?.needs) continue;
-            const needs: string[] = Array.isArray(job.needs)
-              ? job.needs
-              : [job.needs];
-            const updatedNeeds = needs.flatMap((n: string) =>
-              testJobs.includes(n) ? newJobNames : [n],
-            );
-            job.needs =
-              updatedNeeds.length === 1 ? updatedNeeds[0] : updatedNeeds;
           }
           existingCIConfig.jobs = {
             ...(existingCIConfig.jobs ?? {}),
             ...generatedJobs,
           };
-          ciConfig = YAML.stringify(existingCIConfig, null, { lineWidth: 0 });
+          ciConfig = YAML.stringify(existingCIConfig);
         } else {
           const baseJobName = testJobs[0];
           const baseJob = existingCIConfig[baseJobName];
@@ -784,7 +678,7 @@ yargs(args)
             delete existingCIConfig[jobName];
           }
           Object.assign(existingCIConfig, splitJobs);
-          ciConfig = YAML.stringify(existingCIConfig, null, { lineWidth: 0 });
+          ciConfig = YAML.stringify(existingCIConfig);
         }
 
         const outputConfig = prependSchedulingHeader(
@@ -838,6 +732,11 @@ yargs(args)
           default: 2,
           describe: 'Number of recent runs to load',
         })
+        .option('data', {
+          type: 'string',
+          default: '.data',
+          describe: 'Path to data directory',
+        })
         .option('threshold', {
           type: 'number',
           default: 10,
@@ -845,7 +744,7 @@ yargs(args)
         }),
     (argv) => {
       const runCount = argv.runs as number;
-      const dataDir = path.resolve(process.cwd(), '.data');
+      const dataDir = argv.data as string;
       const thresholdPct = argv.threshold as number;
 
       const store = new FileStore(dataDir);
@@ -1158,6 +1057,11 @@ yargs(args)
           default: os.cpus().length,
           describe: 'Number of parallel jobs to spawn',
         })
+        .option('data', {
+          type: 'string',
+          default: '.data',
+          describe: 'Path to data directory for profiling artifacts',
+        })
         .option('cmd', {
           type: 'string',
           demandOption: true,
@@ -1207,7 +1111,7 @@ yargs(args)
     async (argv) => {
       const junitPath = path.resolve(argv.junit as string);
       const jobCount = normalizeJobs(argv.jobs);
-      const dataDir = path.resolve(process.cwd(), '.data');
+      const dataDir = argv.data as string;
       const cmd = argv.cmd as string;
       const filterFlag = argv['filter-flag'] as string;
       const filterJoin = argv['filter-join'] as string;
