@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import chalk from 'chalk';
@@ -7,7 +6,11 @@ import { TestSplitEngine, Algorithm } from '../../core/TestSplitEngine';
 import { renderBar } from '../../utils/Terminal';
 import { FileStore } from '../../storage/FileStore';
 import { inspectReportPath } from '../../generator/ProjectInspection';
-import { normalizeJobs, normalizeRiskFactor, assertJUnitPathExists } from '../utils/validation';
+import {
+  normalizeJobs,
+  normalizeRiskFactor,
+  assertJUnitPathExists,
+} from '../utils/validation';
 import { EXIT_FAILURE } from '../constants';
 
 export function buildProfileCommand(y: Argv): Argv {
@@ -15,7 +18,8 @@ export function buildProfileCommand(y: Argv): Argv {
     .option('junit', {
       type: 'string',
       demandOption: false,
-      describe: 'Path to JUnit XML file or directory (auto-detected if omitted)',
+      describe:
+        'Path to JUnit XML file or directory (auto-detected if omitted)',
     })
     .option('jobs', {
       type: 'number',
@@ -147,7 +151,9 @@ export function handleProfileCommand(argv: any): void {
   if (zeroDurationTests.length > 0) {
     console.log('Zero-duration tests');
     console.log('-------------------');
-    console.log(`  ${zeroDurationTests.length} tests reported 0.00s execution time`);
+    console.log(
+      `  ${zeroDurationTests.length} tests reported 0.00s execution time`,
+    );
     zeroDurationTests.slice(0, 5).forEach((t) => {
       console.log(`  - ${t.name}`);
     });
@@ -198,7 +204,9 @@ export function handleProfileCommand(argv: any): void {
   if (bottleneckTest) {
     console.log('Bottleneck test');
     console.log('---------------');
-    console.log(`  ${bottleneckTest.name} (${bottleneckTest.duration.toFixed(2)}s)\n`);
+    console.log(
+      `  ${bottleneckTest.name} (${bottleneckTest.duration.toFixed(2)}s)\n`,
+    );
   }
 
   if (explain && interpretation) {
