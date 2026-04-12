@@ -41,7 +41,7 @@ export async function handleDashboardCommand(argv: any): Promise<void> {
   });
 
   // Start the API server in-process, already in ts-node
-  const { buildApp } = await import('../api/server');
+  const { buildApp } = await import('../../api/server');
   const app = await buildApp();
   try {
     await app.listen({ port, host: '0.0.0.0' });

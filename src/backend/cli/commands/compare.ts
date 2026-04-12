@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { Argv } from 'yargs';
-import { FileStore } from '../storage/FileStore';
-import { HistoricalProfiler } from '../profiler/core/HistoricalProfiler';
+import { FileStore } from '../../storage/FileStore';
+import { HistoricalProfiler } from '../../profiler/core/HistoricalProfiler';
 import { deltaStr, row } from '../utils/helpers';
 import { EXIT_FAILURE, SEP, SECTION_WIDTH, COL_LABEL, COL_VALUE } from '../constants';
 

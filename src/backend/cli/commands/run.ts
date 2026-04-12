@@ -2,12 +2,12 @@ import * as path from 'path';
 import * as os from 'os';
 import chalk from 'chalk';
 import { Argv } from 'yargs';
-import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
+import { TestSplitEngine, Algorithm } from '../../core/TestSplitEngine';
 import {
   runAllJobs,
   runAllJobsDynamic,
   runAllJobsWorkStealing,
-} from '../runner/ParallelRunner';
+} from '../../runner/ParallelRunner';
 import {
   assertJUnitPathExists,
   normalizeJobs,
@@ -110,7 +110,7 @@ export async function handleRunCommand(argv: any): Promise<void> {
 
   const activeCount = distribution.jobs.filter((j) => j.tasks.length > 0).length;
   const coreIds = affinity
-    ? await (await import('../runner/CoreAffinity')).getLeastLoadedCores(activeCount)
+    ? await (await import('../../runner/CoreAffinity')).getLeastLoadedCores(activeCount)
     : undefined;
   if (affinity && coreIds) {
     console.log(
@@ -137,7 +137,7 @@ export async function handleRunCommand(argv: any): Promise<void> {
   console.log(chalk.bold(`\nCritical path (slowest job): ${maxWall.toFixed(0)}ms`));
 
   try {
-    const { persistObservedTimings } = await import('../runner/TimingFeedback');
+    const { persistObservedTimings } = await import('../../runner/TimingFeedback');
     persistObservedTimings(results, distribution.jobs);
     console.log(chalk.dim('Observed timings fed back into profiler for future runs.'));
   } catch {

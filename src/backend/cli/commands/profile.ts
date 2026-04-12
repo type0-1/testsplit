@@ -3,10 +3,10 @@ import * as os from 'os';
 import * as path from 'path';
 import chalk from 'chalk';
 import { Argv } from 'yargs';
-import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
-import { renderBar } from '../utils/Terminal';
-import { FileStore } from '../storage/FileStore';
-import { inspectReportPath } from '../generator/ProjectInspection';
+import { TestSplitEngine, Algorithm } from '../../core/TestSplitEngine';
+import { renderBar } from '../../utils/Terminal';
+import { FileStore } from '../../storage/FileStore';
+import { inspectReportPath } from '../../generator/ProjectInspection';
 import { normalizeJobs, normalizeRiskFactor, assertJUnitPathExists } from '../utils/validation';
 import { EXIT_FAILURE } from '../constants';
 

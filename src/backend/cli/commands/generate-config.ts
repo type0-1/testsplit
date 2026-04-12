@@ -4,19 +4,19 @@ import * as path from 'path';
 import chalk from 'chalk';
 import { Argv } from 'yargs';
 import YAML from 'yaml';
-import { TestSplitEngine, Algorithm } from '../core/TestSplitEngine';
-import { runDetection } from '../core/DetectionOrchestrator';
+import { TestSplitEngine, Algorithm } from '../../core/TestSplitEngine';
+import { runDetection } from '../../core/DetectionOrchestrator';
 import {
   findExistingCIFile,
   findTestJobs,
   extractTestCommands,
-} from './CIConfigReader';
-import { buildGitHubPhasedJobs } from '../generator/GitHubActionsGenerator';
-import { buildGitLabSplitJobs } from '../generator/GitLabCIGenerator';
+} from '../CIConfigReader';
+import { buildGitHubPhasedJobs } from '../../generator/GitHubActionsGenerator';
+import { buildGitLabSplitJobs } from '../../generator/GitLabCIGenerator';
 import {
   buildJobsWithDependencies,
   groupSlotsIntoRunners,
-} from '../generator/JobBuilder';
+} from '../../generator/JobBuilder';
 import { normalizeJobs, assertJUnitPathExists } from '../utils/validation';
 import { prependSchedulingHeader, validateFinalCIConfig } from '../utils/ci-config';
 import { EXIT_FAILURE } from '../constants';

@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as os from 'os';
 import chalk from 'chalk';
 import { Argv } from 'yargs';
-import { TestSplitEngine } from '../core/TestSplitEngine';
+import { TestSplitEngine } from '../../core/TestSplitEngine';
 import { assertJUnitPathExists, normalizeJobs } from '../utils/validation';
 import { BENCH_SEP, DELTA_ARROW, EXIT_FAILURE } from '../constants';
 
