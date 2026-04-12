@@ -6,3 +6,7 @@ coverage/
 .data-e2e/
 test-results/
 coverage/playwright-report/
+.test-data/
+__tests__/backend/integration/core/fixtures/*/
+!__tests__/backend/integration/core/fixtures/surefire-reports/
+!__tests__/backend/integration/core/fixtures/surefire-reports/*.xml

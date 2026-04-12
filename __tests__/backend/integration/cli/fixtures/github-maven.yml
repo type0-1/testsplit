@@ -18,4 +18,4 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
       - name: Run tests
-        run: mvn test --batch-mode --no-transfer-progress
+        run: mvn test 

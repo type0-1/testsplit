@@ -27,7 +27,7 @@ export class Profiler {
       const suffix = zeroDuration.length > WARN_INLINE_LIMIT
         ? ` (and ${zeroDuration.length - WARN_INLINE_LIMIT} more - see .data/reports/zero-duration.txt)`
         : '';
-      console.warn(`Warning: ${zeroDuration.length} test(s) reported zero duration: ${preview}${suffix}`);
+      console.warn(`Warning: ${zeroDuration.length} test(s) reported zero duration (sub-millisecond), these will be scheduled with equal weight: ${preview}${suffix}`);
 
       if (zeroDuration.length > WARN_INLINE_LIMIT) {
         fs.mkdirSync(REPORTS_DIR, { recursive: true });
