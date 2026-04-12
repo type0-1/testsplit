@@ -79,7 +79,13 @@ export class FileStore {
   }
 
   saveHistoricalProfile(historicalProfile: unknown): void {
-    fs.writeFileSync(historicalProfilePath(this.baseDir), JSON.stringify(historicalProfile, null, 2), 'utf-8');
+    // Strip raw profiles array before persisting - it holds full testResults for every
+    // run and grows unboundedly. Only derived stats (perTestStats, metadata, aggregates)
+    // are needed by the API and future profiling runs.
+    const { profiles: _, ...rest } = historicalProfile as Record<string, unknown>;
+    const json = JSON.stringify(rest);
+    const compressed = zlib.gzipSync(Buffer.from(json, 'utf-8'));
+    fs.writeFileSync(historicalProfilePath(this.baseDir), compressed);
   }
 
   saveHistoricalDeltas(deltas: HistoricalDelta): void {
@@ -143,8 +149,9 @@ export class FileStore {
     }
 
     try {
-      const raw = fs.readFileSync(filePath, 'utf-8');
-      return JSON.parse(raw) as HistoricalProfile;
+      const compressed = fs.readFileSync(filePath);
+      const raw = zlib.gunzipSync(compressed).toString('utf-8');
+      return { ...JSON.parse(raw), profiles: [] } as HistoricalProfile;
     } catch {
       return null;
     }
@@ -183,7 +190,7 @@ export class FileStore {
     const profiles: Profile[] = [];
 
     for (const file of files) {
-      if (!file.endsWith('.json')) {
+      if (!file.endsWith('.json') || file === 'historical.json') {
         continue;
       }
 

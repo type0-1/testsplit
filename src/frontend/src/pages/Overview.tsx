@@ -351,7 +351,7 @@ export default function Overview() {
 
   const lastRun = rawTrends.length > 0
     ? new Date(rawTrends[rawTrends.length - 1].runAt).toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' })
-    : '—'
+    : '-'
   const regression = detectRegression(rawTrends)
 
   const prevTrend = rawTrends.length >= 2 ? rawTrends[rawTrends.length - 2] : null

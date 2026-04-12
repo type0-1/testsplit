@@ -1,0 +1,72 @@
+# Scheduling settings used for this distribution
+# algorithm: lpt
+# risk_factor: 1
+name: Build
+on:
+  push: null
+  pull_request: null
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Set up JDK 25
+        uses: actions/setup-java@v5
+        with:
+          java-version: "25"
+          distribution: zulu
+          cache: maven
+      - name: Maven Compile
+        run: mvn -X compile -B --file pom.xml -DskipTests -Drat.skip=true
+      - name: Maven Verify
+        run: mvn -X verify -B --file pom.xml -DskipTests -Drat.skip=true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: target/
+  test-job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Set up JDK 25
+        uses: actions/setup-java@v5
+        with:
+          java-version: "25"
+          distribution: zulu
+          cache: maven
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - &a1
+        name: Detect available cores
+        id: cores
+        run: |-
+          TOTAL=$(nproc)
+          LOAD=$(awk '{print int($1+0.5)}' /proc/loadavg)
+          IDLE=$(( TOTAL - LOAD > 1 ? TOTAL - LOAD : 1 ))
+          echo "count=$IDLE" >> $GITHUB_OUTPUT
+      - name: Run tests
+        run: mvn test -Dtest=org.jsoup.integration.ProxyTest,org.jsoup.integration.FuzzFixesTest -DfailIfNoSpecifiedTests=false -Dsurefire.forkCount=${{ steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Set up JDK 25
+        uses: actions/setup-java@v5
+        with:
+          java-version: "25"
+          distribution: zulu
+          cache: maven
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test -Dtest=org.jsoup.nodes.ElementTest,org.jsoup.integration.HttpClientConnectTest,org.jsoup.parser.HtmlParserTest,org.jsoup.nodes.TextNodeTest,org.jsoup.select.XpathTest,org.jsoup.helper.W3CDomTest,org.jsoup.helper.HttpConnectionTest,org.jsoup.parser.StreamParserTest,org.jsoup.nodes.NodeTest,org.jsoup.parser.CharacterReaderTest,org.jsoup.select.ElementsTest,org.jsoup.nodes.EntitiesTest,org.jsoup.parser.XmlTreeBuilderTest,org.jsoup.integration.SessionTest,org.jsoup.nodes.PrinterTest,org.jsoup.parser.TokeniserTest,org.jsoup.parser.HtmlTreeBuilderStateTest,org.jsoup.internal.StringUtilTest,org.jsoup.parser.HtmlTreeBuilderTest,org.jsoup.nodes.AttributesTest,org.jsoup.helper.ValidateTest,org.jsoup.nodes.DataNodeTest,org.jsoup.parser.TagSetTest,org.jsoup.helper.HttpClientExecutorTest,org.jsoup.internal.ReaderTest,org.jsoup.nodes.CommentTest,org.jsoup.helper.RegexTest,org.jsoup.parser.ParserTest,org.jsoup.integration.ConnectTest,org.jsoup.nodes.DocumentTest,org.jsoup.nodes.FormElementTest,org.jsoup.integration.ParseTest,org.jsoup.parser.TokenQueueTest,org.jsoup.helper.DataUtilTest,org.jsoup.select.SelectorTest,org.jsoup.parser.PositionTest,org.jsoup.safety.CleanerTest,org.jsoup.nodes.NodeIteratorTest,org.jsoup.integration.HttpClientSessionTest,org.jsoup.select.CssTest,org.jsoup.select.EvaluatorTest,org.jsoup.nodes.AttributeTest,org.jsoup.parser.TokeniserStateTest,org.jsoup.select.QueryParserTest,org.jsoup.parser.TagTest,org.jsoup.select.TraversorTest,org.jsoup.nodes.NodeStreamTest,org.jsoup.select.StructuralEvaluatorTest,org.jsoup.integration.SafelistExtensionTest,org.jsoup.internal.QuietAppendableTest,org.jsoup.nodes.DocumentTypeTest,org.jsoup.internal.SoftPoolTest,org.jsoup.JsoupTest,org.jsoup.select.NodesTest,org.jsoup.nodes.LeafNodeTest,org.jsoup.helper.CookieUtilTest,org.jsoup.parser.AttributeParseTest,org.jsoup.parser.ParserSettingsTest,org.jsoup.safety.SafelistTest,org.jsoup.SerializationExceptionTest -DfailIfNoSpecifiedTests=false -Dsurefire.forkCount=${{ steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
