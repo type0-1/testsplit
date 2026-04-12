@@ -107,7 +107,7 @@ function resolveClassName(source: string, filePath: string): string | null {
 /**
  * Scans Java source files under srcRoot for JUnit 4 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
  * and returns a Task[] with dependencies chaining methods in alphabetical order.
- * Only NAME_ASCENDING is supported — DEFAULT and JVM are non-deterministic.
+ * Only NAME_ASCENDING is supported DEFAULT and JVM are non-deterministic.
  */
 export function detectJUnit4Dependencies(
   srcRoot: string,

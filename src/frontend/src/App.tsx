@@ -124,7 +124,7 @@ function Sidebar({ page, onNavigate }: SidebarProps) {
           color: 'var(--g5)',
           letterSpacing: '0.06em',
         }}>
-          v1.0.0 — TestSplit
+          v1.0.0 - TestSplit
         </p>
       </div>
     </aside>

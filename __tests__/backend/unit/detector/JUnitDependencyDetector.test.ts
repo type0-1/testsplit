@@ -129,7 +129,7 @@ describe('detectJUnit5Dependencies', () => {
       path.join(JAVA_FIXTURES, 'com/example'),
       tasks,
     );
-    // UnorderedTest has no @TestMethodOrder — its task should be unchanged
+    // UnorderedTest has no @TestMethodOrder its task should be unchanged
     const t = result.find((r) => r.id === 'com.example.UnorderedTest#someTest');
     expect(t?.dependencies).toBeUndefined();
   });
