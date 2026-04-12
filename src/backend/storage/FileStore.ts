@@ -82,7 +82,9 @@ export class FileStore {
     // Strip raw profiles array before persisting - it holds full testResults for every
     // run and grows unboundedly. Only derived stats (perTestStats, metadata, aggregates)
     // are needed by the API and future profiling runs.
-    const { profiles: _, ...rest } = historicalProfile as Record<string, unknown>;
+    const rest = Object.fromEntries(
+      Object.entries(historicalProfile as Record<string, unknown>).filter(([k]) => k !== 'profiles'),
+    );
     const json = JSON.stringify(rest);
     const compressed = zlib.gzipSync(Buffer.from(json, 'utf-8'));
     fs.writeFileSync(historicalProfilePath(this.baseDir), compressed);

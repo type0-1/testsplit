@@ -633,7 +633,7 @@ yargs(args)
           result = engine.run(junitPath, totalSlots, true, algorithm, riskFactor, dependencyMap);
         }
 
-        let jobs =
+        const jobs =
           runnerCores > 1
             ? groupSlotsIntoRunners(result.distribution.jobs, runnerCores)
             : buildJobsWithDependencies(result.distribution.jobs);
