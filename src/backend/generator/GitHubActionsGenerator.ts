@@ -5,7 +5,6 @@ import { getSchemaValidator } from './getSchemaValidator';
 import { validateYamlSyntax } from './YAMLSyntaxValidator';
 import { ServiceRequirement } from '../detector/LifecycleDetector';
 import { buildGitHubServices, buildDockerComposeStartStep, buildDockerComposeStopStep } from './LifecycleStepGenerator';
-import { toMavenClassName } from './JobBuilder';
 import { JobCommandBuilder, resolveJobCommandBuilder } from './JobCommandBuilder';
 import { isMavenCommand } from './MavenCommand';
 
@@ -210,7 +209,7 @@ function buildTestJob(
     name: 'Run tests',
     run: [
       `${mavenBin} test`,
-      `-Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')}`,
+      `-Dtest=${[...new Set(job.tests)].join(',')}`,
       `-DfailIfNoTests=false`,
       ...forkFlags,
     ].join(' '),
