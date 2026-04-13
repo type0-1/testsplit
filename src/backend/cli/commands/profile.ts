@@ -68,7 +68,7 @@ export function handleProfileCommand(argv: any): void {
         if (dirs.length > 1) {
           console.log(
             chalk.dim(
-              `Auto-detected ${detected.tool} multi-module reports — merging ${dirs.length} directories`,
+              `Auto-detected ${detected.tool} multi-module reports  merging ${dirs.length} directories`,
             ),
           );
         } else {
