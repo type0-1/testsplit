@@ -1,3 +1,7 @@
+export function pctDelta(curr: number, prev: number | undefined): number | null {
+  return (!prev || prev === 0) ? null : (curr - prev) / prev
+}
+
 export function formatRunLabel(runAt: string, index: number): string {
   try { return new Date(runAt).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' }) }
   catch { return `Run ${index + 1}` }

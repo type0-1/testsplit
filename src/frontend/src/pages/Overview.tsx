@@ -10,7 +10,7 @@ import { InstabilityPanel } from '@/components/overview/InstabilityPanel'
 import { TrendChartPanel } from '@/components/overview/TrendChartPanel'
 import { PageHeader } from '@/components/PageHeader'
 import { ExportButton } from '@/components/ExportButton'
-import { formatRunLabel, downloadJson } from '@/lib/utils'
+import { pctDelta, formatRunLabel, downloadJson } from '@/lib/utils'
 import type { SummaryResponse, TestsResponse, JobsResponse, TrendsResponse, TrendPoint } from '@/types/api'
 
 function detectRegression(trends: TrendPoint[]): { field: string; pct: number } | null {
@@ -61,7 +61,6 @@ export default function Overview() {
 
   const prevTrend = rawTrends.length >= 2 ? rawTrends[rawTrends.length - 2] : null
   const currTrend = rawTrends.length >= 1 ? rawTrends[rawTrends.length - 1] : null
-  const delta = (curr: number, prev: number | undefined) => (!prev || prev === 0) ? null : (curr - prev) / prev
 
   return (
     <div className="flex flex-col h-full overflow-hidden" aria-label="Overview">
@@ -87,9 +86,9 @@ export default function Overview() {
       )}
 
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Key metrics">
-        <StatCard label="Total Tests" value={s.totalTests} format={v => String(Math.round(v))} sub={`across ${s.runCount} profiling runs`} accent="var(--orange)" active={calibrated} delay={0} delta={currTrend && prevTrend ? delta(currTrend.testCount, prevTrend.testCount) : null} />
-        <StatCard label="Seq. Duration" value={s.sequentialDuration} format={v => `${v.toFixed(1)}s`} sub="unparallelised total" accent="var(--g5)" active={calibrated} delay={100} delta={currTrend && prevTrend ? delta(currTrend.totalDuration, prevTrend.totalDuration) : null} />
-        <StatCard label="Makespan" value={s.makespan} format={v => `${v.toFixed(2)}s`} sub={`critical path · ${jobs.length} jobs`} accent="var(--cyan)" active={calibrated} delay={200} delta={currTrend && prevTrend ? delta(currTrend.criticalPath, prevTrend.criticalPath) : null} />
+        <StatCard label="Total Tests" value={s.totalTests} format={v => String(Math.round(v))} sub={`across ${s.runCount} profiling runs`} accent="var(--orange)" active={calibrated} delay={0} delta={currTrend && prevTrend ? pctDelta(currTrend.testCount, prevTrend.testCount) : null} />
+        <StatCard label="Seq. Duration" value={s.sequentialDuration} format={v => `${v.toFixed(1)}s`} sub="unparallelised total" accent="var(--g5)" active={calibrated} delay={100} delta={currTrend && prevTrend ? pctDelta(currTrend.totalDuration, prevTrend.totalDuration) : null} />
+        <StatCard label="Makespan" value={s.makespan} format={v => `${v.toFixed(2)}s`} sub={`critical path · ${jobs.length} jobs`} accent="var(--cyan)" active={calibrated} delay={200} delta={currTrend && prevTrend ? pctDelta(currTrend.criticalPath, prevTrend.criticalPath) : null} />
         <StatCard label="Speed-up" value={s.speedupFactor} format={v => `${v.toFixed(2)}×`} sub={`${s.unstableCount} unstable · ${s.outlierCount} outliers`} accent="var(--green)" active={calibrated} delay={300} last />
       </section>
 
