@@ -1,24 +1,13 @@
 import { motion } from 'motion/react'
+import { testStatusColor, testStatusColorDim } from '@/lib/testStatus'
 import type { TestStat } from '@/types/api'
-
-function testColor(t: TestStat): string {
-  if (t.isOutlier) return 'var(--orange)'
-  if (t.unstable) return 'var(--amber)'
-  return 'var(--cyan)'
-}
-
-function testColorDim(t: TestStat): string {
-  if (t.isOutlier) return 'var(--orange-dim)'
-  if (t.unstable) return 'var(--amber-dim)'
-  return 'var(--cyan-dim)'
-}
 
 export function TestRow({ test, index, maxDuration }: { test: TestStat; index: number; maxDuration: number }) {
   const cls = test.testName.includes('.') ? test.testName.substring(0, test.testName.lastIndexOf('.')) : ''
   const method = test.testName.split('.').pop() ?? test.testName
   const barPct = maxDuration > 0 ? (test.meanDuration / maxDuration) * 100 : 0
-  const color = testColor(test)
-  const colorDim = testColorDim(test)
+  const color = testStatusColor(test)
+  const colorDim = testStatusColorDim(test)
 
   return (
     <div className="px-5 py-2.5" style={{ borderBottom: '1px solid var(--g3)' }} role="row" title={test.testName}>

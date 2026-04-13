@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import { useApi } from '@/hooks/useApi'
+import { useCalibration } from '@/hooks/useCalibration'
 import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import { PageErrorState } from '@/components/PageErrorState'
 import { StatCard } from '@/components/StatCard'
@@ -9,14 +9,9 @@ import { downloadJson } from '@/lib/utils'
 import type { SummaryResponse, TestsResponse } from '@/types/api'
 
 export function Instability() {
-  const [calibrated, setCalibrated] = useState(false)
+  const calibrated = useCalibration()
   const { data: summary, loading: summaryLoading, error: summaryError } = useApi<SummaryResponse>('/api/summary')
   const { data: testsData, loading: testsLoading, error: testsError } = useApi<TestsResponse>('/api/tests?sort=cv&limit=500')
-
-  useEffect(() => {
-    const t = setTimeout(() => setCalibrated(true), 420)
-    return () => clearTimeout(t)
-  }, [])
 
   const isLoading = summaryLoading || testsLoading
   const errorMessage = summaryError ?? testsError

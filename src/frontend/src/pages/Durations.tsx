@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useApi } from '@/hooks/useApi'
+import { useCalibration } from '@/hooks/useCalibration'
+
 import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import { PageErrorState } from '@/components/PageErrorState'
 import { StatCard } from '@/components/StatCard'
@@ -27,16 +29,11 @@ const SORT_BUTTONS: { key: SortKey; label: string }[] = [
 ]
 
 export function Durations() {
-  const [calibrated, setCalibrated] = useState(false)
+  const calibrated = useCalibration()
   const { data: summary, loading: summaryLoading, error: summaryError } = useApi<SummaryResponse>('/api/summary')
   const { data: testsData, loading: testsLoading, error: testsError } = useApi<TestsResponse>('/api/tests?sort=duration&limit=500')
   const [sortKey, setSortKey] = useState<SortKey>('duration')
   const [asc, setAsc] = useState(false)
-
-  useEffect(() => {
-    const t = setTimeout(() => setCalibrated(true), 420)
-    return () => clearTimeout(t)
-  }, [])
 
   const isLoading = summaryLoading || testsLoading
   const errorMessage = summaryError ?? testsError

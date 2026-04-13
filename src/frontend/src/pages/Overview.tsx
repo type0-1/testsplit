@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
 import { useApi } from '@/hooks/useApi'
+import { useCalibration } from '@/hooks/useCalibration'
+
 import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import { PageErrorState } from '@/components/PageErrorState'
 import { StatCard } from '@/components/StatCard'
@@ -24,20 +25,15 @@ function detectRegression(trends: TrendPoint[]): { field: string; pct: number } 
 }
 
 export default function Overview() {
-  const [calibrated, setCalibrated] = useState(false)
+  const calibrated = useCalibration()
   const { data: summary, loading: sLoading, error: sError } = useApi<SummaryResponse>('/api/summary')
   const { data: testsData, loading: tLoading, error: tError } = useApi<TestsResponse>('/api/tests?sort=duration&limit=100')
-  const { data: cvData, loading: cvLoading } = useApi<TestsResponse>('/api/tests?sort=cv&limit=500')
+  const { data: cvData, loading: cvLoading, error: cvError } = useApi<TestsResponse>('/api/tests?sort=cv&limit=500')
   const { data: jobsData, loading: jLoading, error: jError } = useApi<JobsResponse>('/api/jobs')
   const { data: trendsData, loading: trLoading, error: trError } = useApi<TrendsResponse>('/api/trends?limit=20')
 
-  useEffect(() => {
-    const t = setTimeout(() => setCalibrated(true), 420)
-    return () => clearTimeout(t)
-  }, [])
-
   const isLoading = sLoading || tLoading || cvLoading || jLoading || trLoading
-  const errorMessage = sError ?? tError ?? jError ?? trError
+  const errorMessage = sError ?? tError ?? cvError ?? jError ?? trError
 
   if (isLoading) return <PageLoadingSkeleton title="Overview" accentColor="var(--orange)" />
   if (errorMessage) return <PageErrorState title="Overview" error={errorMessage} />

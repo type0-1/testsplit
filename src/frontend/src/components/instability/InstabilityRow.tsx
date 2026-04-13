@@ -1,24 +1,13 @@
 import { motion } from 'motion/react'
+import { testStatusColor, testStatusColorDim } from '@/lib/testStatus'
 import type { TestStat } from '@/types/api'
-
-function cvColor(t: TestStat): string {
-  if (t.isOutlier) return 'var(--orange)'
-  if (t.unstable) return 'var(--amber)'
-  return 'var(--cyan)'
-}
-
-function cvColorDim(t: TestStat): string {
-  if (t.isOutlier) return 'var(--orange-dim)'
-  if (t.unstable) return 'var(--amber-dim)'
-  return 'var(--cyan-dim)'
-}
 
 export function InstabilityRow({ test, index, maxCv }: { test: TestStat; index: number; maxCv: number }) {
   const cls = test.testName.includes('.') ? test.testName.substring(0, test.testName.lastIndexOf('.')) : ''
   const method = test.testName.split('.').pop() ?? test.testName
   const cvPct = maxCv > 0 ? (test.coefficientOfVariation / maxCv) * 100 : 0
-  const color = cvColor(test)
-  const colorDim = cvColorDim(test)
+  const color = testStatusColor(test)
+  const colorDim = testStatusColorDim(test)
   const cvDisplay = (test.coefficientOfVariation * 100).toFixed(0)
 
   return (

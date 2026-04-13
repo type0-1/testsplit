@@ -1,10 +1,3 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-
 export function formatRunLabel(runAt: string, index: number): string {
   try { return new Date(runAt).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' }) }
   catch { return `Run ${index + 1}` }

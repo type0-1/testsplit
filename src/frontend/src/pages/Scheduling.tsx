@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import { useApi } from '@/hooks/useApi'
+import { useCalibration } from '@/hooks/useCalibration'
 import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import { PageErrorState } from '@/components/PageErrorState'
 import { StatCard } from '@/components/StatCard'
@@ -10,14 +10,9 @@ import { downloadJson } from '@/lib/utils'
 import type { SummaryResponse, JobsResponse } from '@/types/api'
 
 export function Scheduling() {
-  const [calibrated, setCalibrated] = useState(false)
+  const calibrated = useCalibration()
   const { data: summary, loading: summaryLoading, error: summaryError } = useApi<SummaryResponse>('/api/summary')
   const { data: jobsData, loading: jobsLoading, error: jobsError } = useApi<JobsResponse>('/api/jobs')
-
-  useEffect(() => {
-    const t = setTimeout(() => setCalibrated(true), 420)
-    return () => clearTimeout(t)
-  }, [])
 
   const isLoading = summaryLoading || jobsLoading
   const errorMessage = summaryError ?? jobsError

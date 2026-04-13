@@ -1,7 +1,6 @@
 import { motion } from 'motion/react'
 import { SectionHeader } from '@/components/SectionHeader'
-
-interface Job { jobId: number; totalTime: number; tests: string[] }
+import type { Job } from '@/types/api'
 
 export function JobDistributionPanel({ jobs, makespan, balanceRatio }: { jobs: Job[]; makespan: number; balanceRatio: number }) {
   const maxTime = Math.max(...jobs.map(j => j.totalTime))
