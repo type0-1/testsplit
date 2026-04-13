@@ -7,6 +7,7 @@ import { ServiceRequirement } from '../detector/LifecycleDetector';
 import { buildGitHubServices, buildDockerComposeStartStep, buildDockerComposeStopStep } from './LifecycleStepGenerator';
 import { toMavenClassName } from './JobBuilder';
 import { JobCommandBuilder, resolveJobCommandBuilder } from './JobCommandBuilder';
+import { isMavenCommand } from './MavenCommand';
 
 
 export interface CIResourceConstraints {
@@ -62,7 +63,8 @@ export function buildGitHubPhasedJobs(
 ): Record<string, any> {
   const result: Record<string, any> = {};
 
-  const isMavenStep = (step: any): boolean => typeof step.run === 'string' && /^(mvn|\.\/mvnw)\b/.test(step.run.trim());
+  const isMavenStep = (step: any): boolean =>
+    typeof step.run === 'string' && isMavenCommand(step.run);
 
   const githubServices = services ? buildGitHubServices(services) : undefined;
   const composeStartStep = hasDockerCompose ? buildDockerComposeStartStep() : null;

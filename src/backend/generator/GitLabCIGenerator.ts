@@ -6,6 +6,7 @@ import { validateYamlSyntax } from './YAMLSyntaxValidator';
 import { ServiceRequirement } from '../detector/LifecycleDetector';
 import { buildGitLabServices, buildDockerComposeBeforeScript } from './LifecycleStepGenerator';
 import { JobCommandBuilder, resolveJobCommandBuilder } from './JobCommandBuilder';
+import { isMavenCommand, isMavenTestCommand } from './MavenCommand';
 
 function renderGitLabJob(job: JobGroup, buildJobCommand: JobCommandBuilder): string {
   return `
@@ -41,11 +42,6 @@ ${jobsYaml}
   validator?.validate(yamlOutput);
 
   return yamlOutput;
-}
-
-function isMavenTestLine(line: string): boolean {
-  const trimmed = line.trim();
-  return /^(mvn|\.\/mvnw)\b/.test(trimmed) && !trimmed.includes('-DskipTests');
 }
 
 export function buildGitLabSplitJobs(
@@ -87,7 +83,7 @@ export function buildGitLabSplitJobs(
       : [clonedJob.script];
 
     clonedJob.script = scriptLines.map((line: string) => {
-      if (/^(mvn|\.\/mvnw)\b/.test(line.trim()) ? isMavenTestLine(line) : line.toLowerCase().includes('test')) {
+      if (isMavenCommand(line) ? isMavenTestCommand(line) : line.toLowerCase().includes('test')) {
         return `${testCommand} ${job.tests.join(' ')}${forkSuffix}`.trim();
       }
       return line;
