@@ -14,6 +14,22 @@ export interface InspectProjectOptions {
   gradleBin?: string;
 }
 
+function detectProjectTool(projectRoot: string): ProjectTestTool {
+  if (hasFile(projectRoot, 'pom.xml')) {
+    return 'maven';
+  }
+
+  if (hasFile(projectRoot, 'build.gradle') || hasFile(projectRoot, 'build.gradle.kts')) {
+    return 'gradle';
+  }
+
+  if (hasFile(projectRoot, 'package.json')) {
+    return 'npm';
+  }
+
+  return 'maven';
+}
+
 // Resolved absolute path(s) to the report directory. Multi-module Gradle projects return one entry per submodule.
 export interface ReportPathResult {
   tool: ProjectTestTool;
@@ -30,15 +46,16 @@ export interface ReportPathResult {
 
 export function inspectReportPath(options: InspectProjectOptions = {}): ReportPathResult {
   const projectRoot = options.projectRoot ?? process.cwd();
+  const tool = detectProjectTool(projectRoot);
 
-  if (hasFile(projectRoot, 'pom.xml')) {
+  if (tool === 'maven') {
     return {
       tool: 'maven',
       reportDirs: [path.join(projectRoot, 'target', 'surefire-reports')],
     };
   }
 
-  if (hasFile(projectRoot, 'build.gradle') || hasFile(projectRoot, 'build.gradle.kts')) {
+  if (tool === 'gradle') {
     const singleModule = path.join(projectRoot, 'build', 'test-results', 'test');
     if (fs.existsSync(singleModule)) {
       return { tool: 'gradle', reportDirs: [singleModule] };
@@ -52,7 +69,7 @@ export function inspectReportPath(options: InspectProjectOptions = {}): ReportPa
     };
   }
 
-  if (hasFile(projectRoot, 'package.json')) {
+  if (tool === 'npm') {
     return {
       tool: 'npm',
       reportDirs: [path.join(projectRoot, 'test-results')],
@@ -88,18 +105,16 @@ export function inspectProjectTestCommandFormat( options: InspectProjectOptions 
   const projectRoot = options.projectRoot ?? process.cwd();
   const mavenBin = options.mavenBin ?? 'mvn';
   const gradleBin = options.gradleBin ?? 'gradle';
+  const tool = detectProjectTool(projectRoot);
 
-  if (hasFile(projectRoot, 'pom.xml')) {
+  if (tool === 'maven') {
     return {
       tool: 'maven',
       buildCommand: (assignedClasses: string[]) => `${mavenBin} test -Dtest=${assignedClasses.join(',')}`,
     };
   }
 
-  if (
-    hasFile(projectRoot, 'build.gradle') ||
-    hasFile(projectRoot, 'build.gradle.kts')
-  ) {
+  if (tool === 'gradle') {
     return {
       tool: 'gradle',
       buildCommand: (assignedClasses: string[]) => {
@@ -109,7 +124,7 @@ export function inspectProjectTestCommandFormat( options: InspectProjectOptions 
     };
   }
 
-  if (hasFile(projectRoot, 'package.json')) {
+  if (tool === 'npm') {
     return {
       tool: 'npm',
       buildCommand: (assignedClasses: string[]) => assignedClasses.length > 0 ? `npm test -- ${assignedClasses.join(' ')}` : 'npm test',
