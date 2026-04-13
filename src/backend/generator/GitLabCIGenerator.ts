@@ -8,6 +8,8 @@ import { buildGitLabServices, buildDockerComposeBeforeScript } from './Lifecycle
 import { JobCommandBuilder, resolveJobCommandBuilder } from './JobCommandBuilder';
 import { isMavenCommand, isMavenTestCommand } from './MavenCommand';
 
+type JsonObject = Record<string, unknown>;
+
 function renderGitLabJob(job: JobGroup, buildJobCommand: JobCommandBuilder): string {
   return `
 job-${job.id}:
@@ -45,15 +47,15 @@ ${jobsYaml}
 }
 
 export function buildGitLabSplitJobs(
-  baseJob: any,
+  baseJob: JsonObject,
   jobs: { id: number; tests: string[]; needs?: number[] }[],
   testCommand: string,
   runnerCores: number = 1,
   containerImage?: string,
   services?: ServiceRequirement[],
   hasDockerCompose?: boolean,
-): Record<string, any> {
-  const splitJobs: Record<string, any> = {};
+): Record<string, JsonObject> {
+  const splitJobs: Record<string, JsonObject> = {};
 
   const gitlabServices = services ? buildGitLabServices(services) : undefined;
   const composeLines = hasDockerCompose ? buildDockerComposeBeforeScript() : [];

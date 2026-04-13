@@ -6,13 +6,13 @@ import { ServiceRequirement } from '../detector/LifecycleDetector';
  */
 export function buildGitHubServices(
   requirements: ServiceRequirement[],
-): Record<string, any> | undefined {
+): Record<string, unknown> | undefined {
   if (requirements.length === 0) return undefined;
 
-  const services: Record<string, any> = {};
+  const services: Record<string, unknown> = {};
 
   for (const req of requirements) {
-    const entry: Record<string, any> = { image: req.image };
+    const entry: Record<string, unknown> = { image: req.image };
     if (req.ports && req.ports.length > 0) entry.ports = req.ports;
     if (req.env && Object.keys(req.env).length > 0) entry.env = req.env;
     services[req.type] = entry;
@@ -33,7 +33,7 @@ export function buildGitLabServices(requirements: ServiceRequirement[]): string[
 /**
  * Generates a GitHub Actions step that starts docker compose services.
  */
-export function buildDockerComposeStartStep(): Record<string, any> {
+export function buildDockerComposeStartStep(): Record<string, unknown> {
   return {
     name: 'Start services',
     run: 'docker compose up -d\ndocker compose wait --no-deps 2>/dev/null || sleep 5',
@@ -43,7 +43,7 @@ export function buildDockerComposeStartStep(): Record<string, any> {
 /**
  * Generates a GitHub Actions step that tears down docker compose services.
  */
-export function buildDockerComposeStopStep(): Record<string, any> {
+export function buildDockerComposeStopStep(): Record<string, unknown> {
   return {
     name: 'Stop services',
     if: 'always()',

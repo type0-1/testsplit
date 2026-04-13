@@ -223,7 +223,7 @@ function buildTestJob(
 }
 
 export function buildGitHubPhasedJobs(
-  baseJob: any,
+  baseJob: JsonObject,
   jobs: SplitJob[],
   mavenBin: string,
   artifactName: string = 'build-artifacts',
@@ -232,8 +232,8 @@ export function buildGitHubPhasedJobs(
   containerImage?: string,
   services?: ServiceRequirement[],
   hasDockerCompose?: boolean,
-): Record<string, any> {
-  const result: Record<string, any> = {};
+): Record<string, JsonObject> {
+  const result: Record<string, JsonObject> = {};
 
   const githubServices = services ? buildGitHubServices(services) : undefined;
   const composeStartStep = hasDockerCompose ? buildDockerComposeStartStep() : null;
