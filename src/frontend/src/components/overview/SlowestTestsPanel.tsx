@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { SectionHeader } from '@/components/SectionHeader'
+import { testMethodName, testClassName } from '@/lib/testName'
 import type { TestStat } from '@/types/api'
 
 export function SlowestTestsPanel({ tests }: { tests: TestStat[] }) {
@@ -15,8 +16,8 @@ export function SlowestTestsPanel({ tests }: { tests: TestStat[] }) {
       />
       <div className="flex flex-col flex-1 overflow-auto">
         {sorted.map((t, i) => {
-          const method = t.testName.split('.').pop() ?? t.testName
-          const cls = t.testName.includes('.') ? t.testName.substring(0, t.testName.lastIndexOf('.')) : ''
+          const method = testMethodName(t.testName)
+          const cls = testClassName(t.testName)
           const pct = (t.meanDuration / max) * 100
           const color = t.isOutlier ? 'var(--orange)' : t.unstable ? 'var(--amber)' : 'var(--g6)'
           const colorDim = t.isOutlier ? 'var(--orange-dim)' : t.unstable ? 'var(--amber-dim)' : 'var(--g3)'

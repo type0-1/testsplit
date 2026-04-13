@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useApi } from '@/hooks/useApi'
 import { useCalibration } from '@/hooks/useCalibration'
+import { testMethodName } from '@/lib/testName'
 
 import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import { PageErrorState } from '@/components/PageErrorState'
@@ -83,8 +84,8 @@ export function Durations() {
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Duration metrics">
         <StatCard label="Total Tests" value={s.totalTests} format={v => String(Math.round(v))} sub={`across ${s.runCount} profiling runs`} accent="var(--orange)" active={calibrated} delay={0} />
         <StatCard label="Avg Duration" value={s.avgDuration} format={v => `${v.toFixed(2)}s`} sub="mean across all tests" accent="var(--g5)" active={calibrated} delay={100} />
-        <StatCard label="Slowest" value={slowest?.meanDuration ?? 0} format={v => `${v.toFixed(2)}s`} sub={slowest?.testName.split('.').pop() ?? '-'} accent="var(--amber)" active={calibrated} delay={200} />
-        <StatCard label="Fastest" value={fastest?.meanDuration ?? 0} format={v => `${v.toFixed(3)}s`} sub={fastest?.testName.split('.').pop() ?? '-'} accent="var(--green)" active={calibrated} delay={300} last />
+        <StatCard label="Slowest" value={slowest?.meanDuration ?? 0} format={v => `${v.toFixed(2)}s`} sub={slowest ? testMethodName(slowest.testName) : '-'} accent="var(--amber)" active={calibrated} delay={200} />
+        <StatCard label="Fastest" value={fastest?.meanDuration ?? 0} format={v => `${v.toFixed(3)}s`} sub={fastest ? testMethodName(fastest.testName) : '-'} accent="var(--green)" active={calibrated} delay={300} last />
       </section>
 
       <div className="flex items-center gap-2 px-5 py-2 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>

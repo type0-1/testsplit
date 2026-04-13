@@ -1,5 +1,6 @@
 import { useApi } from '@/hooks/useApi'
 import { useCalibration } from '@/hooks/useCalibration'
+import { testMethodName } from '@/lib/testName'
 import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import { PageErrorState } from '@/components/PageErrorState'
 import { StatCard } from '@/components/StatCard'
@@ -55,7 +56,7 @@ export function Instability() {
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Instability metrics">
         <StatCard label="Unstable Tests" value={s.unstableCount} format={v => String(Math.round(v))} sub={`of ${s.totalTests} total tests`} accent="var(--amber)" active={calibrated} delay={0} />
         <StatCard label="Outliers" value={s.outlierCount} format={v => String(Math.round(v))} sub="exceed mean + 2σ threshold" accent="var(--orange)" active={calibrated} delay={100} />
-        <StatCard label="Highest CV" value={maxCv * 100} format={v => `${v.toFixed(0)}%`} sub={highestCvTest?.testName.split('.').pop() ?? '-'} accent="var(--chart-5)" active={calibrated} delay={200} />
+        <StatCard label="Highest CV" value={maxCv * 100} format={v => `${v.toFixed(0)}%`} sub={highestCvTest ? testMethodName(highestCvTest.testName) : '-'} accent="var(--chart-5)" active={calibrated} delay={200} />
         <StatCard label="Avg CV" value={avgCv * 100} format={v => `${v.toFixed(0)}%`} sub="coefficient of variation" accent="var(--g5)" active={calibrated} delay={300} last />
       </section>
 

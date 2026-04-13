@@ -1,6 +1,7 @@
 import { ScatterChart, Scatter, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, CartesianGrid } from 'recharts'
 import { SectionHeader } from '@/components/SectionHeader'
 import { Scanlines } from '@/components/Scanlines'
+import { testMethodName } from '@/lib/testName'
 import type { TestStat } from '@/types/api'
 
 const LEGEND = [
@@ -10,7 +11,7 @@ const LEGEND = [
 ]
 
 function toPoint(t: TestStat) {
-  return { x: parseFloat(t.meanDuration.toFixed(3)), y: parseFloat((t.coefficientOfVariation * 100).toFixed(1)), name: t.testName.split('.').pop() }
+  return { x: parseFloat(t.meanDuration.toFixed(3)), y: parseFloat((t.coefficientOfVariation * 100).toFixed(1)), name: testMethodName(t.testName) }
 }
 
 export function ScatterPanel({ tests }: { tests: TestStat[] }) {

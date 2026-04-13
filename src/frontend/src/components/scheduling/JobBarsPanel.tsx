@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { SectionHeader } from '@/components/SectionHeader'
+import { testMethodName } from '@/lib/testName'
 import type { Job } from '@/types/api'
 
 export function JobBarsPanel({ jobs, makespan, balanceRatio }: { jobs: Job[]; makespan: number; balanceRatio: number }) {
@@ -51,7 +52,7 @@ export function JobBarsPanel({ jobs, makespan, balanceRatio }: { jobs: Job[]; ma
                   fontFamily: 'var(--font-mono)', fontSize: '0.48rem', color: 'var(--g7)',
                   whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', pointerEvents: 'none',
                 }}>
-                  {job.tests.map(t => t.split('.').pop()).join(' · ')}
+                  {job.tests.map(t => testMethodName(t)).join(' · ')}
                 </div>
               </div>
             </div>

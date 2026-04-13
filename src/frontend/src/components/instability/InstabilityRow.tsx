@@ -1,10 +1,11 @@
 import { motion } from 'motion/react'
 import { testStatusColor, testStatusColorDim } from '@/lib/testStatus'
+import { testMethodName, testClassName } from '@/lib/testName'
 import type { TestStat } from '@/types/api'
 
 export function InstabilityRow({ test, index, maxCv }: { test: TestStat; index: number; maxCv: number }) {
-  const cls = test.testName.includes('.') ? test.testName.substring(0, test.testName.lastIndexOf('.')) : ''
-  const method = test.testName.split('.').pop() ?? test.testName
+  const cls = testClassName(test.testName)
+  const method = testMethodName(test.testName)
   const cvPct = maxCv > 0 ? (test.coefficientOfVariation / maxCv) * 100 : 0
   const color = testStatusColor(test)
   const colorDim = testStatusColorDim(test)

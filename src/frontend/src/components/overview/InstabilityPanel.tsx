@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { SectionHeader } from '@/components/SectionHeader'
+import { testMethodName, testClassName } from '@/lib/testName'
 import type { TestStat } from '@/types/api'
 
 export function InstabilityPanel({ tests, totalTests }: { tests: TestStat[]; totalTests: number }) {
@@ -23,8 +24,8 @@ export function InstabilityPanel({ tests, totalTests }: { tests: TestStat[]; tot
       ) : (
         <div className="flex flex-col flex-1 overflow-auto">
           {unstable.map((t, i) => {
-            const method = t.testName.split('.').pop() ?? t.testName
-            const cls = t.testName.includes('.') ? t.testName.substring(0, t.testName.lastIndexOf('.')) : ''
+            const method = testMethodName(t.testName)
+            const cls = testClassName(t.testName)
             const cvPct = Math.min(t.coefficientOfVariation * 100, 100)
             const hot = cvPct > 70
 
