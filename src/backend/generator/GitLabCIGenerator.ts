@@ -5,18 +5,7 @@ import { getSchemaValidator } from './getSchemaValidator';
 import { validateYamlSyntax } from './YAMLSyntaxValidator';
 import { ServiceRequirement } from '../detector/LifecycleDetector';
 import { buildGitLabServices, buildDockerComposeBeforeScript } from './LifecycleStepGenerator';
-
-type JobCommandBuilder = (tests: string[]) => string;
-
-function resolveJobCommandBuilder(
-  mavenBinOrBuilder: string | JobCommandBuilder,
-): JobCommandBuilder {
-  if (typeof mavenBinOrBuilder === 'function') {
-    return mavenBinOrBuilder;
-  }
-
-  return (tests: string[]) => `${mavenBinOrBuilder} test -Dtest=${tests.join(',')}`;
-}
+import { JobCommandBuilder, resolveJobCommandBuilder } from './JobCommandBuilder';
 
 function renderGitLabJob(job: JobGroup, buildJobCommand: JobCommandBuilder): string {
   return `

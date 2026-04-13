@@ -6,21 +6,12 @@ import { validateYamlSyntax } from './YAMLSyntaxValidator';
 import { ServiceRequirement } from '../detector/LifecycleDetector';
 import { buildGitHubServices, buildDockerComposeStartStep, buildDockerComposeStopStep } from './LifecycleStepGenerator';
 import { toMavenClassName } from './JobBuilder';
+import { JobCommandBuilder, resolveJobCommandBuilder } from './JobCommandBuilder';
 
 
 export interface CIResourceConstraints {
   cpuCores: number;
   memoryLimitMb: number | null;
-}
-
-type JobCommandBuilder = (tests: string[]) => string;
-
-function resolveJobCommandBuilder(mavenBinOrBuilder: string | JobCommandBuilder): JobCommandBuilder {
-  if (typeof mavenBinOrBuilder === 'function') {
-    return mavenBinOrBuilder;
-  }
-
-  return (tests: string[]) => `${mavenBinOrBuilder} test -Dtest=${tests.join(',')}`;
 }
 
 function renderGitHubJob(job: JobGroup, buildJobCommand: JobCommandBuilder): string {
