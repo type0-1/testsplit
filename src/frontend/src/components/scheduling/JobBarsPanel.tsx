@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { SectionHeader } from '@/components/SectionHeader'
 import { testMethodName } from '@/lib/testName'
+import { StatusBadge } from '@/components/StatusBadge'
 import type { Job } from '@/types/api'
 
 export function JobBarsPanel({ jobs, makespan, balanceRatio }: { jobs: Job[]; makespan: number; balanceRatio: number }) {
@@ -30,9 +31,7 @@ export function JobBarsPanel({ jobs, makespan, balanceRatio }: { jobs: Job[]; ma
                   {job.tests.length} test{job.tests.length !== 1 ? 's' : ''}
                 </span>
                 {isSlowest && (
-                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.42rem', letterSpacing: '0.12em', color: 'var(--amber)', background: 'var(--amber-dim)', border: '1px solid var(--amber)', padding: '1px 4px' }}>
-                    CRITICAL
-                  </span>
+                  <StatusBadge status="critical" />
                 )}
                 <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: '0.58rem', color, marginLeft: 'auto' }}>
                   {job.totalTime.toFixed(2)}s

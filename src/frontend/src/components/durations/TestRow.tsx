@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { testStatusColor, testStatusColorDim } from '@/lib/testStatus'
 import { testMethodName, testClassName } from '@/lib/testName'
+import { StatusBadge } from '@/components/StatusBadge'
 import type { TestStat } from '@/types/api'
 
 export function TestRow({ test, index, maxDuration }: { test: TestStat; index: number; maxDuration: number }) {
@@ -16,16 +17,8 @@ export function TestRow({ test, index, maxDuration }: { test: TestStat; index: n
         <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--g7)', flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
           {method}
         </span>
-        {test.isOutlier && (
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.42rem', letterSpacing: '0.1em', color: 'var(--orange)', background: 'var(--orange-dim)', border: '1px solid var(--orange)', padding: '1px 4px', flexShrink: 0 }}>
-            OUTLIER
-          </span>
-        )}
-        {test.unstable && (
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.42rem', letterSpacing: '0.1em', color: 'var(--amber)', background: 'var(--amber-dim)', border: '1px solid var(--amber)', padding: '1px 4px', flexShrink: 0 }}>
-            UNSTABLE
-          </span>
-        )}
+        {test.isOutlier && <StatusBadge status="outlier" />}
+        {test.unstable && <StatusBadge status="unstable" />}
         <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: '0.62rem', color, flexShrink: 0, width: 52, textAlign: 'right' }}>
           {test.meanDuration.toFixed(3)}s
         </span>

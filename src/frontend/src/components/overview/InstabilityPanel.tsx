@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { SectionHeader } from '@/components/SectionHeader'
+import { StatusBadge } from '@/components/StatusBadge'
 import { testMethodName, testClassName } from '@/lib/testName'
 import type { TestStat } from '@/types/api'
 
@@ -36,9 +37,7 @@ export function InstabilityPanel({ tests, totalTests }: { tests: TestStat[]; tot
                     {method}
                   </span>
                   <div className="flex items-center gap-1.5 shrink-0">
-                    {t.isOutlier && (
-                      <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.42rem', letterSpacing: '0.1em', color: 'var(--orange)', background: 'var(--orange-dim)', border: '1px solid var(--orange)', padding: '1px 4px' }}>OUTLIER</span>
-                    )}
+                    {t.isOutlier && <StatusBadge status="outlier" />}
                     <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: '0.6rem', color: hot ? 'var(--orange)' : 'var(--amber)' }}>
                       {cvPct.toFixed(0)}%
                     </span>
