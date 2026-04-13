@@ -1,7 +1,8 @@
 jest.mock('fs');
 jest.mock('path');
 jest.mock('../../../../src/backend/detector/PomParser');
-jest.mock('../../../../src/backend/detector/JUnitDependencyDetector');
+jest.mock('../../../../src/backend/detector/JUnit5DependencyDetector');
+jest.mock('../../../../src/backend/detector/JUnit4DependencyDetector');
 jest.mock('../../../../src/backend/detector/TestNGDependencyDetector');
 jest.mock('../../../../src/backend/detector/SuiteXMLParser');
 jest.mock('../../../../src/backend/detector/LifecycleDetector');
@@ -10,10 +11,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { runDetection } from '../../../../src/backend/core/DetectionOrchestrator';
 import { parsePom } from '../../../../src/backend/detector/PomParser';
-import { detectJUnit5Dependencies, detectJUnit4Dependencies } from '../../../../src/backend/detector/JUnitDependencyDetector';
+import { detectJUnit5Dependencies } from '../../../../src/backend/detector/JUnit5DependencyDetector';
+import { detectJUnit4Dependencies } from '../../../../src/backend/detector/JUnit4DependencyDetector';
 import { detectTestNGDependencies } from '../../../../src/backend/detector/TestNGDependencyDetector';
 import { parseSuiteXML, buildSuiteTaskDependencies } from '../../../../src/backend/detector/SuiteXMLParser';
-import { detectLifecycle, ServiceRequirement } from '../../../../src/backend/detector/LifecycleDetector';
+import { detectLifecycle } from '../../../../src/backend/detector/LifecycleDetector';
 
 const mockExistsSync = fs.existsSync as jest.MockedFunction<typeof fs.existsSync>;
 const mockJoin = path.join as jest.MockedFunction<typeof path.join>;

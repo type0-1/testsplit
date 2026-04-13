@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { collectJavaFiles } from './JavaFileUtils';
 
 export type ServiceType = 'postgres' | 'mysql' | 'kafka' | 'mongo' | 'redis' | 'compose';
 
@@ -45,7 +46,7 @@ const TESTCONTAINERS_MAP: Record<string, Omit<ServiceRequirement, 'source'>> = {
   },
 };
 
-// Spring annotation → service definition
+// Spring annotation -> service definition
 const SPRING_ANNOTATION_MAP: Record<string, Omit<ServiceRequirement, 'source'>> = {
   '@EmbeddedKafka': {
     type: 'kafka',
@@ -134,16 +135,3 @@ export function detectSpringAnnotationsFromSource(source: string): ServiceRequir
   return found;
 }
 
-function collectJavaFiles(dir: string): string[] {
-  if (!fs.existsSync(dir)) return [];
-  const results: string[] = [];
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      results.push(...collectJavaFiles(full));
-    } else if (entry.name.endsWith('.java')) {
-      results.push(full);
-    }
-  }
-  return results;
-}
