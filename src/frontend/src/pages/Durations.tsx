@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useApi } from '@/hooks/useApi'
 import { useCalibration } from '@/hooks/useCalibration'
 import { testMethodName } from '@/lib/testName'
+import { ExportButton } from '@/components/ExportButton'
 
 import { PageLoadingSkeleton } from '@/components/PageLoadingSkeleton'
 import { PageErrorState } from '@/components/PageErrorState'
@@ -69,12 +70,7 @@ export function Durations() {
         </div>
         <div className="flex items-center gap-3">
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>{allTests.length} tests loaded</span>
-          <button
-            onClick={() => downloadJson(`testsplit-durations-${new Date().toISOString().slice(0, 10)}.json`, { tests: sorted, summary: { totalTests: s.totalTests, avgDuration: s.avgDuration, runCount: s.runCount }, exportedAt: new Date().toISOString() })}
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--g6)', background: 'transparent', border: '1px solid var(--g4)', padding: '2px 8px', cursor: 'pointer' }}
-          >
-            EXPORT
-          </button>
+          <ExportButton onClick={() => downloadJson(`testsplit-durations-${new Date().toISOString().slice(0, 10)}.json`, { tests: sorted, summary: { totalTests: s.totalTests, avgDuration: s.avgDuration, runCount: s.runCount }, exportedAt: new Date().toISOString() })} />
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--orange)', background: 'var(--orange-dim)', border: '1px solid var(--orange)', padding: '2px 8px' }}>
             {allTests.length} TESTS
           </span>

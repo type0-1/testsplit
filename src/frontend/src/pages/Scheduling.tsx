@@ -6,6 +6,7 @@ import { StatCard } from '@/components/StatCard'
 import { CoreUtilizationPanel } from '@/components/scheduling/CoreUtilisationPanel'
 import { JobChartPanel } from '@/components/scheduling/JobChartPanel'
 import { JobBarsPanel } from '@/components/scheduling/JobBarsPanel'
+import { ExportButton } from '@/components/ExportButton'
 import { downloadJson } from '@/lib/utils'
 import type { SummaryResponse, JobsResponse } from '@/types/api'
 
@@ -38,12 +39,7 @@ export function Scheduling() {
         </div>
         <div className="flex items-center gap-3">
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>{jobs.length} parallel jobs</span>
-          <button
-            onClick={() => downloadJson(`testsplit-scheduling-${new Date().toISOString().slice(0, 10)}.json`, { jobs, summary: { makespan: s.makespan, speedupFactor: s.speedupFactor, balanceRatio: s.balanceRatio, sequentialDuration: s.sequentialDuration, totalTests: s.totalTests }, exportedAt: new Date().toISOString() })}
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--g6)', background: 'transparent', border: '1px solid var(--g4)', padding: '2px 8px', cursor: 'pointer' }}
-          >
-            EXPORT
-          </button>
+          <ExportButton onClick={() => downloadJson(`testsplit-scheduling-${new Date().toISOString().slice(0, 10)}.json`, { jobs, summary: { makespan: s.makespan, speedupFactor: s.speedupFactor, balanceRatio: s.balanceRatio, sequentialDuration: s.sequentialDuration, totalTests: s.totalTests }, exportedAt: new Date().toISOString() })} />
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--cyan)', background: 'var(--cyan-dim)', border: '1px solid var(--cyan)', padding: '2px 8px' }}>
             {jobs.length} JOBS
           </span>

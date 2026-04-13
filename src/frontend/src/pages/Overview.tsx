@@ -8,6 +8,7 @@ import { JobDistributionPanel } from '@/components/overview/JobDistributionPanel
 import { SlowestTestsPanel } from '@/components/overview/SlowestTestsPanel'
 import { InstabilityPanel } from '@/components/overview/InstabilityPanel'
 import { TrendChartPanel } from '@/components/overview/TrendChartPanel'
+import { ExportButton } from '@/components/ExportButton'
 import { formatRunLabel, downloadJson } from '@/lib/utils'
 import type { SummaryResponse, TestsResponse, JobsResponse, TrendsResponse, TrendPoint } from '@/types/api'
 
@@ -74,12 +75,7 @@ export default function Overview() {
         </div>
         <div className="flex items-center gap-3">
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>Last run: {lastRun}</span>
-          <button
-            onClick={() => downloadJson(`testsplit-report-${new Date().toISOString().slice(0, 10)}.json`, { summary: s, jobs, trends: rawTrends, exportedAt: new Date().toISOString() })}
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--g6)', background: 'transparent', border: '1px solid var(--g4)', padding: '2px 8px', cursor: 'pointer' }}
-          >
-            EXPORT
-          </button>
+          <ExportButton onClick={() => downloadJson(`testsplit-report-${new Date().toISOString().slice(0, 10)}.json`, { summary: s, jobs, trends: rawTrends, exportedAt: new Date().toISOString() })} />
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--orange)', background: 'var(--orange-dim)', border: '1px solid var(--orange)', padding: '2px 8px' }}>
             RUN {s.runCount}
           </span>

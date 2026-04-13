@@ -6,6 +6,7 @@ import { PageErrorState } from '@/components/PageErrorState'
 import { StatCard } from '@/components/StatCard'
 import { InstabilityRow } from '@/components/instability/InstabilityRow'
 import { ScatterPanel } from '@/components/instability/ScatterPanel'
+import { ExportButton } from '@/components/ExportButton'
 import { downloadJson } from '@/lib/utils'
 import type { SummaryResponse, TestsResponse } from '@/types/api'
 
@@ -41,12 +42,7 @@ export function Instability() {
         </div>
         <div className="flex items-center gap-3">
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>{allTests.length} tests loaded</span>
-          <button
-            onClick={() => downloadJson(`testsplit-instability-${new Date().toISOString().slice(0, 10)}.json`, { tests: allTests, summary: { totalTests: s.totalTests, unstableCount: s.unstableCount, outlierCount: s.outlierCount }, exportedAt: new Date().toISOString() })}
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--g6)', background: 'transparent', border: '1px solid var(--g4)', padding: '2px 8px', cursor: 'pointer' }}
-          >
-            EXPORT
-          </button>
+          <ExportButton onClick={() => downloadJson(`testsplit-instability-${new Date().toISOString().slice(0, 10)}.json`, { tests: allTests, summary: { totalTests: s.totalTests, unstableCount: s.unstableCount, outlierCount: s.outlierCount }, exportedAt: new Date().toISOString() })} />
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--amber)', background: 'var(--amber-dim)', border: '1px solid var(--amber)', padding: '2px 8px' }}>
             {s.unstableCount} UNSTABLE
           </span>
