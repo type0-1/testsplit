@@ -8,6 +8,7 @@ import { JobDistributionPanel } from '@/components/overview/JobDistributionPanel
 import { SlowestTestsPanel } from '@/components/overview/SlowestTestsPanel'
 import { InstabilityPanel } from '@/components/overview/InstabilityPanel'
 import { TrendChartPanel } from '@/components/overview/TrendChartPanel'
+import { PageHeader } from '@/components/PageHeader'
 import { ExportButton } from '@/components/ExportButton'
 import { formatRunLabel, downloadJson } from '@/lib/utils'
 import type { SummaryResponse, TestsResponse, JobsResponse, TrendsResponse, TrendPoint } from '@/types/api'
@@ -65,22 +66,16 @@ export default function Overview() {
   return (
     <div className="flex flex-col h-full overflow-hidden" aria-label="Overview">
 
-      <header className="flex items-center justify-between px-5 py-3 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
-        <div className="flex items-center gap-3">
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--g7)' }}>Overview</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem' }}>
-            <span style={{ color: 'var(--orange)' }}>/</span>
-            <span style={{ color: 'var(--g6)' }}> System Calibration</span>
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
+      <PageHeader
+        title="Overview"
+        accent="var(--orange)"
+        subtitle="System Calibration"
+        right={<>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>Last run: {lastRun}</span>
           <ExportButton onClick={() => downloadJson(`testsplit-report-${new Date().toISOString().slice(0, 10)}.json`, { summary: s, jobs, trends: rawTrends, exportedAt: new Date().toISOString() })} />
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--orange)', background: 'var(--orange-dim)', border: '1px solid var(--orange)', padding: '2px 8px' }}>
-            RUN {s.runCount}
-          </span>
-        </div>
-      </header>
+          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--orange)', background: 'var(--orange-dim)', border: '1px solid var(--orange)', padding: '2px 8px' }}>RUN {s.runCount}</span>
+        </>}
+      />
 
       {regression && (
         <div className="flex items-center gap-3 px-5 py-2 shrink-0" style={{ background: 'var(--orange-dim)', borderBottom: '1px solid var(--orange)' }}>

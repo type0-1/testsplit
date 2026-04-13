@@ -6,6 +6,7 @@ import { PageErrorState } from '@/components/PageErrorState'
 import { StatCard } from '@/components/StatCard'
 import { InstabilityRow } from '@/components/instability/InstabilityRow'
 import { ScatterPanel } from '@/components/instability/ScatterPanel'
+import { PageHeader } from '@/components/PageHeader'
 import { ExportButton } from '@/components/ExportButton'
 import { downloadJson } from '@/lib/utils'
 import type { SummaryResponse, TestsResponse } from '@/types/api'
@@ -32,22 +33,16 @@ export function Instability() {
   return (
     <div className="flex flex-col h-full overflow-hidden" aria-label="Instability">
 
-      <header className="flex items-center justify-between px-5 py-3 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
-        <div className="flex items-center gap-3">
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--g7)' }}>Instability</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem' }}>
-            <span style={{ color: 'var(--amber)' }}>/</span>
-            <span style={{ color: 'var(--g6)' }}> Variance Analysis</span>
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
+      <PageHeader
+        title="Instability"
+        accent="var(--amber)"
+        subtitle="Variance Analysis"
+        right={<>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>{allTests.length} tests loaded</span>
           <ExportButton onClick={() => downloadJson(`testsplit-instability-${new Date().toISOString().slice(0, 10)}.json`, { tests: allTests, summary: { totalTests: s.totalTests, unstableCount: s.unstableCount, outlierCount: s.outlierCount }, exportedAt: new Date().toISOString() })} />
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--amber)', background: 'var(--amber-dim)', border: '1px solid var(--amber)', padding: '2px 8px' }}>
-            {s.unstableCount} UNSTABLE
-          </span>
-        </div>
-      </header>
+          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--amber)', background: 'var(--amber-dim)', border: '1px solid var(--amber)', padding: '2px 8px' }}>{s.unstableCount} UNSTABLE</span>
+        </>}
+      />
 
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Instability metrics">
         <StatCard label="Unstable Tests" value={s.unstableCount} format={v => String(Math.round(v))} sub={`of ${s.totalTests} total tests`} accent="var(--amber)" active={calibrated} delay={0} />

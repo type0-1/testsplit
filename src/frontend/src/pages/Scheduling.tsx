@@ -6,6 +6,7 @@ import { StatCard } from '@/components/StatCard'
 import { CoreUtilizationPanel } from '@/components/scheduling/CoreUtilisationPanel'
 import { JobChartPanel } from '@/components/scheduling/JobChartPanel'
 import { JobBarsPanel } from '@/components/scheduling/JobBarsPanel'
+import { PageHeader } from '@/components/PageHeader'
 import { ExportButton } from '@/components/ExportButton'
 import { downloadJson } from '@/lib/utils'
 import type { SummaryResponse, JobsResponse } from '@/types/api'
@@ -29,22 +30,16 @@ export function Scheduling() {
   return (
     <div className="flex flex-col h-full overflow-hidden" aria-label="Scheduling">
 
-      <header className="flex items-center justify-between px-5 py-3 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
-        <div className="flex items-center gap-3">
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--g7)' }}>Scheduling</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem' }}>
-            <span style={{ color: 'var(--cyan)' }}>/</span>
-            <span style={{ color: 'var(--g6)' }}> LPT Job Distribution</span>
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
+      <PageHeader
+        title="Scheduling"
+        accent="var(--cyan)"
+        subtitle="LPT Job Distribution"
+        right={<>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>{jobs.length} parallel jobs</span>
           <ExportButton onClick={() => downloadJson(`testsplit-scheduling-${new Date().toISOString().slice(0, 10)}.json`, { jobs, summary: { makespan: s.makespan, speedupFactor: s.speedupFactor, balanceRatio: s.balanceRatio, sequentialDuration: s.sequentialDuration, totalTests: s.totalTests }, exportedAt: new Date().toISOString() })} />
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--cyan)', background: 'var(--cyan-dim)', border: '1px solid var(--cyan)', padding: '2px 8px' }}>
-            {jobs.length} JOBS
-          </span>
-        </div>
-      </header>
+          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--cyan)', background: 'var(--cyan-dim)', border: '1px solid var(--cyan)', padding: '2px 8px' }}>{jobs.length} JOBS</span>
+        </>}
+      />
 
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Scheduling metrics">
         <StatCard label="Makespan" value={s.makespan} format={v => `${v.toFixed(2)}s`} sub="critical path duration" accent="var(--cyan)" active={calibrated} delay={0} />
