@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import YAML from 'yaml';
+import { isMavenCommand, isMavenTestCommand } from '../generator/MavenCommand';
 
 type Platform = 'github' | 'gitlab';
 type GenericRecord = Record<string, unknown>;
@@ -11,15 +12,17 @@ function toRecord(value: unknown): GenericRecord {
     : {};
 }
 
-function isMavenTestLine(line: string): boolean {
-  const trimmed = line.trim();
-  return /^(mvn|\.\/mvnw)\b/.test(trimmed) && !trimmed.includes('-DskipTests');
-}
-
 function isGradleTestLine(line: string): boolean {
   const trimmed = line.trim();
   if (!/^(gradle|\.\/gradlew)\b/.test(trimmed)) return false;
   return /\b(build|test|check)\b/.test(trimmed) && !trimmed.includes('-x test');
+}
+
+function isTestLine(line: string): boolean {
+  const trimmed = line.trim();
+  if (isMavenCommand(trimmed)) return isMavenTestCommand(trimmed);
+  if (/^(gradle|\.\/gradlew)\b/.test(trimmed)) return isGradleTestLine(trimmed);
+  return trimmed.toLowerCase().includes('test');
 }
 
 export function findExistingCIFile(platform: Platform): string | null {
@@ -63,14 +66,7 @@ export function findTestJobs(config: unknown, platform: Platform): string[] {
       for (const step of steps) {
         const stepObj = toRecord(step);
         const run = stepObj.run;
-        if (
-          typeof run === 'string' &&
-          (/^(mvn|\.\/mvnw)\b/.test(run.trim())
-            ? isMavenTestLine(run)
-            : /^(gradle|\.\/gradlew)\b/.test(run.trim())
-              ? isGradleTestLine(run)
-              : run.toLowerCase().includes('test'))
-        ) {
+        if (typeof run === 'string' && isTestLine(run)) {
           testJobs.push(jobName);
           break;
         }
@@ -85,12 +81,7 @@ export function findTestJobs(config: unknown, platform: Platform): string[] {
       const lines = Array.isArray(script) ? script : [script];
       if (
         lines.some((line) => {
-          if (typeof line !== 'string') return false;
-          return /^(mvn|\.\/mvnw)\b/.test(line.trim())
-            ? isMavenTestLine(line)
-            : /^(gradle|\.\/gradlew)\b/.test(line.trim())
-              ? isGradleTestLine(line)
-              : line.toLowerCase().includes('test');
+          return typeof line === 'string' && isTestLine(line);
         })
       ) {
         testJobs.push(jobName);
@@ -115,14 +106,7 @@ export function extractTestCommands(
       const steps = Array.isArray(toRecord(job).steps) ? (toRecord(job).steps as unknown[]) : [];
       for (const step of steps) {
         const run = toRecord(step).run;
-        if (
-          typeof run === 'string' &&
-          (/^(mvn|\.\/mvnw)\b/.test(run.trim())
-            ? isMavenTestLine(run)
-            : /^(gradle|\.\/gradlew)\b/.test(run.trim())
-              ? isGradleTestLine(run)
-              : run.toLowerCase().includes('test'))
-        ) {
+        if (typeof run === 'string' && isTestLine(run)) {
           commands.push(run.trim());
         }
       }
@@ -137,13 +121,7 @@ export function extractTestCommands(
       const lines = Array.isArray(script) ? script : [script];
       for (const line of lines) {
         if (typeof line !== 'string') continue;
-        if (
-          /^(mvn|\.\/mvnw)\b/.test(line.trim())
-            ? isMavenTestLine(line)
-            : /^(gradle|\.\/gradlew)\b/.test(line.trim())
-              ? isGradleTestLine(line)
-              : line.toLowerCase().includes('test')
-        ) {
+        if (isTestLine(line)) {
           commands.push(line.trim());
         }
       }
