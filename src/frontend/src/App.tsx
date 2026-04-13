@@ -29,9 +29,9 @@ export default function App() {
             transition={{ duration: 0.15, ease: 'easeOut' }}
             className="h-full"
           >
-            {page === 'overview'    && <Overview />}
-            {page === 'durations'   && <Durations />}
-            {page === 'scheduling'  && <Scheduling />}
+            {page === 'overview' && <Overview />}
+            {page === 'durations' && <Durations />}
+            {page === 'scheduling' && <Scheduling />}
             {page === 'instability' && <Instability />}
           </motion.div>
         </AnimatePresence>
