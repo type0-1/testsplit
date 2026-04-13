@@ -20,9 +20,9 @@ export function buildBenchmarkCommand(y: Argv): Argv {
     });
 }
 
-export function handleBenchmarkCommand(argv: any): void {
+export function handleBenchmarkCommand(argv: Record<string, unknown>): void {
   const junitPath = path.resolve(argv.junit as string);
-  const jobCount = normalizeJobs(argv.jobs);
+  const jobCount = normalizeJobs(argv.jobs as number | undefined);
 
   assertJUnitPathExists(junitPath);
 

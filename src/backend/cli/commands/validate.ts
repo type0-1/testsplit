@@ -6,6 +6,13 @@ import YAML from 'yaml';
 import { EXIT_FAILURE } from '../constants';
 
 type Platform = 'github' | 'gitlab';
+type GenericRecord = Record<string, unknown>;
+
+function toRecord(value: unknown): GenericRecord {
+  return typeof value === 'object' && value !== null
+    ? (value as GenericRecord)
+    : {};
+}
 
 export function buildValidateCommand(y: Argv): Argv {
   return y
@@ -22,7 +29,7 @@ export function buildValidateCommand(y: Argv): Argv {
     });
 }
 
-export function handleValidateCommand(argv: any): void {
+export function handleValidateCommand(argv: Record<string, unknown>): void {
   const filePath = path.resolve(argv.file as string);
   const platform = argv.platform as Platform;
 
@@ -32,7 +39,7 @@ export function handleValidateCommand(argv: any): void {
   }
 
   const raw = fs.readFileSync(filePath, 'utf-8');
-  let parsed: any;
+  let parsed: unknown;
 
   try {
     parsed = YAML.parse(raw);
@@ -43,26 +50,31 @@ export function handleValidateCommand(argv: any): void {
   }
 
   const issues: string[] = [];
+  const parsedObj = toRecord(parsed);
 
   if (platform === 'github') {
-    if (!parsed.on) issues.push('Missing required field: on (trigger)');
-    if (!parsed.jobs || Object.keys(parsed.jobs).length === 0)
+    if (!parsedObj.on) issues.push('Missing required field: on (trigger)');
+    const jobs = toRecord(parsedObj.jobs);
+    if (Object.keys(jobs).length === 0)
       issues.push('Missing required field: jobs');
-    for (const [name, job] of Object.entries<any>(parsed.jobs ?? {})) {
-      if (!job.steps || job.steps.length === 0)
+    for (const [name, job] of Object.entries(jobs)) {
+      const steps = toRecord(job).steps;
+      if (!Array.isArray(steps) || steps.length === 0)
         issues.push(`Job "${name}": missing steps`);
     }
   }
 
   if (platform === 'gitlab') {
-    if (!parsed.stages || parsed.stages.length === 0)
+    const stages = parsedObj.stages;
+    if (!Array.isArray(stages) || stages.length === 0)
       issues.push('Missing required field: stages');
-    const jobEntries = Object.entries<any>(parsed).filter(
+    const jobEntries = Object.entries(parsedObj).filter(
       ([k]) => k !== 'stages',
     );
     if (jobEntries.length === 0) issues.push('No jobs defined');
     for (const [name, job] of jobEntries) {
-      if (!job.script || job.script.length === 0)
+      const script = toRecord(job).script;
+      if (!(Array.isArray(script) ? script.length > 0 : Boolean(script)))
         issues.push(`Job "${name}": missing script`);
     }
   }

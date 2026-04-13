@@ -1,11 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import chalk from 'chalk';
+import { Argv } from 'yargs';
 
 import { generateDockerfile } from '../../generator/DockerfileGenerator';
 import { parsePom } from '../../detector/PomParser';
 
-export function buildDockerfileCommand(y: any): any {
+export function buildDockerfileCommand(y: Argv): Argv {
   return y
     .option('pom', {
       type: 'string',
@@ -19,7 +20,7 @@ export function buildDockerfileCommand(y: any): any {
     });
 }
 
-export function handleDockerfileCommand(argv: any): void {
+export function handleDockerfileCommand(argv: Record<string, unknown>): void {
   const pomPath = path.resolve(argv.pom as string);
   const outPath = path.resolve(argv.out as string);
 

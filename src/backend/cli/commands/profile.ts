@@ -50,7 +50,7 @@ export function buildProfileCommand(y: Argv): Argv {
     });
 }
 
-export function handleProfileCommand(argv: any): void {
+export function handleProfileCommand(argv: Record<string, unknown>): void {
   const junitRaw = argv.junit as string | undefined;
   const junitPath = junitRaw
     ? path.resolve(junitRaw)
@@ -78,7 +78,7 @@ export function handleProfileCommand(argv: any): void {
         }
         return dirs[0];
       })();
-  const jobCount = normalizeJobs(argv.jobs);
+  const jobCount = normalizeJobs(argv.jobs as number | undefined);
   const dataDir = argv.data as string;
   const explain = argv.explain as boolean;
   const algorithm = argv.algorithm as Algorithm;

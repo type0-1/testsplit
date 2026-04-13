@@ -24,7 +24,7 @@ export function buildCompareCommand(y: Argv): Argv {
     });
 }
 
-export function handleCompareCommand(argv: any): void {
+export function handleCompareCommand(argv: Record<string, unknown>): void {
   const runCount = argv.runs as number;
   const dataDir = argv.data as string;
   const thresholdPct = argv.threshold as number;

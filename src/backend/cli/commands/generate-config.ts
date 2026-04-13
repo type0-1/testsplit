@@ -95,7 +95,7 @@ export function buildGenerateConfigCommand(y: Argv): Argv {
     });
 }
 
-export function handleGenerateConfigCommand(argv: any): void {
+export function handleGenerateConfigCommand(argv: Record<string, unknown>): void {
   const junitPath = path.resolve(argv.junit as string);
   const runnerCores = argv['runner-cores'] as number;
   const jobCount = normalizeJobs(
