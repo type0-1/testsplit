@@ -50,9 +50,182 @@ export function generateGitHubActionsConfig(
   return yamlOutput;
 }
 
+type SplitJob = { id: number; tests: string[]; needs?: number[] };
+type JsonObject = Record<string, unknown>;
+
+function asObject(value: unknown): JsonObject {
+  return typeof value === 'object' && value !== null
+    ? (value as JsonObject)
+    : {};
+}
+
+function asArray(value: unknown): unknown[] {
+  return Array.isArray(value) ? value : [];
+}
+
+function isMavenStep(step: unknown): boolean {
+  const stepObj = asObject(step);
+  return typeof stepObj.run === 'string' && isMavenCommand(stepObj.run);
+}
+
+function deepClone<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
+}
+
+function buildMatrixResolver(baseJob: unknown): (json: string) => string {
+  const matrixDef: Record<string, (string | number)[]> =
+    (asObject(asObject(baseJob).strategy).matrix as Record<string, (string | number)[]>) ?? {};
+  const javaMatrix: (string | number)[] | undefined = matrixDef['java'];
+  if (javaMatrix) matrixDef['java'] = [javaMatrix[javaMatrix.length - 1]];
+
+  return (json: string): string =>
+    json.replace(/\$\{\{\s*matrix\.([\w-]+)\s*\}\}/g, (_match, key) => {
+      const vals = matrixDef[key];
+      return vals && vals.length > 0 ? String(vals[0]) : '';
+    });
+}
+
+function stripMatrixEnvAndCollectSubstitutions(
+  job: JsonObject,
+  resolveMatrixRefs: (json: string) => string,
+): Record<string, string> {
+  const substitutions: Record<string, string> = {};
+
+  if (!job.env) {
+    return substitutions;
+  }
+
+  const env = asObject(job.env);
+  for (const [k, v] of Object.entries(env)) {
+    if (typeof v === 'string' && v.includes('matrix.')) {
+      substitutions[k] = resolveMatrixRefs(v);
+      delete env[k];
+    }
+  }
+
+  if (Object.keys(env).length === 0) {
+    delete job.env;
+  } else {
+    job.env = env;
+  }
+
+  return substitutions;
+}
+
+function buildEnvResolver(substitutions: Record<string, string>): (json: string) => string {
+  return (json: string): string => {
+    let result = json;
+    for (const [k, v] of Object.entries(substitutions)) {
+      result = result.replace(new RegExp(`\\$${k}\\b`, 'g'), v);
+    }
+    return result;
+  };
+}
+
+function resolveStep(
+  step: unknown,
+  resolveMatrixRefs: (json: string) => string,
+  resolveEnvRefs: (json: string) => string,
+): JsonObject {
+  return JSON.parse(resolveEnvRefs(resolveMatrixRefs(JSON.stringify(step))));
+}
+
+function buildBuildJob(
+  baseJob: unknown,
+  resolveMatrixRefs: (json: string) => string,
+  containerImage: string | undefined,
+  githubServices: unknown,
+  artifactName: string,
+  artifactPath: string,
+): { buildJob: JsonObject; setupSteps: JsonObject[]; resolveEnvRefs: (json: string) => string } {
+  const buildJob = deepClone(asObject(baseJob));
+
+  delete buildJob.strategy;
+  delete buildJob.name;
+  buildJob['runs-on'] = 'ubuntu-latest';
+
+  const substitutions = stripMatrixEnvAndCollectSubstitutions(
+    buildJob,
+    resolveMatrixRefs,
+  );
+  const resolveEnvRefs = buildEnvResolver(substitutions);
+
+  if (containerImage) buildJob.container = containerImage;
+  if (githubServices) buildJob.services = githubServices;
+
+  buildJob.steps = asArray(buildJob.steps).map((step) => {
+    const resolved = resolveStep(step, resolveMatrixRefs, resolveEnvRefs);
+    if (isMavenStep(resolved) && typeof resolved.run === 'string' && !resolved.run.includes('-DskipTests')) {
+      return { ...resolved, run: `${resolved.run.trim()} -DskipTests -Drat.skip=true` };
+    }
+    return resolved;
+  });
+
+  asArray(buildJob.steps).push({
+    uses: 'actions/upload-artifact@v4',
+    with: { name: artifactName, path: artifactPath },
+  });
+  buildJob.steps = asArray(buildJob.steps);
+
+  const setupSteps = asArray(asObject(baseJob).steps)
+    .filter((step) => !isMavenStep(step))
+    .map((step) => resolveStep(step, resolveMatrixRefs, resolveEnvRefs));
+
+  return { buildJob, setupSteps, resolveEnvRefs };
+}
+
+function buildTestJob(
+  baseJob: unknown,
+  job: SplitJob,
+  setupSteps: JsonObject[],
+  mavenBin: string,
+  artifactName: string,
+  forkFlags: string[],
+  resolveMatrixRefs: (json: string) => string,
+  containerImage: string | undefined,
+  githubServices: unknown,
+  coreDetectStep: { name: string; id: string; run: string } | null,
+  composeStartStep: JsonObject | null,
+  composeStopStep: JsonObject | null,
+): JsonObject {
+  const testJob = deepClone(asObject(baseJob));
+  delete testJob.strategy;
+  delete testJob.name;
+  testJob['runs-on'] = 'ubuntu-latest';
+
+  stripMatrixEnvAndCollectSubstitutions(testJob, resolveMatrixRefs);
+
+  if (containerImage) testJob.container = containerImage;
+  if (githubServices) testJob.services = githubServices;
+
+  const testSteps: JsonObject[] = [...deepClone(setupSteps)];
+
+  if (composeStartStep) testSteps.push(composeStartStep);
+
+  testSteps.push({ uses: 'actions/download-artifact@v4', with: { name: artifactName } });
+
+  if (coreDetectStep) testSteps.push(coreDetectStep);
+
+  testSteps.push({
+    name: 'Run tests',
+    run: [
+      `${mavenBin} test`,
+      `-Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')}`,
+      `-DfailIfNoTests=false`,
+      ...forkFlags,
+    ].join(' '),
+  });
+
+  if (composeStopStep) testSteps.push(composeStopStep);
+
+  testJob.steps = testSteps;
+  testJob.needs = ['build'];
+  return testJob;
+}
+
 export function buildGitHubPhasedJobs(
   baseJob: any,
-  jobs: { id: number; tests: string[]; needs?: number[] }[],
+  jobs: SplitJob[],
   mavenBin: string,
   artifactName: string = 'build-artifacts',
   artifactPath: string = 'target/',
@@ -63,78 +236,20 @@ export function buildGitHubPhasedJobs(
 ): Record<string, any> {
   const result: Record<string, any> = {};
 
-  const isMavenStep = (step: any): boolean =>
-    typeof step.run === 'string' && isMavenCommand(step.run);
-
   const githubServices = services ? buildGitHubServices(services) : undefined;
   const composeStartStep = hasDockerCompose ? buildDockerComposeStartStep() : null;
   const composeStopStep = hasDockerCompose ? buildDockerComposeStopStep() : null;
-
-  /**
-   * Strip matrix from build job. Phased pipelines require a single build artifact. 
-   * A matrix would produce N concurrent uploads with the same name, so resolve matrix.java references in steps using the last (highest) java value.
-   */
-  
-  const buildJob = JSON.parse(JSON.stringify(baseJob));
-  const matrixDef: Record<string, (string | number)[]> = baseJob.strategy?.matrix ?? {};
-  const javaMatrix: (string | number)[] | undefined = matrixDef['java'];
-  if (javaMatrix) matrixDef['java'] = [javaMatrix[javaMatrix.length - 1]];
-
-  const resolveMatrixRefs = (json: string): string =>
-      json.replace(/\$\{\{\s*matrix\.([\w-]+)\s*\}\}/g, (_match, key) => {
-      const vals = matrixDef[key];
-      return vals && vals.length > 0 ? String(vals[0]) : '';
-    });
-
-  delete buildJob.strategy;
-  delete buildJob.name;
-  buildJob['runs-on'] = 'ubuntu-latest';
-
-  /**
-   * Strip env entries whose values reference matrix variables and build a substitution map
-   * so that shell references like $ROOT_POM in step run commands can be inlined.
-   */
-
-  const strippedEnvSubstitutions: Record<string, string> = {};
-  if (buildJob.env) {
-    for (const [k, v] of Object.entries(buildJob.env)) {
-      if (typeof v === 'string' && v.includes('matrix.')) {
-        strippedEnvSubstitutions[k] = resolveMatrixRefs(v);
-        delete buildJob.env[k];
-      }
-    }
-    if (Object.keys(buildJob.env).length === 0) delete buildJob.env;
-  }
-
-  const resolveStrippedEnvRefs = (json: string): string => {
-    let result = json;
-    for (const [k, v] of Object.entries(strippedEnvSubstitutions)) {
-      result = result.replace(new RegExp(`\\$${k}\\b`, 'g'), v);
-    }
-    return result;
-  };
-
-  if (containerImage) buildJob.container = containerImage;
-  if (githubServices) buildJob.services = githubServices;
-
-  buildJob.steps = buildJob.steps.map((step: any) => {
-    const resolved = JSON.parse(resolveStrippedEnvRefs(resolveMatrixRefs(JSON.stringify(step))));
-    if (isMavenStep(resolved) && !resolved.run.includes('-DskipTests')) {
-      return { ...resolved, run: `${resolved.run.trim()} -DskipTests -Drat.skip=true` };
-    }
-    return resolved;
-  });
-
-  buildJob.steps.push({
-    uses: 'actions/upload-artifact@v4',
-    with: { name: artifactName, path: artifactPath },
-  });
+  const resolveMatrixRefs = buildMatrixResolver(baseJob);
+  const { buildJob, setupSteps } = buildBuildJob(
+    baseJob,
+    resolveMatrixRefs,
+    containerImage,
+    githubServices,
+    artifactName,
+    artifactPath,
+  );
 
   result['build'] = buildJob;
-
-  const setupSteps = (baseJob.steps as any[])
-    .filter((step: any) => !isMavenStep(step))
-    .map((step: any) => JSON.parse(resolveStrippedEnvRefs(resolveMatrixRefs(JSON.stringify(step)))));
 
   const coreDetectStep = runnerCores > 1 ? {
     name: 'Detect available cores',
@@ -150,43 +265,20 @@ export function buildGitHubPhasedJobs(
   const forkFlags = runnerCores > 1 ? ['-Dsurefire.forkCount=${{ steps.cores.outputs.count }}', '-Dsurefire.reuseForks=true'] : [];
 
   for (const job of jobs) {
-    const testJob: any = JSON.parse(JSON.stringify(baseJob));
-    delete testJob.strategy;
-    delete testJob.name;
-    testJob['runs-on'] = 'ubuntu-latest';
-
-    if (testJob.env) {
-      for (const [k, v] of Object.entries(testJob.env)) {
-        if (typeof v === 'string' && v.includes('matrix.')) delete testJob.env[k];
-      }
-      if (Object.keys(testJob.env).length === 0) delete testJob.env;
-    }
-
-    if (containerImage) testJob.container = containerImage;
-    if (githubServices) testJob.services = githubServices;
-
-    const testSteps: any[] = [...JSON.parse(JSON.stringify(setupSteps))];
-
-    if (composeStartStep) testSteps.push(composeStartStep);
-
-    testSteps.push({ uses: 'actions/download-artifact@v4', with: { name: artifactName } });
-
-    if (coreDetectStep) testSteps.push(coreDetectStep);
-
-    testSteps.push({
-      name: 'Run tests',
-      run: [
-        `${mavenBin} test`,
-        `-Dtest=${[...new Set(job.tests.map(toMavenClassName))].join(',')}`,
-        `-DfailIfNoTests=false`,
-        ...forkFlags,
-      ].join(' '),
-    });
-
-    if (composeStopStep) testSteps.push(composeStopStep);
-
-    testJob.steps = testSteps;
-    testJob.needs = ['build'];
+    const testJob = buildTestJob(
+      baseJob,
+      job,
+      setupSteps,
+      mavenBin,
+      artifactName,
+      forkFlags,
+      resolveMatrixRefs,
+      containerImage,
+      githubServices,
+      coreDetectStep,
+      composeStartStep,
+      composeStopStep,
+    );
     result[`test-job-${job.id}`] = testJob;
   }
 
