@@ -10,21 +10,8 @@ import { InstabilityPanel } from '@/components/overview/InstabilityPanel'
 import { TrendChartPanel } from '@/components/overview/TrendChartPanel'
 import { PageHeader } from '@/components/PageHeader'
 import { ExportButton } from '@/components/ExportButton'
-import { pctDelta, formatRunLabel, downloadJson } from '@/lib/utils'
+import { detectRegression, pctDelta, formatRunLabel, downloadJson } from '@/lib/utils'
 import type { SummaryResponse, TestsResponse, JobsResponse, TrendsResponse, TrendPoint } from '@/types/api'
-
-function detectRegression(trends: TrendPoint[]): { field: string; pct: number } | null {
-  if (trends.length < 2) return null
-  const prev = trends[trends.length - 2]
-  const curr = trends[trends.length - 1]
-  for (const c of [
-    { field: 'makespan', prev: prev.criticalPath, curr: curr.criticalPath },
-    { field: 'total duration', prev: prev.totalDuration, curr: curr.totalDuration },
-  ]) {
-    if (c.prev > 0 && (c.curr - c.prev) / c.prev > 0.10) return { field: c.field, pct: (c.curr - c.prev) / c.prev }
-  }
-  return null
-}
 
 export default function Overview() {
   const calibrated = useCalibration()

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { SectionHeader } from '@/components/SectionHeader'
 import { StatusBadge } from '@/components/StatusBadge'
+import { testStatusColor, testStatusColorDim } from '@/lib/testStatus'
 import { testMethodName, testClassName } from '@/lib/testName'
 import type { TestStat } from '@/types/api'
 
@@ -20,8 +21,8 @@ export function SlowestTestsPanel({ tests }: { tests: TestStat[] }) {
           const method = testMethodName(t.testName)
           const cls = testClassName(t.testName)
           const pct = (t.meanDuration / max) * 100
-          const color = t.isOutlier ? 'var(--orange)' : t.unstable ? 'var(--amber)' : 'var(--g6)'
-          const colorDim = t.isOutlier ? 'var(--orange-dim)' : t.unstable ? 'var(--amber-dim)' : 'var(--g3)'
+          const color = testStatusColor(t, 'var(--g6)')
+          const colorDim = testStatusColorDim(t, 'var(--g3)')
 
           return (
             <div key={t.testName} className="px-5 py-2.5" style={{ borderBottom: '1px solid var(--g4)' }} title={t.testName}>
