@@ -36,7 +36,7 @@ typecheck_and_build: # may switch to swc or esbuild if build times become an iss
     - npm run typecheck
     - npm run build
 
-unit_tests:
+backend_tests:
   stage: unit tests
   image: node:20.19.0-bullseye-slim
   cache:
