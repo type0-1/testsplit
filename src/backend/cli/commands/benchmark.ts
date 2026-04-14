@@ -58,7 +58,7 @@ export function handleBenchmarkCommand(argv: any): void {
 
   console.log('Delta report');
   console.log(`  Time saved: ${timeSaved.toFixed(2)}s  (${timeSavedPct.toFixed(1)}%)`);
-  console.log(`Speedup: ${speedup.toFixed(2)}×`);
+  console.log(`Speedup: ${speedup.toFixed(2)}x`);
   console.log(`Balance ratio: ${distribution.metrics.balanceRatio.toFixed(3)}`);
   console.log(BENCH_SEP);
   console.log(`Analysis time: ${benchMs}ms`);
