@@ -59,6 +59,27 @@ unit_tests:
       junit: coverage/junit.xml
     expire_in: 30 days
 
+frontend_tests:
+  stage: unit tests
+  image: node:20.19.0-bullseye-slim
+  cache:
+    key:
+      files:
+        - src/frontend/package-lock.json
+      prefix: node-frontend
+    paths:
+      - src/frontend/node_modules/
+  before_script:
+    - cd src/frontend && npm ci
+  script:
+    - npm test
+  coverage: '/All files[^|]*\|[^|]*\|\s*([\d\.]+)/'
+  artifacts:
+    when: always
+    paths:
+      - src/frontend/coverage/
+    expire_in: 30 days
+
 integration_tests:
   stage: integration tests
   image: node:20.19.0-bullseye-slim
