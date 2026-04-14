@@ -18,8 +18,11 @@ export function pctDelta(curr: number, prev: number | undefined): number | null 
 }
 
 export function formatRunLabel(runAt: string, index: number): string {
-  try { return new Date(runAt).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' }) }
-  catch { return `Run ${index + 1}` }
+  try {
+    const d = new Date(runAt)
+    if (isNaN(d.getTime())) return `Run ${index + 1}`
+    return d.toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })
+  } catch { return `Run ${index + 1}` }
 }
 
 export function downloadJson(filename: string, data: unknown): void {

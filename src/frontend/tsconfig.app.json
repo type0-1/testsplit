@@ -7,7 +7,7 @@
     "module": "ESNext",
     "types": ["vite/client"],
     "skipLibCheck": true,
-     "baseUrl": ".",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
@@ -30,5 +30,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src", "__tests__/*/*.ts"]
 }
