@@ -35,6 +35,9 @@ describe('pctDelta', () => {
 describe('detectRegression', () => {
   it('returns null with fewer than 2 trend points', () => {
     expect(detectRegression([])).toBeNull()
+  })
+
+  it('returns null with exactly 1 trend point', () => {
     expect(detectRegression([makeTrend({})])).toBeNull()
   })
 
