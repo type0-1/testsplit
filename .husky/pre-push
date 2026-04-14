@@ -1,0 +1,6 @@
+echo "===:Running pre push checks:==="
+
+echo "===:[Unit + Integration tests]:==="
+npm run test:all
+
+echo "===:Pre-push checks passed!:==="
