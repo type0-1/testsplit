@@ -1,9 +1,9 @@
 import { readFileSync, statSync, readdirSync } from 'fs';
 import { join } from 'path';
 import { XMLParser } from 'fast-xml-parser';
-import { DOMParser } from '@xmldom/xmldom';
 import { TestResult } from '../models/TestResult';
 import { TestResultParser } from './TestResultParser';
+import { validateXMLStructure } from './JUnitXMLStructureValidator';
 
 function parseDurationFromProperty(
   properties: Map<string, string>,
@@ -75,54 +75,6 @@ function filePathFromClassName(className?: string): string | undefined {
   }
 
   return `${className.replace(/\./g, '/')}.java`;
-}
-
-function validateXMLStructure(xml: string, filePath: string): void {
-  try {
-    const parser = new DOMParser({
-      onError: (msg: string) => {
-        console.warn(`[XML Error] ${filePath}: ${msg}`);
-      },
-    });
-
-    const doc = parser.parseFromString(xml, 'text/xml');
-
-    // Need <testsuite> or <testsuites> root
-    const root = doc.documentElement;
-    if (
-      !root ||
-      (root.tagName !== 'testsuite' && root.tagName !== 'testsuites')
-    ) {
-      console.warn(
-        `[Schema Validation] ${filePath}: Missing required root element <testsuite> or <testsuites>`,
-      );
-      return;
-    }
-
-    // Check for required name/tests attrs
-    const testsuites =
-      root.tagName === 'testsuites'
-        ? Array.from(root.getElementsByTagName('testsuite'))
-        : [root];
-
-    for (const suite of testsuites) {
-      if (suite && !suite.hasAttribute('name')) {
-        console.warn(
-          `[Schema Validation] ${filePath}: <testsuite> missing required 'name' attribute`,
-        );
-      }
-      if (suite && !suite.hasAttribute('tests')) {
-        console.warn(
-          `[Schema Validation] ${filePath}: <testsuite> missing required 'tests' attribute`,
-        );
-      }
-    }
-  } catch (error) {
-    // Warn but don't crash
-    console.warn(
-      `[Schema Validation] ${filePath}: ${error instanceof Error ? error.message : 'Unknown validation error'}`,
-    );
-  }
 }
 
 // Parse single XML file (assumes it's a file, not a dir)
