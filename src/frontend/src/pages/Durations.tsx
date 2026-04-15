@@ -66,34 +66,114 @@ export function Durations() {
         accent="var(--orange)"
         subtitle="Per-Test Breakdown"
         right={<>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>{allTests.length} tests loaded</span>
-          <ExportButton onClick={() => downloadJson(`testsplit-durations-${new Date().toISOString().slice(0, 10)}.json`, { tests: sorted, summary: { totalTests: s.totalTests, avgDuration: s.avgDuration, runCount: s.runCount }, exportedAt: new Date().toISOString() })} />
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--orange)', background: 'var(--orange-dim)', border: '1px solid var(--orange)', padding: '2px 8px' }}>{allTests.length} TESTS</span>
+          <span style={{ 
+            fontFamily: 'var(--font-mono)', 
+            fontSize: '0.5rem', 
+            color: 'var(--g6)' 
+            }}>{allTests.length} tests loaded
+          </span>
+          <ExportButton onClick={() => downloadJson(`testsplit-durations-${new Date().toISOString().slice(0, 10)}.json`, { 
+            tests: sorted, 
+            summary: { 
+              totalTests: s.totalTests, 
+              avgDuration: s.avgDuration, 
+              runCount: s.runCount 
+              }, 
+            exportedAt: new Date().toISOString() })} 
+          />
+          <span style={{ 
+            fontFamily: 'var(--font-display)', 
+            fontWeight: 600, 
+            fontSize: '0.5rem', 
+            letterSpacing: '0.1em', 
+            color: 'var(--orange)', 
+            background: 'var(--orange-dim)', 
+            border: '1px solid var(--orange)', 
+            padding: '2px 8px' 
+            }}>{allTests.length} TESTS
+          </span>
         </>}
       />
 
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Duration metrics">
-        <StatCard label="Total Tests" value={s.totalTests} format={v => String(Math.round(v))} sub={`across ${s.runCount} profiling runs`} accent="var(--orange)" active={calibrated} delay={0} />
-        <StatCard label="Avg Duration" value={s.avgDuration} format={v => `${v.toFixed(2)}s`} sub="mean across all tests" accent="var(--g5)" active={calibrated} delay={100} />
-        <StatCard label="Slowest" value={slowest?.meanDuration ?? 0} format={v => `${v.toFixed(2)}s`} sub={slowest ? testMethodName(slowest.testName) : '-'} accent="var(--amber)" active={calibrated} delay={200} />
-        <StatCard label="Fastest" value={fastest?.meanDuration ?? 0} format={v => `${v.toFixed(3)}s`} sub={fastest ? testMethodName(fastest.testName) : '-'} accent="var(--green)" active={calibrated} delay={300} last />
+        <StatCard 
+          label="Total Tests" 
+          value={s.totalTests} 
+          format={v => String(Math.round(v))} 
+          sub={`across ${s.runCount} profiling runs`} 
+          accent="var(--orange)" 
+          active={calibrated} 
+          delay={0} 
+        />
+        <StatCard 
+          label="Avg Duration" 
+          value={s.avgDuration} 
+          format={v => `${v.toFixed(2)}s`} 
+          sub="mean across all tests" 
+          accent="var(--g5)" 
+          active={calibrated} 
+          delay={100} 
+        />
+        <StatCard 
+          label="Slowest" 
+          value={slowest?.meanDuration ?? 0} 
+          format={v => `${v.toFixed(2)}s`} 
+          sub={slowest ? testMethodName(slowest.testName) : '-'} 
+          accent="var(--amber)" 
+          active={calibrated} 
+          delay={200} 
+        />
+        <StatCard 
+          label="Fastest" 
+          value={fastest?.meanDuration ?? 0} 
+          format={v => `${v.toFixed(3)}s`} 
+          sub={fastest ? testMethodName(fastest.testName) : '-'} 
+          accent="var(--green)" 
+          active={calibrated} 
+          delay={300} 
+          last 
+        />
       </section>
 
       <div className="flex items-center gap-2 px-5 py-2 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }}>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', color: 'var(--g6)', marginRight: 4 }}>sort</span>
+        <span style={{ 
+          fontFamily: 'var(--font-mono)', 
+          fontSize: '0.52rem', 
+          color: 'var(--g6)', 
+          marginRight: 4 
+          }}>sort
+        </span>
+
         {SORT_BUTTONS.map(btn => {
           const active = sortKey === btn.key
           return (
             <button
               key={btn.key}
               onClick={() => handleSort(btn.key)}
-              style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.48rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '2px 8px', border: `1px solid ${active ? 'var(--orange)' : 'var(--g4)'}`, color: active ? 'var(--orange)' : 'var(--g5)', background: active ? 'var(--orange-dim)' : 'transparent', cursor: 'pointer' }}
+              style={{ 
+                fontFamily: 'var(--font-display)', 
+                fontWeight: 600, 
+                fontSize: '0.48rem', 
+                letterSpacing: '0.1em', 
+                textTransform: 'uppercase', 
+                padding: '2px 8px', 
+                border: `1px solid 
+                  ${ active ? 'var(--orange)' : 'var(--g4)'}`, 
+                  color: active ? 'var(--orange)' : 'var(--g5)', 
+                  background: active ? 'var(--orange-dim)' : 'transparent', 
+                  cursor: 'pointer' 
+                }}
             >
               {btn.label} {active ? (asc ? '↑' : '↓') : ''}
             </button>
           )
         })}
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.48rem', color: 'var(--g5)', marginLeft: 'auto' }}>
+        <span style={{ 
+          fontFamily: 'var(--font-mono)', 
+          fontSize: '0.48rem', 
+          color: 'var(--g5)', 
+          marginLeft: 'auto' 
+          }}>
           {allTests.filter(t => t.isOutlier).length} outliers · {allTests.filter(t => t.unstable).length} unstable
         </span>
       </div>

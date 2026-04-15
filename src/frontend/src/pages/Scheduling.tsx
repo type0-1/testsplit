@@ -36,16 +36,65 @@ export function Scheduling() {
         subtitle="LPT Job Distribution"
         right={<>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>{jobs.length} parallel jobs</span>
-          <ExportButton onClick={() => downloadJson(`testsplit-scheduling-${new Date().toISOString().slice(0, 10)}.json`, { jobs, summary: { makespan: s.makespan, speedupFactor: s.speedupFactor, balanceRatio: s.balanceRatio, sequentialDuration: s.sequentialDuration, totalTests: s.totalTests }, exportedAt: new Date().toISOString() })} />
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--cyan)', background: 'var(--cyan-dim)', border: '1px solid var(--cyan)', padding: '2px 8px' }}>{jobs.length} JOBS</span>
+          <ExportButton onClick={() => downloadJson(`testsplit-scheduling-${new Date().toISOString().slice(0, 10)}.json`, { 
+            jobs, summary: { 
+              makespan: s.makespan, 
+              speedupFactor: s.speedupFactor, 
+              balanceRatio: s.balanceRatio, 
+              sequentialDuration: s.sequentialDuration, 
+              totalTests: s.totalTests 
+              }, 
+              exportedAt: new Date().toISOString() })
+            } 
+          />
+          <span style={{ 
+            fontFamily: 'var(--font-display)', 
+            fontWeight: 600, fontSize: '0.5rem', 
+            letterSpacing: '0.1em', 
+            color: 'var(--cyan)', 
+            background: 'var(--cyan-dim)', 
+            border: '1px solid var(--cyan)', 
+            padding: '2px 8px' 
+          }}>{jobs.length} JOBS</span>
         </>}
       />
 
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Scheduling metrics">
-        <StatCard label="Makespan" value={s.makespan} format={v => `${v.toFixed(2)}s`} sub="critical path duration" accent="var(--cyan)" active={calibrated} delay={0} />
-        <StatCard label="Speed-up" value={s.speedupFactor} format={v => `${v.toFixed(2)}×`} sub={`vs ${s.sequentialDuration.toFixed(2)}s sequential`} accent="var(--green)" active={calibrated} delay={100} />
-        <StatCard label="Balance" value={s.balanceRatio * 100} format={v => `${v.toFixed(0)}%`} sub="load balance ratio" accent="var(--amber)" active={calibrated} delay={200} />
-        <StatCard label="Cores Used" value={jobs.length} format={v => String(Math.round(v))} sub={`of ${s.cpuCores ?? '?'} available · ${s.totalTests} tests`} accent="var(--cyan)" active={calibrated} delay={300} last />
+        <StatCard 
+          label="Makespan" 
+          value={s.makespan} 
+          format={v => `${v.toFixed(2)}s`} 
+          sub="critical path duration" 
+          accent="var(--cyan)" 
+          active={calibrated} delay={0}
+          />
+        <StatCard 
+          label="Speed-up" 
+          value={s.speedupFactor} 
+          format={v => `${v.toFixed(2)}×`} 
+          sub={`vs ${s.sequentialDuration.toFixed(2)}s sequential`} 
+          accent="var(--green)" 
+          active={calibrated} 
+          delay={100} 
+        />
+        <StatCard 
+          label="Balance" 
+          value={s.balanceRatio * 100} 
+          format={v => `${v.toFixed(0)}%`} 
+          sub="load balance ratio" 
+          accent="var(--amber)" 
+          active={calibrated} delay={200} 
+        />
+        <StatCard 
+          label="Cores Used" 
+          value={jobs.length} 
+          format={v => String(Math.round(v))} 
+          sub={`of ${s.cpuCores ?? '?'} available · ${s.totalTests} tests`} 
+          accent="var(--cyan)" 
+          active={calibrated} 
+          delay={300} 
+          last 
+        />
       </section>
 
       {jobs.length > 0 && (

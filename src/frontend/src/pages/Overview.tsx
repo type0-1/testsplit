@@ -51,21 +51,53 @@ export default function Overview() {
 
   return (
     <div className="flex flex-col h-full overflow-hidden" aria-label="Overview">
-
       <PageHeader
         title="Overview"
         accent="var(--orange)"
         subtitle="System Calibration"
         right={<>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>Last run: {lastRun}</span>
-          <ExportButton onClick={() => downloadJson(`testsplit-report-${new Date().toISOString().slice(0, 10)}.json`, { summary: s, jobs, trends: rawTrends, exportedAt: new Date().toISOString() })} />
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--orange)', background: 'var(--orange-dim)', border: '1px solid var(--orange)', padding: '2px 8px' }}>RUN {s.runCount}</span>
+          <span style={{ 
+            fontFamily: 'var(--font-mono)', 
+            fontSize: '0.5rem', 
+            color: 'var(--g6)' }}
+            >
+              Last run: {lastRun}
+          </span>
+          <ExportButton onClick={() => downloadJson(`testsplit-report-${new Date().toISOString().slice(0, 10)}.json`, 
+            { 
+              summary: s, 
+              jobs, 
+              trends: rawTrends, 
+              exportedAt: new Date().toISOString() 
+              })
+            } 
+          />
+          <span style={{ 
+            fontFamily: 'var(--font-display)', 
+            fontWeight: 600, 
+            fontSize: '0.5rem', 
+            letterSpacing: '0.1em', 
+            color: 'var(--orange)', 
+            background: 'var(--orange-dim)', 
+            border: '1px solid var(--orange)', 
+            padding: '2px 8px' }}
+          >
+            RUN {s.runCount}
+          </span>
         </>}
       />
 
       {regression && (
         <div className="flex items-center gap-3 px-5 py-2 shrink-0" style={{ background: 'var(--orange-dim)', borderBottom: '1px solid var(--orange)' }}>
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.5rem', letterSpacing: '0.12em', color: 'var(--orange)' }}>⚠ REGRESSION DETECTED</span>
+          <span style={{ 
+            fontFamily: 'var(--font-display)', 
+            fontWeight: 700, 
+            fontSize: '0.5rem', 
+            letterSpacing: '0.12em', 
+            color: 'var(--orange)' }}
+          >
+            REGRESSION DETECTED
+          </span>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', color: 'var(--g7)' }}>
             {regression.field} increased {(regression.pct * 100).toFixed(1)}% since last run
           </span>
@@ -73,10 +105,46 @@ export default function Overview() {
       )}
 
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Key metrics">
-        <StatCard label="Total Tests" value={s.totalTests} format={v => String(Math.round(v))} sub={`across ${s.runCount} profiling runs`} accent="var(--orange)" active={calibrated} delay={0} delta={currTrend && prevTrend ? pctDelta(currTrend.testCount, prevTrend.testCount) : null} />
-        <StatCard label="Seq. Duration" value={s.sequentialDuration} format={v => `${v.toFixed(1)}s`} sub="unparallelised total" accent="var(--g5)" active={calibrated} delay={100} delta={currTrend && prevTrend ? pctDelta(currTrend.totalDuration, prevTrend.totalDuration) : null} />
-        <StatCard label="Makespan" value={s.makespan} format={v => `${v.toFixed(2)}s`} sub={`critical path · ${jobs.length} jobs`} accent="var(--cyan)" active={calibrated} delay={200} delta={currTrend && prevTrend ? pctDelta(currTrend.criticalPath, prevTrend.criticalPath) : null} />
-        <StatCard label="Speed-up" value={s.speedupFactor} format={v => `${v.toFixed(2)}×`} sub={`${s.unstableCount} unstable · ${s.outlierCount} outliers`} accent="var(--green)" active={calibrated} delay={300} last />
+        <StatCard 
+          label="Total Tests" 
+          value={s.totalTests} 
+          format={v => String(Math.round(v))} 
+          sub={`across ${s.runCount} profiling runs`} 
+          accent="var(--orange)" 
+          active={calibrated} 
+          delay={0} 
+          delta={currTrend && prevTrend ? pctDelta(currTrend.testCount, prevTrend.testCount) : null} 
+        />
+        <StatCard 
+          label="Seq. Duration"
+          value={s.sequentialDuration} 
+          format={v => `${v.toFixed(1)}s`} 
+          sub="unparallelised total" 
+          accent="var(--g5)" 
+          active={calibrated} 
+          delay={100} 
+          delta={currTrend && prevTrend ? pctDelta(currTrend.totalDuration, prevTrend.totalDuration) : null} 
+        />
+        <StatCard 
+          label="Makespan" 
+          value={s.makespan} 
+          format={v => `${v.toFixed(2)}s`} 
+          sub={`critical path · ${jobs.length} jobs`} 
+          accent="var(--cyan)" 
+          active={calibrated} 
+          delay={200} 
+          delta={currTrend && prevTrend ? pctDelta(currTrend.criticalPath, prevTrend.criticalPath) : null} 
+        />
+        <StatCard 
+          label="Speed-up" 
+          value={s.speedupFactor} 
+          format={v => `${v.toFixed(2)}×`} 
+          sub={`${s.unstableCount} unstable · ${s.outlierCount} outliers`} 
+          accent="var(--green)" 
+          active={calibrated} 
+          delay={300} 
+          last 
+        />
       </section>
 
       <div className="flex-1 overflow-auto">
