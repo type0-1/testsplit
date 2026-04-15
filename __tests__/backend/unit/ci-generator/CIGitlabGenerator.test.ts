@@ -95,15 +95,16 @@ describe('GitLabCIGenerator', () => {
     );
 
     const job = split['job-1'];
-    expect(job.image).toBe('eclipse-temurin:21-jdk');
-    expect(job.services).toEqual(['postgres:15']);
-    expect(job.before_script[0]).toBe('docker compose up -d');
-    expect(job.before_script[1]).toBe('sleep 5');
-    expect(job.before_script.some((line: string) => line.includes('nproc'))).toBe(true);
-    expect(job.before_script[job.before_script.length - 1]).toBe('echo existing-before');
-    expect(job.script[1]).toContain('mvn test -Dtest= A B');
-    expect(job.script[1]).toContain('-Dsurefire.forkCount=$IDLE');
-    expect(job.script[1]).toContain('-Dsurefire.reuseForks=true');
+    const j = job as any;
+    expect(j.image).toBe('eclipse-temurin:21-jdk');
+    expect(j.services).toEqual(['postgres:15']);
+    expect(j.before_script[0]).toBe('docker compose up -d');
+    expect(j.before_script[1]).toBe('sleep 5');
+    expect(j.before_script.some((line: string) => line.includes('nproc'))).toBe(true);
+    expect(j.before_script[j.before_script.length - 1]).toBe('echo existing-before');
+    expect(j.script[1]).toContain('mvn test -Dtest= A B');
+    expect(j.script[1]).toContain('-Dsurefire.forkCount=$IDLE');
+    expect(j.script[1]).toContain('-Dsurefire.reuseForks=true');
   });
 
   test('does not rewrite maven line already containing -DskipTests', () => {
@@ -113,7 +114,8 @@ describe('GitLabCIGenerator', () => {
       'mvn test -Dtest=',
     );
 
-    expect(split['job-1'].script[0]).toBe('mvn test -DskipTests');
+
+    expect((split['job-1'] as any).script[0]).toBe('mvn test -DskipTests');
   });
 
   test('rewrites non-maven script lines that mention test', () => {
@@ -123,7 +125,8 @@ describe('GitLabCIGenerator', () => {
       'npm run integration --tests',
     );
 
-    expect(split['job-1'].script[0]).toBe('npm run integration --tests A');
+
+    expect((split['job-1'] as any).script[0]).toBe('npm run integration --tests A');
   });
 
 });

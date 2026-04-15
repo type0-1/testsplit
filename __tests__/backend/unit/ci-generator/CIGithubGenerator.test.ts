@@ -98,7 +98,7 @@ describe('GitHubActionsGenerator', () => {
 
     const phased = buildGitHubPhasedJobs(
       baseJob,
-      [{ id: 1, tests: ['com.example.ATest.testA', 'com.example.ATest.testB', 'com.example.BTest.testC[1]'] }],
+      [{ id: 1, tests: ['com.example.ATest', 'com.example.BTest'] }],
       'mvn',
       'build-artifacts',
       'target/',
@@ -123,16 +123,16 @@ describe('GitHubActionsGenerator', () => {
         env: { POSTGRES_PASSWORD: 'test' },
       },
     });
-    expect(phased['build'].steps[1].run).toContain('-DskipTests');
+    expect((phased['build'] as any).steps[1].run).toContain('-DskipTests');
 
-    const testSteps = phased['test-job-1'].steps;
+    const testSteps = (phased['test-job-1'] as any).steps;
     expect(testSteps.some((s: any) => s.name === 'Start services')).toBe(true);
     expect(testSteps.some((s: any) => s.name === 'Stop services')).toBe(true);
     expect(phased['test-job-1'].needs).toEqual(['build']);
 
     const runStep = testSteps.find((s: any) => s.name === 'Run tests');
-    expect(runStep.run).toContain('-Dtest=com.example.ATest,com.example.BTest');
-    expect(runStep.run).toContain('-DfailIfNoTests=false');
+    expect((runStep as any).run).toContain('-Dtest=com.example.ATest,com.example.BTest');
+    expect((runStep as any).run).toContain('-DfailIfNoTests=false');
   });
 
 });

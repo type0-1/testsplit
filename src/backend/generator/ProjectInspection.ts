@@ -12,9 +12,10 @@ export interface InspectProjectOptions {
   projectRoot?: string;
   mavenBin?: string;
   gradleBin?: string;
+  tool?: ProjectTestTool;
 }
 
-function detectProjectTool(projectRoot: string): ProjectTestTool {
+export function detectProjectTool(projectRoot: string): ProjectTestTool {
   if (hasFile(projectRoot, 'pom.xml')) {
     return 'maven';
   }
@@ -46,7 +47,7 @@ export interface ReportPathResult {
 
 export function inspectReportPath(options: InspectProjectOptions = {}): ReportPathResult {
   const projectRoot = options.projectRoot ?? process.cwd();
-  const tool = detectProjectTool(projectRoot);
+  const tool = options.tool ?? detectProjectTool(projectRoot);
 
   if (tool === 'maven') {
     return {
@@ -105,7 +106,7 @@ export function inspectProjectTestCommandFormat( options: InspectProjectOptions 
   const projectRoot = options.projectRoot ?? process.cwd();
   const mavenBin = options.mavenBin ?? 'mvn';
   const gradleBin = options.gradleBin ?? 'gradle';
-  const tool = detectProjectTool(projectRoot);
+  const tool = options.tool ?? detectProjectTool(projectRoot);
 
   if (tool === 'maven') {
     return {
