@@ -1,0 +1,15 @@
+echo "===:Running pre commit checks:==="
+
+echo "===:[Backend typecheck]:==="
+npm run typecheck
+
+echo "===:[Backend lint]:==="
+npm run lint
+
+echo "===:[Frontend typecheck]:==="
+cd src/frontend && npm run typecheck && cd ../..
+
+echo "===:[Frontend lint]:==="
+cd src/frontend && npm run lint && cd ../..
+
+echo "===:Pre-commit checks passed:==="

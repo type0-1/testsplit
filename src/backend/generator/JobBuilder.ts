@@ -4,7 +4,11 @@ export function toMavenClassName(testId: string): string {
   const stripped = testId.replace(/\(.*$/, '').replace(/\[.*$/, '');
   const parts = stripped.split('.');
   // A method segment is lowerCamelCase: starts with lowercase and contains at least one uppercase letter.
+<<<<<<< HEAD
   // Package segments are all-lowercase; class names start with uppercase — neither qualify as method-like.
+=======
+  // Package segments are all lowercase; class names start with uppercase neither qualify as method-like.
+>>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
   const last = parts[parts.length - 1];
   const isMethodLike = parts.length > 1 && /^[a-z]/.test(last) && /[A-Z]/.test(last);
   return isMethodLike ? parts.slice(0, -1).join('.') : stripped;

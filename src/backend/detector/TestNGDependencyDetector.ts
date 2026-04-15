@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import { Task } from '../algorithm/model/Task';
+import { collectJavaFiles, resolveClassName } from './JavaFileUtils';
 
 export interface TestNGMethod {
   className: string;
@@ -81,37 +81,6 @@ function buildGroupIndex(methods: TestNGMethod[]): Map<string, string[]> {
     }
   }
   return index;
-}
-
-function collectJavaFiles(dir: string): string[] {
-  if (!fs.existsSync(dir)) return [];
-  const results: string[] = [];
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      results.push(...collectJavaFiles(full));
-    } else if (entry.name.endsWith('.java')) {
-      results.push(full);
-    }
-  }
-  return results;
-}
-
-function resolveClassName(source: string, filePath: string): string | null {
-  const pkgMatch = source.match(/^\s*package\s+([\w.]+)\s*;/m);
-  const classMatch = source.match(/(?:public\s+)?class\s+(\w+)/);
-  if (!classMatch) return null;
-
-  if (pkgMatch) return `${pkgMatch[1]}.${classMatch[1]}`;
-
-  const normalized = filePath.replace(/\\/g, '/');
-  const marker = 'src/test/java/';
-  const idx = normalized.indexOf(marker);
-  if (idx !== -1) {
-    return normalized.slice(idx + marker.length).replace(/\.java$/, '').replace(/\//g, '.');
-  }
-
-  return classMatch[1];
 }
 
 function extractTestNGMethods(source: string, className: string): TestNGMethod[] {

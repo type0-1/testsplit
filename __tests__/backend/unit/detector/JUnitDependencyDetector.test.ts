@@ -3,10 +3,12 @@ import * as fs from 'fs';
 import * as os from 'os';
 import {
   detectJUnit5Dependencies,
-  detectJUnit4Dependencies,
   parseOrderAnnotationsFromSource,
+} from '../../../../src/backend/detector/JUnit5DependencyDetector';
+import {
+  detectJUnit4Dependencies,
   parseFixMethodOrderFromSource,
-} from '../../../../src/backend/detector/JUnitDependencyDetector';
+} from '../../../../src/backend/detector/JUnit4DependencyDetector';
 import { Task } from '../../../../src/backend/algorithm/model/Task';
 
 const JAVA_FIXTURES = path.resolve(__dirname, 'fixtures/java');

@@ -78,15 +78,25 @@ export function buildRunCommand(y: Argv): Argv {
     });
 }
 
+<<<<<<< HEAD
 export async function handleRunCommand(argv: Record<string, unknown>): Promise<void> {
   const junitPath = path.resolve(argv.junit as string);
   const jobCount = normalizeJobs(argv.jobs as number | undefined);
+=======
+export async function handleRunCommand(argv: any): Promise<void> {
+  const junitPath = path.resolve(argv.junit as string);
+  const jobCount = normalizeJobs(argv.jobs);
+>>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
   const dataDir = argv.data as string;
   const cmd = argv.cmd as string;
   const filterFlag = argv['filter-flag'] as string;
   const filterJoin = argv['filter-join'] as string;
   const algorithm = argv.algorithm as Algorithm;
+<<<<<<< HEAD
   const riskFactor = normalizeRiskFactor(argv['risk-factor'] as number | undefined);
+=======
+  const riskFactor = normalizeRiskFactor(argv['risk-factor']);
+>>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
   const dynamic = argv.dynamic as boolean;
   const steal = argv.steal as boolean;
   const affinity = argv.affinity as boolean;

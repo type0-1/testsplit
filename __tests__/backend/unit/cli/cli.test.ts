@@ -1639,7 +1639,7 @@ describe('benchmark command handler', () => {
     benchmarkHandler({ junit: '/test.xml', jobs: 2 });
     const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
     expect(allCalls).toContain('Delta report');
-    expect(allCalls).toMatch(/Speedup:\s+\d+\.\d+×/);
+    expect(allCalls).toMatch(/Speedup:\s+\d+\.\d+x/);
     expect(allCalls).toContain('Time saved');
   });
 
@@ -1656,7 +1656,7 @@ describe('benchmark command handler', () => {
     });
     benchmarkHandler({ junit: '/test.xml', jobs: 2 });
     const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
-    expect(allCalls).toContain('Speedup: 1.00×');
+    expect(allCalls).toContain('Speedup: 1.00x');
   });
 
   it('reports timeSavedPct as 0 when totalDuration is 0', () => {

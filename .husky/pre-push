@@ -1,0 +1,9 @@
+echo "===:Running pre push checks:==="
+
+echo "===:[Unit + Integration tests]:==="
+npm run test:all
+
+echo "===:[Frontend tests]:==="
+cd src/frontend && npm test && cd ../..
+
+echo "===:Pre-push checks passed!:==="

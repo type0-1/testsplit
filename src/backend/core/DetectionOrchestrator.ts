@@ -2,7 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { parsePom } from '../detector/PomParser';
-import { detectJUnit5Dependencies, detectJUnit4Dependencies } from '../detector/JUnitDependencyDetector';
+import { detectJUnit5Dependencies } from '../detector/JUnit5DependencyDetector';
+import { detectJUnit4Dependencies } from '../detector/JUnit4DependencyDetector';
 import { detectTestNGDependencies } from '../detector/TestNGDependencyDetector';
 import { parseSuiteXML, buildSuiteTaskDependencies } from '../detector/SuiteXMLParser';
 import { detectLifecycle, ServiceRequirement } from '../detector/LifecycleDetector';

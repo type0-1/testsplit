@@ -1,21 +1,19 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { Gauge, Timer, Share2, AlertTriangle } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import { Sidebar } from '@/components/Sidebar'
+import type { Page } from '@/components/Sidebar'
 import './App.css'
 import Overview from './pages/Overview'
 import { Durations } from './pages/Durations'
 import { Scheduling } from './pages/Scheduling'
 import { Instability } from './pages/Instability'
 
-type Page = 'overview' | 'durations' | 'scheduling' | 'instability'
-
 /**
- * References: 
+ * References:
  * https://www.youtube.com/watch?v=B7k5rOgmOGY
- * 
  */
 
+<<<<<<< HEAD
 interface NavItem {
   id: Page
   label: string
@@ -131,6 +129,8 @@ function Sidebar({ page, onNavigate }: SidebarProps) {
   )
 }
 
+=======
+>>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
 export default function App() {
   const [page, setPage] = useState<Page>('overview')
 
@@ -147,7 +147,7 @@ export default function App() {
             transition={{ duration: 0.15, ease: 'easeOut' }}
             className="h-full"
           >
-            {page === 'overview' && <Overview/>}
+            {page === 'overview' && <Overview />}
             {page === 'durations' && <Durations />}
             {page === 'scheduling' && <Scheduling />}
             {page === 'instability' && <Instability />}

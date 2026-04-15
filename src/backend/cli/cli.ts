@@ -8,7 +8,11 @@ import { hideBin } from 'yargs/helpers';
 import {
   buildDockerfileCommand,
   handleDockerfileCommand,
+<<<<<<< HEAD
 } from './commands/dockerfile';
+=======
+} from './commands/docker-file';
+>>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
 import {
   buildProfileCommand,
   handleProfileCommand,
@@ -42,8 +46,7 @@ const packageJson = JSON.parse(
 function getCustomHelp(): string {
   const title = chalk.bold('testsplit');
   const version = `v${packageJson.version}`;
-  const desc =
-    'Test distribution and scheduling engine for parallel CI/CD pipelines';
+  const desc = 'Test distribution and scheduling engine for parallel CI/CD pipelines';
 
   const commands = [
     { name: 'profile', desc: 'Profile tests and display scheduling metrics' },

@@ -20,9 +20,15 @@ export function buildBenchmarkCommand(y: Argv): Argv {
     });
 }
 
+<<<<<<< HEAD
 export function handleBenchmarkCommand(argv: Record<string, unknown>): void {
   const junitPath = path.resolve(argv.junit as string);
   const jobCount = normalizeJobs(argv.jobs as number | undefined);
+=======
+export function handleBenchmarkCommand(argv: any): void {
+  const junitPath = path.resolve(argv.junit as string);
+  const jobCount = normalizeJobs(argv.jobs);
+>>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
 
   assertJUnitPathExists(junitPath);
 
@@ -58,7 +64,11 @@ export function handleBenchmarkCommand(argv: Record<string, unknown>): void {
 
   console.log('Delta report');
   console.log(`  Time saved: ${timeSaved.toFixed(2)}s  (${timeSavedPct.toFixed(1)}%)`);
+<<<<<<< HEAD
   console.log(`Speedup: ${speedup.toFixed(2)}×`);
+=======
+  console.log(`Speedup: ${speedup.toFixed(2)}x`);
+>>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
   console.log(`Balance ratio: ${distribution.metrics.balanceRatio.toFixed(3)}`);
   console.log(BENCH_SEP);
   console.log(`Analysis time: ${benchMs}ms`);

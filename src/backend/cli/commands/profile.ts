@@ -50,7 +50,11 @@ export function buildProfileCommand(y: Argv): Argv {
     });
 }
 
+<<<<<<< HEAD
 export function handleProfileCommand(argv: Record<string, unknown>): void {
+=======
+export function handleProfileCommand(argv: any): void {
+>>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
   const junitRaw = argv.junit as string | undefined;
   const junitPath = junitRaw
     ? path.resolve(junitRaw)
@@ -68,7 +72,11 @@ export function handleProfileCommand(argv: Record<string, unknown>): void {
         if (dirs.length > 1) {
           console.log(
             chalk.dim(
+<<<<<<< HEAD
               `Auto-detected ${detected.tool} multi-module reports — merging ${dirs.length} directories`,
+=======
+              `Auto-detected ${detected.tool} multi-module reports  merging ${dirs.length} directories`,
+>>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
             ),
           );
         } else {
@@ -78,7 +86,11 @@ export function handleProfileCommand(argv: Record<string, unknown>): void {
         }
         return dirs[0];
       })();
+<<<<<<< HEAD
   const jobCount = normalizeJobs(argv.jobs as number | undefined);
+=======
+  const jobCount = normalizeJobs(argv.jobs);
+>>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
   const dataDir = argv.data as string;
   const explain = argv.explain as boolean;
   const algorithm = argv.algorithm as Algorithm;
