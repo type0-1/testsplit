@@ -8,11 +8,7 @@ import { hideBin } from 'yargs/helpers';
 import {
   buildDockerfileCommand,
   handleDockerfileCommand,
-<<<<<<< HEAD
-} from './commands/dockerfile';
-=======
 } from './commands/docker-file';
->>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
 import {
   buildProfileCommand,
   handleProfileCommand,

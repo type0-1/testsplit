@@ -24,11 +24,7 @@ export function buildCompareCommand(y: Argv): Argv {
     });
 }
 
-<<<<<<< HEAD
 export function handleCompareCommand(argv: Record<string, unknown>): void {
-=======
-export function handleCompareCommand(argv: any): void {
->>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
   const runCount = argv.runs as number;
   const dataDir = argv.data as string;
   const thresholdPct = argv.threshold as number;

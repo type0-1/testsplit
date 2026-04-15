@@ -18,11 +18,7 @@ export function buildDashboardCommand(y: Argv): Argv {
     });
 }
 
-<<<<<<< HEAD
 export async function handleDashboardCommand(argv: Record<string, unknown>): Promise<void> {
-=======
-export async function handleDashboardCommand(argv: any): Promise<void> {
->>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
   const { execSync, spawn } = await import('child_process');
   const distPath = path.resolve('src/frontend/dist/index.html');
 
@@ -36,11 +32,7 @@ export async function handleDashboardCommand(argv: any): Promise<void> {
     }
   }
 
-<<<<<<< HEAD
   const port = typeof argv.port === 'number' ? argv.port : 3001;
-=======
-  const port = argv.port;
->>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
   process.env.PORT = String(port);
 
   process.on('SIGINT', () => {
@@ -53,7 +45,6 @@ export async function handleDashboardCommand(argv: any): Promise<void> {
   const app = await buildApp();
   try {
     await app.listen({ port, host: '0.0.0.0' });
-<<<<<<< HEAD
   } catch (err) {
     if (
       typeof err === 'object' &&
@@ -61,10 +52,6 @@ export async function handleDashboardCommand(argv: any): Promise<void> {
       'code' in err &&
       (err as { code?: unknown }).code === 'EADDRINUSE'
     ) {
-=======
-  } catch (err: any) {
-    if (err.code === 'EADDRINUSE') {
->>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
       console.error(
         chalk.red(
           `Port ${port} is already in use. Stop the existing server or run with --port <n>.`,

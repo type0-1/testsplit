@@ -30,24 +30,28 @@ describe('buildGitHubServices', () => {
 
   it('produces a services block keyed by service type', () => {
     const result = buildGitHubServices([pgReq]);
+    const postgres = result!['postgres'] as any;
     expect(result).toBeDefined();
-    expect(result!['postgres']).toBeDefined();
-    expect(result!['postgres'].image).toBe('postgres:15');
+    expect(postgres).toBeDefined();
+    expect(postgres.image).toBe('postgres:15');
   });
 
   it('includes ports in the services block', () => {
     const result = buildGitHubServices([pgReq]);
-    expect(result!['postgres'].ports).toContain('5432:5432');
+    const postgres = result!['postgres'] as any;
+    expect(postgres.ports).toContain('5432:5432');
   });
 
   it('includes env vars in the services block', () => {
     const result = buildGitHubServices([pgReq]);
-    expect(result!['postgres'].env.POSTGRES_PASSWORD).toBe('test');
+    const postgres = result!['postgres'] as any;
+    expect(postgres.env.POSTGRES_PASSWORD).toBe('test');
   });
 
   it('omits env block when env is empty', () => {
     const result = buildGitHubServices([kafkaReq]);
-    expect(result!['kafka'].env).toBeUndefined();
+    const kafka = result!['kafka'] as any;
+    expect(kafka.env).toBeUndefined();
   });
 
   it('omits ports block when ports array is empty', () => {
@@ -59,8 +63,9 @@ describe('buildGitHubServices', () => {
       env: { PASSWORD: 'secret' },
     };
     const result = buildGitHubServices([reqWithEmptyPorts]);
-    expect(result!['redis'].ports).toBeUndefined();
-    expect(result!['redis'].env).toBeDefined();
+    const redis = result!['redis'] as any;
+    expect(redis.ports).toBeUndefined();
+    expect(redis.env).toBeDefined();
   });
 
   it('omits ports block when ports is undefined', () => {
@@ -71,8 +76,9 @@ describe('buildGitHubServices', () => {
       env: { MONGO_INITDB_ROOT_PASSWORD: 'test' },
     };
     const result = buildGitHubServices([reqWithoutPorts]);
-    expect(result!['mongo'].ports).toBeUndefined();
-    expect(result!['mongo'].image).toBe('mongo:6');
+    const mongo = result!['mongo'] as any;
+    expect(mongo.ports).toBeUndefined();
+    expect(mongo.image).toBe('mongo:6');
   });
 
   it('always includes image property in entry', () => {
@@ -82,13 +88,15 @@ describe('buildGitHubServices', () => {
       source: 'testcontainers',
     };
     const result = buildGitHubServices([reqMinimal]);
-    expect(result!['redis'].image).toBe('redis:7');
+    const redis = result!['redis'] as any;
+    expect(redis.image).toBe('redis:7');
   });
 
   it('uses req.type as the service key', () => {
     const result = buildGitHubServices([pgReq]);
+    const postgres = result!['postgres'] as any;
     expect(Object.keys(result!)).toContain('postgres');
-    expect(result!['postgres']).toBeDefined();
+    expect(postgres).toBeDefined();
   });
 
   it('handles multiple services with different properties', () => {
@@ -100,10 +108,13 @@ describe('buildGitHubServices', () => {
       env: { MYSQL_ROOT_PASSWORD: 'secret' },
     };
     const result = buildGitHubServices([pgReq, kafkaReq, mysqlReq]);
+    const postgres = result!['postgres'] as any;
+    const kafka = result!['kafka'] as any;
+    const mysql = result!['mysql'] as any;
     expect(Object.keys(result!)).toHaveLength(3);
-    expect(result!['postgres'].ports).toContain('5432:5432');
-    expect(result!['kafka'].ports).toContain('9092:9092');
-    expect(result!['mysql'].env).toBeDefined();
+    expect(postgres.ports).toContain('5432:5432');
+    expect(kafka.ports).toContain('9092:9092');
+    expect(mysql.env).toBeDefined();
   });
 
   it('includes all ports when multiple ports are provided', () => {
@@ -115,7 +126,8 @@ describe('buildGitHubServices', () => {
       env: { KAFKA_ADVERTISED_LISTENERS: 'value' },
     };
     const result = buildGitHubServices([reqMultiplePorts]);
-    expect(result!['kafka'].ports).toEqual(['9092:9092', '29092:29092']);
+    const kafka = result!['kafka'] as any;
+    expect(kafka.ports).toEqual(['9092:9092', '29092:29092']);
   });
 
   it('includes all env entries when multiple env vars are provided', () => {
@@ -127,10 +139,11 @@ describe('buildGitHubServices', () => {
       env: { POSTGRES_PASSWORD: 'test', POSTGRES_DB: 'mydb', POSTGRES_USER: 'admin' },
     };
     const result = buildGitHubServices([reqMultipleEnv]);
-    expect(Object.keys(result!['postgres'].env)).toHaveLength(3);
-    expect(result!['postgres'].env.POSTGRES_PASSWORD).toBe('test');
-    expect(result!['postgres'].env.POSTGRES_DB).toBe('mydb');
-    expect(result!['postgres'].env.POSTGRES_USER).toBe('admin');
+    const postgres = result!['postgres'] as any;
+    expect(Object.keys(postgres.env)).toHaveLength(3);
+    expect(postgres.env.POSTGRES_PASSWORD).toBe('test');
+    expect(postgres.env.POSTGRES_DB).toBe('mydb');
+    expect(postgres.env.POSTGRES_USER).toBe('admin');
   });
 
   it('handles multiple services', () => {
