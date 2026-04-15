@@ -33,7 +33,7 @@ export function HistogramPanel({ tests }: { tests: TestStat[] }) {
             <CartesianGrid strokeDasharray="2 4" stroke="var(--g4)" vertical={false} />
             <XAxis dataKey="label" tick={{ fontFamily: 'var(--font-mono)', fontSize: 8, fill: 'var(--g6)' }} axisLine={{ stroke: 'var(--g4)' }} tickLine={false} />
             <YAxis tick={{ fontFamily: 'var(--font-mono)', fontSize: 8, fill: 'var(--g6)' }} axisLine={false} tickLine={false} allowDecimals={false} />
-            <RechartsTooltip content={<ChartTooltip precision={3} />} cursor={{ fill: 'oklch(1 0 0 / 0.03)' }} formatter={(v: any) => [v, 'tests']} />
+            <RechartsTooltip content={<ChartTooltip precision={3} />} cursor={{ fill: 'oklch(1 0 0 / 0.03)' }} formatter={(v: number | undefined) => [v ?? 0, 'tests']} />
             <Bar dataKey="count" fill="var(--cyan-dim)" stroke="var(--cyan)" strokeWidth={1} radius={0} isAnimationActive animationDuration={800} />
           </BarChart>
         </ResponsiveContainer>
