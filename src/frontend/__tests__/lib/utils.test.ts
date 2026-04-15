@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { pctDelta, detectRegression, formatRunLabel } from '../../src/lib/utils'
+import { percentageChange, detectRegression, formatRunLabel } from '../../src/lib/utils'
 import type { TrendPoint } from '@/types/api'
 
 function makeTrend(overrides: Partial<TrendPoint>): TrendPoint {
@@ -14,21 +14,21 @@ function makeTrend(overrides: Partial<TrendPoint>): TrendPoint {
   }
 }
 
-describe('pctDelta', () => {
+describe('percentageChange', () => {
   it('returns the fractional change between two values', () => {
-    expect(pctDelta(110, 100)).toBeCloseTo(0.1)
+    expect(percentageChange(110, 100)).toBeCloseTo(0.1)
   })
 
   it('returns a negative delta for a decrease', () => {
-    expect(pctDelta(90, 100)).toBeCloseTo(-0.1)
+    expect(percentageChange(90, 100)).toBeCloseTo(-0.1)
   })
 
   it('returns null when prev is undefined', () => {
-    expect(pctDelta(100, undefined)).toBeNull()
+    expect(percentageChange(100, undefined)).toBeNull()
   })
 
   it('returns null when prev is zero (avoid division by zero)', () => {
-    expect(pctDelta(100, 0)).toBeNull()
+    expect(percentageChange(100, 0)).toBeNull()
   })
 })
 
