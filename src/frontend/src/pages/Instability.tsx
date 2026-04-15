@@ -38,21 +38,70 @@ export function Instability() {
         accent="var(--amber)"
         subtitle="Variance Analysis"
         right={<>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--g6)' }}>{allTests.length} tests loaded</span>
-          <ExportButton onClick={() => downloadJson(`testsplit-instability-${new Date().toISOString().slice(0, 10)}.json`, { tests: allTests, summary: { totalTests: s.totalTests, unstableCount: s.unstableCount, outlierCount: s.outlierCount }, exportedAt: new Date().toISOString() })} />
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--amber)', background: 'var(--amber-dim)', border: '1px solid var(--amber)', padding: '2px 8px' }}>{s.unstableCount} UNSTABLE</span>
+          <span style={{ 
+            fontFamily: 'var(--font-mono)', 
+            fontSize: '0.5rem', 
+            color: 'var(--g6)' }}>{allTests.length} tests loaded
+          </span>
+          <ExportButton onClick={() => downloadJson(`testsplit-instability-${new Date().toISOString().slice(0, 10)}.json`, { 
+            tests: allTests, 
+            summary: { 
+              totalTests: s.totalTests, 
+              unstableCount: s.unstableCount, 
+              outlierCount: s.outlierCount 
+              }, 
+            exportedAt: new Date().toISOString() })} 
+            />
+          <span style={{ 
+            fontFamily: 'var(--font-display)', 
+            fontWeight: 600, 
+            fontSize: '0.5rem', 
+            letterSpacing: '0.1em', 
+            color: 'var(--amber)', 
+            background: 'var(--amber-dim)', 
+            border: '1px solid var(--amber)', 
+            padding: '2px 8px' }}>{s.unstableCount} UNSTABLE
+          </span>
         </>}
       />
 
       <section className="grid grid-cols-4 shrink-0" style={{ borderBottom: '1px solid var(--g4)' }} aria-label="Instability metrics">
-        <StatCard label="Unstable Tests" value={s.unstableCount} format={v => String(Math.round(v))} sub={`of ${s.totalTests} total tests`} accent="var(--amber)" active={calibrated} delay={0} />
-        <StatCard label="Outliers" value={s.outlierCount} format={v => String(Math.round(v))} sub="exceed mean + 2σ threshold" accent="var(--orange)" active={calibrated} delay={100} />
-<<<<<<< HEAD
-        <StatCard label="Highest CV" value={maxCv * 100} format={v => `${v.toFixed(0)}%`} sub={highestCvTest?.testName.split('.').pop() ?? '-'} accent="var(--chart-5)" active={calibrated} delay={200} />
-=======
-        <StatCard label="Highest CV" value={maxCv * 100} format={v => `${v.toFixed(0)}%`} sub={highestCvTest ? testMethodName(highestCvTest.testName) : '-'} accent="var(--chart-5)" active={calibrated} delay={200} />
->>>>>>> f987fd3d28c6e3e2f05dc33962aa3756bce27527
-        <StatCard label="Avg CV" value={avgCv * 100} format={v => `${v.toFixed(0)}%`} sub="coefficient of variation" accent="var(--g5)" active={calibrated} delay={300} last />
+        <StatCard 
+          label="Unstable Tests" 
+          value={s.unstableCount} 
+          format={v => String(Math.round(v))} 
+          sub={`of ${s.totalTests} total tests`} 
+          accent="var(--amber)" 
+          active={calibrated} delay={0} 
+        />
+        <StatCard 
+          label="Outliers" 
+          value={s.outlierCount} 
+          format={v => String(Math.round(v))} 
+          sub="exceed mean + 2σ threshold" 
+          accent="var(--orange)" 
+          active={calibrated} 
+          delay={100} 
+        />
+        <StatCard 
+          label="Highest CV" 
+          value={maxCv * 100} 
+          format={v => `${v.toFixed(0)}%`} 
+          sub={highestCvTest ? testMethodName(highestCvTest.testName) : '-'} 
+          accent="var(--chart-5)" 
+          active={calibrated} 
+          delay={200} 
+        />
+        <StatCard 
+          label="Avg CV" 
+          value={avgCv * 100} 
+          format={v => `${v.toFixed(0)}%`} 
+          sub="coefficient of variation" 
+          accent="var(--g5)" 
+          active={calibrated} 
+          delay={300} 
+          last 
+        />
       </section>
 
       <div className="flex flex-col flex-1 overflow-hidden" style={{ minHeight: 0 }}>

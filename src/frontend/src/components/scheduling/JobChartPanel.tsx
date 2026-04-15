@@ -1,4 +1,4 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
 import { SectionHeader } from '@/components/SectionHeader'
 import { Scanlines } from '@/components/Scanlines'
 import { ChartTooltip } from '@/components/ChartTooltip'
@@ -36,29 +36,18 @@ export function JobChartPanel({ jobs, makespan }: { jobs: Job[]; makespan: numbe
             <YAxis tick={{ fontFamily: 'var(--font-mono)', fontSize: 9, fill: 'var(--g6)' }} axisLine={false} tickLine={false} tickFormatter={(v: number) => `${v}s`} />
             <RechartsTooltip content={<ChartTooltip />} cursor={{ fill: 'oklch(1 0 0 / 0.03)' }} />
             <ReferenceLine y={makespan} stroke="var(--amber)" strokeDasharray="3 3" strokeOpacity={0.7} label={{ value: `${makespan.toFixed(2)}s`, position: 'insideTopRight', fontFamily: 'var(--font-mono)', fontSize: 8, fill: 'var(--amber)' }} />
-            <Bar
-              dataKey="Duration"
-              radius={0}
-              isAnimationActive
-              animationDuration={800}
-              fill="var(--cyan-dim)"
-              stroke="var(--cyan)"
-              strokeWidth={1}
-              shape={(props: any) => {
-                const isCritical = props.Duration === maxTime
+            <Bar dataKey="Duration" radius={0} isAnimationActive animationDuration={800} strokeWidth={1}>
+              {chartData.map((entry) => {
+                const isCritical = entry.Duration === maxTime
                 return (
-                  <rect
-                    x={props.x}
-                    y={props.y}
-                    width={props.width}
-                    height={props.height}
+                  <Cell
+                    key={entry.name}
                     fill={isCritical ? 'var(--amber-dim)' : 'var(--cyan-dim)'}
                     stroke={isCritical ? 'var(--amber)' : 'var(--cyan)'}
-                    strokeWidth={1}
                   />
                 )
-              }}
-            />
+              })}
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
       </div>

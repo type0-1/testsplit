@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 
 export function useCountUp(target: number, active: boolean, delay = 0): number {
   const [val, setVal] = useState(0)
-  
+
   useEffect(() => {
-    if (!active) { setVal(0); return }
+    if (!active) return
 
     let startTs: number | null = null
     const DURATION = 700
@@ -26,5 +26,5 @@ export function useCountUp(target: number, active: boolean, delay = 0): number {
     raf = requestAnimationFrame(step)
     return () => cancelAnimationFrame(raf)
   }, [active, target, delay])
-  return val
+  return active ? val : 0
 }
