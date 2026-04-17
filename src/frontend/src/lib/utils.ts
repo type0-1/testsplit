@@ -24,6 +24,8 @@ export function percentageChange(curr: number, prev: number | undefined): number
   return (!prev || prev === 0) ? null : (curr - prev) / prev
 }
 
+export const pctDelta = percentageChange
+
 export function formatRunLabel(runAt: string, index: number): string {
   try {
     const d = new Date(runAt)
