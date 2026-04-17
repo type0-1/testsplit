@@ -1,8 +1,8 @@
-import { readFileSync, statSync, readdirSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from 'fs';
 import { XMLParser } from 'fast-xml-parser';
 import { TestResult } from '../models/TestResult';
 import { TestResultParser } from './TestResultParser';
+import { parseJUnitXMLPath } from './JUnitXMLPathTraversal';
 import { validateXMLStructure } from './JUnitXMLStructureValidator';
 
 function parseDurationFromProperty(
@@ -205,28 +205,9 @@ function parseJUnitXMLFile(filePath: string): TestResult[] {
   return results;
 }
 
-function parseJUnitXMLPath(path: string): TestResult[] {
-  const stats = statSync(path);
-
-  // Single file
-  if (stats.isFile()) {
-    return path.endsWith('.xml') ? parseJUnitXMLFile(path) : [];
-  }
-
-  // Directory (recursive)
-  if (stats.isDirectory()) {
-    return readdirSync(path).flatMap((entry) =>
-      parseJUnitXMLPath(join(path, entry)),
-    );
-  }
-
-  // Other (symlink, socket, etc.)
-  return [];
-}
-
 export class JUnitXMLParser implements TestResultParser {
   parse(path: string): TestResult[] {
-    return parseJUnitXMLPath(path);
+    return parseJUnitXMLPath(path, parseJUnitXMLFile);
   }
 }
 
