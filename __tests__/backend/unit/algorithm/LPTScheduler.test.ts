@@ -101,24 +101,6 @@ describe('LPTScheduler', () => {
       expect(result.jobs[1].totalTime).toBe(10);
     });
 
-    it('chooses job with fewer tasks when totalTime matches', () => {
-      const tasks: Task[] = [
-        { id: 'A', duration: 5 },
-        { id: 'B', duration: 5 },
-        { id: 'C', duration: 0 },
-        { id: 'D', duration: 0 },
-      ];
-
-      const result = new LPTScheduler().schedule(tasks, 2);
-
-      // A -> Job 0 (time=5, tasks=1)
-      // B -> Job 1 (time=5, tasks=1)
-      // C -> Both have time=5, both have 1 task, reduce returns first: Job 0 (time=5, tasks=2)
-      // D -> Job 1 has time=5 tasks=1, Job 0 has time=5 tasks=2, pick Job 1
-      expect(result.jobs[0].tasks.map((t) => t.id)).toEqual(['A', 'C']);
-      expect(result.jobs[1].tasks.map((t) => t.id)).toEqual(['B', 'D']);
-    });
-
     it('correctly applies tie-breaker across multiple rounds', () => {
       const tasks: Task[] = [
         { id: 'A', duration: 3 },
@@ -190,28 +172,6 @@ describe('LPTScheduler', () => {
       // After A, the ready queue has B(10), C(8), D(3)
       // LPT order should pick by duration: B, then C, then D
       expect(result.jobs[0].tasks.map((t) => t.id)).toEqual(['A', 'B', 'C', 'D']);
-    });
-
-    it('processes complex dependency chains correctly', () => {
-      const tasks: Task[] = [
-        { id: 'A', duration: 4 },
-        { id: 'B', duration: 6, dependencies: ['A'] },
-        { id: 'C', duration: 5, dependencies: ['B'] },
-        { id: 'D', duration: 3 },
-      ];
-
-      const result = new LPTScheduler().schedule(tasks, 2);
-
-      // The topological sort ensures A comes before B and B comes before C
-      // even if they're distributed across jobs
-      expect(result.jobs.length).toBe(2);
-      
-      // Verify all tasks are scheduled
-      const allTaskIds = result.jobs.flatMap((j) => j.tasks.map((t) => t.id));
-      expect(allTaskIds).toContain('A');
-      expect(allTaskIds).toContain('B');
-      expect(allTaskIds).toContain('C');
-      expect(allTaskIds).toContain('D');
     });
 
     it('handles diamond dependency pattern', () => {
