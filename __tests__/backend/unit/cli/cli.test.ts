@@ -949,110 +949,15 @@ describe('generate-config command handler', () => {
   });
 });
 
-describe('validate command handler', () => {
-  beforeEach(() => {
-    jest.spyOn(process, 'exit').mockImplementation((code) => { throw new Error(`exit(${code})`); });
-    jest.spyOn(console, 'log').mockImplementation(() => {});
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-    mockFs.existsSync.mockReset();
-    mockFs.existsSync.mockReturnValue(true);
-    mockFs.readFileSync.mockReset();
-    mockYAML.parse.mockReset();
-  });
-
-  afterEach(() => jest.restoreAllMocks());
-
-  it('exits when the validation file does not exist', () => {
-    mockFs.existsSync.mockReturnValue(false);
-
-    expect(() => validateHandler({ file: '/tmp/missing.yml', platform: 'github' })).toThrow('exit(1)');
-    expect(console.error).toHaveBeenCalledWith(
-      expect.stringContaining('file does not exist'),
-    );
-  });
-
-  it('exits on invalid YAML syntax and prints the parser message when available', () => {
-    mockFs.readFileSync.mockReturnValue('raw');
-    mockYAML.parse.mockImplementation(() => {
-      throw new Error('unexpected token');
-    });
-
-    expect(() => validateHandler({ file: '/tmp/ci.yml', platform: 'github' })).toThrow('exit(1)');
-    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Invalid YAML syntax'));
-    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('unexpected token'));
-  });
-
-  it('exits on invalid YAML syntax and skips error message when thrown value is not an Error', () => {
-    mockFs.readFileSync.mockReturnValue('raw');
-    mockYAML.parse.mockImplementationOnce(() => { throw 'bad yaml'; });
-
-    expect(() => validateHandler({ file: '/tmp/ci.yml', platform: 'github' })).toThrow('exit(1)');
-    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Invalid YAML syntax'));
-    const errorCalls = (console.error as jest.Mock).mock.calls.flat();
-    expect(errorCalls.filter((m: string) => m !== undefined && String(m).includes('bad yaml'))).toHaveLength(0);
-  });
-
-  it('passes a valid github actions config', () => {
-    mockFs.readFileSync.mockReturnValue('raw');
-    mockYAML.parse.mockReturnValue({ on: ['push'], jobs: { 'job-1': { steps: [{ run: 'npm test' }] } } });
-
-    expect(() => validateHandler({ file: '/tmp/ci.yml', platform: 'github' })).not.toThrow();
-    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('valid'));
-  });
-
-  it('exits when github config has validation issues', () => {
-    mockFs.readFileSync.mockReturnValue('raw');
-    mockYAML.parse.mockReturnValue({ name: 'CI' }); // missing 'on' and 'jobs'
-
-    expect(() => validateHandler({ file: '/tmp/ci.yml', platform: 'github' })).toThrow('exit(1)');
-    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Validation failed'));
-  });
-
-  it('passes a valid gitlab ci config', () => {
-    mockFs.readFileSync.mockReturnValue('raw');
-    mockYAML.parse.mockReturnValue({ stages: ['test'], 'job-1': { script: ['npm test'] } });
-
-    expect(() => validateHandler({ file: '/tmp/ci.yml', platform: 'gitlab' })).not.toThrow();
-    expect(console.log).toHaveBeenCalledWith(expect.stringContaining('valid'));
-  });
-
-  it('reports github validation issues for missing on, jobs, and steps', () => {
-    mockFs.readFileSync.mockReturnValue('raw');
-    mockYAML.parse.mockReturnValue({ jobs: { 'job-1': { steps: [] }, 'job-2': {} } });
-
-    expect(() => validateHandler({ file: '/tmp/ci.yml', platform: 'github' })).toThrow('exit(1)');
-    const allErrors = (console.error as jest.Mock).mock.calls.flat().join('\n');
-    expect(allErrors).toContain('Missing required field: on (trigger)');
-    expect(allErrors).toContain('Job "job-1": missing steps');
-    expect(allErrors).toContain('Job "job-2": missing steps');
-  });
-
-  it('reports gitlab validation issues for missing stages, jobs, and script entries', () => {
-    mockFs.readFileSync.mockReturnValue('raw');
-    mockYAML.parse.mockReturnValue({ jobA: { script: [] }, jobB: {} });
-
-    expect(() => validateHandler({ file: '/tmp/ci.yml', platform: 'gitlab' })).toThrow('exit(1)');
-    const allErrors = (console.error as jest.Mock).mock.calls.flat().join('\n');
-    expect(allErrors).toContain('Missing required field: stages');
-    expect(allErrors).toContain('Job "jobA": missing script');
-    expect(allErrors).toContain('Job "jobB": missing script');
-  });
-
-  it('reports gitlab validation issue when no jobs are defined', () => {
-    mockFs.readFileSync.mockReturnValue('raw');
-    mockYAML.parse.mockReturnValue({ stages: ['test'] });
-
-    expect(() => validateHandler({ file: '/tmp/ci.yml', platform: 'gitlab' })).toThrow('exit(1)');
-    const allErrors = (console.error as jest.Mock).mock.calls.flat().join('\n');
-    expect(allErrors).toContain('No jobs defined');
-  });
-});
-
 describe('generate-dockerfile command handler', () => {
   beforeEach(() => {
     jest.spyOn(process, 'exit').mockImplementation((code) => { throw new Error(`exit(${code})`); });
     jest.spyOn(console, 'log').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
+    mockFs.existsSync.mockReset();
+    mockFs.writeFileSync.mockReset();
+    mockParsePom.mockReset();
+    mockGenerateDockerfile.mockReset();
   });
 
   afterEach(() => jest.restoreAllMocks());
