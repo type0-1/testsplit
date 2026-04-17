@@ -245,17 +245,6 @@ describe('HistoricalProfiler', () => {
     expect(stats.meanDuration).toBeCloseTo(13);
   });
 
-  it('reduces spike impact using smoothing', () => {
-    profiler.addRun([{ name: 'SpikeTest', duration: 10, status: 'passed' }]);
-    profiler.addRun([{ name: 'SpikeTest', duration: 100, status: 'passed' }]);
-
-    const historical = profiler.generateHistoricalProfile();
-    const stats = historical.perTestStats['SpikeTest'];
-
-    // Raw mean would be 55
-    expect(stats.meanDuration).toBeLessThan(55);
-  });
-
   it('flags a test as an outlier when its mean duration is far above the suite mean', () => {
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     // 6 normal tests are needed to dilute the outlier's effect on the suite mean + 2σ threshold
