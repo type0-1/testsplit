@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { Task } from '../algorithm/model/Task';
-import { collectJavaFiles, resolveClassName, applyOrderChain } from './JavaFileUtils';
+import { collectJavaFiles, resolveClassName, applyOrderChain, extractJUnit4TestMethods } from './JavaFileUtils';
 
 export interface AlphaOrderedClass {
   className: string;
@@ -36,14 +36,4 @@ export function parseFixMethodOrderFromSource(source: string, filePath: string):
   return [{ className, methods }];
 }
 
-function extractJUnit4TestMethods(source: string): string[] {
-  const methods: string[] = [];
-  const pattern = /@Test[\s\S]*?(?:public|protected)\s+void\s+(\w+)\s*\(/gm;
-  let match: RegExpExecArray | null;
 
-  while ((match = pattern.exec(source)) !== null) {
-    methods.push(match[1]);
-  }
-
-  return methods;
-}

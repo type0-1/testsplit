@@ -54,3 +54,30 @@ export function applyOrderChain(existingTasks: Task[], chains: { className: stri
 
   return [...taskMap.values()];
 }
+
+export function extractOrderedMethods(source: string): { name: string; order: number }[] {
+  const methods: { name: string; order: number }[] = [];
+  const pattern = /@Order\s*\(\s*(\d+)\s*\)[\s\S]*?(?:public|protected|private)\s+\S+\s+(\w+)\s*\(/gm;
+  let match: RegExpExecArray | null;
+
+  while ((match = pattern.exec(source)) !== null) {
+    const order = parseInt(match[1], 10);
+    const name = match[2];
+    if (/^(if|for|while|switch|catch|new)$/.test(name)) continue;
+    methods.push({ name, order });
+  }
+
+  return methods;
+}
+
+export function extractJUnit4TestMethods(source: string): string[] {
+  const methods: string[] = [];
+  const pattern = /@Test[\s\S]*?(?:public|protected)\s+void\s+(\w+)\s*\(/gm;
+  let match: RegExpExecArray | null;
+
+  while ((match = pattern.exec(source)) !== null) {
+    methods.push(match[1]);
+  }
+
+  return methods;
+}
