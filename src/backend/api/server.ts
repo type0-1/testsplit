@@ -104,7 +104,9 @@ export async function buildApp() {
       jobs: (distribution.jobs ?? []).map((job, i) => ({
         jobId: i + 1,
         totalTime: job.totalTime,
-        tests: (job.tasks ?? []).map((t) => t.id),
+        tests: ((job.tasks ?? []) as Array<{ id?: string; name?: string } | string>).map((t) =>
+          typeof t === 'string' ? t : (t.id ?? t.name ?? String(t))
+        ),
       })),
       metrics: distribution.metrics ?? {},
     };

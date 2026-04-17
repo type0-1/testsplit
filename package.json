@@ -6,13 +6,13 @@
     "testsplit": "bin/testsplit"
   },
   "scripts": {
+    "test": "npm run test:all",
     "test:unit": "jest --config jest.unit.config.js",
     "test:integration": "jest --config jest.integration.config.js",
     "test:all": "npm run test:unit && npm run test:integration",
-    "test": "npm run test:unit",
-    "cli": "ts-node src/backend/cli/cli.ts",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "cli": "ts-node src/backend/cli/cli.ts",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
     "build": "tsc && npm run build:frontend",
