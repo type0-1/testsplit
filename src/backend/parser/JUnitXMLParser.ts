@@ -210,8 +210,3 @@ export class JUnitXMLParser implements TestResultParser {
     return parseJUnitXMLPath(path, parseJUnitXMLFile);
   }
 }
-
-// Backward-compatible function export
-export function parseJUnitXML(path: string): TestResult[] {
-  return new JUnitXMLParser().parse(path);
-}

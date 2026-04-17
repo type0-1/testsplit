@@ -1,4 +1,4 @@
-import { parseJUnitXML } from '../../../../src/backend/parser/JUnitXMLParser';
+import { JUnitXMLParser } from '../../../../src/backend/parser/JUnitXMLParser';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as os from 'os';
@@ -6,6 +6,7 @@ import { DOMParser } from '@xmldom/xmldom';
 import { XMLParser } from 'fast-xml-parser';
 
 const fixture = (name: string) => path.join(__dirname, 'fixtures', name);
+const parseJUnitXML = (xmlPath: string) => new JUnitXMLParser().parse(xmlPath);
 
 describe('JUnitXMLParser', () => {
   test('parses test names and durations', () => {

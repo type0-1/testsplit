@@ -7,14 +7,14 @@ jest.mock('../../../../src/backend/algorithm/core/MULTIFITScheduler');
 jest.mock('../../../../src/backend/storage/FileStore');
 jest.mock('../../../../src/backend/helpers/RunId');
 
-import { parseJUnitXML } from '../../../../src/backend/parser/JUnitXMLParser';
+import { JUnitXMLParser } from '../../../../src/backend/parser/JUnitXMLParser';
 import { HistoricalProfiler } from '../../../../src/backend/profiler/core/HistoricalProfiler';
 import { LPTScheduler } from '../../../../src/backend/algorithm/core/LPTScheduler';
 import { MULTIFITScheduler } from '../../../../src/backend/algorithm/core/MULTIFITScheduler';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
 import { generateRunId } from '../../../../src/backend/helpers/RunId';
 
-const mockParseJUnitXML = parseJUnitXML as jest.MockedFunction<typeof parseJUnitXML>;
+const MockJUnitXMLParser = JUnitXMLParser as jest.MockedClass<typeof JUnitXMLParser>;
 const MockHistoricalProfiler = HistoricalProfiler as jest.MockedClass<typeof HistoricalProfiler>;
 const MockLPTScheduler = LPTScheduler as jest.MockedClass<typeof LPTScheduler>;
 const MockMULTIFITScheduler = MULTIFITScheduler as jest.MockedClass<typeof MULTIFITScheduler>;
@@ -65,6 +65,7 @@ const mockHistoricalProfile = {
 };
 
 describe('TestSplitEngine', () => {
+  let mockParserParse: jest.Mock;
   let mockProfilerInstance: jest.Mocked<HistoricalProfiler>;
   let mockSchedulerInstance: jest.Mocked<LPTScheduler>;
   let mockStoreInstance: jest.Mocked<FileStore>;
@@ -91,12 +92,16 @@ describe('TestSplitEngine', () => {
       schedule: jest.fn().mockReturnValue(mockDistribution),
     } as unknown as jest.Mocked<LPTScheduler>;
 
+    mockParserParse = jest.fn().mockReturnValue(mockTestResults);
+    MockJUnitXMLParser.mockImplementation(
+      () => ({ parse: mockParserParse } as unknown as JUnitXMLParser),
+    );
+
     MockFileStore.mockImplementation(() => mockStoreInstance);
     MockHistoricalProfiler.mockImplementation(() => mockProfilerInstance);
     MockLPTScheduler.mockImplementation(() => mockSchedulerInstance);
     MockMULTIFITScheduler.mockImplementation(() => mockSchedulerInstance as any);
 
-    mockParseJUnitXML.mockReturnValue(mockTestResults);
     mockGenerateRunId.mockReturnValue('2026-01-01T00-00-00-000Z');
   });
 
