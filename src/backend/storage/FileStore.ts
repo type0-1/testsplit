@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as zlib from 'zlib';
 import * as path from 'path';
 
+import { rotateHistoricalDeltas, cleanupOldArchivedDeltas } from './DeltaStore';
 import {
   profilesDir,
   distributionsDir,
@@ -17,8 +18,6 @@ import { StoredHistoricalDelta } from '../models/StoredHistoricalDelta';
 import { HistoricalProfile } from '../models/HistoricalProfile';
 
 const DELTAS_DIR = 'history/deltas';
-const MAX_UNCOMPRESSED_DELTAS = 50;
-const MAX_ARCHIVED_DELTAS = 500; // Arbitrary max limit, will modify these vals later on as we figure things out
 
 export class FileStore {
   constructor(private baseDir: string = '.data') {
@@ -37,46 +36,6 @@ export class FileStore {
 
   private ensureDeltasDir(): void {
     fs.mkdirSync(this.deltasDir(), { recursive: true });
-  }
-
-  // Method to integrate preventive measures for infinite file storage growth (compress old delta files)
-  private rotateHistoricalDeltas(): void {
-    const dir = this.deltasDir();
-    const jsonFiles = fs
-      .readdirSync(dir)
-      .filter((f) => f.endsWith('.json') && f.startsWith('delta-'))
-      .sort();
-    const toCompress = jsonFiles.slice(
-      0,
-      Math.max(0, jsonFiles.length - MAX_UNCOMPRESSED_DELTAS),
-    );
-
-    for (const file of toCompress) {
-      const fullPath = path.join(dir, file);
-      const raw = fs.readFileSync(fullPath);
-      const compressed = zlib.gzipSync(raw);
-
-      fs.writeFileSync(`${fullPath}.gz`, compressed);
-      fs.unlinkSync(fullPath);
-    }
-  }
-
-  private cleanupOldArchivedDeltas(): void {
-    const dir = this.deltasDir();
-    const gzFiles = fs
-      .readdirSync(dir)
-      .filter((f) => f.endsWith('.json.gz'))
-      .sort();
-
-    if (gzFiles.length <= MAX_ARCHIVED_DELTAS) {
-      return;
-    }
-
-    const toDelete = gzFiles.slice(0, gzFiles.length - MAX_ARCHIVED_DELTAS);
-
-    for (const file of toDelete) {
-      fs.unlinkSync(path.join(dir, file));
-    }
   }
 
   saveProfile(runId: RunId, profile: unknown): void {
@@ -126,8 +85,8 @@ export class FileStore {
 
     fs.writeFileSync(fullPath, JSON.stringify(payload, null, 2), 'utf-8');
 
-    this.rotateHistoricalDeltas();
-    this.cleanupOldArchivedDeltas();
+    rotateHistoricalDeltas(dir);
+    cleanupOldArchivedDeltas(dir);
   }
 
   loadHistoricalDeltas(limit: number = 10): StoredHistoricalDelta[] {
