@@ -22,7 +22,8 @@
     "docker:shell": "docker compose run --rm testsplit bash",
     "api": "ts-node src/backend/api/server.ts",
     "dashboard": "node scripts/dashboard-dev.js",
-    "prepare": "husky"
+    "prepare": "husky",
+    "clean": "rm -rf dist build coverage test-results"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

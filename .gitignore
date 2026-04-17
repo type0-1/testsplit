@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .data/
+.data-*/
 .coverage/
 coverage/
 .data-e2e/
