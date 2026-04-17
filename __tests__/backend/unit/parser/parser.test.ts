@@ -2,8 +2,7 @@ import { JUnitXMLParser } from '../../../../src/backend/parser/JUnitXMLParser';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as os from 'os';
-import { DOMParser } from '@xmldom/xmldom';
-import { XMLParser } from 'fast-xml-parser';
+import { XMLParser, XMLValidator } from 'fast-xml-parser';
 
 const fixture = (name: string) => path.join(__dirname, 'fixtures', name);
 const parseJUnitXML = (xmlPath: string) => new JUnitXMLParser().parse(xmlPath);
@@ -305,20 +304,20 @@ describe('JUnitXMLParser', () => {
       'utf-8',
     );
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
-    const domSpy = jest
-      .spyOn(DOMParser.prototype, 'parseFromString')
+    const validatorSpy = jest
+      .spyOn(XMLValidator, 'validate')
       .mockImplementation(() => {
-        throw new Error('dom parser exploded');
+        throw new Error('xml validator exploded');
       });
 
     try {
       const results = parseJUnitXML(file);
       expect(results).toHaveLength(1);
       expect(warnSpy).toHaveBeenCalledWith(
-        expect.stringContaining('dom parser exploded'),
+        expect.stringContaining('xml validator exploded'),
       );
     } finally {
-      domSpy.mockRestore();
+      validatorSpy.mockRestore();
       warnSpy.mockRestore();
       fs.rmSync(tempDir, { recursive: true, force: true });
     }
@@ -426,7 +425,7 @@ describe('JUnitXMLParser', () => {
     }
   });
 
-  test('uses unknown validation error message when DOM validation throws a non-Error', () => {
+  test('uses unknown validation error message when XML validation throws a non-Error', () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'parser-validation-non-error-'));
     const file = path.join(tempDir, 'valid.xml');
     fs.writeFileSync(
@@ -435,8 +434,8 @@ describe('JUnitXMLParser', () => {
       'utf-8',
     );
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
-    const domSpy = jest
-      .spyOn(DOMParser.prototype, 'parseFromString')
+    const validatorSpy = jest
+      .spyOn(XMLValidator, 'validate')
       .mockImplementation(() => {
         throw 'boom';
       });
@@ -448,7 +447,7 @@ describe('JUnitXMLParser', () => {
         expect.stringContaining('Unknown validation error'),
       );
     } finally {
-      domSpy.mockRestore();
+      validatorSpy.mockRestore();
       warnSpy.mockRestore();
       fs.rmSync(tempDir, { recursive: true, force: true });
     }
