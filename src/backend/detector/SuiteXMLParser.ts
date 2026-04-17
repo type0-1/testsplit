@@ -2,6 +2,9 @@ import * as fs from 'fs';
 import { XMLParser } from 'fast-xml-parser';
 import { Task } from '../algorithm/model/Task';
 
+interface XmlClassNode { '@_name'?: string }
+interface XmlTestNode { '@_name'?: string; classes?: { class?: XmlClassNode | XmlClassNode[] } }
+
 export interface SuiteInfo {
   name: string;
   classes: string[]; // fully qualified class names in declared order
@@ -29,12 +32,12 @@ export function parseSuiteXMLFromSource(xml: string): SuiteInfo[] {
   const suite = parsed?.suite;
   if (!suite) return [];
 
-  const tests: any[] = Array.isArray(suite.test) ? suite.test : suite.test ? [suite.test] : [];
+    const tests: XmlTestNode[] = Array.isArray(suite.test) ? suite.test : suite.test ? [suite.test] : [];
 
   return tests.map((test) => {
       const name: string = test['@_name'] ?? 'unnamed';
-      const classNodes: any[] = Array.isArray(test?.classes?.class) ? test.classes.class : test?.classes?.class ? [test.classes.class] : [];
-      const classes = classNodes.map((c) => (typeof c === 'string' ? c : c['@_name'])).filter(Boolean);
+      const classNodes: XmlClassNode[] = Array.isArray(test?.classes?.class) ? test.classes.class : test?.classes?.class ? [test.classes.class] : [];
+      const classes = classNodes.map((c) => (typeof c === 'string' ? c : c['@_name'])).filter((c): c is string => !!c);
 
       return { name, classes };
     })

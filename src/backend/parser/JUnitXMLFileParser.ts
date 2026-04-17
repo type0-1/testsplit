@@ -3,6 +3,21 @@ import { XMLParser } from 'fast-xml-parser';
 import { TestResult } from '../models/TestResult';
 import { validateXMLStructure } from './JUnitXMLStructureValidator';
 
+interface XmlPropertyNode { name?: string; value?: string | number | boolean }
+interface XmlTestCase {
+  skipped?: unknown; failure?: unknown; error?: unknown;
+  classname?: string; name?: string; file?: string; time?: unknown;
+}
+interface XmlTestSuite {
+  testcase?: XmlTestCase | XmlTestCase[];
+  name?: string;
+  properties?: { property?: XmlPropertyNode | XmlPropertyNode[] };
+}
+interface XmlParsed {
+  testsuite?: XmlTestSuite;
+  testsuites?: { testsuite?: XmlTestSuite | XmlTestSuite[] };
+}
+
 function parseDurationFromProperty(
   properties: Map<string, string>,
   secondKeys: string[],
@@ -35,7 +50,7 @@ function parseDurationFromProperty(
   return undefined;
 }
 
-function suitePropertyMap(suite: any): Map<string, string> {
+function suitePropertyMap(suite: XmlTestSuite): Map<string, string> {
   const propertyNodes = suite?.properties?.property;
   if (!propertyNodes) {
     return new Map<string, string>();
@@ -86,7 +101,7 @@ export function parseJUnitXMLFile(filePath: string): TestResult[] {
     attributeNamePrefix: '',
   });
 
-  let parsed: any;
+  let parsed: XmlParsed;
   try {
     parsed = parser.parse(xml);
   } catch {
@@ -94,7 +109,7 @@ export function parseJUnitXMLFile(filePath: string): TestResult[] {
     return [];
   }
 
-  let suites: any[];
+  let suites: XmlTestSuite[];
 
   if (parsed.testsuite) {
     suites = [parsed.testsuite];

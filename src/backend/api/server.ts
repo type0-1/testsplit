@@ -5,6 +5,7 @@ import cors from '@fastify/cors';
 import staticPlugin from '@fastify/static';
 import { FileStore } from '../storage/FileStore';
 import { HistoricalTestStats } from '../models/HistoricalTestStats';
+import { JobDistribution } from '../algorithm/model/JobDistribution';
 
 export async function buildApp() {
   const app = Fastify();
@@ -35,7 +36,7 @@ export async function buildApp() {
   // Endpoint to get summary stats
   app.get('/api/summary', async (_req, reply) => {
     const historical = store.loadHistoricalProfile();
-    const distribution = store.loadLatestDistribution() as any;
+    const distribution = store.loadLatestDistribution() as JobDistribution | null;
     const deltas = store.loadHistoricalDeltas(1);
     const latest = deltas[0]?.deltas ?? null;
 
@@ -93,17 +94,17 @@ export async function buildApp() {
 
   // Endpoint to get job distribution
   app.get('/api/jobs', async (_req, reply) => {
-    const distribution = store.loadLatestDistribution() as any;
+    const distribution = store.loadLatestDistribution() as JobDistribution | null;
 
     if (!distribution) {
       return reply.status(404).send({ error: 'No distribution data found. Run: testsplit profile --junit <path>' });
     }
 
     return {
-      jobs: (distribution.jobs ?? []).map((job: any, i: number) => ({
+      jobs: (distribution.jobs ?? []).map((job, i) => ({
         jobId: i + 1,
         totalTime: job.totalTime,
-        tests: (job.tasks ?? []).map((t: any) => t.id ?? t.name ?? t),
+        tests: (job.tasks ?? []).map((t) => t.id),
       })),
       metrics: distribution.metrics ?? {},
     };
