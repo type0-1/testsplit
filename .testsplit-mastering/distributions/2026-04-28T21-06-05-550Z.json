@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-04-28T21-06-05-550Z",
+  "createdAt": "2026-04-28T21:06:05.550Z",
+  "distribution": {
+    "jobs": [
+      {
+        "jobId": 0,
+        "tasks": [
+          {
+            "id": "CucumberTest",
+            "duration": 10.495000000000001
+          }
+        ],
+        "totalTime": 10.495000000000001
+      },
+      {
+        "jobId": 1,
+        "tasks": [],
+        "totalTime": 0
+      }
+    ],
+    "jobCount": 2,
+    "totalDuration": 10.495000000000001,
+    "metrics": {
+      "criticalPath": 10.495000000000001,
+      "minJobTime": 0,
+      "idealJobTime": 5.2475000000000005,
+      "balanceRatio": 2,
+      "predictedSpeedUp": 1
+    }
+  }
+}

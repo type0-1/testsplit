@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 2,
+  "testResults": [
+    {
+      "name": "CucumberTest.Successful login",
+      "duration": 9.544,
+      "status": "passed",
+      "classname": "CucumberTest",
+      "filePath": "CucumberTest.java",
+      "className": "CucumberTest"
+    },
+    {
+      "name": "CucumberTest.Failure login",
+      "duration": 0.951,
+      "status": "passed",
+      "classname": "CucumberTest",
+      "filePath": "CucumberTest.java",
+      "className": "CucumberTest"
+    }
+  ],
+  "testCount": 2,
+  "totalDuration": 10.495000000000001,
+  "averageDuration": 5.2475000000000005,
+  "metadata": {
+    "commit": {
+      "sha": "bf3ca36226c5925589ecd2352c298d88546cb558",
+      "timestamp": "2026-04-17T15:00:57+01:00"
+    },
+    "generatedAt": "2026-04-28T21:14:17.623Z",
+    "cpuModel": "Apple M4 Pro",
+    "cpuCores": 14,
+    "osVersion": "Darwin Kernel Version 25.3.0: Wed Jan 28 20:51:28 PST 2026; root:xnu-12377.91.3~2/RELEASE_ARM64_T6041",
+    "platform": "darwin",
+    "nodeVersion": "v25.6.1",
+    "containerVersion": "unknown",
+    "memoryLimitMb": 24576,
+    "groupings": {
+      "byFilePath": {
+        "CucumberTest.java": {
+          "testCount": 2,
+          "totalDuration": 10.495000000000001
+        }
+      },
+      "byPackage": {
+        "unknown": {
+          "testCount": 2,
+          "totalDuration": 10.495000000000001
+        }
+      },
+      "byClassName": {
+        "CucumberTest": {
+          "testCount": 2,
+          "totalDuration": 10.495000000000001
+        }
+      }
+    }
+  }
+}
