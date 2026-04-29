@@ -50,6 +50,33 @@ describe('JUnitXMLStructureValidator', () => {
     }
   });
 
+  test('does not warn for testsuites root with an array of valid testsuite nodes', () => {
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+    try {
+      validateXMLStructure(
+        '<testsuites><testsuite name="SuiteA" tests="1"/><testsuite name="SuiteB" tests="2"/></testsuites>',
+        filePath,
+      );
+
+      expect(warnSpy).not.toHaveBeenCalled();
+    } finally {
+      warnSpy.mockRestore();
+    }
+  });
+
+  test('does not warn when testsuites root has no testsuite children', () => {
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+    try {
+      validateXMLStructure('<testsuites></testsuites>', filePath);
+
+      expect(warnSpy).not.toHaveBeenCalled();
+    } finally {
+      warnSpy.mockRestore();
+    }
+  });
+
   test('warns with XML Error when XML syntax is malformed', () => {
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
 
