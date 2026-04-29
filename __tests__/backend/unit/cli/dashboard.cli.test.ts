@@ -133,6 +133,16 @@ describe('dashboard command handler', () => {
     expect(process.env.PORT).toBe('4242');
   });
 
+  it('falls back to default port 3001 when argv.port is not a number', async () => {
+    mockFs.existsSync.mockReturnValue(true);
+    delete process.env.PORT;
+
+    await dashboardHandler({ port: '4242', 'no-open': true });
+
+    expect(mockApp.listen).toHaveBeenCalledWith({ port: 3001, host: '0.0.0.0' });
+    expect(process.env.PORT).toBe('3001');
+  });
+
   it('registers a SIGINT handler', async () => {
     mockFs.existsSync.mockReturnValue(true);
 

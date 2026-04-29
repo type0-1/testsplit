@@ -48,6 +48,7 @@ import * as os from 'os';
 import yargs from 'yargs';
 import { TestSplitEngine } from '../../../../src/backend/core/TestSplitEngine';
 import { FileStore } from '../../../../src/backend/storage/FileStore';
+import * as ProjectInspection from '../../../../src/backend/generator/ProjectInspection';
 
 import '../../../../src/backend/cli/cli';
 
@@ -280,5 +281,59 @@ describe('profile command handler', () => {
     const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
     expect(allCalls).toContain('Predicted speed-up: 1.00×');
     expect(allCalls).not.toContain('Bottleneck test');
+  });
+
+  it('exits with error when --junit is omitted and no report directories are auto-detected', () => {
+    jest.spyOn(ProjectInspection, 'inspectReportPath').mockReturnValue({
+      tool: 'surefire',
+      reportDirs: [],
+    } as any);
+
+    expect(() =>
+      profileHandler({ jobs: 2, explain: false, algorithm: 'lpt', 'risk-factor': 1.0 }),
+    ).toThrow('exit(1)');
+    expect(console.error).toHaveBeenCalledWith(
+      expect.stringContaining('could not auto-detect report directory'),
+    );
+  });
+
+  it('auto-detects a single report directory when --junit is omitted', () => {
+    jest.spyOn(ProjectInspection, 'inspectReportPath').mockReturnValue({
+      tool: 'surefire',
+      reportDirs: ['./target/surefire-reports'],
+    } as any);
+
+    profileHandler({ jobs: 2, explain: false, algorithm: 'lpt', 'risk-factor': 1.0 });
+
+    expect(console.log).toHaveBeenCalledWith(
+      expect.stringContaining('Auto-detected surefire reports at: ./target/surefire-reports'),
+    );
+    expect(mockEngine.run).toHaveBeenCalledWith(
+      expect.stringContaining('target/surefire-reports'),
+      2,
+      true,
+      'lpt',
+      1.0,
+    );
+  });
+
+  it('logs multi-module merge message when multiple report directories are auto-detected', () => {
+    jest.spyOn(ProjectInspection, 'inspectReportPath').mockReturnValue({
+      tool: 'surefire',
+      reportDirs: ['./m1/target/surefire-reports', './m2/target/surefire-reports'],
+    } as any);
+
+    profileHandler({ jobs: 2, explain: false, algorithm: 'lpt', 'risk-factor': 1.0 });
+
+    expect(console.log).toHaveBeenCalledWith(
+      expect.stringContaining('Auto-detected surefire multi-module reports'),
+    );
+    expect(mockEngine.run).toHaveBeenCalledWith(
+      expect.stringContaining('m1/target/surefire-reports'),
+      2,
+      true,
+      'lpt',
+      1.0,
+    );
   });
 });
