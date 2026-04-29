@@ -271,5 +271,66 @@ describe('TestSplitEngine', () => {
         2,
       );
     });
+
+    it('derives class names from explicit className, # syntax, and dotted names, then aggregates by class', () => {
+      const customResults = [
+        { name: 'pkg.MyClass#testOne', duration: 1.0, status: 'passed' as const },
+        { name: 'pkg.MyClass.testTwo', duration: 2.0, status: 'passed' as const },
+        { name: 'StandaloneName', className: 'explicit.ClassName', duration: 3.0, status: 'passed' as const },
+      ];
+
+      mockProfilerInstance.generateProfile.mockReturnValue({
+        ...mockProfile,
+        testCount: 3,
+        totalDuration: 6.0,
+        averageDuration: 2.0,
+        testResults: customResults,
+      } as any);
+
+      mockProfilerInstance.generateHistoricalProfile.mockReturnValue({
+        ...mockHistoricalProfile,
+        perTestStats: {
+          'pkg.MyClass#testOne': {
+            testName: 'pkg.MyClass#testOne',
+            runCount: 2,
+            meanDuration: 4.0,
+            stdDev: 0.5,
+            variance: 0.25,
+            min: 3.5,
+            max: 4.5,
+            coefficientOfVariation: 0.125,
+            unstable: false,
+            zeroDuration: false,
+            isOutlier: false,
+          },
+          StandaloneName: {
+            testName: 'StandaloneName',
+            runCount: 2,
+            meanDuration: 1.0,
+            stdDev: 1.0,
+            variance: 1.0,
+            min: 0.0,
+            max: 2.0,
+            coefficientOfVariation: 1.0,
+            unstable: false,
+            zeroDuration: false,
+            isOutlier: false,
+          },
+        },
+      } as any);
+
+      const engine = new TestSplitEngine('/tmp/test');
+      engine.run('tests.xml', 2, false, 'lpt', 2.0);
+
+      // pkg.MyClass: (4 + 2*0.5) + raw(2) = 7
+      // explicit.ClassName: (1 + 2*1) = 3
+      expect(mockSchedulerInstance.schedule).toHaveBeenCalledWith(
+        [
+          { id: 'pkg.MyClass', duration: 7.0 },
+          { id: 'explicit.ClassName', duration: 3.0 },
+        ],
+        2,
+      );
+    });
   });
 });
