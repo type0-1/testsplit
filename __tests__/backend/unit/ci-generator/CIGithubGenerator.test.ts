@@ -135,4 +135,248 @@ describe('GitHubActionsGenerator', () => {
     expect((runStep as any).run).toContain('-DfailIfNoTests=false');
   });
 
+  test('buildGitHubPhasedJobs with multi-core runner generates core detection and fork flags', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      steps: [{ uses: 'actions/checkout@v4' }],
+    };
+
+    const phased = buildGitHubPhasedJobs(
+      baseJob,
+      [{ id: 1, tests: ['TestA'] }],
+      'mvn',
+      'artifacts',
+      'target/',
+      4,
+    );
+
+    const testSteps = (phased['test-job-1'] as any).steps;
+    const coreStep = testSteps.find((s: any) => s.name === 'Detect available cores');
+    expect(coreStep).toBeDefined();
+    expect(coreStep.id).toBe('cores');
+    expect((coreStep as any).run).toContain('TOTAL=$(nproc)');
+
+    const runStep = testSteps.find((s: any) => s.name === 'Run tests');
+    expect((runStep as any).run).toContain('-Dsurefire.forkCount=${{ steps.cores.outputs.count }}');
+    expect((runStep as any).run).toContain('-Dsurefire.reuseForks=true');
+  });
+
+  test('buildGitHubPhasedJobs with container image adds container to build and test jobs', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      steps: [{ uses: 'actions/checkout@v4' }],
+    };
+
+    const phased = buildGitHubPhasedJobs(
+      baseJob,
+      [{ id: 1, tests: ['TestA'] }],
+      'mvn',
+      'artifacts',
+      'target/',
+      1,
+      'node:18-alpine',
+    );
+
+    expect((phased['build'] as any).container).toBe('node:18-alpine');
+    expect((phased['test-job-1'] as any).container).toBe('node:18-alpine');
+  });
+
+  test('buildGitHubPhasedJobs without services or compose does not add them to jobs', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      steps: [{ uses: 'actions/checkout@v4' }],
+    };
+
+    const phased = buildGitHubPhasedJobs(
+      baseJob,
+      [{ id: 1, tests: ['TestA'] }],
+      'mvn',
+    );
+
+    expect((phased['build'] as any).services).toBeUndefined();
+    expect((phased['test-job-1'] as any).services).toBeUndefined();
+
+    const testSteps = (phased['test-job-1'] as any).steps;
+    expect(testSteps.every((s: any) => s.name !== 'Start services')).toBe(true);
+    expect(testSteps.every((s: any) => s.name !== 'Stop services')).toBe(true);
+  });
+
+  test('renderGitHubJob includes needs clause when job dependencies are present', () => {
+    const yaml = generateGitHubActionsConfig([
+      { id: 1, tests: ['TestA'] },
+      { id: 2, tests: ['TestB'], needs: [1] },
+    ]);
+
+    expect(yaml).toContain('job-2:\n    runs-on: ubuntu-latest\n    needs: [job-1]');
+  });
+
+  test('buildGitHubPhasedJobs extracts and substitutes matrix references from env vars', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      strategy: {
+        matrix: {
+          java: ['11', '17', '21'],
+          os: ['ubuntu-latest', 'windows-latest'],
+        },
+      },
+      steps: [
+        { uses: 'actions/checkout@v4' },
+        { run: 'echo $JAVA_VERSION' },
+      ],
+      env: {
+        JAVA_VERSION: '${{ matrix.java }}',
+        OS: '${{ matrix.os }}',
+        STATIC_VAR: 'keep-me',
+      },
+    };
+
+    const phased = buildGitHubPhasedJobs(baseJob, [{ id: 1, tests: ['TestA'] }], 'mvn');
+
+    const buildEnv = (phased['build'] as any).env;
+    expect(buildEnv).toBeDefined();
+    expect(buildEnv.STATIC_VAR).toBe('keep-me');
+    expect(buildEnv.JAVA_VERSION).toBeUndefined();
+  });
+
+  test('buildGitHubPhasedJobs filters and resolves only non-maven steps into setup', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      steps: [
+        { uses: 'actions/checkout@v4' },
+        { name: 'Setup', run: 'apt-get update' },
+        { name: 'Run tests', run: 'mvn test' },
+        { name: 'Report', run: 'echo done' },
+      ],
+    };
+
+    const phased = buildGitHubPhasedJobs(baseJob, [{ id: 1, tests: ['TestA'] }], 'mvn');
+
+    const testSteps = (phased['test-job-1'] as any).steps;
+    const setupStepNames = testSteps.filter((s: any) => !s.uses || !s.uses.includes('download-artifact')).map((s: any) => s.name);
+    expect(setupStepNames).toContain('Setup');
+    expect(setupStepNames).toContain('Report');
+    expect(setupStepNames.some((n: any) => n && n.includes('mvn'))).toBe(false);
+  });
+
+  test('buildGitHubPhasedJobs adds -DskipTests to maven steps in build job', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      steps: [
+        { uses: 'actions/checkout@v4' },
+        { run: 'mvn clean compile' },
+      ],
+    };
+
+    const phased = buildGitHubPhasedJobs(baseJob, [{ id: 1, tests: ['TestA'] }], 'mvn');
+
+    const buildSteps = (phased['build'] as any).steps;
+    const mvnStep = buildSteps.find((s: any) => s.run && s.run.includes('mvn'));
+    expect((mvnStep as any).run).toContain('-DskipTests');
+    expect((mvnStep as any).run).toContain('-Drat.skip=true');
+  });
+
+  test('buildGitHubPhasedJobs handles base job without steps array', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+    };
+
+    const phased = buildGitHubPhasedJobs(baseJob, [{ id: 1, tests: ['TestA'] }], 'mvn');
+
+    expect(phased['build']).toBeDefined();
+    expect((phased['build'] as any).steps).toBeDefined();
+    expect(Array.isArray((phased['build'] as any).steps)).toBe(true);
+  });
+
+  test('buildGitHubPhasedJobs handles base job without env and collects no substitutions', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      steps: [{ run: 'echo test' }],
+    };
+
+    const phased = buildGitHubPhasedJobs(baseJob, [{ id: 1, tests: ['TestA'] }], 'mvn');
+
+    const testSteps = (phased['test-job-1'] as any).steps;
+    const runStep = testSteps.find((s: any) => s.name === 'Run tests');
+    expect((runStep as any).run).toContain('-Dtest=TestA');
+  });
+
+  test('buildGitHubPhasedJobs removes strategy from base job', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      strategy: { matrix: { java: ['11', '17'] } },
+      steps: [],
+    };
+
+    const phased = buildGitHubPhasedJobs(baseJob, [{ id: 1, tests: ['TestA'] }], 'mvn');
+
+    expect((phased['build'] as any).strategy).toBeUndefined();
+    expect((phased['test-job-1'] as any).strategy).toBeUndefined();
+  });
+
+  test('buildGitHubPhasedJobs resolves env substitutions in test job steps', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      strategy: {
+        matrix: {
+          java: ['11', '17'],
+        },
+      },
+      steps: [
+        { uses: 'actions/checkout@v4' },
+        { run: 'echo Testing with $MY_VERSION' },
+      ],
+      env: {
+        MY_VERSION: '${{ matrix.java }}',
+        STATIC: 'value',
+      },
+    };
+
+    const phased = buildGitHubPhasedJobs(baseJob, [{ id: 1, tests: ['TestA'] }], 'mvn');
+
+    const testSteps = (phased['test-job-1'] as any).steps;
+    const echoStep = testSteps.find((s: any) => s.run && s.run.includes('echo Testing'));
+    expect((echoStep as any).run).toBe('echo Testing with 17');
+  });
+
+  test('buildGitHubPhasedJobs removes env entirely when all env vars are matrix references', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      strategy: {
+        matrix: {
+          java: ['11', '17'],
+        },
+      },
+      steps: [{ uses: 'actions/checkout@v4' }],
+      env: {
+        ONLY_MATRIX_VAR: '${{ matrix.java }}',
+      },
+    };
+
+    const phased = buildGitHubPhasedJobs(baseJob, [{ id: 1, tests: ['TestA'] }], 'mvn');
+
+    expect((phased['build'] as any).env).toBeUndefined();
+  });
+
+  test('buildGitHubPhasedJobs resolves undefined or empty matrix references to empty string', () => {
+    const baseJob = {
+      'runs-on': 'ubuntu-latest',
+      strategy: {
+        matrix: {
+          java: ['11', '17'],
+        },
+      },
+      steps: [
+        { uses: 'actions/checkout@v4' },
+        { run: 'echo Missing: ${{ matrix.unknown }} End' },
+      ],
+    };
+
+    const phased = buildGitHubPhasedJobs(baseJob, [{ id: 1, tests: ['TestA'] }], 'mvn');
+
+    const testSteps = (phased['test-job-1'] as any).steps;
+    const echoStep = testSteps.find((s: any) => s.run && s.run.includes('Missing:'));
+    expect((echoStep as any).run).toBe('echo Missing:  End');
+  });
+
+
 });
