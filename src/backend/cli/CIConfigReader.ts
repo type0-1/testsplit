@@ -14,7 +14,6 @@ function toRecord(value: unknown): GenericRecord {
 
 function isGradleTestLine(line: string): boolean {
   const trimmed = line.trim();
-  if (!/^(gradle|\.\/gradlew)\b/.test(trimmed)) return false;
   return /\b(build|test|check)\b/.test(trimmed) && !trimmed.includes('-x test');
 }
 
