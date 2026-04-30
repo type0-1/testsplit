@@ -2,6 +2,7 @@ import { HistoricalProfiler } from '../../../../src/backend/profiler/core/Histor
 import { TestResult } from '../../../../src/backend/models/TestResult';
 import { StoredHistoricalDelta } from '../../../../src/backend/models/StoredHistoricalDelta';
 import { HistoricalDelta } from '../../../../src/backend/models/HistoricalDelta';
+import { detectRegressions } from '../../../../src/backend/profiler/core/RegressionDetector';
 
 function makeDelta(overrides: Partial<HistoricalDelta> = {}, createdAt = '2026-01-01T00:00:00.000Z'): StoredHistoricalDelta {
   return {
@@ -271,5 +272,25 @@ describe('HistoricalProfiler', () => {
     const historical = profiler.generateHistoricalProfile();
 
     expect(historical.perTestStats['OnlyTest'].isOutlier).toBe(false);
+  });
+
+  it('delegates static detectRegressions to RegressionDetector', () => {
+    const a = makeDelta({ averageDuration: 10 }, '2026-01-01T00:00:00.000Z');
+    const b = makeDelta({ averageDuration: 12 }, '2026-01-02T00:00:00.000Z');
+
+    const expected = detectRegressions([a, b], 0.1);
+    const actual = HistoricalProfiler.detectRegressions([a, b], 0.1);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('uses default threshold when static detectRegressions threshold is omitted', () => {
+    const a = makeDelta({ averageDuration: 10 }, '2026-01-01T00:00:00.000Z');
+    const b = makeDelta({ averageDuration: 12 }, '2026-01-02T00:00:00.000Z');
+
+    const expected = detectRegressions([a, b], 0.1);
+    const actual = HistoricalProfiler.detectRegressions([a, b]);
+
+    expect(actual).toEqual(expected);
   });
 });

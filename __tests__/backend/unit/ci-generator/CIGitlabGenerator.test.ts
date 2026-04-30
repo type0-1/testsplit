@@ -129,4 +129,16 @@ describe('GitLabCIGenerator', () => {
     expect((split['job-1'] as any).script[0]).toBe('npm run integration --tests A');
   });
 
+  test('wraps a string script into an array before rewriting', () => {
+    const split = buildGitLabSplitJobs(
+      { script: 'mvn test --batch-mode' },
+      [{ id: 1, tests: ['TestX'] }],
+      'mvn test -Dtest=',
+    );
+
+    const scriptResult = (split['job-1'] as any).script;
+    expect(Array.isArray(scriptResult)).toBe(true);
+    expect(scriptResult[0]).toContain('mvn test -Dtest= TestX');
+  });
+
 });

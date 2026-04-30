@@ -385,6 +385,30 @@ describe('API server', () => {
       expect(body.jobs[0].tests[0]).toBe('plain-task');
     });
 
+    it('falls back to String(task) when task object has no id or name', async () => {
+      mockStore.loadLatestDistribution.mockReturnValue({
+        ...mockDistribution,
+        jobs: [{ totalTime: 1.0, tasks: [{}] }],
+      });
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/jobs' });
+      const body = JSON.parse(res.body);
+
+      expect(body.jobs[0].tests[0]).toBe('[object Object]');
+    });
+
+    it('falls back to String(task) when id and name are explicitly null', async () => {
+      mockStore.loadLatestDistribution.mockReturnValue({
+        ...mockDistribution,
+        jobs: [{ totalTime: 1.0, tasks: [{ id: null, name: null }] }],
+      } as any);
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/api/jobs' });
+      const body = JSON.parse(res.body);
+
+      expect(body.jobs[0].tests[0]).toBe('[object Object]');
+    });
+
     it('handles missing jobs array gracefully', async () => {
       mockStore.loadLatestDistribution.mockReturnValue({ metrics: { criticalPath: 1.0 } });
       const app = await buildApp();
