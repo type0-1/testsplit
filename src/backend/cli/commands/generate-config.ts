@@ -146,12 +146,15 @@ export function handleGenerateConfigCommand(argv: Record<string, unknown>): void
 
   assertJUnitPathExists(junitPath);
 
-  const srcDir = path.resolve((argv.src as string | undefined) ?? 'src/test/java');
+  const projectRoot = existingCIPath
+    ? path.resolve(path.dirname(existingCIPath), '..', '..')
+    : path.resolve('.');
+  const srcDir = path.resolve((argv.src as string | undefined) ?? path.join(projectRoot, 'src/test/java'));
   const { containerImage, dependencyMap, lifecycle } = runDetection(
-    path.resolve('.'),
+    projectRoot,
     srcDir,
-    path.resolve('testng-suite.xml'),
-    path.resolve('pom.xml'),
+    path.join(projectRoot, 'testng-suite.xml'),
+    path.join(projectRoot, 'pom.xml'),
   );
 
   if (containerImage) {

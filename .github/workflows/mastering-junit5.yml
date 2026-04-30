@@ -27,4 +27,4 @@ jobs:
     - name: Start Xvfb
       run: Xvfb :99 &
     - name: Run tests with ${{ matrix.build-tool }}
-      run: mvn -B test
+      run: mvn -B test -pl junit5-cucumber-selenium

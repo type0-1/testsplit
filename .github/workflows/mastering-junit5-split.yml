@@ -24,15 +24,16 @@ jobs:
           java-version: "17"
       - name: Start Xvfb
         run: Xvfb :99 &
-      - name: "Run tests with "
-        run: mvn -B test -DskipTests -Drat.skip=true
+      - name: Run tests with
+        run: mvn -B test -pl junit5-cucumber-selenium -DskipTests -Drat.skip=true
       - uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
-          path: target/
-    container: eclipse-temurin:21-jdk
+          path: junit5-cucumber-selenium/target/
   test-job-1:
     runs-on: ubuntu-latest
+    needs:
+      - build
     steps:
       - name: Checkout GitHub repo
         uses: actions/checkout@v6
@@ -43,26 +44,9 @@ jobs:
           java-version: "17"
       - name: Start Xvfb
         run: Xvfb :99 &
-      - name: Start services
-        run: |-
-          docker compose up -d
-          docker compose wait --no-deps 2>/dev/null || sleep 5
       - uses: actions/download-artifact@v4
         with:
           name: build-artifacts
-      - name: Detect available cores
-        id: cores # test
-        run: |-
-          TOTAL=$(nproc)
-          LOAD=$(awk '{print int($1+0.5)}' /proc/loadavg)
-          IDLE=$(( TOTAL - LOAD > 1 ? TOTAL - LOAD : 1 ))
-          echo "count=$IDLE" >> $GITHUB_OUTPUT
+          path: junit5-cucumber-selenium/target/
       - name: Run tests
-        run: mvn test -Dtest=CucumberTest -DfailIfNoTests=false -Dsurefire.forkCount=${{
-          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
-      - name: Stop services
-        if: always()
-        run: docker compose down
-    container: eclipse-temurin:21-jdk
-    needs:
-      - build
+        run: mvn test -pl junit5-cucumber-selenium -Dtest=CucumberTest -DfailIfNoTests=false
