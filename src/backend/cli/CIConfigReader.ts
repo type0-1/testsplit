@@ -7,9 +7,7 @@ type Platform = 'github' | 'gitlab';
 type GenericRecord = Record<string, unknown>;
 
 function toRecord(value: unknown): GenericRecord {
-  return typeof value === 'object' && value !== null
-    ? (value as GenericRecord)
-    : {};
+  return typeof value === 'object' && value !== null ? (value as GenericRecord) : {};
 }
 
 function isGradleTestLine(line: string): boolean {
@@ -29,9 +27,7 @@ export function findExistingCIFile(platform: Platform): string | null {
     const workflowsDir = path.resolve('.github/workflows');
     if (!fs.existsSync(workflowsDir)) return null;
 
-    const files = fs
-      .readdirSync(workflowsDir)
-      .filter((f) => f.endsWith('.yml') || f.endsWith('.yaml'));
+    const files = fs.readdirSync(workflowsDir).filter((f) => f.endsWith('.yml') || f.endsWith('.yaml'));
 
     const fileWithTestJob = files.find((f) => {
       try {

@@ -45,10 +45,9 @@ export function buildJobsWithDependencies(
   });
 }
 
-export function groupSlotsIntoRunners(
-  slots: { tasks: Task[] }[],
-  runnerCores: number,
-): { id: number; tests: string[] }[] {
+export function groupSlotsIntoRunners(slots: { tasks: Task[] }[], runnerCores: number): { 
+  id: number; tests: string[] 
+  }[] {
   const n = Math.max(1, runnerCores);
   const runnerCount = Math.ceil(slots.length / n);
   const runners: { id: number; tests: string[] }[] = Array.from(

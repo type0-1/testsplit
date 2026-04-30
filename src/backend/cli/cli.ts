@@ -79,9 +79,7 @@ function getCustomHelp(): string {
 
   output += chalk.bold('Commands:\n');
   const maxLen = Math.max(...commands.map((c) => c.name.length));
-  commands.forEach((cmd) => {
-    output += `  ${cmd.name.padEnd(maxLen)}  ${cmd.desc}\n`;
-  });
+  commands.forEach((cmd) => { output += `  ${cmd.name.padEnd(maxLen)}  ${cmd.desc}\n` });
 
   output += `\n${chalk.bold('Global Options:')}\n`;
   output += '  --help        Show this help message\n';

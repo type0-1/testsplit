@@ -6,8 +6,10 @@ import { validateInputs, validateOutput } from '../validation/SchedulerValidator
 
 /**
  * References: res/references/Bounds_On_Multiprocessing_Timing_Anomalies.pdf
- *             res/references/lpt4_3.pdf
+ * res/references/lpt4_3.pdf
  */
+
+// Template structure for algorithm adapted from: https://github.com/sanathkumarbs/longest-processing-time-algorithm-lpt/blob/master/optimized_lpt.py
 
 export class LPTScheduler {
 

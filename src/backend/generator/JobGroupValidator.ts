@@ -16,10 +16,7 @@ const PLATFORM_LIMITS: Record<string, PlatformLimits> = {
   },
 };
 
-export function validateJobGroups(
-  jobs: JobGroup[],
-  platformName: string,
-): void {
+export function validateJobGroups(jobs: JobGroup[], platformName: string): void {
   if (jobs.length === 0) {
     throw new Error(`No jobs provided for ${platformName} configuration`);
   }

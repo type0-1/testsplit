@@ -47,10 +47,8 @@ export async function handleDashboardCommand(argv: Record<string, unknown>): Pro
     await app.listen({ port, host: '0.0.0.0' });
   } catch (err) {
     if (
-      typeof err === 'object' &&
-      err !== null &&
-      'code' in err &&
-      (err as { code?: unknown }).code === 'EADDRINUSE'
+      typeof err === 'object' && err !== null &&
+      'code' in err && (err as { code?: unknown }).code === 'EADDRINUSE'
     ) {
       console.error(
         chalk.red(

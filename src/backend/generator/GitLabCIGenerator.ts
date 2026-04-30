@@ -80,9 +80,7 @@ export function buildGitLabSplitJobs(
     const beforeScript = [...composeLines, ...coreDetectLines, ...existingBefore];
     if (beforeScript.length > 0) clonedJob.before_script = beforeScript;
 
-    const scriptLines = Array.isArray(clonedJob.script)
-      ? clonedJob.script
-      : [clonedJob.script];
+    const scriptLines = Array.isArray(clonedJob.script) ? clonedJob.script : [clonedJob.script];
 
     clonedJob.script = scriptLines.map((line: string) => {
       if (isMavenCommand(line) ? isMavenTestCommand(line) : line.toLowerCase().includes('test')) {

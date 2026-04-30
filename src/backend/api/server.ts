@@ -17,9 +17,7 @@ export async function buildApp() {
     'http://127.0.0.1:4173',
   ];
 
-  const corsOrigin = process.env.CORS_ORIGIN
-    ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim()).filter(Boolean)
-    : defaultCorsOrigins;
+  const corsOrigin = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim()).filter(Boolean) : defaultCorsOrigins;
 
   await app.register(cors, { origin: corsOrigin });
 
@@ -44,9 +42,7 @@ export async function buildApp() {
       return reply.status(404).send({ error: 'No profiling data found. Run: testsplit profile --junit <path>' });
     }
 
-    const perTestStats = historical
-      ? (Object.values(historical.perTestStats) as HistoricalTestStats[])
-      : [];
+    const perTestStats = historical ? (Object.values(historical.perTestStats) as HistoricalTestStats[]) : [];
 
     return {
       totalTests: perTestStats.length > 0 ? perTestStats.length : (latest?.testCount ?? 0),
@@ -73,7 +69,6 @@ export async function buildApp() {
     const { sort = 'duration', limit = '100', offset = '0' } = req.query as Record<string, string>;
     const limitN = Math.min(parseInt(limit, 10) || 100, 500);
     const offsetN = parseInt(offset, 10) || 0;
-
     const tests = Object.values(historical.perTestStats) as HistoricalTestStats[];
 
     if (sort === 'cv') {

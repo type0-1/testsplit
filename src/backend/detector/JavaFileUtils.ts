@@ -16,6 +16,7 @@ export function collectJavaFiles(dir: string): string[] {
   return results;
 }
 
+// Solution adapted from: https://stackoverflow.com/questions/37403641/regex-to-fetch-the-correct-java-class-name 
 export function resolveClassName(source: string, filePath: string): string | null {
   const pkgMatch = source.match(/^\s*package\s+([\w.]+)\s*;/m);
   const classMatch = source.match(/(?:public\s+)?class\s+(\w+)/);

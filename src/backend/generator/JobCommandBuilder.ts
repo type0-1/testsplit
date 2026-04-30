@@ -1,8 +1,6 @@
 export type JobCommandBuilder = (tests: string[]) => string;
 
-export function resolveJobCommandBuilder(
-  mavenBinOrBuilder: string | JobCommandBuilder,
-): JobCommandBuilder {
+export function resolveJobCommandBuilder(mavenBinOrBuilder: string | JobCommandBuilder): JobCommandBuilder {
   if (typeof mavenBinOrBuilder === 'function') {
     return mavenBinOrBuilder;
   }

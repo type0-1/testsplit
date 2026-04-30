@@ -11,13 +11,8 @@ import { detectRegressions } from './RegressionDetector';
 /**
  * References:
  *  Smoothing Factor inspired by Forecasting: Principles and Practices (https://robjhyndman.com/uwafiles/fpp-notes.pdf)
- *  - We use the smoothing factor (page 35) uses the formula: (alpha*curr_value) + ((1-alpha)*prev_smoothed_val)), 
- *  0.6 is not the final value, but just used to give more weignt to recent runs while considering historical data.
  * 
  *  Instability Threshold inspired by Coefficient of Variation (https://personal.utdallas.edu/~herve/abdi-cv2010-pretty.pdf)
- * - Consider a test unstable if its coefficient of variation exceeds 0.5, indicating that the std is half the mean, meaning test dur. is highly relative to its avg.
- *
- *  Outlier Detection: see computeOutlierThreshold in utils/stats.ts
  * 
  * - Regression Detection: (https://uen.pressbooks.pub/uvumqr/chapter/3-5-calculate-relative-change-as-a-percentage-increase-decrease/)
  *   Rolling change/average: https://www.itl.nist.gov/div898/handbook/pmc/section4/pmc421.htm
@@ -68,15 +63,11 @@ export class HistoricalProfiler extends Profiler {
     for (const [testName, durations] of Object.entries(testDurationMap)) {
       const runCount = durations.length;
       const mean =
-        runCount === 0
-          ? 0
-          : durations.reduce((sum, d) => sum + d, 0) / runCount;
+        runCount === 0 ? 0 : durations.reduce((sum, d) => sum + d, 0) / runCount;
       let smoothedMean = mean;
 
       if (runCount > 1) {
-        const previousMean =
-          durations.slice(0, -1).reduce((sum, d) => sum + d, 0) /
-          (runCount - 1);
+        const previousMean = durations.slice(0, -1).reduce((sum, d) => sum + d, 0) / (runCount - 1);
 
         smoothedMean =
           HistoricalProfiler.SMOOTHING_FACTOR * mean +

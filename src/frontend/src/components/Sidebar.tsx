@@ -34,7 +34,14 @@ export function Sidebar({ page, onNavigate }: { page: Page; onNavigate: (p: Page
             </span>
           </div>
           <div>
-            <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--g7)' }}>
+            <p style={{ 
+              fontFamily: 'var(--font-display)', 
+              fontWeight: 700, 
+              fontSize: '0.65rem', 
+              letterSpacing: '0.16em', 
+              textTransform: 'uppercase', 
+              color: 'var(--g7)' 
+            }}>
               TestSplit
             </p>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', color: 'var(--g6)', letterSpacing: '0.04em' }}>
@@ -56,7 +63,14 @@ export function Sidebar({ page, onNavigate }: { page: Page; onNavigate: (p: Page
               style={{ background: active ? 'var(--orange-dim)' : 'transparent', borderLeft: `2px solid ${active ? 'var(--orange)' : 'transparent'}` }}
             >
               <Icon size={13} aria-hidden="true" style={{ color: active ? 'var(--orange)' : 'var(--g6)' }} />
-              <span style={{ fontFamily: 'var(--font-display)', fontWeight: active ? 600 : 400, fontSize: '0.64rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: active ? 'var(--orange)' : 'var(--g6)' }}>
+              <span style={{ 
+                fontFamily: 'var(--font-display)', 
+                fontWeight: active ? 600 : 400, 
+                fontSize: '0.64rem', 
+                letterSpacing: '0.12em', 
+                textTransform: 'uppercase', 
+                color: active ? 'var(--orange)' : 'var(--g6)' 
+              }}>
                 {label}
               </span>
             </button>

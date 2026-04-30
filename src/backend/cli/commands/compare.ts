@@ -56,10 +56,7 @@ export function handleCompareCommand(argv: Record<string, unknown>): void {
   console.log(`\nCompare - ${sorted.length} runs`);
   console.log(SEP);
   console.log(
-    'Metric'.padEnd(COL_LABEL) +
-      'Run A'.padStart(COL_VALUE) +
-      'Run B'.padStart(COL_VALUE) +
-      'Delta'.padStart(14),
+    'Metric'.padEnd(COL_LABEL) + 'Run A'.padStart(COL_VALUE) + 'Run B'.padStart(COL_VALUE) + 'Delta'.padStart(14),
   );
   console.log(SEP);
 

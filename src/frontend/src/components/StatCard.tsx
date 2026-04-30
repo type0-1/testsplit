@@ -23,7 +23,15 @@ export function StatCard({
           {label}
         </span>
         {sign && delta != null && (
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.48rem', color: deltaColor!, background: `${deltaColor}22`, border: `1px solid ${deltaColor}`, padding: '1px 5px', flexShrink: 0 }}>
+          <span style={{ 
+            fontFamily: 'var(--font-mono)', 
+            fontSize: '0.48rem', 
+            color: deltaColor!, 
+            background: `${deltaColor}22`, 
+            border: `1px solid ${deltaColor}`, 
+            padding: '1px 5px', 
+            flexShrink: 0 
+          }}>
             {sign} {Math.abs(delta * 100).toFixed(1)}%
           </span>
         )}
