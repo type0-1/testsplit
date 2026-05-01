@@ -24,6 +24,99 @@ function seedDockerApiDataIfAvailable(): boolean {
   }
 }
 
+test.describe('Theme toggle', () => {
+  test('toggles light mode class on the html element', async ({ page }) => {
+    await page.goto('/')
+    const html = page.locator('html')
+
+    // Default is dark — no 'light' class
+    await expect(html).not.toHaveClass(/light/)
+
+    // Click the theme toggle button in the sidebar
+    await page.getByRole('button', { name: /switch to light mode/i }).click()
+    await expect(html).toHaveClass(/light/)
+
+    // Toggle back to dark
+    await page.getByRole('button', { name: /switch to dark mode/i }).click()
+    await expect(html).not.toHaveClass(/light/)
+  })
+
+  test('persists theme preference across page reloads', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('button', { name: /switch to light mode/i }).click()
+    await expect(page.locator('html')).toHaveClass(/light/)
+
+    await page.reload()
+    // localStorage-persisted preference should restore light class
+    await expect(page.locator('html')).toHaveClass(/light/)
+
+    // Restore dark so other tests start clean
+    await page.getByRole('button', { name: /switch to dark mode/i }).click()
+  })
+})
+
+test.describe('Scheduling page', () => {
+  test('renders the Scheduling page stat cards', async ({ page }) => {
+    const summaryStatus = async () => (await page.request.get('/api/summary')).status()
+    if ((await summaryStatus()) === 404) seedDockerApiDataIfAvailable()
+    await expect.poll(summaryStatus, { timeout: 20000, intervals: [500, 1000, 2000] }).toBe(200)
+
+    await page.goto('/')
+    await page.getByRole('button', { name: /scheduling/i }).click()
+    await expect(page.getByRole('region', { name: /scheduling metrics/i })).toBeVisible({ timeout: 10000 })
+
+    // Four stat cards: Makespan, Speed-up, Balance Ratio, Tests
+    const section = page.getByRole('region', { name: /scheduling metrics/i })
+    await expect(section.getByText(/Makespan/i)).toBeVisible()
+    await expect(section.getByText(/Speed-up/i)).toBeVisible()
+    await expect(section.getByText(/Balance/i).first()).toBeVisible()
+  })
+
+  test('shows the correct job count badge', async ({ page }) => {
+    const summaryStatus = async () => (await page.request.get('/api/summary')).status()
+    if ((await summaryStatus()) === 404) seedDockerApiDataIfAvailable()
+    await expect.poll(summaryStatus, { timeout: 20000, intervals: [500, 1000, 2000] }).toBe(200)
+
+    await page.goto('/')
+    await page.getByRole('button', { name: /scheduling/i }).click()
+    // Badge text looks like "2 JOBS"
+    await expect(page.getByText(/\d+\s+JOBS/i)).toBeVisible({ timeout: 10000 })
+  })
+
+  test('export button is visible on the Scheduling page', async ({ page }) => {
+    const summaryStatus = async () => (await page.request.get('/api/summary')).status()
+    if ((await summaryStatus()) === 404) seedDockerApiDataIfAvailable()
+    await expect.poll(summaryStatus, { timeout: 20000, intervals: [500, 1000, 2000] }).toBe(200)
+
+    await page.goto('/')
+    await page.getByRole('button', { name: /scheduling/i }).click()
+    await expect(page.getByRole('button', { name: /export/i })).toBeVisible({ timeout: 10000 })
+  })
+})
+
+test.describe('Durations page', () => {
+  test('renders the Durations page without crashing', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('button', { name: /durations/i }).click()
+    await expect(page.getByRole('main')).toBeVisible()
+    // Either real data or a friendly empty state — no unhandled crash
+    const hasData = await page.getByText(/slowest tests/i).isVisible().catch(() => false)
+    const hasEmptyState = await page.getByText(/no profiling data found/i).isVisible().catch(() => false)
+    expect(hasData || hasEmptyState).toBe(true)
+  })
+})
+
+test.describe('API error state', () => {
+  test('shows an error state when the API is unreachable', async ({ page }) => {
+    // Navigate directly without waiting for the API — intercept all API calls to simulate failure
+    await page.route('/api/**', route => route.abort())
+
+    await page.goto('/')
+    // After aborting API calls, the overview page should show an error state rather than crashing
+    await expect(page.getByText(/error|failed|unavailable|no profiling/i).first()).toBeVisible({ timeout: 15000 })
+  })
+})
+
 test.describe('Dashboard navigation', () => {
   test('loads the Overview page by default', async ({ page }) => {
     await page.goto('/')

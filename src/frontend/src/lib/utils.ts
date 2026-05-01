@@ -1,5 +1,7 @@
 import type { TrendPoint } from '@/types/api'
 
+const REGRESSION_THRESHOLD = 0.10
+
 export function detectRegression(trends: TrendPoint[]): { field: string; pct: number } | null {
   if (trends.length < 2) return null
   const prev = trends[trends.length - 2]
@@ -9,7 +11,7 @@ export function detectRegression(trends: TrendPoint[]): { field: string; pct: nu
     { field: 'total duration', prev: prev.totalDuration, curr: curr.totalDuration },
   ]) {
     const pct = percentageChange(c.curr, c.prev)
-    if (pct !== null && pct > 0.10) return { field: c.field, pct }
+    if (pct !== null && pct > REGRESSION_THRESHOLD) return { field: c.field, pct }
   }
   return null
 }

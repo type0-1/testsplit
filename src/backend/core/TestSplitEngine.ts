@@ -37,7 +37,8 @@ export class TestSplitEngine {
     const profile = this.profiler.generateProfile(results);
     this.profiler.addProfile(profile);
 
-    const { perTestStats } = this.profiler.generateHistoricalProfile();
+    const historicalProfile = this.profiler.generateHistoricalProfile();
+    const { perTestStats } = historicalProfile;
 
     /**
      * Aggregate durations by class name before scheduling. The CI generator
@@ -76,7 +77,7 @@ export class TestSplitEngine {
       runId,
       profile,
       distribution,
-      historicalProfile: this.profiler.generateHistoricalProfile()
+      historicalProfile,
     };
   }
 }

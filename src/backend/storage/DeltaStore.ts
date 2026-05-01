@@ -3,7 +3,7 @@ import * as zlib from 'zlib';
 import * as path from 'path';
 
 const MAX_UNCOMPRESSED_DELTAS = 50;
-const MAX_ARCHIVED_DELTAS = 500; // Arbitrary max limit, will modify these vals later on as we figure things out
+const MAX_ARCHIVED_DELTAS = 500; // Ceiling for compressed archive files; oldest entries are evicted when exceeded.
 
 export function rotateHistoricalDeltas(deltasDir: string): void {
   const jsonFiles = fs
