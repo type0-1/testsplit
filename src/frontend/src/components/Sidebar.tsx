@@ -1,5 +1,6 @@
-import { Gauge, Timer, Share2, AlertTriangle } from 'lucide-react'
+import { Gauge, Timer, Share2, AlertTriangle, Sun, Moon } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { useTheme } from '@/hooks/useTheme'
 
 export type Page = 'overview' | 'durations' | 'scheduling' | 'instability'
 
@@ -17,6 +18,7 @@ const NAV_ITEMS: NavItem[] = [
 ]
 
 export function Sidebar({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
+  const { theme, toggle } = useTheme()
   return (
     <aside
       className="w-[200px] shrink-0 flex flex-col"
@@ -78,10 +80,17 @@ export function Sidebar({ page, onNavigate }: { page: Page; onNavigate: (p: Page
         })}
       </nav>
 
-      <div className="px-4 py-3" style={{ borderTop: '1px solid var(--g4)' }}>
+      <div className="px-4 py-3 flex items-center justify-between" style={{ borderTop: '1px solid var(--g4)' }}>
         <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', color: 'var(--g5)', letterSpacing: '0.06em' }}>
           v1.0.0 - TestSplit
         </p>
+        <button
+          onClick={toggle}
+          aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          style={{ color: 'var(--g6)', background: 'none', border: 'none', cursor: 'pointer', padding: '2px', display: 'flex', alignItems: 'center' }}
+        >
+          {theme === 'dark' ? <Sun size={12} /> : <Moon size={12} />}
+        </button>
       </div>
     </aside>
   )

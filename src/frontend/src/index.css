@@ -110,6 +110,40 @@
     --font-mono:    'IBM Plex Mono', monospace;
 }
 
+html.light {
+    --background:           oklch(0.98 0.003 258);
+    --foreground:           oklch(0.15 0.008 258);
+    --card:                 oklch(0.95 0.004 258);
+    --card-foreground:      oklch(0.15 0.008 258);
+    --popover:              oklch(0.95 0.004 258);
+    --popover-foreground:   oklch(0.15 0.008 258);
+    --secondary:            oklch(0.91 0.005 258);
+    --secondary-foreground: oklch(0.15 0.008 258);
+    --muted:                oklch(0.91 0.005 258);
+    --muted-foreground:     oklch(0.42 0.006 258);
+    --accent:               oklch(0.91 0.005 258);
+    --accent-foreground:    oklch(0.15 0.008 258);
+    --border:               oklch(0.82 0.006 258);
+    --input:                oklch(0.82 0.006 258);
+
+    --g1: oklch(0.98 0.003 258);
+    --g2: oklch(0.95 0.004 258);
+    --g3: oklch(0.91 0.005 258);
+    --g4: oklch(0.84 0.006 258);
+    --g5: oklch(0.72 0.007 258);
+    --g6: oklch(0.42 0.006 258);
+    --g7: oklch(0.15 0.008 258);
+
+    --sidebar:                    oklch(0.93 0.004 258);
+    --sidebar-foreground:         oklch(0.15 0.008 258);
+    --sidebar-accent:             oklch(0.88 0.005 258);
+    --sidebar-accent-foreground:  oklch(0.15 0.008 258);
+    --sidebar-border:             oklch(0.82 0.006 258);
+    --sidebar-ring:               oklch(0.68 0.19  40);
+
+    --orange-dim: oklch(0.68 0.19 40 / 0.12);
+}
+
 /* ─── Base styles ─────────────────────────────────────────────────────────── */
 @layer base {
     * {
