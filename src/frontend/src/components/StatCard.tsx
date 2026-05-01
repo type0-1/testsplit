@@ -19,7 +19,11 @@ export function StatCard({
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: accent }} />
 
       <div className="flex items-start justify-between gap-2 mb-3" style={{ marginTop: 6 }}>
-        <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.52rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--g6)' }}>
+        <span style={{ 
+          fontFamily: 'var(--font-display)', 
+          fontWeight: 600, 
+          fontSize: '0.52rem', 
+          letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--g6)' }}>
           {label}
         </span>
         {sign && delta != null && (
