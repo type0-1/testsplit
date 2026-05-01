@@ -142,7 +142,8 @@ export function handleGenerateConfigCommand(argv: Record<string, unknown>): void
 
   assertJUnitPathExists(junitPath);
 
-  const projectRoot = existingCIPath ? path.resolve(path.dirname(existingCIPath), '..', '..')  : path.resolve('.');
+  // existingCIPath is guaranteed to be defined due to the check at line 118-121
+  const projectRoot = path.resolve(path.dirname(existingCIPath), '..', '..');
   const srcDir = path.resolve((argv.src as string | undefined) ?? path.join(projectRoot, 'src/test/java'));
   const { containerImage, dependencyMap, lifecycle } = runDetection(
     projectRoot,
@@ -220,7 +221,7 @@ export function handleGenerateConfigCommand(argv: Record<string, unknown>): void
         delete existingCIConfig.jobs?.[jobName];
       }
       existingCIConfig.jobs = {
-        ...(existingCIConfig.jobs ?? {}),
+        ...existingCIConfig.jobs,
         ...generatedJobs,
       };
       ciConfig = YAML.stringify(existingCIConfig);

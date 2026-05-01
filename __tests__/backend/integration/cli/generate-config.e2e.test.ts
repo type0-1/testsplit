@@ -11,6 +11,7 @@ const JUNIT_FIXTURE = path.resolve(PROJECT_ROOT, '__tests__/backend/integration/
 const CI_FIXTURE = path.resolve(__dirname, 'fixtures/github-maven.yml');
 const COMMONS_LANG_JUNIT = path.resolve(__dirname, '../core/fixtures/commons-lang.xml');
 const COMMONS_LANG_CI = path.resolve(__dirname, 'fixtures/commons-lang-maven.yml');
+const GITLAB_CI_FIXTURE = path.resolve(__dirname, 'fixtures/gitlab-ci.yml');
 
 const SPAWN_OPTS = { encoding: 'utf-8' as const, cwd: PROJECT_ROOT };
 
@@ -167,6 +168,47 @@ describe('generate-config CLI integration', () => {
 
       expect(result.status).toBe(1);
       expect(result.stderr).toContain('No CI config found');
+    } finally {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
+  });
+
+  test('generates GitLab split CI config with --template flag', () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'testsplit-gitlab-'));
+    const outPath = path.join(tempDir, 'testsplit.yml');
+
+    try {
+      const result = spawnSync(
+        TS_NODE,
+        [
+          '--transpile-only',
+          CLI_PATH,
+          'generate-config',
+          '--junit', JUNIT_FIXTURE,
+          '--jobs', '2',
+          '--platform', 'gitlab',
+          '--template', GITLAB_CI_FIXTURE,
+          '--out', outPath,
+        ],
+        SPAWN_OPTS,
+      );
+
+      if (result.status !== 0) console.error('CLI stderr:', result.stderr);
+      expect(result.status).toBe(0);
+      expect(fs.existsSync(outPath)).toBe(true);
+
+      const parsed = YAML.parse(fs.readFileSync(outPath, 'utf-8'));
+      // GitLab format: flat job definitions at root level using job-N naming
+      expect(parsed['job-1']).toBeDefined();
+      expect(parsed['job-2']).toBeDefined();
+
+      // Test jobs include script with -Dtest= parameters
+      for (const jobNum of [1, 2]) {
+        const jobKey = `job-${jobNum}`;
+        const script = (parsed[jobKey].script || []) as string[];
+        // GitLab jobs should have test commands with class names
+        expect(script.some((s: string) => s.includes('mvn') || s.includes('org.apache'))).toBe(true);
+      }
     } finally {
       fs.rmSync(tempDir, { recursive: true, force: true });
     }
