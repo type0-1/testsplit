@@ -98,9 +98,7 @@ export function buildGenerateConfigCommand(y: Argv): Argv {
 export function handleGenerateConfigCommand(argv: Record<string, unknown>): void {
   const junitPath = path.resolve(argv.junit as string);
   const runnerCores = argv['runner-cores'] as number;
-  const jobCount = normalizeJobs(
-    (argv.jobs as number | undefined) ?? os.cpus().length,
-  );
+  const jobCount = normalizeJobs((argv.jobs as number | undefined) ?? os.cpus().length);
   const platform = argv.platform as Platform;
   const algorithm = argv.algorithm as Algorithm;
   const riskFactor = argv['risk-factor'] as number;
@@ -108,9 +106,7 @@ export function handleGenerateConfigCommand(argv: Record<string, unknown>): void
   const outPath = path.resolve(argv.out as string);
   const outDir = path.dirname(outPath);
   const dataDirArg = (argv.data as string | undefined) ?? '.data';
-  const dataDir = path.isAbsolute(dataDirArg)
-    ? dataDirArg
-    : path.resolve(outDir, dataDirArg);
+  const dataDir = path.isAbsolute(dataDirArg) ? dataDirArg : path.resolve(outDir, dataDirArg);
   const mavenBin = (argv['maven-bin'] as string) ?? 'mvn';
   const dryRun = argv['dry-run'] as boolean;
 
@@ -146,12 +142,13 @@ export function handleGenerateConfigCommand(argv: Record<string, unknown>): void
 
   assertJUnitPathExists(junitPath);
 
-  const srcDir = path.resolve((argv.src as string | undefined) ?? 'src/test/java');
+  const projectRoot = existingCIPath ? path.resolve(path.dirname(existingCIPath), '..', '..')  : path.resolve('.');
+  const srcDir = path.resolve((argv.src as string | undefined) ?? path.join(projectRoot, 'src/test/java'));
   const { containerImage, dependencyMap, lifecycle } = runDetection(
-    path.resolve('.'),
+    projectRoot,
     srcDir,
-    path.resolve('testng-suite.xml'),
-    path.resolve('pom.xml'),
+    path.join(projectRoot, 'testng-suite.xml'),
+    path.join(projectRoot, 'pom.xml'),
   );
 
   if (containerImage) {
@@ -174,16 +171,18 @@ export function handleGenerateConfigCommand(argv: Record<string, unknown>): void
       jobCount runners (NxM -> N).
     */
     const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
-    const result = engine.run(junitPath, totalSlots, true, algorithm, riskFactor, dependencyMap);
+    // Don't persist virtual-slot runs the dashboard would show totalSlots instead of jobCount.
+    const result = engine.run(junitPath, totalSlots, runnerCores === 1, algorithm, riskFactor, dependencyMap);
     const nonEmptySlots = result.distribution.jobs.filter((j) => j.tasks.length > 0);
 
     let jobs;
     if (runnerCores > 1 && nonEmptySlots.length >= totalSlots) {
       jobs = groupSlotsIntoRunners(result.distribution.jobs, runnerCores);
+      // Persist a canonical jobCount-slot distribution so the dashboard shows the right job count.
+      new TestSplitEngine(dataDir).run(junitPath, jobCount, true, algorithm, riskFactor, dependencyMap);
     } else if (runnerCores > 1) {
-      // If virtual slots are underfilled, schedule directly at runner granularity
-      // so the generated CI preserves requested jobCount.
-      const rerun = engine.run(junitPath, jobCount, false, algorithm, riskFactor, dependencyMap);
+      // Virtual slots underfilled, schedule at runner granularity and persist that.
+      const rerun = new TestSplitEngine(dataDir).run(junitPath, jobCount, true, algorithm, riskFactor, dependencyMap);
       jobs = buildJobsWithDependencies(rerun.distribution.jobs.filter((j) => j.tasks.length > 0));
     } else {
       jobs = buildJobsWithDependencies(nonEmptySlots);

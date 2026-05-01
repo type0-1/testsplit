@@ -9,7 +9,6 @@ import { JobCommandBuilder, resolveJobCommandBuilder } from './JobCommandBuilder
 import { isMavenCommand } from './MavenCommand';
 
 
-
 export interface CIResourceConstraints {
   cpuCores: number;
   memoryLimitMb: number | null;

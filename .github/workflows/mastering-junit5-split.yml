@@ -1,0 +1,52 @@
+# Scheduling settings used for this distribution
+# algorithm: lpt
+# risk_factor: 1
+name: build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+env:
+  DISPLAY: :99
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v6
+      - name: Set up Java 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Start Xvfb
+        run: Xvfb :99 &
+      - name: Run tests with
+        run: mvn -B test -pl junit5-cucumber-selenium -DskipTests -Drat.skip=true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: junit5-cucumber-selenium/target/
+  test-job-1:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v6
+      - name: Set up Java 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Start Xvfb
+        run: Xvfb :99 &
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: junit5-cucumber-selenium/target/
+      - name: Run tests
+        run: mvn test -pl junit5-cucumber-selenium -Dtest=CucumberTest -DfailIfNoTests=false

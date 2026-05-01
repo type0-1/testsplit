@@ -264,13 +264,16 @@ describe('generate-config N×M scheduling', () => {
       algorithm: 'lpt', 'risk-factor': 1.0,
     });
 
-    // jobs=2, runnerCores=2 → engine called with 4 virtual slots
-    expect(mockEngine.run).toHaveBeenCalledWith(
-      expect.any(String), 4, true, expect.any(String), expect.any(Number), expect.any(Map),
+    // jobs=2, runnerCores=2 -> first call uses 4 virtual slots (not persisted), second persists canonical jobCount
+    expect(mockEngine.run).toHaveBeenNthCalledWith(
+      1, expect.any(String), 4, false, expect.any(String), expect.any(Number), expect.any(Map),
+    );
+    expect(mockEngine.run).toHaveBeenNthCalledWith(
+      2, expect.any(String), 2, true, expect.any(String), expect.any(Number), expect.any(Map),
     );
   });
 
-  it('groups 4 slots into 2 runners (N×M → N) in generated config', () => {
+  it('groups 4 slots into 2 runners (N×M -> N) in generated config', () => {
     const existingConfig = {
       on: ['push'],
       jobs: { test: { steps: [{ run: 'npm test' }] } },
@@ -736,10 +739,12 @@ describe('generate-config command handler', () => {
     };
     setupExistsMocksWithCI(existingConfig);
 
-    // jobs=undefined → jobCount=cpu count, runnerCores=3 → totalSlots=cpu count * 3
+    // jobs=undefined -> jobCount=cpu count, runnerCores=3 -> totalSlots=cpu count * 3 (not persisted)
+    // second call persists canonical jobCount distribution
     generateConfigHandler({ junit: '/test.xml', jobs: undefined, 'runner-cores': 3, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false, algorithm: 'lpt', 'risk-factor': 1.0 });
 
-    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), mockOs.cpus().length * 3, true, expect.any(String), expect.any(Number), expect.any(Map));
+    expect(mockEngine.run).toHaveBeenNthCalledWith(1, expect.any(String), mockOs.cpus().length * 3, false, expect.any(String), expect.any(Number), expect.any(Map));
+    expect(mockEngine.run).toHaveBeenNthCalledWith(2, expect.any(String), mockOs.cpus().length, true, expect.any(String), expect.any(Number), expect.any(Map));
   });
 
   it('exits when no CI config path is found and --from is not provided', () => {

@@ -161,9 +161,7 @@ export function parseJUnitXMLFile(filePath: string): TestResult[] {
       ],
     );
 
-    const cases = Array.isArray(suite.testcase)
-      ? suite.testcase
-      : [suite.testcase];
+    const cases = Array.isArray(suite.testcase) ? suite.testcase : [suite.testcase];
 
     for (const tc of cases) {
       let status: 'passed' | 'failed' | 'skipped' = 'passed';

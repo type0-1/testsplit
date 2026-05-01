@@ -85,15 +85,15 @@ export function Scheduling() {
           accent="var(--amber)" 
           active={calibrated} delay={200} 
         />
-        <StatCard 
-          label="Cores Used" 
-          value={jobs.length} 
-          format={v => String(Math.round(v))} 
-          sub={`of ${s.cpuCores ?? '?'} available · ${s.totalTests} tests`} 
-          accent="var(--cyan)" 
-          active={calibrated} 
-          delay={300} 
-          last 
+        <StatCard
+          label="Parallel Jobs"
+          value={jobs.length}
+          format={v => String(Math.round(v))}
+          sub={`CI runners · ${s.totalTests} tests`}
+          accent="var(--cyan)"
+          active={calibrated}
+          delay={300}
+          last
         />
       </section>
 

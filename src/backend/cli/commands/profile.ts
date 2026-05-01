@@ -83,9 +83,7 @@ export function handleProfileCommand(argv: Record<string, unknown>): void {
   const dataDir = argv.data as string;
   const explain = argv.explain as boolean;
   const algorithm = argv.algorithm as Algorithm;
-  const riskFactor = normalizeRiskFactor(
-    (argv['risk-factor'] as number | undefined) ?? 1.0,
-  );
+  const riskFactor = normalizeRiskFactor((argv['risk-factor'] as number | undefined) ?? 1.0,);
   const availableCores = os.cpus().length;
 
   assertJUnitPathExists(junitPath);
@@ -128,13 +126,12 @@ export function handleProfileCommand(argv: Record<string, unknown>): void {
   const m = distribution.metrics;
 
   const bottleneckTest =
-    profile.testResults.length === 0
-      ? null
-      : profile.testResults.reduce((max, t) =>
+    profile.testResults.length === 0 ? null : 
+      profile.testResults.reduce((max, t) =>
           t.duration > max.duration ? t : max,
         );
-  const predictedSpeedUp =
-    m.criticalPath === 0 ? 1 : profile.totalDuration / m.criticalPath;
+        
+  const predictedSpeedUp = m.criticalPath === 0 ? 1 : profile.totalDuration / m.criticalPath;
 
   let interpretation = '';
   if (bottleneckTest) {

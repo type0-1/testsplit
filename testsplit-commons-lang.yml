@@ -1,0 +1,390 @@
+# Scheduling settings used for this distribution
+# algorithm: lpt
+# risk_factor: 1
+name: Java CI with Maven
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - name: Build and test
+        run: mvn --errors --show-version --batch-mode --no-transfer-progress -DskipTests
+          -Drat.skip=true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: target/
+  test-job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - &a1
+        name: Detect available cores
+        id: cores
+        run: |-
+          TOTAL=$(nproc)
+          LOAD=$(awk '{print int($1+0.5)}' /proc/loadavg)
+          IDLE=$(( TOTAL - LOAD > 1 ? TOTAL - LOAD : 1 ))
+          echo "count=$IDLE" >> $GITHUB_OUTPUT
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.time.FastDateParser_TimeZoneStrategyTest,org.apache.commons.lang3.text.ExtendedMessageFormatTest
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.concurrent.locks.LockingVisitorsTest,org.apache.commons.lang3.time.FastDateParserTest
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.time.DurationFormatUtilsTest,org.apache.commons.lang3.time.FastDateParserJava15BugTest
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.ClassUtilsOssFuzzTest,org.apache.commons.lang3.concurrent.TimedSemaphoreTest
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-5:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.builder.ToStringStyleConcurrencyTest,org.apache.commons.lang3.time.StopWatchTest
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.time.FastDateFormatTest,org.apache.commons.lang3.ArrayUtilsConcatTest
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-7:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.time.CalendarUtilsTest,org.apache.commons.lang3.LocaleUtilsTest
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-8:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.builder.ReflectionDiffBuilderTest,org.apache.commons.lang3.builder.EqualsBuilderReflectJreImplementationTest
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-9:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.builder.HashCodeBuilderAndEqualsBuilderTest,org.apache.commons.lang3.ClassUtilsTest
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-10:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.time.FastDatePrinterTimeZonesTest,org.apache.commons.lang3.concurrent.BasicThreadFactoryTest,org.apache.commons.lang3.tuple.ImmutableTripleTest,org.apache.commons.lang3.concurrent.AtomicSafeInitializerSupplierTest,org.apache.commons.lang3.reflect.TypeLiteralTest,org.apache.commons.lang3.builder.MultiLineToStringStyleTest,org.apache.commons.lang3.builder.ToStringStyleTest,org.apache.commons.lang3.concurrent.ConcurrentRuntimeExceptionTest,org.apache.commons.lang3.function.IntToCharFunctionTest,org.apache.commons.lang3.reflect.InheritanceUtilsTest,org.apache.commons.lang3.time.FastDatePrinterTest,org.apache.commons.lang3.ValidateTest$IsTrue$WithMessage,org.apache.commons.lang3.ValidateTest$ValidIndex$WithCollection$WithMessage,org.apache.commons.lang3.ThreadUtilsTest,org.apache.commons.lang3.BooleanUtilsTest,org.apache.commons.lang3.util.IterableStringTokenizerTest,org.apache.commons.lang3.ValidateTest$ValidIndex$WithCollection$WithoutMessage,org.apache.commons.lang3.concurrent.LazyInitializerFailableCloserTest,org.apache.commons.lang3.stream.IntStreamsTest,org.apache.commons.lang3.builder.NoClassNameToStringStyleTest,org.apache.commons.lang3.CachedRandomBitsTest,org.apache.commons.lang3.concurrent.LazyInitializerAnonClassTest,org.apache.commons.lang3.function.MethodInvokersBiConsumerTest,org.apache.commons.lang3.stream.FailableStreamTest,org.apache.commons.lang3.time.FastTimeZoneTest,org.apache.commons.lang3.ValidateTest$NoNullElements$WithCollection$WithoutMessage,org.apache.commons.lang3.ValidateTest$ValidState$WithoutMessage
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-11:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.StringEscapeUtilsTest,org.apache.commons.lang3.concurrent.MultiBackgroundInitializerTest,org.apache.commons.lang3.function.MethodInvokersFailableBiFunctionTest,org.apache.commons.lang3.builder.EqualsBuilderTest,org.apache.commons.lang3.SystemUtilsTest,org.apache.commons.lang3.RangeTest,org.apache.commons.lang3.concurrent.MemoizerFunctionTest,org.apache.commons.lang3.reflect.ConstructorUtilsTest,org.apache.commons.lang3.concurrent.MemoizerComputableTest,org.apache.commons.lang3.text.StrLookupTest,org.apache.commons.lang3.builder.RecursiveToStringStyleTest,org.apache.commons.lang3.CharUtilsTest,org.apache.commons.lang3.concurrent.LazyInitializerCloserTest,org.apache.commons.lang3.function.MethodInvokersBiFunctionTest,org.apache.commons.lang3.stream.LangCollectorsTest,org.apache.commons.lang3.time.GmtTimeZoneTest,org.apache.commons.lang3.ValidateTest$NotBlank$WithMessage,org.apache.commons.lang3.ValidateTest$ValidState$WitMessage,org.apache.commons.lang3.RandomStringUtilsTest,org.apache.commons.lang3.ArrayUtilsTest,org.apache.commons.lang3.SystemPropertiesTest,org.apache.commons.lang3.builder.ToStringBuilderTest,org.apache.commons.lang3.ObjectUtilsTest,org.apache.commons.lang3.ArrayUtilsAddTest,org.apache.commons.lang3.event.EventUtilsTest,org.apache.commons.lang3.concurrent.ConcurrentUtilsTest,org.apache.commons.lang3.builder.JsonToStringStyleTest,org.apache.commons.lang3.time.DateUtilsFragmentTest,org.apache.commons.lang3.concurrent.AtomicInitializerObjectTest,org.apache.commons.lang3.mutable.MutableLongTest,org.apache.commons.lang3.builder.DiffTest,org.apache.commons.lang3.builder.ReflectionToStringBuilderSummaryTest,org.apache.commons.lang3.concurrent.CallableBackgroundInitializerTest,org.apache.commons.lang3.exception.CloneFailedExceptionTest,org.apache.commons.lang3.mutable.MutableIntTest,org.apache.commons.lang3.text.WordUtilsTest,org.apache.commons.lang3.ValidateTest$IsAssignable$WithoutMessage,org.apache.commons.lang3.ValidateTest$ValidIndex$WithArray$WithMessage
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-12:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.time.DateUtilsTest,org.apache.commons.lang3.CharSequenceUtilsTest,org.apache.commons.lang3.builder.HashCodeBuilderTest,org.apache.commons.lang3.SerializationUtilsTest,org.apache.commons.lang3.concurrent.BackgroundInitializerTest,org.apache.commons.lang3.exception.ContextedRuntimeExceptionTest,org.apache.commons.lang3.concurrent.AtomicSafeInitializerTest,org.apache.commons.lang3.concurrent.AtomicInitializerNonObjectTest,org.apache.commons.lang3.AppendableJoinerTest,org.apache.commons.lang3.ArrayFillTest,org.apache.commons.lang3.CharSetTest,org.apache.commons.lang3.function.FunctionsTest,org.apache.commons.lang3.time.DurationUtilsTest,org.apache.commons.lang3.ClassUtilsShortClassNameTest,org.apache.commons.lang3.concurrent.LazyInitializerSingleInstanceTest,org.apache.commons.lang3.function.TriConsumerTest,org.apache.commons.lang3.StringUtilsContainsTest,org.apache.commons.lang3.ValidateTest$ExclusiveBetween$WithDouble$WithoutMessage,org.apache.commons.lang3.ValidateTest$NotEmpty$WithCharSequence$WithMessage,org.apache.commons.lang3.RandomUtilsTest,org.apache.commons.lang3.math.NumberUtilsTest,org.apache.commons.lang3.concurrent.MultiBackgroundInitializerSupplierTest,org.apache.commons.lang3.text.StrBuilderTest,org.apache.commons.lang3.EnumUtilsTest,org.apache.commons.lang3.text.StrSubstitutorTest,org.apache.commons.lang3.exception.ContextedExceptionTest,org.apache.commons.lang3.StringUtilsIsTest,org.apache.commons.lang3.RegExUtilsTest,org.apache.commons.lang3.ArraySorterTest,org.apache.commons.lang3.CharSetUtilsTest,org.apache.commons.lang3.function.MethodInvokersFunctionTest,org.apache.commons.lang3.tuple.MutablePairTest,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_0,org.apache.commons.lang3.concurrent.LazyInitializerSupplierTest,org.apache.commons.lang3.IntegerRangeTest,org.apache.commons.lang3.text.CompositeFormatTest,org.apache.commons.lang3.ValidateTest$Finite$WithoutMessage,org.apache.commons.lang3.ValidateTest$NotEmpty$WithCollection$WithMessage
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-13:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.math.FractionTest,org.apache.commons.lang3.RuntimeEnvironmentTest,org.apache.commons.lang3.reflect.FieldUtilsTest,org.apache.commons.lang3.concurrent.EventCountCircuitBreakerTest,org.apache.commons.lang3.CharRangeTest,org.apache.commons.lang3.concurrent.UncheckedFutureTest,org.apache.commons.lang3.stream.StreamsTest,org.apache.commons.lang3.text.StrBuilderAppendInsertTest,org.apache.commons.lang3.StreamsTest,org.apache.commons.lang3.mutable.MutableDoubleTest,org.apache.commons.lang3.reflect.Lang1792Test,org.apache.commons.lang3.DoubleRangeTest,org.apache.commons.lang3.time.DateFormatUtilsTest,org.apache.commons.lang3.builder.ReflectionToStringBuilderExcludeWithAnnotationTest,org.apache.commons.lang3.ClassPathUtilsTest,org.apache.commons.lang3.concurrent.LazyInitializerSimpleTest,org.apache.commons.lang3.function.PredicatesTest,org.apache.commons.lang3.StringUtilsAbbreviateTest,org.apache.commons.lang3.tuple.ImmutablePairTest,org.apache.commons.lang3.ValidateTest$NotEmpty$WithArray$WithMessage,org.apache.commons.lang3.arch.ProcessorTest,org.apache.commons.lang3.ArrayUtilsSetTest,org.apache.commons.lang3.BitFieldLongTest,org.apache.commons.lang3.BitFieldTest,org.apache.commons.lang3.builder.ConversionTest,org.apache.commons.lang3.builder.DefaultToStringStyleTest,org.apache.commons.lang3.builder.IDKeyTest,org.apache.commons.lang3.builder.NoFieldNamesToStringStyleTest,org.apache.commons.lang3.builder.ReflectionToStringBuilderConcurrencyTest,org.apache.commons.lang3.builder.ReflectionToStringBuilderCustomImplementationTest,org.apache.commons.lang3.builder.ReflectionToStringBuilderExcludeNullValuesTest,org.apache.commons.lang3.builder.ReflectionToStringBuilderExcludeTest,org.apache.commons.lang3.builder.ReflectionToStringBuilderMutateInspectConcurrencyTest,org.apache.commons.lang3.builder.ReflectionToStringBuilderTest,org.apache.commons.lang3.builder.ShortPrefixToStringStyleTest,org.apache.commons.lang3.CharsetsTest,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_0$C_is_0,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_0$C_is_1,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_0$C_is_10,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_1,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_1$C_is_0,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_1$C_is_10,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_10,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_10$C_is_0,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_10$C_is_10,org.apache.commons.lang3.compare.ObjectToStringComparatorTest,org.apache.commons.lang3.concurrent.CircuitBreakingExceptionTest,org.apache.commons.lang3.concurrent.ConstantInitializerTest,org.apache.commons.lang3.concurrent.FutureTasksTest,org.apache.commons.lang3.concurrent.UncheckedTimeoutExceptionTest,org.apache.commons.lang3.exception.UncheckedExceptionTest,org.apache.commons.lang3.exception.UncheckedIllegalAccessExceptionTest,org.apache.commons.lang3.exception.UncheckedInterruptedExceptionTest,org.apache.commons.lang3.exception.UncheckedReflectiveOperationExceptionTest,org.apache.commons.lang3.function.BooleanConsumerTest,org.apache.commons.lang3.function.ByteConsumerTest,org.apache.commons.lang3.function.ByteSupplierTest,org.apache.commons.lang3.function.FailableSupplierTest,org.apache.commons.lang3.function.MethodInvokersFailableBiConsumerTest,org.apache.commons.lang3.function.MethodInvokersFailableFunctionTest,org.apache.commons.lang3.function.MethodInvokersFailableSupplierTest,org.apache.commons.lang3.function.MethodInvokersSupplierTest,org.apache.commons.lang3.function.SuppliersTest,org.apache.commons.lang3.function.ToBooleanBiFunctionTest,org.apache.commons.lang3.function.TriFunctionTest,org.apache.commons.lang3.JavaVersionTest,org.apache.commons.lang3.NotImplementedExceptionTest,org.apache.commons.lang3.reflect.Lang1703Test,org.apache.commons.lang3.StringUtilsEmptyBlankTest,org.apache.commons.lang3.StringUtilsStartsEndsWithTest,org.apache.commons.lang3.StringUtilsValueOfTest,org.apache.commons.lang3.text.translate.EntityArraysTest,org.apache.commons.lang3.text.translate.LookupTranslatorTest,org.apache.commons.lang3.text.translate.NumericEntityEscaperTest,org.apache.commons.lang3.text.translate.NumericEntityUnescaperTest,org.apache.commons.lang3.text.translate.OctalUnescaperTest,org.apache.commons.lang3.text.translate.UnicodeEscaperTest,org.apache.commons.lang3.text.translate.UnicodeUnescaperTest,org.apache.commons.lang3.time.TimeZonesTest,org.apache.commons.lang3.tuple.TripleTest,org.apache.commons.lang3.ValidateTest$ExclusiveBetween$WithComparable$WithMessage,org.apache.commons.lang3.ValidateTest$ExclusiveBetween$WithComparable$WithoutMessage,org.apache.commons.lang3.ValidateTest$ExclusiveBetween$WithDouble$WithMessage,org.apache.commons.lang3.ValidateTest$ExclusiveBetween$WithLong$WithMessage,org.apache.commons.lang3.ValidateTest$ExclusiveBetween$WithLong$WithoutMessage,org.apache.commons.lang3.ValidateTest$Finite$WithMessage,org.apache.commons.lang3.ValidateTest$InclusiveBetween$WithComparable$WithoutMessage,org.apache.commons.lang3.ValidateTest$InclusiveBetween$WithDouble$WithMessage,org.apache.commons.lang3.ValidateTest$InclusiveBetween$WithLong$WithMessage,org.apache.commons.lang3.ValidateTest$InclusiveBetween$WithLong$WithoutMessage,org.apache.commons.lang3.ValidateTest$IsAssignable$WithMessage,org.apache.commons.lang3.ValidateTest$IsInstanceOf$WithMessage,org.apache.commons.lang3.ValidateTest$IsInstanceOf$WithoutMessage,org.apache.commons.lang3.ValidateTest$IsTrue$WithDoubleTemplate,org.apache.commons.lang3.ValidateTest$IsTrue$WithLongTemplate,org.apache.commons.lang3.ValidateTest$IsTrue$WithMessageSupplier,org.apache.commons.lang3.ValidateTest$IsTrue$WithObjectTemplate,org.apache.commons.lang3.ValidateTest$IsTrue$WithoutMessage,org.apache.commons.lang3.ValidateTest$MatchesPattern$WithMessage,org.apache.commons.lang3.ValidateTest$MatchesPattern$WithoutMessage,org.apache.commons.lang3.ValidateTest$NoNullElements$WithArray$WithMessage,org.apache.commons.lang3.ValidateTest$NoNullElements$WithArray$WithoutMessage,org.apache.commons.lang3.ValidateTest$NotBlank$WithoutMessage,org.apache.commons.lang3.ValidateTest$NotEmpty$WithArray$WithoutMessage,org.apache.commons.lang3.ValidateTest$NotEmpty$WithCharSequence$WithoutMessage,org.apache.commons.lang3.ValidateTest$NotEmpty$WithCollection$WithoutMessage,org.apache.commons.lang3.ValidateTest$NotEmpty$WithMap$WithoutMessage,org.apache.commons.lang3.ValidateTest$NotNaN$WithMessage,org.apache.commons.lang3.ValidateTest$NotNaN$WithoutMessage,org.apache.commons.lang3.ValidateTest$NotNull$WithMessage,org.apache.commons.lang3.ValidateTest$NotNull$WithoutMessage,org.apache.commons.lang3.ValidateTest$ValidIndex$WithArray$WithoutMessage,org.apache.commons.lang3.ValidateTest$ValidIndex$WithCharSequence$WithMessage,org.apache.commons.lang3.function.FailableTest,org.apache.commons.lang3.reflect.MethodUtilsTest,org.apache.commons.lang3.builder.DiffBuilderTest,org.apache.commons.lang3.LongRangeTest,org.apache.commons.lang3.StringUtilsEqualsIndexOfTest,org.apache.commons.lang3.time.DateUtilsRoundingTest,org.apache.commons.lang3.ArrayUtilsRemoveTest,org.apache.commons.lang3.StringUtilsSubstringTest,org.apache.commons.lang3.exception.DefaultExceptionContextTest,org.apache.commons.lang3.builder.StandardToStringStyleTest,org.apache.commons.lang3.time.WeekYearTest,org.apache.commons.lang3.concurrent.AtomicInitializerSupplierTest,org.apache.commons.lang3.mutable.MutableShortTest,org.apache.commons.lang3.builder.MultilineRecursiveToStringStyleTest,org.apache.commons.lang3.builder.SimpleToStringStyleTest,org.apache.commons.lang3.concurrent.ConcurrentExceptionTest,org.apache.commons.lang3.function.ConsumersTest,org.apache.commons.lang3.mutable.MutableObjectTest,org.apache.commons.lang3.time.FastDateParser_MoreOrLessTest,org.apache.commons.lang3.ValidateTest$IsInstanceOf$WithMessageTemplate,org.apache.commons.lang3.ValidateTest$ValidIndex$WithCharSequence$WithoutMessage
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build
+  test-job-14:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - *a1
+      - name: Run tests
+        run: mvn test
+          -Dtest=org.apache.commons.lang3.time.FastDateParserSDFTest,org.apache.commons.lang3.StringUtilsTest,org.apache.commons.lang3.ArchUtilsTest,org.apache.commons.lang3.FunctionsTest,org.apache.commons.lang3.tuple.PairTest,org.apache.commons.lang3.event.EventListenerSupportTest,org.apache.commons.lang3.util.FluentBitSetTest,org.apache.commons.lang3.StringsTest,org.apache.commons.lang3.text.StrTokenizerTest,org.apache.commons.lang3.StringUtilsTrimStripTest,org.apache.commons.lang3.ArrayUtilsInsertTest,org.apache.commons.lang3.ClassLoaderUtilsTest,org.apache.commons.lang3.mutable.MutableByteTest,org.apache.commons.lang3.tuple.MutableTripleTest,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_1$C_is_1,org.apache.commons.lang3.concurrent.ThresholdCircuitBreakerTest,org.apache.commons.lang3.math.IEEE754rUtilsTest,org.apache.commons.lang3.text.StrMatcherTest,org.apache.commons.lang3.ValidateTest$InclusiveBetween$WithComparable$WithMessage,org.apache.commons.lang3.ValidateTest$NotEmpty$WithMap$WithMessage,org.apache.commons.lang3.reflect.TypeUtilsTest,org.apache.commons.lang3.time.FastDateFormat_PrinterTest,org.apache.commons.lang3.exception.ExceptionUtilsTest,org.apache.commons.lang3.CharEncodingTest,org.apache.commons.lang3.AnnotationUtilsTest,org.apache.commons.lang3.ConversionTest,org.apache.commons.lang3.ValidateTest$NoNullElements$WithCollection$WithMessage,org.apache.commons.lang3.ArrayUtilsRemoveMultipleTest,org.apache.commons.lang3.concurrent.BackgroundInitializerSupplierTest,org.apache.commons.lang3.builder.CompareToBuilderTest,org.apache.commons.lang3.text.FormattableUtilsTest,org.apache.commons.lang3.compare.ComparableUtilsTest,org.apache.commons.lang3.mutable.MutableFloatTest,org.apache.commons.lang3.builder.DiffResultTest,org.apache.commons.lang3.builder.ReflectionToStringBuilderIncludeTest,org.apache.commons.lang3.compare.ComparableUtilsTest$A_is_1$B_is_10$C_is_1,org.apache.commons.lang3.concurrent.UncheckedExecutionExceptionTest,org.apache.commons.lang3.mutable.MutableBooleanTest,org.apache.commons.lang3.text.translate.UnicodeUnpairedSurrogateRemoverTest,org.apache.commons.lang3.ValidateTest$InclusiveBetween$WithDouble$WithoutMessage,org.apache.commons.lang3.ValidateTest$UtilClassConventions
+          -DfailIfNoTests=false -Dsurefire.forkCount=${{
+          steps.cores.outputs.count }} -Dsurefire.reuseForks=true
+    needs:
+      - build

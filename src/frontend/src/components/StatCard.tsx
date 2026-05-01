@@ -19,11 +19,23 @@ export function StatCard({
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: accent }} />
 
       <div className="flex items-start justify-between gap-2 mb-3" style={{ marginTop: 6 }}>
-        <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.52rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--g6)' }}>
+        <span style={{ 
+          fontFamily: 'var(--font-display)', 
+          fontWeight: 600, 
+          fontSize: '0.52rem', 
+          letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--g6)' }}>
           {label}
         </span>
         {sign && delta != null && (
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.48rem', color: deltaColor!, background: `${deltaColor}22`, border: `1px solid ${deltaColor}`, padding: '1px 5px', flexShrink: 0 }}>
+          <span style={{ 
+            fontFamily: 'var(--font-mono)', 
+            fontSize: '0.48rem', 
+            color: deltaColor!, 
+            background: `${deltaColor}22`, 
+            border: `1px solid ${deltaColor}`, 
+            padding: '1px 5px', 
+            flexShrink: 0 
+          }}>
             {sign} {Math.abs(delta * 100).toFixed(1)}%
           </span>
         )}

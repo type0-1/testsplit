@@ -3,11 +3,7 @@ import { getSchemaValidator } from '../../generator/getSchemaValidator';
 
 type Platform = 'github' | 'gitlab';
 
-export function prependSchedulingHeader(
-  yaml: string,
-  algorithm: string,
-  riskFactor: number,
-): string {
+export function prependSchedulingHeader(yaml: string, algorithm: string, riskFactor: number): string {
   const header = [
     '# Scheduling settings used for this distribution',
     `# algorithm: ${algorithm}`,
@@ -21,7 +17,7 @@ export function prependSchedulingHeader(
 export function validateFinalCIConfig(yaml: string, platform: Platform): void {
   try {
     validateYamlSyntax(yaml);
-
+    
     const schemaValidator = getSchemaValidator(platform);
     schemaValidator?.validate(yaml);
   } catch (err: unknown) {
