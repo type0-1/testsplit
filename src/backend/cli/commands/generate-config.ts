@@ -11,7 +11,7 @@ import {
   findTestJobs,
   extractTestCommands,
 } from '../CIConfigReader';
-import { buildGitHubPhasedJobs } from '../../generator/GitHubActionsGenerator';
+import { buildGitHubPhasedJobs } from '../../generator/GitHubPhasedJobBuilder';
 import { buildGitLabSplitJobs } from '../../generator/GitLabCIGenerator';
 import {
   buildJobsWithDependencies,

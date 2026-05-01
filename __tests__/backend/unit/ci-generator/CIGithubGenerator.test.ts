@@ -1,7 +1,5 @@
-import {
-  buildGitHubPhasedJobs,
-  generateGitHubActionsConfig,
-} from '../../../../src/backend/generator/GitHubActionsGenerator';
+import { generateGitHubActionsConfig } from '../../../../src/backend/generator/GitHubActionsGenerator';
+import { buildGitHubPhasedJobs } from '../../../../src/backend/generator/GitHubPhasedJobBuilder';
 import chalk from 'chalk';
 import YAML from 'yaml';
 
