@@ -230,7 +230,7 @@ describe('profile command handler', () => {
 
     profileHandler({ junit: '/test.xml', jobs: 2, explain: true });
     const allCalls = (console.log as jest.Mock).mock.calls.flat().join('\n');
-    expect(allCalls).toContain('Workload is unevenly distributed across jobs.');
+    expect(allCalls).toContain('Workload is unevenly distributed across jobs (balance ratio 2.50): LongTest (3.00s, 50% of total runtime) outweighs');
     expect(allCalls).toContain('...and 1 more');
   });
 

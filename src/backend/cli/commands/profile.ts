@@ -134,24 +134,29 @@ export function handleProfileCommand(argv: Record<string, unknown>): void {
   const zeroDurationTests = profile.testResults.filter((t) => t.duration === 0);
   const m = distribution.metrics;
 
-  const bottleneckTest =
-    profile.testResults.length === 0 ? null : 
-      profile.testResults.reduce((max, t) =>
-          t.duration > max.duration ? t : max,
-        );
+  // The "bottleneck" that matters is the heaviest scheduled unit (a class, since
+  // tasks are aggregated by class before scheduling), not the single slowest raw
+  // test method - that can be a tiny fraction of a job that's actually dominant.
+  const allTasks = distribution.jobs.flatMap((j) => j.tasks);
+  const heaviestTask =
+    allTasks.length === 0 ? null : allTasks.reduce((max, t) => (t.duration > max.duration ? t : max));
+  const bottleneckTest = heaviestTask ? { name: heaviestTask.id, duration: heaviestTask.duration } : null;
         
   const predictedSpeedUp = m.criticalPath === 0 ? 1 : profile.totalDuration / m.criticalPath;
 
   let interpretation = '';
   if (bottleneckTest) {
     const dominantRatio = bottleneckTest.duration / profile.totalDuration;
+    const bottleneckDesc = `${bottleneckTest.name} (${bottleneckTest.duration.toFixed(2)}s, ${(dominantRatio * 100).toFixed(0)}% of total runtime)`;
     if (dominantRatio > 0.8) {
       interpretation =
-        'Execution is dominated by a single long-running test, limiting achievable parallel speed-up.';
+        `Execution is dominated by a single long-running test, ${bottleneckDesc} — this caps the achievable speed-up regardless of job count.`;
     } else if (m.balanceRatio > 2) {
-      interpretation = 'Workload is unevenly distributed across jobs.';
+      interpretation =
+        `Workload is unevenly distributed across jobs (balance ratio ${m.balanceRatio.toFixed(2)}): ${bottleneckDesc} outweighs most other jobs, so some finish far earlier than others.`;
     } else {
-      interpretation = 'Workload is well balanced for parallel execution.';
+      interpretation =
+        `Workload is well balanced for parallel execution (balance ratio ${m.balanceRatio.toFixed(2)}); the slowest test, ${bottleneckDesc}, stays well within the critical path.`;
     }
   }
 
