@@ -9,10 +9,13 @@ const compiledCli = path.join(projectRoot, 'dist', 'backend', 'cli', 'cli.js');
 const sourceCli = path.join(projectRoot, 'src', 'backend', 'cli', 'cli.ts');
 const tsNodeBin = path.join(projectRoot, 'node_modules', '.bin', 'ts-node');
 
-function run(command, args) {
+function run(command, args, extraEnv) {
+  // No `cwd` override here: relative CLI args (--junit, --data, --out, ...)
+  // must resolve against wherever the user actually invoked testsplit from,
+  // not against this package's own install directory.
   const result = spawnSync(command, args, {
-    cwd: projectRoot,
     stdio: 'inherit',
+    env: extraEnv ? { ...process.env, ...extraEnv } : process.env,
   });
 
   if (result.error) {
@@ -24,7 +27,12 @@ function run(command, args) {
 }
 
 if (fs.existsSync(tsNodeBin)) {
-  run(tsNodeBin, [sourceCli, ...process.argv.slice(2)]);
+  // ts-node resolves tsconfig.json by searching from process.cwd(), which is
+  // now the caller's directory, not this package's - point it at the right
+  // config explicitly.
+  run(tsNodeBin, [sourceCli, ...process.argv.slice(2)], {
+    TS_NODE_PROJECT: path.join(projectRoot, 'tsconfig.json'),
+  });
 } else if (fs.existsSync(compiledCli)) {
   run(process.execPath, [compiledCli, ...process.argv.slice(2)]);
 } else {

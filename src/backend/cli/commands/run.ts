@@ -35,12 +35,16 @@ export function buildRunCommand(y: Argv): Argv {
     .option('cmd', {
       type: 'string',
       demandOption: true,
-      describe: 'Base test command (e.g. "npx jest" or "mvn test -Dtest")',
+      describe: 'Base test command (e.g. "npx jest" or "mvn test")',
+    })
+    .option('cwd', {
+      type: 'string',
+      describe: 'Directory to run the test command in (default: current directory)',
     })
     .option('filter-flag', {
       type: 'string',
       default: '--testNamePattern',
-      describe: 'Flag used to pass a test filter to the test runner',
+      describe: 'Flag used to pass a test filter to the test runner (e.g. "-Dtest=" for Maven)',
     })
     .option('filter-join', {
       type: 'string',
@@ -83,6 +87,8 @@ export async function handleRunCommand(argv: Record<string, unknown>): Promise<v
   const jobCount = normalizeJobs(argv.jobs as number | undefined);
   const dataDir = argv.data as string;
   const cmd = argv.cmd as string;
+  const cwdArg = argv.cwd as string | undefined;
+  const cwd = cwdArg ? path.resolve(cwdArg) : undefined;
   const filterFlag = argv['filter-flag'] as string;
   const filterJoin = argv['filter-join'] as string;
   const algorithm = argv.algorithm as Algorithm;
@@ -119,10 +125,10 @@ export async function handleRunCommand(argv: Record<string, unknown>): Promise<v
   }
 
   const results = await (steal
-    ? runAllJobsWorkStealing(distribution.jobs, cmd, filterFlag)
+    ? runAllJobsWorkStealing(distribution.jobs, cmd, filterFlag, cwd)
     : dynamic
-      ? runAllJobsDynamic(distribution.jobs, cmd, filterFlag)
-      : runAllJobs(distribution.jobs, cmd, filterFlag, filterJoin, coreIds));
+      ? runAllJobsDynamic(distribution.jobs, cmd, filterFlag, cwd)
+      : runAllJobs(distribution.jobs, cmd, filterFlag, filterJoin, coreIds, cwd));
 
   let allPassed = true;
   for (const r of results) {

@@ -29,10 +29,23 @@ function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: string, coreId?: number): Promise<JobResult> {
+// Flags like "-Dtest=" need the value glued on directly (Java's -Dkey=value
+// syntax breaks on whitespace); flags like "--testNamePattern" need a space.
+function joinFlag(flag: string, value: string): string {
+  return flag.endsWith('=') ? `${flag}${value}` : `${flag} ${value}`;
+}
+
+// "-Dtest=" style flags (Maven Surefire) take a literal/glob class name, not
+// a regex - escaping it breaks pattern matching (e.g. "org\.apache\...").
+// Regex-pattern flags like "--testNamePattern" need the name escaped.
+function filterValue(name: string, filterFlag: string): string {
+  return filterFlag.endsWith('=') ? name : escapeRegex(name);
+}
+
+export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: string, coreId?: number, cwd?: string): Promise<JobResult> {
   return new Promise((resolve) => {
     const testNames = job.tasks.map((t) => t.id);
-    const filter = testNames.map(escapeRegex).join(filterJoin);
+    const filter = testNames.map((n) => filterValue(n, filterFlag)).join(filterJoin);
 
     let fullCmd: string;
     let tempFile: string | null = null;
@@ -40,9 +53,9 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
     if (filter.length > MAX_INLINE_ARG) {
       tempFile = join(tmpdir(), `testsplit-job-${job.jobId}-${Date.now()}.txt`);
       writeFileSync(tempFile, filter);
-      fullCmd = `${cmd} ${filterFlag} @${tempFile}`;
+      fullCmd = `${cmd} ${joinFlag(filterFlag, `@${tempFile}`)}`;
     } else {
-      fullCmd = `${cmd} ${filterFlag} ${JSON.stringify(filter)}`;
+      fullCmd = `${cmd} ${joinFlag(filterFlag, JSON.stringify(filter))}`;
     }
 
     if (coreId !== undefined) {
@@ -52,7 +65,7 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
     const stdoutChunks: Buffer[] = [];
     const stderrChunks: Buffer[] = [];
     const start = performance.now();
-    const child = spawn('sh', ['-c', fullCmd], { stdio: 'pipe' });
+    const child = spawn('sh', ['-c', fullCmd], { stdio: 'pipe', cwd });
 
     child.stdout.on('data', (chunk: Buffer) => stdoutChunks.push(chunk));
     child.stderr.on('data', (chunk: Buffer) => stderrChunks.push(chunk));
@@ -71,17 +84,17 @@ export function runJob(job: Job, cmd: string, filterFlag: string, filterJoin: st
   });
 }
 
-export function runAllJobs(jobs: Job[], cmd: string, filterFlag: string, filterJoin: string, coreIds?: number[]): Promise<JobResult[]> {
+export function runAllJobs(jobs: Job[], cmd: string, filterFlag: string, filterJoin: string, coreIds?: number[], cwd?: string): Promise<JobResult[]> {
   const activeJobs = jobs.filter((j) => j.tasks.length > 0);
-  return Promise.all(activeJobs.map((j, i) => runJob(j, cmd, filterFlag, filterJoin, coreIds?.[i])));
+  return Promise.all(activeJobs.map((j, i) => runJob(j, cmd, filterFlag, filterJoin, coreIds?.[i], cwd)));
 }
 
-function runSingleTest(task: Task, cmd: string, filterFlag: string): Promise<{ exitCode: number; stdout: string; stderr: string }> {
+function runSingleTest(task: Task, cmd: string, filterFlag: string, cwd?: string): Promise<{ exitCode: number; stdout: string; stderr: string }> {
   return new Promise((resolve) => {
-    const fullCmd = `${cmd} ${filterFlag} ${JSON.stringify(escapeRegex(task.id))}`;
+    const fullCmd = `${cmd} ${joinFlag(filterFlag, JSON.stringify(filterValue(task.id, filterFlag)))}`;
     const stdoutChunks: Buffer[] = [];
     const stderrChunks: Buffer[] = [];
-    const child = spawn('sh', ['-c', fullCmd], { stdio: 'pipe' });
+    const child = spawn('sh', ['-c', fullCmd], { stdio: 'pipe', cwd });
     child.stdout.on('data', (c: Buffer) => stdoutChunks.push(c));
     child.stderr.on('data', (c: Buffer) => stderrChunks.push(c));
     child.on('close', (code) => resolve({
@@ -92,7 +105,7 @@ function runSingleTest(task: Task, cmd: string, filterFlag: string): Promise<{ e
   });
 }
 
-async function runWorkerDynamic(initialTasks: Task[], sharedQueue: WorkQueue, jobId: number, cmd: string, filterFlag: string): Promise<JobResult> {
+async function runWorkerDynamic(initialTasks: Task[], sharedQueue: WorkQueue, jobId: number, cmd: string, filterFlag: string, cwd?: string): Promise<JobResult> {
   const start = performance.now();
   const testNames: string[] = [];
   let exitCode = 0;
@@ -105,7 +118,7 @@ async function runWorkerDynamic(initialTasks: Task[], sharedQueue: WorkQueue, jo
     if (!task) break;
 
     testNames.push(task.id);
-    const result = await runSingleTest(task, cmd, filterFlag);
+    const result = await runSingleTest(task, cmd, filterFlag, cwd);
     if (result.exitCode !== 0) exitCode = result.exitCode;
     stdoutParts.push(result.stdout);
     stderrParts.push(result.stderr);
@@ -125,13 +138,13 @@ async function runWorkerDynamic(initialTasks: Task[], sharedQueue: WorkQueue, jo
  * Dynamic work queue: each worker starts with its statically assigned tasks,
  * then pulls from the shared queue when its local queue empties, no worker goes idle while tests remain.
  */
-export function runAllJobsDynamic(jobs: Job[], cmd: string, filterFlag: string): Promise<JobResult[]> {
+export function runAllJobsDynamic(jobs: Job[], cmd: string, filterFlag: string, cwd?: string): Promise<JobResult[]> {
   const activeJobs = jobs.filter((j) => j.tasks.length > 0);
   const sharedQueue = new WorkQueue(activeJobs.flatMap((j) => j.tasks));
-  return Promise.all(activeJobs.map((j) => runWorkerDynamic([], sharedQueue, j.jobId, cmd, filterFlag)));
+  return Promise.all(activeJobs.map((j) => runWorkerDynamic([], sharedQueue, j.jobId, cmd, filterFlag, cwd)));
 }
 
-async function runWorkerStealing(myQueue: WorkerQueue, allQueues: WorkerQueue[], jobId: number, cmd: string, filterFlag: string): Promise<JobResult> {
+async function runWorkerStealing(myQueue: WorkerQueue, allQueues: WorkerQueue[], jobId: number, cmd: string, filterFlag: string, cwd?: string): Promise<JobResult> {
   const start = performance.now();
   const testNames: string[] = [];
   let exitCode = 0;
@@ -150,7 +163,7 @@ async function runWorkerStealing(myQueue: WorkerQueue, allQueues: WorkerQueue[],
     }
 
     testNames.push(task.id);
-    const result = await runSingleTest(task, cmd, filterFlag);
+    const result = await runSingleTest(task, cmd, filterFlag, cwd);
     if (result.exitCode !== 0) exitCode = result.exitCode;
     stdoutParts.push(result.stdout);
     stderrParts.push(result.stderr);
@@ -159,8 +172,8 @@ async function runWorkerStealing(myQueue: WorkerQueue, allQueues: WorkerQueue[],
   return { jobId, testNames, wallClockMs: performance.now() - start, exitCode, stdout: stdoutParts.join(''), stderr: stderrParts.join('') };
 }
 
-export function runAllJobsWorkStealing(jobs: Job[], cmd: string, filterFlag: string): Promise<JobResult[]> {
+export function runAllJobsWorkStealing(jobs: Job[], cmd: string, filterFlag: string, cwd?: string): Promise<JobResult[]> {
   const activeJobs = jobs.filter((j) => j.tasks.length > 0);
   const queues = activeJobs.map((j) => new WorkerQueue(j.tasks));
-  return Promise.all(activeJobs.map((j, i) => runWorkerStealing(queues[i], queues, j.jobId, cmd, filterFlag)));
+  return Promise.all(activeJobs.map((j, i) => runWorkerStealing(queues[i], queues, j.jobId, cmd, filterFlag, cwd)));
 }

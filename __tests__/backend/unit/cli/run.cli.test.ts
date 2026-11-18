@@ -267,6 +267,7 @@ describe('run command handler', () => {
       '--testNamePattern',
       '|',
       [3, 7],
+      undefined,
     );
   });
 
@@ -304,6 +305,7 @@ describe('run command handler', () => {
       expect.any(Array),
       'npm test',
       '--testNamePattern',
+      undefined,
     );
     expect(mockRunAllJobsDynamic).not.toHaveBeenCalled();
     expect(mockRunAllJobs).not.toHaveBeenCalled();
@@ -343,6 +345,7 @@ describe('run command handler', () => {
       expect.any(Array),
       'npm test',
       '--testNamePattern',
+      undefined,
     );
     expect(mockRunAllJobsWorkStealing).not.toHaveBeenCalled();
     expect(mockRunAllJobs).not.toHaveBeenCalled();

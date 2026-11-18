@@ -44,12 +44,20 @@ export class TestSplitEngine {
      * Aggregate durations by class name before scheduling. The CI generator
      * emits -Dtest=ClassName so per-method task granularity adds no scheduling
      * value and is prohibitively expensive for suites with large parameterised test counts.
+     *
+     * JUnit5 @Nested classes report a classname like "Outer$Inner$DeeperInner" per
+     * testcase, but Maven Surefire can't isolate a nested class via -Dtest=Outer$Inner
+     * - it just runs the whole enclosing "Outer" class. Scheduling nested identifiers
+     * as separate tasks would split one Maven invocation's workload across multiple
+     * CI jobs, each silently re-running the full outer class. Fold them back to the
+     * top-level class so one task always maps to exactly one -Dtest invocation.
      */
 
     const classMap = new Map<string, number>();
 
     for (const r of profile.testResults) {
-      const className = r.className ?? (r.name.includes('#') ? r.name.split('#')[0] : r.name.split('.').slice(0, -1).join('.') || r.name);
+      const rawClassName = r.className ?? (r.name.includes('#') ? r.name.split('#')[0] : r.name.split('.').slice(0, -1).join('.') || r.name);
+      const className = rawClassName.split('$')[0];
       const stats = perTestStats[r.name];
       const duration = stats ? stats.meanDuration + riskFactor * stats.stdDev : r.duration;
       classMap.set(className, (classMap.get(className) ?? 0) + duration);
@@ -65,8 +73,11 @@ export class TestSplitEngine {
     const scheduler = algorithm === 'multifit' ? new MULTIFITScheduler() : new LPTScheduler();
     const distribution = scheduler.schedule(tasks, jobCount);
     const runId = generateRunId();
-    const MAX_PERSIST_TESTS = 100_000;
-    
+    // Each persisted run writes the full raw profile (one entry per test) as
+    // uncompressed JSON, so this bounds worst-case disk growth per run rather
+    // than being a hard correctness limit.
+    const MAX_PERSIST_TESTS = 1_000_000;
+
     if (persist && profile.testCount <= MAX_PERSIST_TESTS) {
       this.store.saveProfile(runId, profile);
       this.store.saveDistribution(runId, distribution);

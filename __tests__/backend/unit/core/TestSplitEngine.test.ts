@@ -332,5 +332,36 @@ describe('TestSplitEngine', () => {
         2,
       );
     });
+
+    it('folds JUnit5 nested-class identifiers ("Outer$Inner") into their top-level class', () => {
+      const customResults = [
+        { name: 'a', className: 'pkg.OuterTest$NestedA', duration: 1.0, status: 'passed' as const },
+        { name: 'b', className: 'pkg.OuterTest$NestedA$DeeperNested', duration: 2.0, status: 'passed' as const },
+        { name: 'c', className: 'pkg.OuterTest', duration: 3.0, status: 'passed' as const },
+      ];
+
+      mockProfilerInstance.generateProfile.mockReturnValue({
+        ...mockProfile,
+        testCount: 3,
+        totalDuration: 6.0,
+        averageDuration: 2.0,
+        testResults: customResults,
+      } as any);
+
+      mockProfilerInstance.generateHistoricalProfile.mockReturnValue({
+        ...mockHistoricalProfile,
+        perTestStats: {},
+      } as any);
+
+      const engine = new TestSplitEngine('/tmp/test');
+      engine.run('tests.xml', 2, false, 'lpt', 1.0);
+
+      // All three results belong to the same Maven-invokable class ("pkg.OuterTest"),
+      // since -Dtest=OuterTest$NestedA can't isolate a nested class - it runs the whole class.
+      expect(mockSchedulerInstance.schedule).toHaveBeenCalledWith(
+        [{ id: 'pkg.OuterTest', duration: 6.0 }],
+        2,
+      );
+    });
   });
 });
