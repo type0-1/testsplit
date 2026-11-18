@@ -47,6 +47,12 @@ export function buildProfileCommand(y: Argv): Argv {
       default: 1.0,
       describe:
         'Multiplier k for stdDev in variance-aware scheduling weight (meanDuration + k*stdDev)',
+    })
+    .option('quiet', {
+      type: 'boolean',
+      alias: 'q',
+      default: false,
+      describe: 'Suppress zero-duration/outlier warnings',
     });
 }
 
@@ -84,6 +90,7 @@ export function handleProfileCommand(argv: Record<string, unknown>): void {
   const explain = argv.explain as boolean;
   const algorithm = argv.algorithm as Algorithm;
   const riskFactor = normalizeRiskFactor((argv['risk-factor'] as number | undefined) ?? 1.0,);
+  const quiet = argv.quiet as boolean;
   const availableCores = os.cpus().length;
 
   assertJUnitPathExists(junitPath);
@@ -96,6 +103,8 @@ export function handleProfileCommand(argv: Record<string, unknown>): void {
     true,
     algorithm,
     riskFactor,
+    undefined,
+    quiet,
   );
   const analysisMs = (performance.now() - profileStart).toFixed(1);
 

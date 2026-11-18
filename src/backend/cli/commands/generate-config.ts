@@ -92,6 +92,12 @@ export function buildGenerateConfigCommand(y: Argv): Argv {
       type: 'string',
       default: 'src/test/java',
       describe: 'Path to Java test sources for dependency detection (default: src/test/java)',
+    })
+    .option('quiet', {
+      type: 'boolean',
+      alias: 'q',
+      default: false,
+      describe: 'Suppress zero-duration/outlier warnings',
     });
 }
 
@@ -103,6 +109,7 @@ export function handleGenerateConfigCommand(argv: Record<string, unknown>): void
   const algorithm = argv.algorithm as Algorithm;
   const riskFactor = argv['risk-factor'] as number;
   const artifactPath = argv['artifact-path'] as string;
+  const quiet = argv.quiet as boolean;
   const outPath = path.resolve(argv.out as string);
   const outDir = path.dirname(outPath);
   const dataDirArg = (argv.data as string | undefined) ?? '.data';
@@ -173,17 +180,17 @@ export function handleGenerateConfigCommand(argv: Record<string, unknown>): void
     */
     const totalSlots = runnerCores > 1 ? jobCount * runnerCores : jobCount;
     // Don't persist virtual-slot runs the dashboard would show totalSlots instead of jobCount.
-    const result = engine.run(junitPath, totalSlots, runnerCores === 1, algorithm, riskFactor, dependencyMap);
+    const result = engine.run(junitPath, totalSlots, runnerCores === 1, algorithm, riskFactor, dependencyMap, quiet);
     const nonEmptySlots = result.distribution.jobs.filter((j) => j.tasks.length > 0);
 
     let jobs;
     if (runnerCores > 1 && nonEmptySlots.length >= totalSlots) {
       jobs = groupSlotsIntoRunners(result.distribution.jobs, runnerCores);
       // Persist a canonical jobCount-slot distribution so the dashboard shows the right job count.
-      new TestSplitEngine(dataDir).run(junitPath, jobCount, true, algorithm, riskFactor, dependencyMap);
+      new TestSplitEngine(dataDir).run(junitPath, jobCount, true, algorithm, riskFactor, dependencyMap, quiet);
     } else if (runnerCores > 1) {
       // Virtual slots underfilled, schedule at runner granularity and persist that.
-      const rerun = new TestSplitEngine(dataDir).run(junitPath, jobCount, true, algorithm, riskFactor, dependencyMap);
+      const rerun = new TestSplitEngine(dataDir).run(junitPath, jobCount, true, algorithm, riskFactor, dependencyMap, quiet);
       jobs = buildJobsWithDependencies(rerun.distribution.jobs.filter((j) => j.tasks.length > 0));
     } else {
       jobs = buildJobsWithDependencies(nonEmptySlots);

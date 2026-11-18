@@ -25,7 +25,8 @@ export class TestSplitEngine {
     persist: boolean,
     algorithm: Algorithm = 'lpt',
     riskFactor = 1.0,
-    dependencyMap?: Map<string, string[]>
+    dependencyMap?: Map<string, string[]>,
+    quiet = false,
   ) {
     const previousProfiles = this.store.loadProfiles();
 
@@ -34,7 +35,7 @@ export class TestSplitEngine {
     }
 
     const results = this.parser.parse(xmlPath);
-    const profile = this.profiler.generateProfile(results);
+    const profile = this.profiler.generateProfile(results, undefined, quiet);
     this.profiler.addProfile(profile);
 
     const historicalProfile = this.profiler.generateHistoricalProfile();

@@ -13,14 +13,16 @@ import { PROFILE_SCHEMA_VERSION } from '../../storage/SchemaVersions';
 import { reportZeroDurationTests, reportOutlierTests } from './ProfileReporter';
 
 export class Profiler {
-  generateProfile(results: TestResult[], commit?: CommitInfo): Profile {
+  generateProfile(results: TestResult[], commit?: CommitInfo, quiet = false): Profile {
     validateResults(results);
 
     const zeroDuration = flagZeroDurationTests(results);
-    reportZeroDurationTests(zeroDuration);
-
     const outliers = detectOutlierTests(results);
-    reportOutlierTests(outliers);
+
+    if (!quiet) {
+      reportZeroDurationTests(zeroDuration);
+      reportOutlierTests(outliers);
+    }
 
     const testCount = results.length;
     const totalDuration = results.reduce((sum, r) => sum + r.duration, 0);

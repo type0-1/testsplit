@@ -266,10 +266,10 @@ describe('generate-config N×M scheduling', () => {
 
     // jobs=2, runnerCores=2 -> first call uses 4 virtual slots (not persisted), second persists canonical jobCount
     expect(mockEngine.run).toHaveBeenNthCalledWith(
-      1, expect.any(String), 4, false, expect.any(String), expect.any(Number), expect.any(Map),
+      1, expect.any(String), 4, false, expect.any(String), expect.any(Number), expect.any(Map), undefined,
     );
     expect(mockEngine.run).toHaveBeenNthCalledWith(
-      2, expect.any(String), 2, true, expect.any(String), expect.any(Number), expect.any(Map),
+      2, expect.any(String), 2, true, expect.any(String), expect.any(Number), expect.any(Map), undefined,
     );
   });
 
@@ -743,8 +743,8 @@ describe('generate-config command handler', () => {
     // second call persists canonical jobCount distribution
     generateConfigHandler({ junit: '/test.xml', jobs: undefined, 'runner-cores': 3, platform: 'github', out: '/tmp/ci.yml', 'dry-run': false, algorithm: 'lpt', 'risk-factor': 1.0 });
 
-    expect(mockEngine.run).toHaveBeenNthCalledWith(1, expect.any(String), mockOs.cpus().length * 3, false, expect.any(String), expect.any(Number), expect.any(Map));
-    expect(mockEngine.run).toHaveBeenNthCalledWith(2, expect.any(String), mockOs.cpus().length, true, expect.any(String), expect.any(Number), expect.any(Map));
+    expect(mockEngine.run).toHaveBeenNthCalledWith(1, expect.any(String), mockOs.cpus().length * 3, false, expect.any(String), expect.any(Number), expect.any(Map), undefined);
+    expect(mockEngine.run).toHaveBeenNthCalledWith(2, expect.any(String), mockOs.cpus().length, true, expect.any(String), expect.any(Number), expect.any(Map), undefined);
   });
 
   it('exits when no CI config path is found and --from is not provided', () => {

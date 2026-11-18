@@ -109,7 +109,7 @@ describe('profile command handler', () => {
   it('outputs profile and scheduling summary', () => {
     profileHandler({ junit: '/test.xml', jobs: 2, explain: false, algorithm: 'lpt', 'risk-factor': 1.0 });
 
-    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 2, true, 'lpt', 1.0);
+    expect(mockEngine.run).toHaveBeenCalledWith(expect.any(String), 2, true, 'lpt', 1.0, undefined, undefined);
     expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Profile Summary'));
     expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Scheduling metrics'));
   });
@@ -168,6 +168,8 @@ describe('profile command handler', () => {
       true,
       'lpt',
       1.0,
+      undefined,
+      undefined,
     );
   });
 
@@ -314,6 +316,8 @@ describe('profile command handler', () => {
       true,
       'lpt',
       1.0,
+      undefined,
+      undefined,
     );
   });
 
@@ -334,6 +338,8 @@ describe('profile command handler', () => {
       true,
       'lpt',
       1.0,
+      undefined,
+      undefined,
     );
   });
 });
